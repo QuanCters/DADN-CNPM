@@ -1,12 +1,12 @@
-// EXAMPLE CODE
-const express = require('express')
-const app = express()
-const port = 3000
+const app = require("./src/app");
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+const PORT = process.env.PORT || 8000;
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+const server = app.listen(PORT, () => {
+  console.log(`listening on localhost:${PORT}`);
+  console.log(`Document available at:`, "http://localhost:8000/api-docs");
+});
+
+process.on("SIGINT", () => {
+  server.close(() => console.log("Exit server"));
+});
