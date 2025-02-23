@@ -3,9 +3,9 @@ const prisma = new PrismaClient();
 
 const main = async () => {
   // Seed user data
-  const users = require("./data/users.json");
-  await prisma.users.createMany({
-    data: users,
+  const User = require("./data/User.json");
+  await prisma.User.createMany({
+    data: User,
   });
 
   // Seed other data
