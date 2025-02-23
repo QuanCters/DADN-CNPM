@@ -5,13 +5,13 @@ const {
   AuthFailureError,
   ConflictRequestError,
 } = require("../core/error.response");
-const prisma = require("../dbs/init.prisma");
 const jwt = require("jsonwebtoken");
 const {
   getUserByEmail,
   removeTokenById,
   setTokenById,
   updatePasswordById,
+  insertUser,
 } = require("../dbs/repositories/user.repo");
 
 const { generateKey } = require("../authUtils/auth");
@@ -24,16 +24,16 @@ class AccessService {
     }
 
     const hash_password = await generateKey(password);
-    const newUser = await prisma.users.create({
-      data: {
-        email: email,
-        password_hash: hash_password.key,
-        access_token: "",
-        salt: hash_password.salt,
-      },
-    });
+    const newUser = {
+      email,
+      password_hash: hash_password.key,
+      access_token,
+      salt,
+    };
 
-    if (newUser) {
+    const result = await insertUser(newUser);
+
+    if (result) {
       return {
         message: "Login successfully",
         salt: hash_password.salt,

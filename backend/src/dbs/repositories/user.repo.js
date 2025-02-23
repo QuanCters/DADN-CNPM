@@ -1,18 +1,19 @@
-// const db = require("../init.postgres");
-const { PrismaClient } = require("@prisma/client");
+const prisma = require("../init.prisma");
 
-const prisma = new PrismaClient();
-
-const InsertUser = async (user) => {
-  const result = await prisma.users.create(user).catch((error) => {
-    console.error(error);
-    throw error;
-  });
+const insertUser = async (user) => {
+  const result = await prisma.user
+    .create({
+      data: user,
+    })
+    .catch((error) => {
+      console.error(error);
+      throw error;
+    });
   return result;
 };
 
 const getAllUsers = async () => {
-  const result = await prisma.users.findMany().catch((error) => {
+  const result = await prisma.user.findMany().catch((error) => {
     console.error(error);
     throw error;
   });
@@ -20,7 +21,7 @@ const getAllUsers = async () => {
 };
 
 const getUserByEmail = async (email) => {
-  const result = await prisma.users
+  const result = await prisma.user
     .findUnique({
       where: {
         email: email,
@@ -34,7 +35,7 @@ const getUserByEmail = async (email) => {
 };
 
 const removeTokenById = async (id) => {
-  const result = await prisma.users
+  const result = await prisma.user
     .update({
       where: {
         id: parseInt(id),
@@ -51,7 +52,7 @@ const removeTokenById = async (id) => {
 };
 
 const setTokenById = async (access_token, id) => {
-  const result = await prisma.users
+  const result = await prisma.user
     .update({
       where: {
         id: id,
@@ -68,7 +69,7 @@ const setTokenById = async (access_token, id) => {
 };
 
 const updatePasswordById = async (new_password, salt, id) => {
-  const result = await prisma.users
+  const result = await prisma.user
     .update({
       where: {
         id: id,
@@ -86,6 +87,7 @@ const updatePasswordById = async (new_password, salt, id) => {
 };
 
 module.exports = {
+  insertUser,
   getUserByEmail,
   removeTokenById,
   setTokenById,
