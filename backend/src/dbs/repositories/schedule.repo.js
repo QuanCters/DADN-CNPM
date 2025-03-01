@@ -65,10 +65,27 @@ const deleteScheduleByDevice = async (device_id, time_action) => {
   return result;
 };
 
+const getSchedule = async (device_id, action_time) => {
+  return await prisma.schedule
+    .findUnique({
+      where: {
+        device_id_time_action: {
+          device_id,
+          time_action: action_time,
+        },
+      },
+    })
+    .catch((error) => {
+      console.error(error);
+      throw error;
+    });
+};
+
 device_d;
 module.exports = {
   createSchedule,
   getScheduleByDevice,
   updateDeviceSchedule,
   deleteScheduleByDevice,
+  getSchedule,
 };
