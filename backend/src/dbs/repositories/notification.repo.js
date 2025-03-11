@@ -12,12 +12,17 @@ const createNotification = async (notification) => {
   return result;
 };
 
-const getAllNotifications = async () => {
-  const result = await prisma.notification.findMany().catch((error) => {
-    console.error(error);
-    throw error;
-  });
-  return result;
+const getAllNotifications = async (page = 1, limit = 5) => {
+  return await prisma.notification
+    .findMany({
+      orderBy: { id: "desc" },
+      skip: (page - 1) * limit,
+      take: limit,
+    })
+    .catch((error) => {
+      console.error("Error fetching notifications:", error);
+      throw error;
+    });
 };
 
 module.exports = {
