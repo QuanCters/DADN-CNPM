@@ -23,6 +23,10 @@ app.use(
 // init swagger
 swaggerDocs(app);
 
+// init db
+const initRedis = require("./dbs/init.redis");
+initRedis.initRedis();
+
 // init routes
 app.use("/", require("./routes/index"));
 

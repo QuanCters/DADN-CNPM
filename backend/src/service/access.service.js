@@ -17,7 +17,7 @@ const {
 const { generateKey } = require("../authUtils/auth");
 
 class AccessService {
-  static signup = async ({ email, password }) => {
+  static signup = async ({ email, password, first_name, last_name }) => {
     const foundUser = await getUserByEmail(email);
     if (foundUser) {
       throw new ConflictRequestError("Error: User already registered");
@@ -27,15 +27,17 @@ class AccessService {
     const newUser = {
       email,
       password_hash: hash_password.key,
-      access_token,
-      salt,
+      salt: hash_password.salt,
+      first_name: first_name,
+      last_name: last_name,
     };
 
     const result = await insertUser(newUser);
 
     if (result) {
       return {
-        message: "Login successfully",
+        status: 201,
+        message: "Signup successfully",
         salt: hash_password.salt,
       };
     } else {
@@ -74,6 +76,7 @@ class AccessService {
     }
 
     return {
+      status: 200,
       message: "Login successfully",
       access_token: token,
       userId: foundUser.id,
@@ -92,7 +95,8 @@ class AccessService {
     }
 
     return {
-      message: "Successfully",
+      status: 200,
+      message: "Logout Successfully",
     };
   };
 
@@ -117,6 +121,7 @@ class AccessService {
     }
 
     return {
+      status: 200,
       message: "Reset password successfully",
       salt: salt,
     };
