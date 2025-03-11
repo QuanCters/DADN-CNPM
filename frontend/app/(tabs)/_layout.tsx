@@ -1,45 +1,40 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
+import React, { useState } from "react";
+import { View, StyleSheet, TextInput } from "react-native";
 
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { Colors } from "@/constants/Colors";
+
+import HomeScreen from "@/app/ui/screens/HomeScreen";
+import SmartDoor from "@/app/ui/screens/SmartDoor";
+import ControlScreen from "@/app/ui/screens/ControlScreen";
+import Dialog from "@/app/ui/components/Dialog";
+
+const HOME_ACCESS_CODE = "ABC123";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [isAccess, setIsAccess] = useState<boolean>(false);
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
+    <View style={styles.container}>
+      <Dialog
+        setIsAccess={setIsAccess}
+        modalVisible={modalVisible}
+        onModalVisibleChange={setModalVisible}
+        homeAccessCode={HOME_ACCESS_CODE}
       />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
+      {/* <HomeScreen /> */}
+      {/* <SmartDoor /> */}
+      <ControlScreen
+        onAddPinClick={() => setModalVisible(true)}
+        isAccess={isAccess}
       />
-    </Tabs>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.backgroundColor,
+  },
+});
