@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
+model users {
   id                  Int                   @id @default(autoincrement())
   first_name          String                @db.VarChar(255)
   last_name           String                @db.VarChar(255)
@@ -27,7 +27,7 @@ model user_control_device {
   device_id    Int
   control_time DateTime? @db.Timestamp(6)
 
-  user   user   @relation(fields: [user_email], references: [email])
+  user   users  @relation(fields: [user_email], references: [email])
   device device @relation(fields: [device_id], references: [id])
 
   @@id([user_email, device_id])

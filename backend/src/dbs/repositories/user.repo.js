@@ -1,7 +1,7 @@
 const prisma = require("../init.prisma");
 
 const insertUser = async (user) => {
-  const result = await prisma.user
+  const result = await prisma.users
     .create({
       data: user,
     })
@@ -13,7 +13,7 @@ const insertUser = async (user) => {
 };
 
 const getAllUsers = async () => {
-  const result = await prisma.user.findMany().catch((error) => {
+  const result = await prisma.users.findMany().catch((error) => {
     console.error(error);
     throw error;
   });
@@ -21,7 +21,7 @@ const getAllUsers = async () => {
 };
 
 const getUserByEmail = async (email) => {
-  const result = await prisma.user
+  const result = await prisma.users
     .findUnique({
       where: {
         email: email,
@@ -35,7 +35,7 @@ const getUserByEmail = async (email) => {
 };
 
 const removeTokenById = async (id) => {
-  const result = await prisma.user
+  const result = await prisma.users
     .update({
       where: {
         id: parseInt(id),
@@ -52,7 +52,7 @@ const removeTokenById = async (id) => {
 };
 
 const setTokenById = async (access_token, id) => {
-  const result = await prisma.user
+  const result = await prisma.users
     .update({
       where: {
         id: id,
@@ -69,7 +69,7 @@ const setTokenById = async (access_token, id) => {
 };
 
 const updatePasswordById = async (new_password, salt, id) => {
-  const result = await prisma.user
+  const result = await prisma.users
     .update({
       where: {
         id: id,
