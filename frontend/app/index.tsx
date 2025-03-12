@@ -70,7 +70,7 @@ export default function Index() {
                 height: 50,
                 borderRadius: 10,
               }}
-              onPress={() => router.push("/login")}
+              onPress={() => router.push("/LoginScreen")}
             >
               <Text
                 style={{ color: "white", fontWeight: "bold", fontSize: 20 }}
@@ -91,7 +91,7 @@ export default function Index() {
                 borderWidth: 1,
                 borderColor: "black",
               }}
-              onPress={() => router.push("/register")}
+              onPress={() => router.push("/RegisterScreen")}
             >
               <Text
                 style={{ color: "black", fontWeight: "bold", fontSize: 20 }}

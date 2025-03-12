@@ -1,4 +1,4 @@
-import Title from "@/app/ui/components/Title";
+import Title from "@/components/Title";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";

@@ -100,21 +100,13 @@ class AccessService {
     };
   };
 
-  static resetPassword = async ({ email, old_password, new_password }) => {
+  static resetPassword = async ({ email, password }) => {
     const foundUser = await getUserByEmail(email);
     if (!foundUser) {
       throw new BadRequestError("User not found");
     }
 
-    const hash_password = await generateKey(old_password, foundUser.salt);
-
-    const matchPassword = hash_password.key === foundUser.password_hash;
-
-    if (!matchPassword) {
-      throw new AuthFailureError("Invalid password");
-    }
-
-    const { key, salt } = await generateKey(new_password);
+    const { key, salt } = await generateKey(password);
     const updatePassword = await updatePasswordById(key, salt, foundUser.id);
     if (!updatePassword) {
       throw new BadRequestError("Failed to update password");

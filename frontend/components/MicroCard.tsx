@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import PrimaryBtn from "@/app/ui/components/PrimaryBtn";
+import PrimaryBtn from "@/components/PrimaryBtn";
 
 const MicroCard = () => {
   return (

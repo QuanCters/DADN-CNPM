@@ -1,4 +1,4 @@
-import Title from "@/app/ui/components/Title";
+import Title from "@/components/Title";
 import { Colors } from "@/constants/Colors";
 import React from "react";
 import { Image, View, StyleSheet, ImageBackground, Text } from "react-native";

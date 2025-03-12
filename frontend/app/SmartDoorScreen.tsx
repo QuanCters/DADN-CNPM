@@ -1,10 +1,10 @@
-import Title from "@/app/ui/components/Title";
+import Title from "@/components/Title";
 import React, { useState } from "react";
 import { View, StyleSheet, Text, Keyboard, Pressable } from "react-native";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Colors } from "@/constants/Colors";
-import Header from "@/app/ui/components/Header";
+import Header from "@/components/Header";
 
 const KEYBOARD = [
   ["1", "4", "7", "Delete"],
@@ -14,7 +14,7 @@ const KEYBOARD = [
 
 const CORRECT_PASS = "123456";
 
-const SmartDoor = () => {
+const SmartDoorScreen = () => {
   const [isCorrectPass, setIsCorrectPass] = useState<boolean | null>(null);
   const [pass, setPass] = useState("");
 
@@ -84,7 +84,7 @@ const SmartDoor = () => {
   );
 };
 
-export default SmartDoor;
+export default SmartDoorScreen;
 
 const styles = StyleSheet.create({
   container: {

@@ -9,9 +9,9 @@ import {
   View,
 } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import Title from "@/app/ui/components/Title";
+import Title from "@/components/Title";
 import { Colors } from "@/constants/Colors";
-import PrimaryBtn from "@/app/ui/components/PrimaryBtn";
+import PrimaryBtn from "@/components/PrimaryBtn";
 
 interface DialogProps {
   modalVisible: boolean;

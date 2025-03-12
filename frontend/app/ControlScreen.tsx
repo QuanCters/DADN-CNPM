@@ -1,6 +1,6 @@
-import Header from "@/app/ui/components/Header";
-import PrimaryBtn from "@/app/ui/components/PrimaryBtn";
-import RoomCard from "@/app/ui/components/RoomCard";
+import Header from "@/components/Header";
+import PrimaryBtn from "@/components/PrimaryBtn";
+import RoomCard from "@/components/RoomCard";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 

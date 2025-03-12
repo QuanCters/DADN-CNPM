@@ -14,7 +14,6 @@ import {
 import React, { useState } from "react";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import Config from "react-native-config";
 
 interface FormValues {
   email: string;
@@ -24,7 +23,7 @@ interface FormValues {
   confirm_password: string;
 }
 
-const register = () => {
+const RegisterScreen = () => {
   const [state, setState] = useState<FormValues>({
     email: "",
     first_name: "",
@@ -73,19 +72,22 @@ const register = () => {
     setLoading(true);
 
     try {
-      const response = await fetch(Config.BACKEND_URL + "/user/signup", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: state.email,
-          password: state.password,
-          first_name: state.first_name,
-          last_name: state.last_name,
-        }),
-      });
+      const response = await fetch(
+        process.env.EXPO_PUBLIC_BACKEND_URL + "/user/signup",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: state.email,
+            password: state.password,
+            first_name: state.first_name,
+            last_name: state.last_name,
+          }),
+        }
+      );
 
       const result = await response.json();
 
@@ -110,7 +112,7 @@ const register = () => {
     setTimeout(() => {
       setSuccess(false);
       setModal(false);
-      router.push("/login");
+      router.push("/LoginScreen");
     }, 4000);
   };
 
@@ -251,7 +253,7 @@ const register = () => {
           </View>
 
           <View style={{ alignItems: "center" }}>
-            <TouchableOpacity onPress={() => router.push("/login")}>
+            <TouchableOpacity onPress={() => router.push("/LoginScreen")}>
               <Text style={styles.create_new_button}>
                 Already have an account?
               </Text>
@@ -354,4 +356,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default register;
+export default RegisterScreen;

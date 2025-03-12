@@ -1,8 +1,8 @@
-import MicroCard from "@/app/ui/components/MicroCard";
-import QuickAccessCard from "@/app/ui/components/QuickAccessCard";
-import ScheduleCard from "@/app/ui/components/ScheduleCard";
-import Title from "@/app/ui/components/Title";
-import WelcomeCard from "@/app/ui/components/WelcomeCard";
+import MicroCard from "@/components/MicroCard";
+import QuickAccessCard from "@/components/QuickAccessCard";
+import ScheduleCard from "@/components/ScheduleCard";
+import Title from "@/components/Title";
+import WelcomeCard from "@/components/WelcomeCard";
 import React from "react";
 import { View, StyleSheet } from "react-native";
 const HomeScreen = () => {

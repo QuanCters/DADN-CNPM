@@ -9,9 +9,8 @@ import {
 import React, { useState } from "react";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import Config from "react-native-config";
 
-const forget = () => {
+const ForgetScreen = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [otp, setOtp] = useState<string>("");
@@ -20,16 +19,19 @@ const forget = () => {
 
   const handleSendOTP = async () => {
     try {
-      const response = await fetch(Config.BACKEND_URL + "/otp/send-otp", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-        }),
-      });
+      const response = await fetch(
+        process.env.EXPO_PUBLIC_BACKEND_URL + "/otp/send-otp",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+          }),
+        }
+      );
 
       const result = await response.json();
 
@@ -45,17 +47,20 @@ const forget = () => {
 
   const handleVerifyOTP = async () => {
     try {
-      const response = await fetch(Config.BACKEND_URL + "/otp/verify-otp", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          otp: otp,
-        }),
-      });
+      const response = await fetch(
+        process.env.EXPO_PUBLIC_BACKEND_URL + "/otp/verify-otp",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            otp: otp,
+          }),
+        }
+      );
 
       const result = await response.json();
 
@@ -75,7 +80,7 @@ const forget = () => {
 
     try {
       const response = await fetch(
-        Config.BACKEND_URL + "/user/reset-password",
+        process.env.EXPO_PUBLIC_BACKEND_URL + "/user/reset-password",
         {
           method: "POST",
           headers: {
@@ -92,7 +97,7 @@ const forget = () => {
       const result = await response.json();
 
       if (result.status === 200) {
-        router.push("/login");
+        router.push("/LoginScreen");
       } else {
         console.error("Password reset failed:", result.message);
       }
@@ -105,7 +110,7 @@ const forget = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity
-          onPress={() => router.push("/login")}
+          onPress={() => router.push("/LoginScreen")}
           style={{
             display: "flex",
             flexDirection: "row",
@@ -258,4 +263,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default forget;
+export default ForgetScreen;

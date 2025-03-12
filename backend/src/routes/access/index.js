@@ -18,11 +18,17 @@ const { authentication } = require("../../authUtils/auth");
  *            type: object
  *            required:
  *              - email
+ *              - first_name
+ *              - last_name
  *              - password
  *            properties:
  *              email:
  *                type: string
  *                format: email
+ *              first_name:
+ *                type: string
+ *              last_name:
+ *                type: string
  *              password:
  *                type: string
  *                format: password
@@ -124,16 +130,12 @@ router.post("/user/login", asyncHandler(accessController.login));
  *            type: object
  *            required:
  *              - email
- *              - old_password
- *              - new_password
+ *              - password
  *            properties:
  *              email:
  *                type: string
  *                format: email
- *              old_password:
- *                type: string
- *                format: password
- *              new_password:
+ *              password:
  *                type: string
  *                format: password
  *     responses:

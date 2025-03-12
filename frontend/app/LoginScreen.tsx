@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { router } from "expo-router";
-import Config from "react-native-config";
 
 // Interface to define the structure of form values
 interface FormValues {
@@ -16,7 +15,7 @@ interface FormValues {
   password: string;
 }
 
-const Login = () => {
+const LoginScreen = () => {
   const [state, setState] = useState<FormValues>({
     email: "",
     password: "",
@@ -24,22 +23,25 @@ const Login = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch(Config.BACKEND_URL + "/user/login", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: state.email,
-          password: state.password,
-        }),
-      });
+      const response = await fetch(
+        process.env.EXPO_PUBLIC_BACKEND_URL + "/user/login",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: state.email,
+            password: state.password,
+          }),
+        }
+      );
 
       const result = await response.json();
 
       if (result.status === 200) {
-        router.push("/home");
+        router.push("/HomeScreen");
       } else {
         console.error("Login failed:", result.message);
       }
@@ -49,7 +51,7 @@ const Login = () => {
   };
 
   const handleForgotPassword = async () => {
-    router.push("/forget");
+    router.push("/ForgetScreen");
   };
 
   return (
@@ -89,7 +91,7 @@ const Login = () => {
       </View>
 
       <View style={styles.createAccountContainer}>
-        <TouchableOpacity onPress={() => router.push("/register")}>
+        <TouchableOpacity onPress={() => router.push("/RegisterScreen")}>
           <Text style={styles.createAccountText}>Create new account</Text>
         </TouchableOpacity>
       </View>
@@ -165,4 +167,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default LoginScreen;

@@ -2,8 +2,8 @@ import React from "react";
 
 import { View, StyleSheet, Text, Image, ImageBackground } from "react-native";
 import { Colors } from "@/constants/Colors";
-import InformationBar from "@/app/ui/components/InformationBar";
-import Title from "@/app/ui/components/Title";
+import InformationBar from "@/components/InformationBar";
+import Title from "@/components/Title";
 
 import Fontisto from "@expo/vector-icons/Fontisto";
 
