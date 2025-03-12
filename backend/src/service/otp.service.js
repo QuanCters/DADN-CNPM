@@ -3,11 +3,18 @@
 const otpGenerator = require("otp-generator");
 const { getRedisClient } = require("../dbs/init.redis");
 const { sendVerificationEmail } = require("../utils/MailSender");
+const { getUserByEmail } = require("../dbs/repositories/user.repo");
+const { BadRequestError } = require("../core/error.response");
 
 class OtpService {
   static async sendOTP({ email }) {
     try {
       // Generate OTP
+      const foundUser = await getUserByEmail(email);
+      if (!foundUser) {
+        throw new BadRequestError("User not found");
+      }
+
       let otp = otpGenerator.generate(6, {
         upperCaseAlphabets: false,
         lowerCaseAlphabets: false,
