@@ -1,8 +1,12 @@
 const compression = require("compression");
 const express = require("express");
-const app = express();
 const swaggerDocs = require("../swagger");
 const cors = require("cors");
+const app = express();
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("public"));
+}
 
 // init middlewares
 if (process.env.NODE_ENV !== "production") {
@@ -13,7 +17,14 @@ if (process.env.NODE_ENV !== "production") {
 
 app.use(compression());
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:8081",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+    allowedHeaders: "*",
+  })
+);
 app.use(
   express.urlencoded({
     extended: true,

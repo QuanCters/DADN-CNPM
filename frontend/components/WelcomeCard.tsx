@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { View, StyleSheet, Text, Image, ImageBackground } from "react-native";
 import { Colors } from "@/constants/Colors";
 import InformationBar from "@/components/InformationBar";
 import Title from "@/components/Title";
-
 import Fontisto from "@expo/vector-icons/Fontisto";
+
+interface WelcomeProps {
+  first_name: string;
+  last_name: string;
+}
 
 const getCurrentDate = () => {
   const date = new Date();
@@ -52,10 +56,14 @@ const getCurrentDate = () => {
   const dateStr = `${weekdayNames[weekday]}, ${monthNames[month]} ${day}${daySuffix}`;
   return dateStr;
 };
+
 const USERNAME = "John Doe";
 const NOTIFICATION_COUNT = 3;
 
 const WelcomeCard = () => {
+  const [temperature, setTemperature] = useState<string>("");
+  const [water, setWater] = useState<string>("");
+  const [notiCount, setNotiCount] = useState<string>("");
   return (
     <View style={styles.container}>
       <ImageBackground
