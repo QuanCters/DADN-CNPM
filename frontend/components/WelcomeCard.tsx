@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { View, StyleSheet, Text, Image, ImageBackground } from "react-native";
 import { Colors } from "@/constants/Colors";
@@ -9,6 +9,12 @@ import Fontisto from "@expo/vector-icons/Fontisto";
 interface WelcomeProps {
   first_name: string;
   last_name: string;
+}
+
+interface UserData {
+  username: string;
+  aiokey: string;
+  feeds: string[];
 }
 
 const getCurrentDate = () => {
@@ -61,9 +67,13 @@ const USERNAME = "John Doe";
 const NOTIFICATION_COUNT = 3;
 
 const WelcomeCard = () => {
+  const [userData, setUserData] = useState<UserData | null>(null);
   const [temperature, setTemperature] = useState<string>("");
   const [water, setWater] = useState<string>("");
   const [notiCount, setNotiCount] = useState<string>("");
+
+  // fetch user data
+
   return (
     <View style={styles.container}>
       <ImageBackground
