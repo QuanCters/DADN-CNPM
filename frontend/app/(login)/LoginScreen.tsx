@@ -41,7 +41,7 @@ const LoginScreen = () => {
       const result = await response.json();
 
       if (result.status === 200) {
-        router.push("/HomeScreen");
+        router.push("/(screens)/HomeScreen");
       } else {
         console.error("Login failed:", result.message);
       }
