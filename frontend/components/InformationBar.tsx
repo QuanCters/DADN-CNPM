@@ -9,10 +9,10 @@ interface InformationBarProps {
 const InformationBar: React.FC<InformationBarProps> = ({ imgSrc, text }) => {
   let importImg;
   if (imgSrc === "weather-icon.png") {
-    importImg = require("@/assets/images/weather-icon.png");
+    importImg = require("@/assets/images/icon/weather-icon.png");
   } else if (imgSrc === "water-percent.png") {
-    importImg = require("@/assets/images/water-percent.png");
-  } else importImg = require("@/assets/images/calendar-icon.png");
+    importImg = require("@/assets/images/icon/water-percent.png");
+  } else importImg = require("@/assets/images/icon/calendar-icon.png");
 
   return (
     <View style={styles.container}>

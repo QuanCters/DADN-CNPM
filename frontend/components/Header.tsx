@@ -1,7 +1,9 @@
 import Title from "@/components/Title";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+
+import { router } from "expo-router";
 
 interface HeaderProps {
   children: string;
@@ -10,14 +12,15 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ children }) => {
   return (
     <View style={styles.bar}>
-      <View
+      <Pressable
+        onPress={() => router.back()}
         style={{
           flexDirection: "row",
           alignItems: "center",
         }}
       >
         <Ionicons name="chevron-back" size={12} color="#000000" />
-      </View>
+      </Pressable>
       <Title>{children}</Title>
       <Text></Text>
     </View>

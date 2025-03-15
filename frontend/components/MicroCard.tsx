@@ -7,9 +7,9 @@ const MicroCard = () => {
   return (
     <View style={styles.container}>
       <View style={styles.iconContainer}>
-        <FontAwesome name="microphone" size={86} color="#4f4f4f" />
+        <FontAwesome name="microphone" size={72} color="#4f4f4f" />
       </View>
-      <View style={{ paddingTop: 20 }}>
+      <View style={{ paddingTop: 15 }}>
         <PrimaryBtn>Hold to speak</PrimaryBtn>
       </View>
     </View>
@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     backgroundColor: "#F5F5F7",
-    width: 180,
-    height: 180,
+    width: 150,
+    height: 150,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 1000,

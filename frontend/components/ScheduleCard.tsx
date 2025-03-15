@@ -7,7 +7,7 @@ const ScheduleCard = () => {
   return (
     <View style={styles.container}>
       <Image
-        source={require("@/assets/images/sun-icon.png")}
+        source={require("@/assets/images/icon/sun-icon.png")}
         style={{ width: 50, height: 50 }}
       />
       <Text style={styles.cardText}>Morning</Text>
