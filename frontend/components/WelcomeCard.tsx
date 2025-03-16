@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text, Image, ImageBackground } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  ImageBackground,
+  Pressable,
+} from "react-native";
 import { Colors } from "@/constants/Colors";
 import InformationBar from "@/components/InformationBar";
 import Title from "@/components/Title";
 import Fontisto from "@expo/vector-icons/Fontisto";
-import { useSelector, UseSelector } from "react-redux";
-import { RootState } from "@/redux/store";
-import { mqttService } from "@/services/mqtt.service";
-
-interface UserData {
-  homename: string;
-  aiokey: string;
-  feeds: string[];
-}
+import Entypo from "@expo/vector-icons/Entypo";
 
 const getCurrentDate = () => {
   const date = new Date();
@@ -63,19 +62,40 @@ const getCurrentDate = () => {
 const USERNAME = "John Doe";
 const NOTIFICATION_COUNT = 3;
 
-const WelcomeCard = () => {
-  const userData: UserData = useSelector((state: RootState) => state.user);
-  const [temperature, setTemperature] = useState<string>("No data");
-  const [water, setWater] = useState<string>("No data");
-  const [notiCount, setNotiCount] = useState<string>("");
+type WelcomeCardProps = {
+  onAutomation?: boolean;
+};
+const WelcomeCard = (props: WelcomeCardProps) => {
+  const namingUI = (
+    <View style={styles.nameContainer}>
+      <Title ownStyle={{ color: "white" }}>Hi, {USERNAME}</Title>
+      <View></View>
+      <Fontisto name="bell-alt" size={24} color="#ffffff" />
+      {NOTIFICATION_COUNT > 0 && (
+        <View style={styles.notificationCount}>
+          <Text style={{ color: "white", fontSize: 12 }}>
+            {NOTIFICATION_COUNT}
+          </Text>
+        </View>
+      )}
+    </View>
+  );
+  const automationUI = (
+    <View style={styles.nameContainer}>
+      <Title ownStyle={{ color: "white" }}>Automation</Title>
+      <View></View>
 
-  useEffect(() => {});
+      <Pressable style={styles.addBtn}>
+        <Entypo name="plus" size={24} color="#ffffff" />
+      </Pressable>
+    </View>
+  );
 
   return (
     <View style={styles.container}>
       <ImageBackground
         style={styles.imgBackground}
-        source={require("@/assets/images/welcome-background.png")}
+        source={require("@/assets/images/background/welcome-background.png")}
         resizeMode="contain"
       />
       <View style={styles.mainBarContainer}>
@@ -87,22 +107,11 @@ const WelcomeCard = () => {
         <View style={styles.avatarContainer}>
           <Image
             style={styles.avatarImg}
-            source={require("@/assets/images/avatar.png")}
+            source={require("@/assets/images/icon/avatar.png")}
           />
         </View>
       </View>
-      <View style={styles.nameContainer}>
-        <Title ownStyle={{ color: "white" }}>Hi, {USERNAME}</Title>
-        <View style={{ position: "relative" }}></View>
-        <Fontisto name="bell-alt" size={24} color="#ffffff" />
-        {NOTIFICATION_COUNT > 0 && (
-          <View style={styles.notificationCount}>
-            <Text style={{ color: "white", fontSize: 12 }}>
-              {NOTIFICATION_COUNT}
-            </Text>
-          </View>
-        )}
-      </View>
+      {props.onAutomation ? automationUI : namingUI}
     </View>
   );
 };
@@ -167,5 +176,11 @@ const styles = StyleSheet.create({
     height: 20,
     justifyContent: "center",
     alignItems: "center",
+  },
+  addBtn: {
+    padding: 4,
+    borderRadius: 1000,
+    borderWidth: 1,
+    borderColor: Colors.backgroundColor,
   },
 });

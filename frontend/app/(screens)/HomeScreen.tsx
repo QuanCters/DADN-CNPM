@@ -5,6 +5,10 @@ import Title from "@/components/Title";
 import WelcomeCard from "@/components/WelcomeCard";
 import React from "react";
 import { View, StyleSheet } from "react-native";
+
+import deviceTypes from "@/constants/deviceType";
+import roomTypes from "@/constants/roomType";
+
 const HomeScreen = () => {
   return (
     <View style={styles.container}>
@@ -17,12 +21,17 @@ const HomeScreen = () => {
       <View style={styles.microCardContainer}>
         <MicroCard />
       </View>
-
       <View style={styles.QuickAccessCardContainer}>
         <Title ownStyle={styles.QuickAccessTitle}>Quick access</Title>
         <View style={styles.QuickAcessCards}>
-          <QuickAccessCard />
-          <QuickAccessCard />
+          <QuickAccessCard
+            deviceName={deviceTypes.airConditioner}
+            roomName={roomTypes.livingRoom}
+          />
+          <QuickAccessCard
+            deviceName={deviceTypes.fan}
+            roomName={roomTypes.bedroom}
+          />
         </View>
       </View>
     </View>
@@ -47,7 +56,7 @@ const styles = StyleSheet.create({
     top: "20%", // Moves the schedule cards up like in the image
   },
   microCardContainer: {
-    paddingTop: 80,
+    paddingTop: 90,
   },
   QuickAccessCardContainer: {
     width: "100%",

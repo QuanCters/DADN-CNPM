@@ -1,28 +1,69 @@
 import React, { useState } from "react";
 
-import { Image, StyleSheet, Switch, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Switch, Text, View } from "react-native";
 import { Colors } from "@/constants/Colors";
+import deviceTypes from "@/constants/deviceType";
 
-const QuickAccessCard = () => {
+import { router } from "expo-router";
+
+type QuickAccessCardProps = {
+  havingSwitch?: boolean;
+  deviceName: string;
+  roomName: string;
+};
+
+const QuickAccessCard = ({
+  havingSwitch = true,
+  deviceName,
+  roomName,
+}: QuickAccessCardProps) => {
+  let image;
+  let path: any;
+
+  if (deviceName === deviceTypes.fan) {
+    image = (
+      <Image
+        style={styles.imgStyle}
+        source={require("@/assets/images/devices/image-fan.png")}
+      />
+    );
+    path = "/(deviceconfig)/Fan";
+  } else if (deviceName === deviceTypes.light) {
+    image = (
+      <Image
+        style={styles.imgStyle}
+        source={require("@/assets/images/devices/image-light.png")}
+      />
+    );
+    path = "/(deviceconfig)/Light";
+  } else if (deviceName === deviceTypes.airConditioner) {
+    image = (
+      <Image
+        style={styles.imgStyle}
+        source={require("@/assets/images/devices/image-air-conditioner.png")}
+      />
+    );
+    path = "/(deviceconfig)/AirConditioner";
+  }
+
   const [isEnabled, setIsEnabled] = useState(false);
 
   return (
-    <View style={styles.container}>
-      <Image
-        style={styles.imgStyle}
-        source={require("@/assets/images/image-fan.png")}
-      />
-      <Text style={styles.titleText}>Fan</Text>
-      <Text>Kitchen</Text>
-      <Switch
-        trackColor={{ false: "#D1D1D6", true: Colors.primary800 }}
-        thumbColor={isEnabled ? "#FFFFFF" : "#F2F2F7"}
-        ios_backgroundColor="#D1D1D6"
-        onValueChange={() => setIsEnabled(!isEnabled)}
-        value={isEnabled}
-        style={styles.switch}
-      />
-    </View>
+    <Pressable style={styles.container} onPress={() => router.push(path)}>
+      {image}
+      <Text style={styles.titleText}>{deviceName}</Text>
+      <Text>{roomName}</Text>
+      {havingSwitch && (
+        <Switch
+          trackColor={{ false: "#D1D1D6", true: Colors.primary800 }}
+          thumbColor={isEnabled ? "#FFFFFF" : "#F2F2F7"}
+          ios_backgroundColor="#D1D1D6"
+          onValueChange={() => setIsEnabled(!isEnabled)}
+          value={isEnabled}
+          style={styles.switch}
+        />
+      )}
+    </Pressable>
   );
 };
 
@@ -33,11 +74,12 @@ const styles = StyleSheet.create({
     // flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    width: "47%",
+    width: "45%",
     height: 200,
     backgroundColor: "#F5F5F7",
     borderRadius: 20,
     elevation: 10, // For Android shadow
+    marginBottom: 20,
   },
   imgStyle: {
     width: 60,
