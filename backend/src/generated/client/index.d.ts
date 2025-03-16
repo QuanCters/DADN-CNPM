@@ -4002,6 +4002,7 @@ export namespace Prisma {
     room_name: string | null
     password: string | null
     serial_number: string | null
+    feed: string | null
   }
 
   export type DeviceMaxAggregateOutputType = {
@@ -4012,6 +4013,7 @@ export namespace Prisma {
     room_name: string | null
     password: string | null
     serial_number: string | null
+    feed: string | null
   }
 
   export type DeviceCountAggregateOutputType = {
@@ -4022,6 +4024,7 @@ export namespace Prisma {
     room_name: number
     password: number
     serial_number: number
+    feed: number
     _all: number
   }
 
@@ -4042,6 +4045,7 @@ export namespace Prisma {
     room_name?: true
     password?: true
     serial_number?: true
+    feed?: true
   }
 
   export type DeviceMaxAggregateInputType = {
@@ -4052,6 +4056,7 @@ export namespace Prisma {
     room_name?: true
     password?: true
     serial_number?: true
+    feed?: true
   }
 
   export type DeviceCountAggregateInputType = {
@@ -4062,6 +4067,7 @@ export namespace Prisma {
     room_name?: true
     password?: true
     serial_number?: true
+    feed?: true
     _all?: true
   }
 
@@ -4159,6 +4165,7 @@ export namespace Prisma {
     room_name: string
     password: string | null
     serial_number: string
+    feed: string
     _count: DeviceCountAggregateOutputType | null
     _avg: DeviceAvgAggregateOutputType | null
     _sum: DeviceSumAggregateOutputType | null
@@ -4188,6 +4195,7 @@ export namespace Prisma {
     room_name?: boolean
     password?: boolean
     serial_number?: boolean
+    feed?: boolean
     measurement?: boolean | device$measurementArgs<ExtArgs>
     schedule?: boolean | device$scheduleArgs<ExtArgs>
     log_event?: boolean | device$log_eventArgs<ExtArgs>
@@ -4204,6 +4212,7 @@ export namespace Prisma {
     room_name?: boolean
     password?: boolean
     serial_number?: boolean
+    feed?: boolean
     home?: boolean | homeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["device"]>
 
@@ -4215,6 +4224,7 @@ export namespace Prisma {
     room_name?: boolean
     password?: boolean
     serial_number?: boolean
+    feed?: boolean
     home?: boolean | homeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["device"]>
 
@@ -4226,9 +4236,10 @@ export namespace Prisma {
     room_name?: boolean
     password?: boolean
     serial_number?: boolean
+    feed?: boolean
   }
 
-  export type deviceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "status" | "type" | "power_rating" | "room_name" | "password" | "serial_number", ExtArgs["result"]["device"]>
+  export type deviceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "status" | "type" | "power_rating" | "room_name" | "password" | "serial_number" | "feed", ExtArgs["result"]["device"]>
   export type deviceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     measurement?: boolean | device$measurementArgs<ExtArgs>
     schedule?: boolean | device$scheduleArgs<ExtArgs>
@@ -4261,6 +4272,7 @@ export namespace Prisma {
       room_name: string
       password: string | null
       serial_number: string
+      feed: string
     }, ExtArgs["result"]["device"]>
     composites: {}
   }
@@ -4696,6 +4708,7 @@ export namespace Prisma {
     readonly room_name: FieldRef<"device", 'String'>
     readonly password: FieldRef<"device", 'String'>
     readonly serial_number: FieldRef<"device", 'String'>
+    readonly feed: FieldRef<"device", 'String'>
   }
     
 
@@ -10650,56 +10663,72 @@ export namespace Prisma {
 
   export type HomeAvgAggregateOutputType = {
     id: number | null
+    manager_id: number | null
   }
 
   export type HomeSumAggregateOutputType = {
     id: number | null
+    manager_id: number | null
   }
 
   export type HomeMinAggregateOutputType = {
     id: number | null
     serial_number: string | null
     home_name: string | null
+    manager_id: number | null
+    aio_key: string | null
   }
 
   export type HomeMaxAggregateOutputType = {
     id: number | null
     serial_number: string | null
     home_name: string | null
+    manager_id: number | null
+    aio_key: string | null
   }
 
   export type HomeCountAggregateOutputType = {
     id: number
     serial_number: number
     home_name: number
+    manager_id: number
+    aio_key: number
     _all: number
   }
 
 
   export type HomeAvgAggregateInputType = {
     id?: true
+    manager_id?: true
   }
 
   export type HomeSumAggregateInputType = {
     id?: true
+    manager_id?: true
   }
 
   export type HomeMinAggregateInputType = {
     id?: true
     serial_number?: true
     home_name?: true
+    manager_id?: true
+    aio_key?: true
   }
 
   export type HomeMaxAggregateInputType = {
     id?: true
     serial_number?: true
     home_name?: true
+    manager_id?: true
+    aio_key?: true
   }
 
   export type HomeCountAggregateInputType = {
     id?: true
     serial_number?: true
     home_name?: true
+    manager_id?: true
+    aio_key?: true
     _all?: true
   }
 
@@ -10793,6 +10822,8 @@ export namespace Prisma {
     id: number
     serial_number: string
     home_name: string
+    manager_id: number | null
+    aio_key: string
     _count: HomeCountAggregateOutputType | null
     _avg: HomeAvgAggregateOutputType | null
     _sum: HomeSumAggregateOutputType | null
@@ -10818,6 +10849,8 @@ export namespace Prisma {
     id?: boolean
     serial_number?: boolean
     home_name?: boolean
+    manager_id?: boolean
+    aio_key?: boolean
     device?: boolean | home$deviceArgs<ExtArgs>
     user_in_home?: boolean | home$user_in_homeArgs<ExtArgs>
     _count?: boolean | HomeCountOutputTypeDefaultArgs<ExtArgs>
@@ -10827,21 +10860,27 @@ export namespace Prisma {
     id?: boolean
     serial_number?: boolean
     home_name?: boolean
+    manager_id?: boolean
+    aio_key?: boolean
   }, ExtArgs["result"]["home"]>
 
   export type homeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     serial_number?: boolean
     home_name?: boolean
+    manager_id?: boolean
+    aio_key?: boolean
   }, ExtArgs["result"]["home"]>
 
   export type homeSelectScalar = {
     id?: boolean
     serial_number?: boolean
     home_name?: boolean
+    manager_id?: boolean
+    aio_key?: boolean
   }
 
-  export type homeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "serial_number" | "home_name", ExtArgs["result"]["home"]>
+  export type homeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "serial_number" | "home_name" | "manager_id" | "aio_key", ExtArgs["result"]["home"]>
   export type homeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     device?: boolean | home$deviceArgs<ExtArgs>
     user_in_home?: boolean | home$user_in_homeArgs<ExtArgs>
@@ -10860,6 +10899,8 @@ export namespace Prisma {
       id: number
       serial_number: string
       home_name: string
+      manager_id: number | null
+      aio_key: string
     }, ExtArgs["result"]["home"]>
     composites: {}
   }
@@ -11288,6 +11329,8 @@ export namespace Prisma {
     readonly id: FieldRef<"home", 'Int'>
     readonly serial_number: FieldRef<"home", 'String'>
     readonly home_name: FieldRef<"home", 'String'>
+    readonly manager_id: FieldRef<"home", 'Int'>
+    readonly aio_key: FieldRef<"home", 'String'>
   }
     
 
@@ -11786,7 +11829,8 @@ export namespace Prisma {
     power_rating: 'power_rating',
     room_name: 'room_name',
     password: 'password',
-    serial_number: 'serial_number'
+    serial_number: 'serial_number',
+    feed: 'feed'
   };
 
   export type DeviceScalarFieldEnum = (typeof DeviceScalarFieldEnum)[keyof typeof DeviceScalarFieldEnum]
@@ -11842,7 +11886,9 @@ export namespace Prisma {
   export const HomeScalarFieldEnum: {
     id: 'id',
     serial_number: 'serial_number',
-    home_name: 'home_name'
+    home_name: 'home_name',
+    manager_id: 'manager_id',
+    aio_key: 'aio_key'
   };
 
   export type HomeScalarFieldEnum = (typeof HomeScalarFieldEnum)[keyof typeof HomeScalarFieldEnum]
@@ -12070,6 +12116,7 @@ export namespace Prisma {
     room_name?: StringFilter<"device"> | string
     password?: StringNullableFilter<"device"> | string | null
     serial_number?: StringFilter<"device"> | string
+    feed?: StringFilter<"device"> | string
     measurement?: MeasurementListRelationFilter
     schedule?: ScheduleListRelationFilter
     log_event?: Log_eventListRelationFilter
@@ -12085,6 +12132,7 @@ export namespace Prisma {
     room_name?: SortOrder
     password?: SortOrderInput | SortOrder
     serial_number?: SortOrder
+    feed?: SortOrder
     measurement?: measurementOrderByRelationAggregateInput
     schedule?: scheduleOrderByRelationAggregateInput
     log_event?: log_eventOrderByRelationAggregateInput
@@ -12103,6 +12151,7 @@ export namespace Prisma {
     room_name?: StringFilter<"device"> | string
     password?: StringNullableFilter<"device"> | string | null
     serial_number?: StringFilter<"device"> | string
+    feed?: StringFilter<"device"> | string
     measurement?: MeasurementListRelationFilter
     schedule?: ScheduleListRelationFilter
     log_event?: Log_eventListRelationFilter
@@ -12118,6 +12167,7 @@ export namespace Prisma {
     room_name?: SortOrder
     password?: SortOrderInput | SortOrder
     serial_number?: SortOrder
+    feed?: SortOrder
     _count?: deviceCountOrderByAggregateInput
     _avg?: deviceAvgOrderByAggregateInput
     _max?: deviceMaxOrderByAggregateInput
@@ -12136,6 +12186,7 @@ export namespace Prisma {
     room_name?: StringWithAggregatesFilter<"device"> | string
     password?: StringNullableWithAggregatesFilter<"device"> | string | null
     serial_number?: StringWithAggregatesFilter<"device"> | string
+    feed?: StringWithAggregatesFilter<"device"> | string
   }
 
   export type measurementWhereInput = {
@@ -12395,6 +12446,8 @@ export namespace Prisma {
     id?: IntFilter<"home"> | number
     serial_number?: StringFilter<"home"> | string
     home_name?: StringFilter<"home"> | string
+    manager_id?: IntNullableFilter<"home"> | number | null
+    aio_key?: StringFilter<"home"> | string
     device?: DeviceListRelationFilter
     user_in_home?: User_in_homeListRelationFilter
   }
@@ -12403,6 +12456,8 @@ export namespace Prisma {
     id?: SortOrder
     serial_number?: SortOrder
     home_name?: SortOrder
+    manager_id?: SortOrderInput | SortOrder
+    aio_key?: SortOrder
     device?: deviceOrderByRelationAggregateInput
     user_in_home?: user_in_homeOrderByRelationAggregateInput
   }
@@ -12410,18 +12465,22 @@ export namespace Prisma {
   export type homeWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     serial_number?: string
-    home_name?: string
+    aio_key?: string
     AND?: homeWhereInput | homeWhereInput[]
     OR?: homeWhereInput[]
     NOT?: homeWhereInput | homeWhereInput[]
+    home_name?: StringFilter<"home"> | string
+    manager_id?: IntNullableFilter<"home"> | number | null
     device?: DeviceListRelationFilter
     user_in_home?: User_in_homeListRelationFilter
-  }, "id" | "serial_number" | "home_name">
+  }, "id" | "serial_number" | "aio_key">
 
   export type homeOrderByWithAggregationInput = {
     id?: SortOrder
     serial_number?: SortOrder
     home_name?: SortOrder
+    manager_id?: SortOrderInput | SortOrder
+    aio_key?: SortOrder
     _count?: homeCountOrderByAggregateInput
     _avg?: homeAvgOrderByAggregateInput
     _max?: homeMaxOrderByAggregateInput
@@ -12436,6 +12495,8 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"home"> | number
     serial_number?: StringWithAggregatesFilter<"home"> | string
     home_name?: StringWithAggregatesFilter<"home"> | string
+    manager_id?: IntNullableWithAggregatesFilter<"home"> | number | null
+    aio_key?: StringWithAggregatesFilter<"home"> | string
   }
 
   export type usersCreateInput = {
@@ -12563,6 +12624,7 @@ export namespace Prisma {
     power_rating: string
     room_name: string
     password?: string | null
+    feed: string
     measurement?: measurementCreateNestedManyWithoutDeviceInput
     schedule?: scheduleCreateNestedManyWithoutDeviceInput
     log_event?: log_eventCreateNestedManyWithoutDeviceInput
@@ -12578,6 +12640,7 @@ export namespace Prisma {
     room_name: string
     password?: string | null
     serial_number: string
+    feed: string
     measurement?: measurementUncheckedCreateNestedManyWithoutDeviceInput
     schedule?: scheduleUncheckedCreateNestedManyWithoutDeviceInput
     log_event?: log_eventUncheckedCreateNestedManyWithoutDeviceInput
@@ -12590,6 +12653,7 @@ export namespace Prisma {
     power_rating?: StringFieldUpdateOperationsInput | string
     room_name?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
+    feed?: StringFieldUpdateOperationsInput | string
     measurement?: measurementUpdateManyWithoutDeviceNestedInput
     schedule?: scheduleUpdateManyWithoutDeviceNestedInput
     log_event?: log_eventUpdateManyWithoutDeviceNestedInput
@@ -12605,6 +12669,7 @@ export namespace Prisma {
     room_name?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
     serial_number?: StringFieldUpdateOperationsInput | string
+    feed?: StringFieldUpdateOperationsInput | string
     measurement?: measurementUncheckedUpdateManyWithoutDeviceNestedInput
     schedule?: scheduleUncheckedUpdateManyWithoutDeviceNestedInput
     log_event?: log_eventUncheckedUpdateManyWithoutDeviceNestedInput
@@ -12619,6 +12684,7 @@ export namespace Prisma {
     room_name: string
     password?: string | null
     serial_number: string
+    feed: string
   }
 
   export type deviceUpdateManyMutationInput = {
@@ -12627,6 +12693,7 @@ export namespace Prisma {
     power_rating?: StringFieldUpdateOperationsInput | string
     room_name?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
+    feed?: StringFieldUpdateOperationsInput | string
   }
 
   export type deviceUncheckedUpdateManyInput = {
@@ -12637,6 +12704,7 @@ export namespace Prisma {
     room_name?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
     serial_number?: StringFieldUpdateOperationsInput | string
+    feed?: StringFieldUpdateOperationsInput | string
   }
 
   export type measurementCreateInput = {
@@ -12856,6 +12924,8 @@ export namespace Prisma {
   export type homeCreateInput = {
     serial_number: string
     home_name: string
+    manager_id?: number | null
+    aio_key: string
     device?: deviceCreateNestedManyWithoutHomeInput
     user_in_home?: user_in_homeCreateNestedManyWithoutHomeInput
   }
@@ -12864,6 +12934,8 @@ export namespace Prisma {
     id?: number
     serial_number: string
     home_name: string
+    manager_id?: number | null
+    aio_key: string
     device?: deviceUncheckedCreateNestedManyWithoutHomeInput
     user_in_home?: user_in_homeUncheckedCreateNestedManyWithoutHomeInput
   }
@@ -12871,6 +12943,8 @@ export namespace Prisma {
   export type homeUpdateInput = {
     serial_number?: StringFieldUpdateOperationsInput | string
     home_name?: StringFieldUpdateOperationsInput | string
+    manager_id?: NullableIntFieldUpdateOperationsInput | number | null
+    aio_key?: StringFieldUpdateOperationsInput | string
     device?: deviceUpdateManyWithoutHomeNestedInput
     user_in_home?: user_in_homeUpdateManyWithoutHomeNestedInput
   }
@@ -12879,6 +12953,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     serial_number?: StringFieldUpdateOperationsInput | string
     home_name?: StringFieldUpdateOperationsInput | string
+    manager_id?: NullableIntFieldUpdateOperationsInput | number | null
+    aio_key?: StringFieldUpdateOperationsInput | string
     device?: deviceUncheckedUpdateManyWithoutHomeNestedInput
     user_in_home?: user_in_homeUncheckedUpdateManyWithoutHomeNestedInput
   }
@@ -12887,17 +12963,23 @@ export namespace Prisma {
     id?: number
     serial_number: string
     home_name: string
+    manager_id?: number | null
+    aio_key: string
   }
 
   export type homeUpdateManyMutationInput = {
     serial_number?: StringFieldUpdateOperationsInput | string
     home_name?: StringFieldUpdateOperationsInput | string
+    manager_id?: NullableIntFieldUpdateOperationsInput | number | null
+    aio_key?: StringFieldUpdateOperationsInput | string
   }
 
   export type homeUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     serial_number?: StringFieldUpdateOperationsInput | string
     home_name?: StringFieldUpdateOperationsInput | string
+    manager_id?: NullableIntFieldUpdateOperationsInput | number | null
+    aio_key?: StringFieldUpdateOperationsInput | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -13165,6 +13247,7 @@ export namespace Prisma {
     room_name?: SortOrder
     password?: SortOrder
     serial_number?: SortOrder
+    feed?: SortOrder
   }
 
   export type deviceAvgOrderByAggregateInput = {
@@ -13179,6 +13262,7 @@ export namespace Prisma {
     room_name?: SortOrder
     password?: SortOrder
     serial_number?: SortOrder
+    feed?: SortOrder
   }
 
   export type deviceMinOrderByAggregateInput = {
@@ -13189,6 +13273,7 @@ export namespace Prisma {
     room_name?: SortOrder
     password?: SortOrder
     serial_number?: SortOrder
+    feed?: SortOrder
   }
 
   export type deviceSumOrderByAggregateInput = {
@@ -13430,26 +13515,34 @@ export namespace Prisma {
     id?: SortOrder
     serial_number?: SortOrder
     home_name?: SortOrder
+    manager_id?: SortOrder
+    aio_key?: SortOrder
   }
 
   export type homeAvgOrderByAggregateInput = {
     id?: SortOrder
+    manager_id?: SortOrder
   }
 
   export type homeMaxOrderByAggregateInput = {
     id?: SortOrder
     serial_number?: SortOrder
     home_name?: SortOrder
+    manager_id?: SortOrder
+    aio_key?: SortOrder
   }
 
   export type homeMinOrderByAggregateInput = {
     id?: SortOrder
     serial_number?: SortOrder
     home_name?: SortOrder
+    manager_id?: SortOrder
+    aio_key?: SortOrder
   }
 
   export type homeSumOrderByAggregateInput = {
     id?: SortOrder
+    manager_id?: SortOrder
   }
 
   export type user_in_homeCreateNestedManyWithoutUserInput = {
@@ -14197,6 +14290,8 @@ export namespace Prisma {
   export type homeCreateWithoutUser_in_homeInput = {
     serial_number: string
     home_name: string
+    manager_id?: number | null
+    aio_key: string
     device?: deviceCreateNestedManyWithoutHomeInput
   }
 
@@ -14204,6 +14299,8 @@ export namespace Prisma {
     id?: number
     serial_number: string
     home_name: string
+    manager_id?: number | null
+    aio_key: string
     device?: deviceUncheckedCreateNestedManyWithoutHomeInput
   }
 
@@ -14260,6 +14357,8 @@ export namespace Prisma {
   export type homeUpdateWithoutUser_in_homeInput = {
     serial_number?: StringFieldUpdateOperationsInput | string
     home_name?: StringFieldUpdateOperationsInput | string
+    manager_id?: NullableIntFieldUpdateOperationsInput | number | null
+    aio_key?: StringFieldUpdateOperationsInput | string
     device?: deviceUpdateManyWithoutHomeNestedInput
   }
 
@@ -14267,6 +14366,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     serial_number?: StringFieldUpdateOperationsInput | string
     home_name?: StringFieldUpdateOperationsInput | string
+    manager_id?: NullableIntFieldUpdateOperationsInput | number | null
+    aio_key?: StringFieldUpdateOperationsInput | string
     device?: deviceUncheckedUpdateManyWithoutHomeNestedInput
   }
 
@@ -14357,6 +14458,8 @@ export namespace Prisma {
   export type homeCreateWithoutDeviceInput = {
     serial_number: string
     home_name: string
+    manager_id?: number | null
+    aio_key: string
     user_in_home?: user_in_homeCreateNestedManyWithoutHomeInput
   }
 
@@ -14364,6 +14467,8 @@ export namespace Prisma {
     id?: number
     serial_number: string
     home_name: string
+    manager_id?: number | null
+    aio_key: string
     user_in_home?: user_in_homeUncheckedCreateNestedManyWithoutHomeInput
   }
 
@@ -14489,6 +14594,8 @@ export namespace Prisma {
   export type homeUpdateWithoutDeviceInput = {
     serial_number?: StringFieldUpdateOperationsInput | string
     home_name?: StringFieldUpdateOperationsInput | string
+    manager_id?: NullableIntFieldUpdateOperationsInput | number | null
+    aio_key?: StringFieldUpdateOperationsInput | string
     user_in_home?: user_in_homeUpdateManyWithoutHomeNestedInput
   }
 
@@ -14496,6 +14603,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     serial_number?: StringFieldUpdateOperationsInput | string
     home_name?: StringFieldUpdateOperationsInput | string
+    manager_id?: NullableIntFieldUpdateOperationsInput | number | null
+    aio_key?: StringFieldUpdateOperationsInput | string
     user_in_home?: user_in_homeUncheckedUpdateManyWithoutHomeNestedInput
   }
 
@@ -14505,6 +14614,7 @@ export namespace Prisma {
     power_rating: string
     room_name: string
     password?: string | null
+    feed: string
     schedule?: scheduleCreateNestedManyWithoutDeviceInput
     log_event?: log_eventCreateNestedManyWithoutDeviceInput
     device_have_notification?: device_have_notificationCreateNestedManyWithoutDeviceInput
@@ -14519,6 +14629,7 @@ export namespace Prisma {
     room_name: string
     password?: string | null
     serial_number: string
+    feed: string
     schedule?: scheduleUncheckedCreateNestedManyWithoutDeviceInput
     log_event?: log_eventUncheckedCreateNestedManyWithoutDeviceInput
     device_have_notification?: device_have_notificationUncheckedCreateNestedManyWithoutDeviceInput
@@ -14546,6 +14657,7 @@ export namespace Prisma {
     power_rating?: StringFieldUpdateOperationsInput | string
     room_name?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
+    feed?: StringFieldUpdateOperationsInput | string
     schedule?: scheduleUpdateManyWithoutDeviceNestedInput
     log_event?: log_eventUpdateManyWithoutDeviceNestedInput
     device_have_notification?: device_have_notificationUpdateManyWithoutDeviceNestedInput
@@ -14560,6 +14672,7 @@ export namespace Prisma {
     room_name?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
     serial_number?: StringFieldUpdateOperationsInput | string
+    feed?: StringFieldUpdateOperationsInput | string
     schedule?: scheduleUncheckedUpdateManyWithoutDeviceNestedInput
     log_event?: log_eventUncheckedUpdateManyWithoutDeviceNestedInput
     device_have_notification?: device_have_notificationUncheckedUpdateManyWithoutDeviceNestedInput
@@ -14571,6 +14684,7 @@ export namespace Prisma {
     power_rating: string
     room_name: string
     password?: string | null
+    feed: string
     measurement?: measurementCreateNestedManyWithoutDeviceInput
     log_event?: log_eventCreateNestedManyWithoutDeviceInput
     device_have_notification?: device_have_notificationCreateNestedManyWithoutDeviceInput
@@ -14585,6 +14699,7 @@ export namespace Prisma {
     room_name: string
     password?: string | null
     serial_number: string
+    feed: string
     measurement?: measurementUncheckedCreateNestedManyWithoutDeviceInput
     log_event?: log_eventUncheckedCreateNestedManyWithoutDeviceInput
     device_have_notification?: device_have_notificationUncheckedCreateNestedManyWithoutDeviceInput
@@ -14612,6 +14727,7 @@ export namespace Prisma {
     power_rating?: StringFieldUpdateOperationsInput | string
     room_name?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
+    feed?: StringFieldUpdateOperationsInput | string
     measurement?: measurementUpdateManyWithoutDeviceNestedInput
     log_event?: log_eventUpdateManyWithoutDeviceNestedInput
     device_have_notification?: device_have_notificationUpdateManyWithoutDeviceNestedInput
@@ -14626,6 +14742,7 @@ export namespace Prisma {
     room_name?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
     serial_number?: StringFieldUpdateOperationsInput | string
+    feed?: StringFieldUpdateOperationsInput | string
     measurement?: measurementUncheckedUpdateManyWithoutDeviceNestedInput
     log_event?: log_eventUncheckedUpdateManyWithoutDeviceNestedInput
     device_have_notification?: device_have_notificationUncheckedUpdateManyWithoutDeviceNestedInput
@@ -14637,6 +14754,7 @@ export namespace Prisma {
     power_rating: string
     room_name: string
     password?: string | null
+    feed: string
     measurement?: measurementCreateNestedManyWithoutDeviceInput
     schedule?: scheduleCreateNestedManyWithoutDeviceInput
     device_have_notification?: device_have_notificationCreateNestedManyWithoutDeviceInput
@@ -14651,6 +14769,7 @@ export namespace Prisma {
     room_name: string
     password?: string | null
     serial_number: string
+    feed: string
     measurement?: measurementUncheckedCreateNestedManyWithoutDeviceInput
     schedule?: scheduleUncheckedCreateNestedManyWithoutDeviceInput
     device_have_notification?: device_have_notificationUncheckedCreateNestedManyWithoutDeviceInput
@@ -14678,6 +14797,7 @@ export namespace Prisma {
     power_rating?: StringFieldUpdateOperationsInput | string
     room_name?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
+    feed?: StringFieldUpdateOperationsInput | string
     measurement?: measurementUpdateManyWithoutDeviceNestedInput
     schedule?: scheduleUpdateManyWithoutDeviceNestedInput
     device_have_notification?: device_have_notificationUpdateManyWithoutDeviceNestedInput
@@ -14692,6 +14812,7 @@ export namespace Prisma {
     room_name?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
     serial_number?: StringFieldUpdateOperationsInput | string
+    feed?: StringFieldUpdateOperationsInput | string
     measurement?: measurementUncheckedUpdateManyWithoutDeviceNestedInput
     schedule?: scheduleUncheckedUpdateManyWithoutDeviceNestedInput
     device_have_notification?: device_have_notificationUncheckedUpdateManyWithoutDeviceNestedInput
@@ -14753,6 +14874,7 @@ export namespace Prisma {
     power_rating: string
     room_name: string
     password?: string | null
+    feed: string
     measurement?: measurementCreateNestedManyWithoutDeviceInput
     schedule?: scheduleCreateNestedManyWithoutDeviceInput
     log_event?: log_eventCreateNestedManyWithoutDeviceInput
@@ -14767,6 +14889,7 @@ export namespace Prisma {
     room_name: string
     password?: string | null
     serial_number: string
+    feed: string
     measurement?: measurementUncheckedCreateNestedManyWithoutDeviceInput
     schedule?: scheduleUncheckedCreateNestedManyWithoutDeviceInput
     log_event?: log_eventUncheckedCreateNestedManyWithoutDeviceInput
@@ -14814,6 +14937,7 @@ export namespace Prisma {
     power_rating?: StringFieldUpdateOperationsInput | string
     room_name?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
+    feed?: StringFieldUpdateOperationsInput | string
     measurement?: measurementUpdateManyWithoutDeviceNestedInput
     schedule?: scheduleUpdateManyWithoutDeviceNestedInput
     log_event?: log_eventUpdateManyWithoutDeviceNestedInput
@@ -14828,6 +14952,7 @@ export namespace Prisma {
     room_name?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
     serial_number?: StringFieldUpdateOperationsInput | string
+    feed?: StringFieldUpdateOperationsInput | string
     measurement?: measurementUncheckedUpdateManyWithoutDeviceNestedInput
     schedule?: scheduleUncheckedUpdateManyWithoutDeviceNestedInput
     log_event?: log_eventUncheckedUpdateManyWithoutDeviceNestedInput
@@ -14839,6 +14964,7 @@ export namespace Prisma {
     power_rating: string
     room_name: string
     password?: string | null
+    feed: string
     measurement?: measurementCreateNestedManyWithoutDeviceInput
     schedule?: scheduleCreateNestedManyWithoutDeviceInput
     log_event?: log_eventCreateNestedManyWithoutDeviceInput
@@ -14852,6 +14978,7 @@ export namespace Prisma {
     power_rating: string
     room_name: string
     password?: string | null
+    feed: string
     measurement?: measurementUncheckedCreateNestedManyWithoutDeviceInput
     schedule?: scheduleUncheckedCreateNestedManyWithoutDeviceInput
     log_event?: log_eventUncheckedCreateNestedManyWithoutDeviceInput
@@ -14913,6 +15040,7 @@ export namespace Prisma {
     room_name?: StringFilter<"device"> | string
     password?: StringNullableFilter<"device"> | string | null
     serial_number?: StringFilter<"device"> | string
+    feed?: StringFilter<"device"> | string
   }
 
   export type user_in_homeUpsertWithWhereUniqueWithoutHomeInput = {
@@ -15064,6 +15192,7 @@ export namespace Prisma {
     power_rating: string
     room_name: string
     password?: string | null
+    feed: string
   }
 
   export type user_in_homeCreateManyHomeInput = {
@@ -15076,6 +15205,7 @@ export namespace Prisma {
     power_rating?: StringFieldUpdateOperationsInput | string
     room_name?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
+    feed?: StringFieldUpdateOperationsInput | string
     measurement?: measurementUpdateManyWithoutDeviceNestedInput
     schedule?: scheduleUpdateManyWithoutDeviceNestedInput
     log_event?: log_eventUpdateManyWithoutDeviceNestedInput
@@ -15089,6 +15219,7 @@ export namespace Prisma {
     power_rating?: StringFieldUpdateOperationsInput | string
     room_name?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
+    feed?: StringFieldUpdateOperationsInput | string
     measurement?: measurementUncheckedUpdateManyWithoutDeviceNestedInput
     schedule?: scheduleUncheckedUpdateManyWithoutDeviceNestedInput
     log_event?: log_eventUncheckedUpdateManyWithoutDeviceNestedInput
@@ -15102,6 +15233,7 @@ export namespace Prisma {
     power_rating?: StringFieldUpdateOperationsInput | string
     room_name?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
+    feed?: StringFieldUpdateOperationsInput | string
   }
 
   export type user_in_homeUpdateWithoutHomeInput = {

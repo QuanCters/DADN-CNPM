@@ -12,6 +12,8 @@ const getHomeByUserId = async (userId) => {
           select: {
             serial_number: true,
             home_name: true,
+            manager_id: true,
+            aio_key: true,
           },
         },
       },
@@ -23,4 +25,56 @@ const getHomeByUserId = async (userId) => {
   return result;
 };
 
-module.exports = { getHomeByUserId };
+const getHomeByHomeId = async (homeId) => {
+  const result = await prisma.home
+    .findUnique({
+      where: {
+        id: parseInt(homeId),
+      },
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  return result;
+};
+
+const addUserToHomeById = async (userId, homdeId) => {
+  const result = await prisma.user_in_home
+    .create({
+      data: {
+        home_id: parseInt(homdeId),
+        user_id: parseInt(userId),
+      },
+    })
+    .catch((error) => {
+      console.error(error);
+      throw error;
+    });
+
+  return result;
+};
+
+const updateManagerByHomeId = async (userId, home_id) => {
+  const result = await prisma.home
+    .update({
+      where: {
+        id: parseInt(home_id),
+      },
+      data: {
+        manager_id: parseInt(userId),
+      },
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  return result;
+};
+
+module.exports = {
+  getHomeByUserId,
+  addUserToHomeById,
+  updateManagerByHomeId,
+  getHomeByHomeId,
+};

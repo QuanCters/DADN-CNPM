@@ -75,6 +75,7 @@ class DeviceService {
     if (!foundHome) {
       throw new BadRequestError("Home not found");
     }
+
     const foundDevice = await Promise.all(
       foundHome.map(async (home) => {
         const devices = await getDevicesBySerialNumber(home.home.serial_number);
@@ -82,6 +83,8 @@ class DeviceService {
           home_id: home.home_id,
           home_name: home.home.home_name,
           serial_number: home.home.serial_number,
+          aio_key: home.home.aio_key,
+          manager_id: home.home.manager_id,
           devices: devices,
         };
       })
