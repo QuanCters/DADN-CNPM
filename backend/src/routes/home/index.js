@@ -52,4 +52,50 @@ const { asyncHandler } = require("../../helper/asyncHandler");
  */
 router.get("/:userId", asyncHandler(homeController.getHomeByUserId));
 
+/**
+ * @swagger
+ * '/v1/api/home/add':
+ *  post:
+ *     tags:
+ *     - Home controller
+ *     summary: Add user to home
+ *     requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required:
+ *              - userId
+ *              - homeId
+ *            properties:
+ *              userId:
+ *                type: string
+ *              homeId:
+ *                type: string
+ *     responses:
+ *      200:
+ *        description: Add successfully
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                status:
+ *                  type: integer
+ *                  example: 200
+ *                message:
+ *                  type: string
+ *                  description: message response
+ *      400:
+ *        description: Bad Request (Invalid userId or homeId)
+ *      404:
+ *        description: Not Found
+ *      409:
+ *        description: Conflict (User is already in home)
+ *      500:
+ *        description: Server error
+ */
+router.post("/add", asyncHandler(homeController.addUserToHomeById));
+
 module.exports = router;
