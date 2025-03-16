@@ -42,6 +42,7 @@ model device {
   room_name                String                     @db.VarChar(255)
   password                 String?                    @db.VarChar(255)
   serial_number            String
+  feed                     String                     @db.VarChar(50)
   measurement              measurement[]
   schedule                 schedule[]
   log_event                log_event[]
@@ -103,7 +104,7 @@ model home {
   id            Int    @id @default(autoincrement())
   serial_number String @unique @db.VarChar(255)
   home_name     String @db.VarChar(255)
-  manager_id    Int
+  manager_id    Int?   @db.Integer
   aio_key       String @unique @db.VarChar(255)
 
   device       device[]
