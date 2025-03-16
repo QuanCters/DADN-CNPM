@@ -2922,50 +2922,54 @@ export namespace Prisma {
   }
 
   export type User_in_homeAvgAggregateOutputType = {
+    user_id: number | null
     home_id: number | null
   }
 
   export type User_in_homeSumAggregateOutputType = {
+    user_id: number | null
     home_id: number | null
   }
 
   export type User_in_homeMinAggregateOutputType = {
-    user_email: string | null
+    user_id: number | null
     home_id: number | null
   }
 
   export type User_in_homeMaxAggregateOutputType = {
-    user_email: string | null
+    user_id: number | null
     home_id: number | null
   }
 
   export type User_in_homeCountAggregateOutputType = {
-    user_email: number
+    user_id: number
     home_id: number
     _all: number
   }
 
 
   export type User_in_homeAvgAggregateInputType = {
+    user_id?: true
     home_id?: true
   }
 
   export type User_in_homeSumAggregateInputType = {
+    user_id?: true
     home_id?: true
   }
 
   export type User_in_homeMinAggregateInputType = {
-    user_email?: true
+    user_id?: true
     home_id?: true
   }
 
   export type User_in_homeMaxAggregateInputType = {
-    user_email?: true
+    user_id?: true
     home_id?: true
   }
 
   export type User_in_homeCountAggregateInputType = {
-    user_email?: true
+    user_id?: true
     home_id?: true
     _all?: true
   }
@@ -3057,7 +3061,7 @@ export namespace Prisma {
   }
 
   export type User_in_homeGroupByOutputType = {
-    user_email: string
+    user_id: number
     home_id: number
     _count: User_in_homeCountAggregateOutputType | null
     _avg: User_in_homeAvgAggregateOutputType | null
@@ -3081,32 +3085,32 @@ export namespace Prisma {
 
 
   export type user_in_homeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    user_email?: boolean
+    user_id?: boolean
     home_id?: boolean
     user?: boolean | usersDefaultArgs<ExtArgs>
     home?: boolean | homeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user_in_home"]>
 
   export type user_in_homeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    user_email?: boolean
+    user_id?: boolean
     home_id?: boolean
     user?: boolean | usersDefaultArgs<ExtArgs>
     home?: boolean | homeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user_in_home"]>
 
   export type user_in_homeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    user_email?: boolean
+    user_id?: boolean
     home_id?: boolean
     user?: boolean | usersDefaultArgs<ExtArgs>
     home?: boolean | homeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user_in_home"]>
 
   export type user_in_homeSelectScalar = {
-    user_email?: boolean
+    user_id?: boolean
     home_id?: boolean
   }
 
-  export type user_in_homeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_email" | "home_id", ExtArgs["result"]["user_in_home"]>
+  export type user_in_homeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_id" | "home_id", ExtArgs["result"]["user_in_home"]>
   export type user_in_homeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | usersDefaultArgs<ExtArgs>
     home?: boolean | homeDefaultArgs<ExtArgs>
@@ -3127,7 +3131,7 @@ export namespace Prisma {
       home: Prisma.$homePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      user_email: string
+      user_id: number
       home_id: number
     }, ExtArgs["result"]["user_in_home"]>
     composites: {}
@@ -3212,8 +3216,8 @@ export namespace Prisma {
      * // Get first 10 User_in_homes
      * const user_in_homes = await prisma.user_in_home.findMany({ take: 10 })
      * 
-     * // Only select the `user_email`
-     * const user_in_homeWithUser_emailOnly = await prisma.user_in_home.findMany({ select: { user_email: true } })
+     * // Only select the `user_id`
+     * const user_in_homeWithUser_idOnly = await prisma.user_in_home.findMany({ select: { user_id: true } })
      * 
      */
     findMany<T extends user_in_homeFindManyArgs>(args?: SelectSubset<T, user_in_homeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$user_in_homePayload<ExtArgs>, T, "findMany", ClientOptions>>
@@ -3257,9 +3261,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Create many User_in_homes and only return the `user_email`
-     * const user_in_homeWithUser_emailOnly = await prisma.user_in_home.createManyAndReturn({
-     *   select: { user_email: true },
+     * // Create many User_in_homes and only return the `user_id`
+     * const user_in_homeWithUser_idOnly = await prisma.user_in_home.createManyAndReturn({
+     *   select: { user_id: true },
      *   data: [
      *     // ... provide data here
      *   ]
@@ -3348,9 +3352,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more User_in_homes and only return the `user_email`
-     * const user_in_homeWithUser_emailOnly = await prisma.user_in_home.updateManyAndReturn({
-     *   select: { user_email: true },
+     * // Update zero or more User_in_homes and only return the `user_id`
+     * const user_in_homeWithUser_idOnly = await prisma.user_in_home.updateManyAndReturn({
+     *   select: { user_id: true },
      *   where: {
      *     // ... provide filter here
      *   },
@@ -3554,7 +3558,7 @@ export namespace Prisma {
    * Fields of the user_in_home model
    */ 
   interface user_in_homeFieldRefs {
-    readonly user_email: FieldRef<"user_in_home", 'String'>
+    readonly user_id: FieldRef<"user_in_home", 'Int'>
     readonly home_id: FieldRef<"user_in_home", 'Int'>
   }
     
@@ -4153,7 +4157,7 @@ export namespace Prisma {
     type: string
     power_rating: string
     room_name: string
-    password: string
+    password: string | null
     serial_number: string
     _count: DeviceCountAggregateOutputType | null
     _avg: DeviceAvgAggregateOutputType | null
@@ -4255,7 +4259,7 @@ export namespace Prisma {
       type: string
       power_rating: string
       room_name: string
-      password: string
+      password: string | null
       serial_number: string
     }, ExtArgs["result"]["device"]>
     composites: {}
@@ -10655,16 +10659,19 @@ export namespace Prisma {
   export type HomeMinAggregateOutputType = {
     id: number | null
     serial_number: string | null
+    home_name: string | null
   }
 
   export type HomeMaxAggregateOutputType = {
     id: number | null
     serial_number: string | null
+    home_name: string | null
   }
 
   export type HomeCountAggregateOutputType = {
     id: number
     serial_number: number
+    home_name: number
     _all: number
   }
 
@@ -10680,16 +10687,19 @@ export namespace Prisma {
   export type HomeMinAggregateInputType = {
     id?: true
     serial_number?: true
+    home_name?: true
   }
 
   export type HomeMaxAggregateInputType = {
     id?: true
     serial_number?: true
+    home_name?: true
   }
 
   export type HomeCountAggregateInputType = {
     id?: true
     serial_number?: true
+    home_name?: true
     _all?: true
   }
 
@@ -10782,6 +10792,7 @@ export namespace Prisma {
   export type HomeGroupByOutputType = {
     id: number
     serial_number: string
+    home_name: string
     _count: HomeCountAggregateOutputType | null
     _avg: HomeAvgAggregateOutputType | null
     _sum: HomeSumAggregateOutputType | null
@@ -10806,6 +10817,7 @@ export namespace Prisma {
   export type homeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     serial_number?: boolean
+    home_name?: boolean
     device?: boolean | home$deviceArgs<ExtArgs>
     user_in_home?: boolean | home$user_in_homeArgs<ExtArgs>
     _count?: boolean | HomeCountOutputTypeDefaultArgs<ExtArgs>
@@ -10814,19 +10826,22 @@ export namespace Prisma {
   export type homeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     serial_number?: boolean
+    home_name?: boolean
   }, ExtArgs["result"]["home"]>
 
   export type homeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     serial_number?: boolean
+    home_name?: boolean
   }, ExtArgs["result"]["home"]>
 
   export type homeSelectScalar = {
     id?: boolean
     serial_number?: boolean
+    home_name?: boolean
   }
 
-  export type homeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "serial_number", ExtArgs["result"]["home"]>
+  export type homeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "serial_number" | "home_name", ExtArgs["result"]["home"]>
   export type homeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     device?: boolean | home$deviceArgs<ExtArgs>
     user_in_home?: boolean | home$user_in_homeArgs<ExtArgs>
@@ -10844,6 +10859,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       serial_number: string
+      home_name: string
     }, ExtArgs["result"]["home"]>
     composites: {}
   }
@@ -11271,6 +11287,7 @@ export namespace Prisma {
   interface homeFieldRefs {
     readonly id: FieldRef<"home", 'Int'>
     readonly serial_number: FieldRef<"home", 'String'>
+    readonly home_name: FieldRef<"home", 'String'>
   }
     
 
@@ -11755,7 +11772,7 @@ export namespace Prisma {
 
 
   export const User_in_homeScalarFieldEnum: {
-    user_email: 'user_email',
+    user_id: 'user_id',
     home_id: 'home_id'
   };
 
@@ -11824,7 +11841,8 @@ export namespace Prisma {
 
   export const HomeScalarFieldEnum: {
     id: 'id',
-    serial_number: 'serial_number'
+    serial_number: 'serial_number',
+    home_name: 'home_name'
   };
 
   export type HomeScalarFieldEnum = (typeof HomeScalarFieldEnum)[keyof typeof HomeScalarFieldEnum]
@@ -11999,32 +12017,32 @@ export namespace Prisma {
     AND?: user_in_homeWhereInput | user_in_homeWhereInput[]
     OR?: user_in_homeWhereInput[]
     NOT?: user_in_homeWhereInput | user_in_homeWhereInput[]
-    user_email?: StringFilter<"user_in_home"> | string
+    user_id?: IntFilter<"user_in_home"> | number
     home_id?: IntFilter<"user_in_home"> | number
     user?: XOR<UsersScalarRelationFilter, usersWhereInput>
     home?: XOR<HomeScalarRelationFilter, homeWhereInput>
   }
 
   export type user_in_homeOrderByWithRelationInput = {
-    user_email?: SortOrder
+    user_id?: SortOrder
     home_id?: SortOrder
     user?: usersOrderByWithRelationInput
     home?: homeOrderByWithRelationInput
   }
 
   export type user_in_homeWhereUniqueInput = Prisma.AtLeast<{
-    user_email_home_id?: user_in_homeUser_emailHome_idCompoundUniqueInput
+    user_id_home_id?: user_in_homeUser_idHome_idCompoundUniqueInput
     AND?: user_in_homeWhereInput | user_in_homeWhereInput[]
     OR?: user_in_homeWhereInput[]
     NOT?: user_in_homeWhereInput | user_in_homeWhereInput[]
-    user_email?: StringFilter<"user_in_home"> | string
+    user_id?: IntFilter<"user_in_home"> | number
     home_id?: IntFilter<"user_in_home"> | number
     user?: XOR<UsersScalarRelationFilter, usersWhereInput>
     home?: XOR<HomeScalarRelationFilter, homeWhereInput>
-  }, "user_email_home_id">
+  }, "user_id_home_id">
 
   export type user_in_homeOrderByWithAggregationInput = {
-    user_email?: SortOrder
+    user_id?: SortOrder
     home_id?: SortOrder
     _count?: user_in_homeCountOrderByAggregateInput
     _avg?: user_in_homeAvgOrderByAggregateInput
@@ -12037,7 +12055,7 @@ export namespace Prisma {
     AND?: user_in_homeScalarWhereWithAggregatesInput | user_in_homeScalarWhereWithAggregatesInput[]
     OR?: user_in_homeScalarWhereWithAggregatesInput[]
     NOT?: user_in_homeScalarWhereWithAggregatesInput | user_in_homeScalarWhereWithAggregatesInput[]
-    user_email?: StringWithAggregatesFilter<"user_in_home"> | string
+    user_id?: IntWithAggregatesFilter<"user_in_home"> | number
     home_id?: IntWithAggregatesFilter<"user_in_home"> | number
   }
 
@@ -12050,7 +12068,7 @@ export namespace Prisma {
     type?: StringFilter<"device"> | string
     power_rating?: StringFilter<"device"> | string
     room_name?: StringFilter<"device"> | string
-    password?: StringFilter<"device"> | string
+    password?: StringNullableFilter<"device"> | string | null
     serial_number?: StringFilter<"device"> | string
     measurement?: MeasurementListRelationFilter
     schedule?: ScheduleListRelationFilter
@@ -12065,7 +12083,7 @@ export namespace Prisma {
     type?: SortOrder
     power_rating?: SortOrder
     room_name?: SortOrder
-    password?: SortOrder
+    password?: SortOrderInput | SortOrder
     serial_number?: SortOrder
     measurement?: measurementOrderByRelationAggregateInput
     schedule?: scheduleOrderByRelationAggregateInput
@@ -12083,7 +12101,7 @@ export namespace Prisma {
     type?: StringFilter<"device"> | string
     power_rating?: StringFilter<"device"> | string
     room_name?: StringFilter<"device"> | string
-    password?: StringFilter<"device"> | string
+    password?: StringNullableFilter<"device"> | string | null
     serial_number?: StringFilter<"device"> | string
     measurement?: MeasurementListRelationFilter
     schedule?: ScheduleListRelationFilter
@@ -12098,7 +12116,7 @@ export namespace Prisma {
     type?: SortOrder
     power_rating?: SortOrder
     room_name?: SortOrder
-    password?: SortOrder
+    password?: SortOrderInput | SortOrder
     serial_number?: SortOrder
     _count?: deviceCountOrderByAggregateInput
     _avg?: deviceAvgOrderByAggregateInput
@@ -12116,7 +12134,7 @@ export namespace Prisma {
     type?: StringWithAggregatesFilter<"device"> | string
     power_rating?: StringWithAggregatesFilter<"device"> | string
     room_name?: StringWithAggregatesFilter<"device"> | string
-    password?: StringWithAggregatesFilter<"device"> | string
+    password?: StringNullableWithAggregatesFilter<"device"> | string | null
     serial_number?: StringWithAggregatesFilter<"device"> | string
   }
 
@@ -12376,6 +12394,7 @@ export namespace Prisma {
     NOT?: homeWhereInput | homeWhereInput[]
     id?: IntFilter<"home"> | number
     serial_number?: StringFilter<"home"> | string
+    home_name?: StringFilter<"home"> | string
     device?: DeviceListRelationFilter
     user_in_home?: User_in_homeListRelationFilter
   }
@@ -12383,6 +12402,7 @@ export namespace Prisma {
   export type homeOrderByWithRelationInput = {
     id?: SortOrder
     serial_number?: SortOrder
+    home_name?: SortOrder
     device?: deviceOrderByRelationAggregateInput
     user_in_home?: user_in_homeOrderByRelationAggregateInput
   }
@@ -12390,16 +12410,18 @@ export namespace Prisma {
   export type homeWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     serial_number?: string
+    home_name?: string
     AND?: homeWhereInput | homeWhereInput[]
     OR?: homeWhereInput[]
     NOT?: homeWhereInput | homeWhereInput[]
     device?: DeviceListRelationFilter
     user_in_home?: User_in_homeListRelationFilter
-  }, "id" | "serial_number">
+  }, "id" | "serial_number" | "home_name">
 
   export type homeOrderByWithAggregationInput = {
     id?: SortOrder
     serial_number?: SortOrder
+    home_name?: SortOrder
     _count?: homeCountOrderByAggregateInput
     _avg?: homeAvgOrderByAggregateInput
     _max?: homeMaxOrderByAggregateInput
@@ -12413,6 +12435,7 @@ export namespace Prisma {
     NOT?: homeScalarWhereWithAggregatesInput | homeScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"home"> | number
     serial_number?: StringWithAggregatesFilter<"home"> | string
+    home_name?: StringWithAggregatesFilter<"home"> | string
   }
 
   export type usersCreateInput = {
@@ -12506,7 +12529,7 @@ export namespace Prisma {
   }
 
   export type user_in_homeUncheckedCreateInput = {
-    user_email: string
+    user_id: number
     home_id: number
   }
 
@@ -12516,12 +12539,12 @@ export namespace Prisma {
   }
 
   export type user_in_homeUncheckedUpdateInput = {
-    user_email?: StringFieldUpdateOperationsInput | string
+    user_id?: IntFieldUpdateOperationsInput | number
     home_id?: IntFieldUpdateOperationsInput | number
   }
 
   export type user_in_homeCreateManyInput = {
-    user_email: string
+    user_id: number
     home_id: number
   }
 
@@ -12530,7 +12553,7 @@ export namespace Prisma {
   }
 
   export type user_in_homeUncheckedUpdateManyInput = {
-    user_email?: StringFieldUpdateOperationsInput | string
+    user_id?: IntFieldUpdateOperationsInput | number
     home_id?: IntFieldUpdateOperationsInput | number
   }
 
@@ -12539,7 +12562,7 @@ export namespace Prisma {
     type: string
     power_rating: string
     room_name: string
-    password: string
+    password?: string | null
     measurement?: measurementCreateNestedManyWithoutDeviceInput
     schedule?: scheduleCreateNestedManyWithoutDeviceInput
     log_event?: log_eventCreateNestedManyWithoutDeviceInput
@@ -12553,7 +12576,7 @@ export namespace Prisma {
     type: string
     power_rating: string
     room_name: string
-    password: string
+    password?: string | null
     serial_number: string
     measurement?: measurementUncheckedCreateNestedManyWithoutDeviceInput
     schedule?: scheduleUncheckedCreateNestedManyWithoutDeviceInput
@@ -12566,7 +12589,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     power_rating?: StringFieldUpdateOperationsInput | string
     room_name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     measurement?: measurementUpdateManyWithoutDeviceNestedInput
     schedule?: scheduleUpdateManyWithoutDeviceNestedInput
     log_event?: log_eventUpdateManyWithoutDeviceNestedInput
@@ -12580,7 +12603,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     power_rating?: StringFieldUpdateOperationsInput | string
     room_name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     serial_number?: StringFieldUpdateOperationsInput | string
     measurement?: measurementUncheckedUpdateManyWithoutDeviceNestedInput
     schedule?: scheduleUncheckedUpdateManyWithoutDeviceNestedInput
@@ -12594,7 +12617,7 @@ export namespace Prisma {
     type: string
     power_rating: string
     room_name: string
-    password: string
+    password?: string | null
     serial_number: string
   }
 
@@ -12603,7 +12626,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     power_rating?: StringFieldUpdateOperationsInput | string
     room_name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type deviceUncheckedUpdateManyInput = {
@@ -12612,7 +12635,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     power_rating?: StringFieldUpdateOperationsInput | string
     room_name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     serial_number?: StringFieldUpdateOperationsInput | string
   }
 
@@ -12832,6 +12855,7 @@ export namespace Prisma {
 
   export type homeCreateInput = {
     serial_number: string
+    home_name: string
     device?: deviceCreateNestedManyWithoutHomeInput
     user_in_home?: user_in_homeCreateNestedManyWithoutHomeInput
   }
@@ -12839,12 +12863,14 @@ export namespace Prisma {
   export type homeUncheckedCreateInput = {
     id?: number
     serial_number: string
+    home_name: string
     device?: deviceUncheckedCreateNestedManyWithoutHomeInput
     user_in_home?: user_in_homeUncheckedCreateNestedManyWithoutHomeInput
   }
 
   export type homeUpdateInput = {
     serial_number?: StringFieldUpdateOperationsInput | string
+    home_name?: StringFieldUpdateOperationsInput | string
     device?: deviceUpdateManyWithoutHomeNestedInput
     user_in_home?: user_in_homeUpdateManyWithoutHomeNestedInput
   }
@@ -12852,6 +12878,7 @@ export namespace Prisma {
   export type homeUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     serial_number?: StringFieldUpdateOperationsInput | string
+    home_name?: StringFieldUpdateOperationsInput | string
     device?: deviceUncheckedUpdateManyWithoutHomeNestedInput
     user_in_home?: user_in_homeUncheckedUpdateManyWithoutHomeNestedInput
   }
@@ -12859,15 +12886,18 @@ export namespace Prisma {
   export type homeCreateManyInput = {
     id?: number
     serial_number: string
+    home_name: string
   }
 
   export type homeUpdateManyMutationInput = {
     serial_number?: StringFieldUpdateOperationsInput | string
+    home_name?: StringFieldUpdateOperationsInput | string
   }
 
   export type homeUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     serial_number?: StringFieldUpdateOperationsInput | string
+    home_name?: StringFieldUpdateOperationsInput | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -13057,31 +13087,33 @@ export namespace Prisma {
     isNot?: homeWhereInput
   }
 
-  export type user_in_homeUser_emailHome_idCompoundUniqueInput = {
-    user_email: string
+  export type user_in_homeUser_idHome_idCompoundUniqueInput = {
+    user_id: number
     home_id: number
   }
 
   export type user_in_homeCountOrderByAggregateInput = {
-    user_email?: SortOrder
+    user_id?: SortOrder
     home_id?: SortOrder
   }
 
   export type user_in_homeAvgOrderByAggregateInput = {
+    user_id?: SortOrder
     home_id?: SortOrder
   }
 
   export type user_in_homeMaxOrderByAggregateInput = {
-    user_email?: SortOrder
+    user_id?: SortOrder
     home_id?: SortOrder
   }
 
   export type user_in_homeMinOrderByAggregateInput = {
-    user_email?: SortOrder
+    user_id?: SortOrder
     home_id?: SortOrder
   }
 
   export type user_in_homeSumOrderByAggregateInput = {
+    user_id?: SortOrder
     home_id?: SortOrder
   }
 
@@ -13397,6 +13429,7 @@ export namespace Prisma {
   export type homeCountOrderByAggregateInput = {
     id?: SortOrder
     serial_number?: SortOrder
+    home_name?: SortOrder
   }
 
   export type homeAvgOrderByAggregateInput = {
@@ -13406,11 +13439,13 @@ export namespace Prisma {
   export type homeMaxOrderByAggregateInput = {
     id?: SortOrder
     serial_number?: SortOrder
+    home_name?: SortOrder
   }
 
   export type homeMinOrderByAggregateInput = {
     id?: SortOrder
     serial_number?: SortOrder
+    home_name?: SortOrder
   }
 
   export type homeSumOrderByAggregateInput = {
@@ -14127,7 +14162,7 @@ export namespace Prisma {
     AND?: user_in_homeScalarWhereInput | user_in_homeScalarWhereInput[]
     OR?: user_in_homeScalarWhereInput[]
     NOT?: user_in_homeScalarWhereInput | user_in_homeScalarWhereInput[]
-    user_email?: StringFilter<"user_in_home"> | string
+    user_id?: IntFilter<"user_in_home"> | number
     home_id?: IntFilter<"user_in_home"> | number
   }
 
@@ -14161,12 +14196,14 @@ export namespace Prisma {
 
   export type homeCreateWithoutUser_in_homeInput = {
     serial_number: string
+    home_name: string
     device?: deviceCreateNestedManyWithoutHomeInput
   }
 
   export type homeUncheckedCreateWithoutUser_in_homeInput = {
     id?: number
     serial_number: string
+    home_name: string
     device?: deviceUncheckedCreateNestedManyWithoutHomeInput
   }
 
@@ -14222,12 +14259,14 @@ export namespace Prisma {
 
   export type homeUpdateWithoutUser_in_homeInput = {
     serial_number?: StringFieldUpdateOperationsInput | string
+    home_name?: StringFieldUpdateOperationsInput | string
     device?: deviceUpdateManyWithoutHomeNestedInput
   }
 
   export type homeUncheckedUpdateWithoutUser_in_homeInput = {
     id?: IntFieldUpdateOperationsInput | number
     serial_number?: StringFieldUpdateOperationsInput | string
+    home_name?: StringFieldUpdateOperationsInput | string
     device?: deviceUncheckedUpdateManyWithoutHomeNestedInput
   }
 
@@ -14317,12 +14356,14 @@ export namespace Prisma {
 
   export type homeCreateWithoutDeviceInput = {
     serial_number: string
+    home_name: string
     user_in_home?: user_in_homeCreateNestedManyWithoutHomeInput
   }
 
   export type homeUncheckedCreateWithoutDeviceInput = {
     id?: number
     serial_number: string
+    home_name: string
     user_in_home?: user_in_homeUncheckedCreateNestedManyWithoutHomeInput
   }
 
@@ -14447,12 +14488,14 @@ export namespace Prisma {
 
   export type homeUpdateWithoutDeviceInput = {
     serial_number?: StringFieldUpdateOperationsInput | string
+    home_name?: StringFieldUpdateOperationsInput | string
     user_in_home?: user_in_homeUpdateManyWithoutHomeNestedInput
   }
 
   export type homeUncheckedUpdateWithoutDeviceInput = {
     id?: IntFieldUpdateOperationsInput | number
     serial_number?: StringFieldUpdateOperationsInput | string
+    home_name?: StringFieldUpdateOperationsInput | string
     user_in_home?: user_in_homeUncheckedUpdateManyWithoutHomeNestedInput
   }
 
@@ -14461,7 +14504,7 @@ export namespace Prisma {
     type: string
     power_rating: string
     room_name: string
-    password: string
+    password?: string | null
     schedule?: scheduleCreateNestedManyWithoutDeviceInput
     log_event?: log_eventCreateNestedManyWithoutDeviceInput
     device_have_notification?: device_have_notificationCreateNestedManyWithoutDeviceInput
@@ -14474,7 +14517,7 @@ export namespace Prisma {
     type: string
     power_rating: string
     room_name: string
-    password: string
+    password?: string | null
     serial_number: string
     schedule?: scheduleUncheckedCreateNestedManyWithoutDeviceInput
     log_event?: log_eventUncheckedCreateNestedManyWithoutDeviceInput
@@ -14502,7 +14545,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     power_rating?: StringFieldUpdateOperationsInput | string
     room_name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     schedule?: scheduleUpdateManyWithoutDeviceNestedInput
     log_event?: log_eventUpdateManyWithoutDeviceNestedInput
     device_have_notification?: device_have_notificationUpdateManyWithoutDeviceNestedInput
@@ -14515,7 +14558,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     power_rating?: StringFieldUpdateOperationsInput | string
     room_name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     serial_number?: StringFieldUpdateOperationsInput | string
     schedule?: scheduleUncheckedUpdateManyWithoutDeviceNestedInput
     log_event?: log_eventUncheckedUpdateManyWithoutDeviceNestedInput
@@ -14527,7 +14570,7 @@ export namespace Prisma {
     type: string
     power_rating: string
     room_name: string
-    password: string
+    password?: string | null
     measurement?: measurementCreateNestedManyWithoutDeviceInput
     log_event?: log_eventCreateNestedManyWithoutDeviceInput
     device_have_notification?: device_have_notificationCreateNestedManyWithoutDeviceInput
@@ -14540,7 +14583,7 @@ export namespace Prisma {
     type: string
     power_rating: string
     room_name: string
-    password: string
+    password?: string | null
     serial_number: string
     measurement?: measurementUncheckedCreateNestedManyWithoutDeviceInput
     log_event?: log_eventUncheckedCreateNestedManyWithoutDeviceInput
@@ -14568,7 +14611,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     power_rating?: StringFieldUpdateOperationsInput | string
     room_name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     measurement?: measurementUpdateManyWithoutDeviceNestedInput
     log_event?: log_eventUpdateManyWithoutDeviceNestedInput
     device_have_notification?: device_have_notificationUpdateManyWithoutDeviceNestedInput
@@ -14581,7 +14624,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     power_rating?: StringFieldUpdateOperationsInput | string
     room_name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     serial_number?: StringFieldUpdateOperationsInput | string
     measurement?: measurementUncheckedUpdateManyWithoutDeviceNestedInput
     log_event?: log_eventUncheckedUpdateManyWithoutDeviceNestedInput
@@ -14593,7 +14636,7 @@ export namespace Prisma {
     type: string
     power_rating: string
     room_name: string
-    password: string
+    password?: string | null
     measurement?: measurementCreateNestedManyWithoutDeviceInput
     schedule?: scheduleCreateNestedManyWithoutDeviceInput
     device_have_notification?: device_have_notificationCreateNestedManyWithoutDeviceInput
@@ -14606,7 +14649,7 @@ export namespace Prisma {
     type: string
     power_rating: string
     room_name: string
-    password: string
+    password?: string | null
     serial_number: string
     measurement?: measurementUncheckedCreateNestedManyWithoutDeviceInput
     schedule?: scheduleUncheckedCreateNestedManyWithoutDeviceInput
@@ -14634,7 +14677,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     power_rating?: StringFieldUpdateOperationsInput | string
     room_name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     measurement?: measurementUpdateManyWithoutDeviceNestedInput
     schedule?: scheduleUpdateManyWithoutDeviceNestedInput
     device_have_notification?: device_have_notificationUpdateManyWithoutDeviceNestedInput
@@ -14647,7 +14690,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     power_rating?: StringFieldUpdateOperationsInput | string
     room_name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     serial_number?: StringFieldUpdateOperationsInput | string
     measurement?: measurementUncheckedUpdateManyWithoutDeviceNestedInput
     schedule?: scheduleUncheckedUpdateManyWithoutDeviceNestedInput
@@ -14709,7 +14752,7 @@ export namespace Prisma {
     type: string
     power_rating: string
     room_name: string
-    password: string
+    password?: string | null
     measurement?: measurementCreateNestedManyWithoutDeviceInput
     schedule?: scheduleCreateNestedManyWithoutDeviceInput
     log_event?: log_eventCreateNestedManyWithoutDeviceInput
@@ -14722,7 +14765,7 @@ export namespace Prisma {
     type: string
     power_rating: string
     room_name: string
-    password: string
+    password?: string | null
     serial_number: string
     measurement?: measurementUncheckedCreateNestedManyWithoutDeviceInput
     schedule?: scheduleUncheckedCreateNestedManyWithoutDeviceInput
@@ -14770,7 +14813,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     power_rating?: StringFieldUpdateOperationsInput | string
     room_name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     measurement?: measurementUpdateManyWithoutDeviceNestedInput
     schedule?: scheduleUpdateManyWithoutDeviceNestedInput
     log_event?: log_eventUpdateManyWithoutDeviceNestedInput
@@ -14783,7 +14826,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     power_rating?: StringFieldUpdateOperationsInput | string
     room_name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     serial_number?: StringFieldUpdateOperationsInput | string
     measurement?: measurementUncheckedUpdateManyWithoutDeviceNestedInput
     schedule?: scheduleUncheckedUpdateManyWithoutDeviceNestedInput
@@ -14795,7 +14838,7 @@ export namespace Prisma {
     type: string
     power_rating: string
     room_name: string
-    password: string
+    password?: string | null
     measurement?: measurementCreateNestedManyWithoutDeviceInput
     schedule?: scheduleCreateNestedManyWithoutDeviceInput
     log_event?: log_eventCreateNestedManyWithoutDeviceInput
@@ -14808,7 +14851,7 @@ export namespace Prisma {
     type: string
     power_rating: string
     room_name: string
-    password: string
+    password?: string | null
     measurement?: measurementUncheckedCreateNestedManyWithoutDeviceInput
     schedule?: scheduleUncheckedCreateNestedManyWithoutDeviceInput
     log_event?: log_eventUncheckedCreateNestedManyWithoutDeviceInput
@@ -14830,7 +14873,7 @@ export namespace Prisma {
   }
 
   export type user_in_homeUncheckedCreateWithoutHomeInput = {
-    user_email: string
+    user_id: number
   }
 
   export type user_in_homeCreateOrConnectWithoutHomeInput = {
@@ -14868,7 +14911,7 @@ export namespace Prisma {
     type?: StringFilter<"device"> | string
     power_rating?: StringFilter<"device"> | string
     room_name?: StringFilter<"device"> | string
-    password?: StringFilter<"device"> | string
+    password?: StringNullableFilter<"device"> | string | null
     serial_number?: StringFilter<"device"> | string
   }
 
@@ -15020,11 +15063,11 @@ export namespace Prisma {
     type: string
     power_rating: string
     room_name: string
-    password: string
+    password?: string | null
   }
 
   export type user_in_homeCreateManyHomeInput = {
-    user_email: string
+    user_id: number
   }
 
   export type deviceUpdateWithoutHomeInput = {
@@ -15032,7 +15075,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     power_rating?: StringFieldUpdateOperationsInput | string
     room_name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     measurement?: measurementUpdateManyWithoutDeviceNestedInput
     schedule?: scheduleUpdateManyWithoutDeviceNestedInput
     log_event?: log_eventUpdateManyWithoutDeviceNestedInput
@@ -15045,7 +15088,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     power_rating?: StringFieldUpdateOperationsInput | string
     room_name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     measurement?: measurementUncheckedUpdateManyWithoutDeviceNestedInput
     schedule?: scheduleUncheckedUpdateManyWithoutDeviceNestedInput
     log_event?: log_eventUncheckedUpdateManyWithoutDeviceNestedInput
@@ -15058,7 +15101,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     power_rating?: StringFieldUpdateOperationsInput | string
     room_name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type user_in_homeUpdateWithoutHomeInput = {
@@ -15066,11 +15109,11 @@ export namespace Prisma {
   }
 
   export type user_in_homeUncheckedUpdateWithoutHomeInput = {
-    user_email?: StringFieldUpdateOperationsInput | string
+    user_id?: IntFieldUpdateOperationsInput | number
   }
 
   export type user_in_homeUncheckedUpdateManyWithoutHomeInput = {
-    user_email?: StringFieldUpdateOperationsInput | string
+    user_id?: IntFieldUpdateOperationsInput | number
   }
 
 

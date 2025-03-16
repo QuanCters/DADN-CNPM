@@ -78,6 +78,8 @@ class AccessService {
     return {
       status: 200,
       message: "Login successfully",
+      first_name: foundUser.first_name,
+      last_name: foundUser.last_name,
       access_token: token,
       userId: foundUser.id,
       salt: foundUser.salt,

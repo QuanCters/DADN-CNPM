@@ -130,7 +130,7 @@ exports.Prisma.UsersScalarFieldEnum = {
 };
 
 exports.Prisma.User_in_homeScalarFieldEnum = {
-  user_email: 'user_email',
+  user_id: 'user_id',
   home_id: 'home_id'
 };
 
@@ -178,7 +178,8 @@ exports.Prisma.Device_have_notificationScalarFieldEnum = {
 
 exports.Prisma.HomeScalarFieldEnum = {
   id: 'id',
-  serial_number: 'serial_number'
+  serial_number: 'serial_number',
+  home_name: 'home_name'
 };
 
 exports.Prisma.SortOrder = {

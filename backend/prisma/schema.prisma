@@ -25,13 +25,13 @@ model users {
 }
 
 model user_in_home {
-  user_email String @db.VarChar(255)
-  home_id    Int
+  user_id Int
+  home_id Int
 
-  user users @relation(fields: [user_email], references: [email])
+  user users @relation(fields: [user_id], references: [id])
   home home  @relation(fields: [home_id], references: [id])
 
-  @@id([user_email, home_id])
+  @@id([user_id, home_id])
 }
 
 model device {
@@ -40,7 +40,7 @@ model device {
   type                     String                     @db.VarChar(50)
   power_rating             String                     @db.VarChar(50)
   room_name                String                     @db.VarChar(255)
-  password                 String                     @db.VarChar(255)
+  password                 String?                    @db.VarChar(255)
   serial_number            String
   measurement              measurement[]
   schedule                 schedule[]
@@ -100,8 +100,12 @@ model device_have_notification {
 }
 
 model home {
-  id            Int            @id @default(autoincrement())
-  serial_number String         @unique @db.VarChar(255)
-  device        device[]
-  user_in_home  user_in_home[]
+  id            Int    @id @default(autoincrement())
+  serial_number String @unique @db.VarChar(255)
+  home_name     String @db.VarChar(255)
+  manager_id    Int
+  aio_key       String @unique @db.VarChar(255)
+
+  device       device[]
+  user_in_home user_in_home[]
 }
