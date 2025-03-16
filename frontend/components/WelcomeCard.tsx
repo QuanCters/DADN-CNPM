@@ -12,6 +12,9 @@ import InformationBar from "@/components/InformationBar";
 import Title from "@/components/Title";
 import Fontisto from "@expo/vector-icons/Fontisto";
 import Entypo from "@expo/vector-icons/Entypo";
+import { useSelector } from "react-redux";
+import { mqttService } from "@/services/mqtt.service";
+import Home from "@/interface/home.interface";
 
 const getCurrentDate = () => {
   const date = new Date();
@@ -80,6 +83,7 @@ const WelcomeCard = (props: WelcomeCardProps) => {
       )}
     </View>
   );
+
   const automationUI = (
     <View style={styles.nameContainer}>
       <Title ownStyle={{ color: "white" }}>Automation</Title>
@@ -91,6 +95,45 @@ const WelcomeCard = (props: WelcomeCardProps) => {
     </View>
   );
 
+  const [connected, setConnected] = useState<boolean>(false);
+  const [temperature, setTemperature] = useState<string>("Unknown");
+  const [light, setLight] = useState<string>("Unknown");
+
+  const user_id = useSelector((state: any) => state.user.user_id);
+  const homes: Home[] = useSelector((state: any) => state.user.homes);
+
+  const home: Home = homes.filter((home) => home.manager_id === user_id)[0];
+
+  useEffect(() => {
+    if (home) {
+      const client = mqttService.connect(
+        home.home_name,
+        home.aio_key,
+        home.devices,
+        (topic: string, message: string) => {
+          console.log(`Receive from topic ${topic} : ${message}`);
+          // check if topic is light sensor or temperature sensor
+          /*
+            if (topic === "cambienas") {
+              setLight(message)
+            } else if (topic === "nhietdo") {
+              setTemperature(message)
+            }
+          */
+        }
+      );
+
+      client.on("connect", () => {
+        setConnected(true);
+      });
+
+      return () => {
+        mqttService.disconnect();
+        setConnected(false);
+      };
+    }
+  }, [home]);
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -100,8 +143,8 @@ const WelcomeCard = (props: WelcomeCardProps) => {
       />
       <View style={styles.mainBarContainer}>
         <View id="show-in4" style={styles.infoContainer}>
-          <InformationBar imgSrc="weather-icon.png" text="28 C" />
-          <InformationBar imgSrc="water-percent.png" text="70%" />
+          <InformationBar imgSrc="weather-icon.png" text={temperature} />
+          <InformationBar imgSrc="water-percent.png" text={light} />
           <InformationBar imgSrc="calendar-icon.png" text={getCurrentDate()} />
         </View>
         <View style={styles.avatarContainer}>
