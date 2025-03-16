@@ -1,59 +1,51 @@
 import mqtt, { MqttClient } from "mqtt";
+import Device from "@/interface/device.interface";
 
-interface UserData {
-  homename: string;
-  aiokey: string;
-  feeds: string[];
-}
+class MqttService {
+  private client: MqttClient | null = null;
 
-let client: MqttClient | null = null;
-
-export const mqttService = {
-  connect: (userData: UserData) => {
-    if (!userData.homename || !userData.aiokey || !userData.feeds) {
-      console.error(`Invalid user data`);
-      return;
+  connect(
+    home_name: string,
+    aiokey: string,
+    devices: Device[],
+    OnMessageCallback: (topic: string, message: string) => void
+  ): MqttClient {
+    if (this.client) {
+      return this.client;
     }
-    client = mqtt.connect("mqtts://io.adafruit.com", {
-      username: userData.homename,
-      password: userData.aiokey,
+
+    this.client = mqtt.connect("mqtt://io.adafruit.com", {
+      username: home_name,
+      password: aiokey,
     });
 
-    client.on("connect", () => {
-      console.log("Connected to MQTT");
-
-      userData.feeds.forEach((feed) => {
-        const topic = `${userData.homename}/feeds/${feed}`;
-        client?.subscribe(topic, (err) => {
-          if (!err) {
-            console.log(`Subscribed to ${topic}`);
+    this.client.on("connect", () => {
+      console.log("Connected to Adafruit IO");
+      devices.forEach((device) => {
+        this.client?.subscribe(`${home_name}/feeds/${device.feed}`, (err) => {
+          if (err) {
+            console.log(`Can't subcribe to feed ${device.id}`);
           } else {
-            console.error(`Error subscribing:`, err);
+            console.log(`Subscribe to feed ${device.id} successfully`);
           }
         });
       });
     });
 
-    client.on("message", (topic: string, message: Buffer) => {
-      console.log(`Received message from ${topic}: ${message.toString()}`);
+    this.client.on("message", (topic, message) => {
+      OnMessageCallback(topic, message.toString());
     });
-  },
 
-  disconnect: () => {
-    if (client) {
-      client.end();
-    }
-  },
+    return this.client;
+  }
 
-  publish: (topic: string, message: string) => {
-    if (client) {
-      client.publish(topic, message, (err) => {
-        if (err) {
-          console.error(`Publish error: `, err);
-        } else {
-          console.log(`Message sent to ${topic}: ${message}`);
-        }
-      });
+  disconnect(): void {
+    if (this.client) {
+      this.client.end();
+      this.client = null;
+      console.log("Disconnected MQTT");
     }
-  },
-};
+  }
+}
+
+export const mqttService = new MqttService();
