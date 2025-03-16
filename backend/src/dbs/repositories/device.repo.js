@@ -3,7 +3,9 @@ const prisma = require("../init.prisma");
 const getDevicesBySerialNumber = async (serial_number) => {
   const result = await prisma.device
     .findMany({
-      where: serial_number,
+      where: {
+        serial_number: serial_number,
+      },
     })
     .catch((error) => {
       console.error(error);

@@ -3,6 +3,7 @@
 const {
   NotFoundError,
   ConflictRequestError,
+  BadRequestError,
 } = require("../core/error.response");
 
 const {
@@ -10,6 +11,7 @@ const {
   getDevicesBySerialNumber,
   updateDeviceStatus,
 } = require("../dbs/repositories/device.repo");
+const { getHomeByUserId } = require("../dbs/repositories/home.repo");
 
 class DeviceService {
   /**
@@ -22,10 +24,10 @@ class DeviceService {
       throw new NotFoundError("No devices found");
     }
 
-    return ({
+    return {
       message: "Get devices successfully",
       metadata: devices,
-    });
+    };
   };
 
   /**
@@ -39,10 +41,10 @@ class DeviceService {
       throw new NotFoundError("Device not found");
     }
 
-    return ({
+    return {
       message: "Get device successfully",
       metadata: device,
-    });
+    };
   };
 
   /**
@@ -62,11 +64,34 @@ class DeviceService {
       throw new ConflictRequestError("Failed to update device status");
     }
 
-    return ({
+    return {
       message: "Update device status successfully",
       metadata: updatedDevice,
-    });
+    };
   };
+
+  static async getDevicesByUserId({ userId }) {
+    const foundHome = await getHomeByUserId(userId);
+    if (!foundHome) {
+      throw new BadRequestError("Home not found");
+    }
+
+    const foundDevice = await Promise.all(
+      foundHome.map(async (home) => {
+        const devices = await getDevicesBySerialNumber(home.home.serial_number);
+        return {
+          home_id: home.home_id,
+          home_name: home.home.home_name,
+          serial_number: home.home.serial_number,
+          aio_key: home.home.aio_key,
+          manager_id: home.home.manager_id,
+          devices: devices,
+        };
+      })
+    );
+
+    return foundDevice;
+  }
 }
 
 module.exports = DeviceService;

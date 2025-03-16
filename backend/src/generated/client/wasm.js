@@ -130,7 +130,7 @@ exports.Prisma.UsersScalarFieldEnum = {
 };
 
 exports.Prisma.User_in_homeScalarFieldEnum = {
-  user_email: 'user_email',
+  user_id: 'user_id',
   home_id: 'home_id'
 };
 
@@ -141,7 +141,8 @@ exports.Prisma.DeviceScalarFieldEnum = {
   power_rating: 'power_rating',
   room_name: 'room_name',
   password: 'password',
-  serial_number: 'serial_number'
+  serial_number: 'serial_number',
+  feed: 'feed'
 };
 
 exports.Prisma.MeasurementScalarFieldEnum = {
@@ -178,7 +179,10 @@ exports.Prisma.Device_have_notificationScalarFieldEnum = {
 
 exports.Prisma.HomeScalarFieldEnum = {
   id: 'id',
-  serial_number: 'serial_number'
+  serial_number: 'serial_number',
+  home_name: 'home_name',
+  manager_id: 'manager_id',
+  aio_key: 'aio_key'
 };
 
 exports.Prisma.SortOrder = {

@@ -13,7 +13,9 @@ export default function Index() {
       }}
     >
       <View style={{ flex: 1 }}>
-        <Image source={require("@/assets/images/welcome_image.png")}></Image>
+        <Image
+          source={require("@/assets/images/background/welcome_image.png")}
+        ></Image>
       </View>
       <View style={{ flex: 1 }}>
         <View style={{ display: "flex", flexDirection: "column" }}>
@@ -70,7 +72,8 @@ export default function Index() {
                 height: 50,
                 borderRadius: 10,
               }}
-              onPress={() => router.push("/LoginScreen")}
+              onPress={() => router.push("/(login)/LoginScreen")}
+              // onPress={() => router.push("/(screens)/HomeScreen")}
             >
               <Text
                 style={{ color: "white", fontWeight: "bold", fontSize: 20 }}
@@ -91,7 +94,7 @@ export default function Index() {
                 borderWidth: 1,
                 borderColor: "black",
               }}
-              onPress={() => router.push("/RegisterScreen")}
+              onPress={() => router.push("/(login)/RegisterScreen")}
             >
               <Text
                 style={{ color: "black", fontWeight: "bold", fontSize: 20 }}

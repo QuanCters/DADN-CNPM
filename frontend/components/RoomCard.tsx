@@ -1,27 +1,36 @@
 import Title from "@/components/Title";
 import { Colors } from "@/constants/Colors";
 import React from "react";
-import { Image, View, StyleSheet, ImageBackground, Text } from "react-native";
+import roomTypes from "@/constants/roomType";
+import {
+  Image,
+  View,
+  StyleSheet,
+  ImageBackground,
+  Text,
+  Pressable,
+} from "react-native";
 
 // 16:9 aspect ratio
 
 type RoomCardProps = {
-  roomName: "Kitchen" | "Living Room" | "Bed Room";
+  roomName: string;
   deviceCount: number;
+  onPress?: () => void;
 };
 
 const RoomCard = (props: RoomCardProps) => {
   let imgSrc;
 
-  if (props.roomName === "Kitchen") {
-    imgSrc = require("@/assets/images/kitchen.png");
-  } else if (props.roomName === "Living Room") {
-    imgSrc = require("@/assets/images/livingroom.png");
-  } else {
-    imgSrc = require("@/assets/images/bedroom.png");
+  if (props.roomName === roomTypes.kitchen) {
+    imgSrc = require("@/assets/images/room/kitchen.png");
+  } else if (props.roomName === roomTypes.livingRoom) {
+    imgSrc = require("@/assets/images/room/livingroom.png");
+  } else if (props.roomName === roomTypes.bedroom) {
+    imgSrc = require("@/assets/images/room/bedroom.png");
   }
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={props.onPress}>
       <ImageBackground
         style={styles.imageBackground}
         source={imgSrc}
@@ -38,7 +47,7 @@ const RoomCard = (props: RoomCardProps) => {
           </Text>
         </View>
       </ImageBackground>
-    </View>
+    </Pressable>
   );
 };
 

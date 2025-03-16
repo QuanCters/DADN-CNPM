@@ -1,15 +1,20 @@
-import React, { useState } from "react";
-
-import { View, StyleSheet, Text, Image, ImageBackground } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  ImageBackground,
+  Pressable,
+} from "react-native";
 import { Colors } from "@/constants/Colors";
 import InformationBar from "@/components/InformationBar";
 import Title from "@/components/Title";
 import Fontisto from "@expo/vector-icons/Fontisto";
-
-interface WelcomeProps {
-  first_name: string;
-  last_name: string;
-}
+import Entypo from "@expo/vector-icons/Entypo";
+import { useSelector } from "react-redux";
+import { mqttService } from "@/services/mqtt.service";
+import Home from "@/interface/home.interface";
 
 const getCurrentDate = () => {
   const date = new Date();
@@ -60,42 +65,96 @@ const getCurrentDate = () => {
 const USERNAME = "John Doe";
 const NOTIFICATION_COUNT = 3;
 
-const WelcomeCard = () => {
-  const [temperature, setTemperature] = useState<string>("");
-  const [water, setWater] = useState<string>("");
-  const [notiCount, setNotiCount] = useState<string>("");
+type WelcomeCardProps = {
+  onAutomation?: boolean;
+};
+const WelcomeCard = (props: WelcomeCardProps) => {
+  const namingUI = (
+    <View style={styles.nameContainer}>
+      <Title ownStyle={{ color: "white" }}>Hi, {USERNAME}</Title>
+      <View></View>
+      <Fontisto name="bell-alt" size={24} color="#ffffff" />
+      {NOTIFICATION_COUNT > 0 && (
+        <View style={styles.notificationCount}>
+          <Text style={{ color: "white", fontSize: 12 }}>
+            {NOTIFICATION_COUNT}
+          </Text>
+        </View>
+      )}
+    </View>
+  );
+
+  const automationUI = (
+    <View style={styles.nameContainer}>
+      <Title ownStyle={{ color: "white" }}>Automation</Title>
+      <View></View>
+
+      <Pressable style={styles.addBtn}>
+        <Entypo name="plus" size={24} color="#ffffff" />
+      </Pressable>
+    </View>
+  );
+
+  const [connected, setConnected] = useState<boolean>(false);
+  const [temperature, setTemperature] = useState<string>("Unknown");
+  const [light, setLight] = useState<string>("Unknown");
+
+  const user_id = useSelector((state: any) => state.user.user_id);
+  const homes: Home[] = useSelector((state: any) => state.user.homes);
+
+  const home: Home = homes.filter((home) => home.manager_id === user_id)[0];
+
+  useEffect(() => {
+    if (home) {
+      const client = mqttService.connect(
+        home.home_name,
+        home.aio_key,
+        home.devices,
+        (topic: string, message: string) => {
+          console.log(`Receive from topic ${topic} : ${message}`);
+          // check if topic is light sensor or temperature sensor
+          /*
+            if (topic === "cambienas") {
+              setLight(message)
+            } else if (topic === "nhietdo") {
+              setTemperature(message)
+            }
+          */
+        }
+      );
+
+      client.on("connect", () => {
+        setConnected(true);
+      });
+
+      return () => {
+        mqttService.disconnect();
+        setConnected(false);
+      };
+    }
+  }, [home]);
+
   return (
     <View style={styles.container}>
       <ImageBackground
         style={styles.imgBackground}
-        source={require("@/assets/images/welcome-background.png")}
+        source={require("@/assets/images/background/welcome-background.png")}
         resizeMode="contain"
       />
       <View style={styles.mainBarContainer}>
         <View id="show-in4" style={styles.infoContainer}>
-          <InformationBar imgSrc="weather-icon.png" text="28 C" />
-          <InformationBar imgSrc="water-percent.png" text="70%" />
+          <InformationBar imgSrc="weather-icon.png" text={temperature} />
+          <InformationBar imgSrc="water-percent.png" text={light} />
           <InformationBar imgSrc="calendar-icon.png" text={getCurrentDate()} />
         </View>
         <View style={styles.avatarContainer}>
           <Image
             style={styles.avatarImg}
-            source={require("@/assets/images/avatar.png")}
+            source={require("@/assets/images/icon/avatar.png")}
           />
         </View>
       </View>
-      <View style={styles.nameContainer}>
-        <Title ownStyle={{ color: "white" }}>Hi, {USERNAME}</Title>
-        <View style={{ position: "relative" }}></View>
-        <Fontisto name="bell-alt" size={24} color="#ffffff" />
-        {NOTIFICATION_COUNT > 0 && (
-          <View style={styles.notificationCount}>
-            <Text style={{ color: "white", fontSize: 12 }}>
-              {NOTIFICATION_COUNT}
-            </Text>
-          </View>
-        )}
-      </View>
+      {props.onAutomation ? automationUI : namingUI}
     </View>
   );
 };
@@ -160,5 +219,11 @@ const styles = StyleSheet.create({
     height: 20,
     justifyContent: "center",
     alignItems: "center",
+  },
+  addBtn: {
+    padding: 4,
+    borderRadius: 1000,
+    borderWidth: 1,
+    borderColor: Colors.backgroundColor,
   },
 });
