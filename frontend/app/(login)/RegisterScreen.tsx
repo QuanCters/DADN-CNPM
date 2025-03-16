@@ -14,17 +14,10 @@ import {
 import React, { useState } from "react";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-
-interface FormValues {
-  email: string;
-  first_name: string;
-  last_name: string;
-  password: string;
-  confirm_password: string;
-}
+import RegisterFormValues from "@/interface/registerFormValues.interface";
 
 const RegisterScreen = () => {
-  const [state, setState] = useState<FormValues>({
+  const [state, setState] = useState<RegisterFormValues>({
     email: "",
     first_name: "",
     last_name: "",
@@ -32,7 +25,7 @@ const RegisterScreen = () => {
     confirm_password: "",
   });
 
-  const [errors, setErrors] = useState<FormValues>({
+  const [errors, setErrors] = useState<RegisterFormValues>({
     email: "",
     first_name: "",
     last_name: "",
@@ -51,8 +44,8 @@ const RegisterScreen = () => {
     };
 
     Object.keys(state).forEach((key) => {
-      if (!state[key as keyof FormValues]) {
-        newErrors[key as keyof FormValues] = `${key} is required`;
+      if (!state[key as keyof RegisterFormValues]) {
+        newErrors[key as keyof RegisterFormValues] = `${key} is required`;
         valid = false;
       }
     });

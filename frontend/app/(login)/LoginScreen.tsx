@@ -10,33 +10,11 @@ import React, { useState } from "react";
 import { router } from "expo-router";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/redux/slices/userSlice";
-
-// Interface to define the structure of form values
-interface FormValues {
-  email: string;
-  password: string;
-}
-
-interface DeviceItem {
-  id: string;
-  status: string;
-  type: string;
-  power_rating: string;
-  room_name: string;
-  password: string | null;
-  serial_number: string;
-}
-
-interface HomeItem {
-  home_id: string;
-  home_name: string;
-  aoikey: string;
-  devices: DeviceItem[];
-}
+import LoginFormValues from "@/interface/loginFormValues.interface";
 
 const LoginScreen = () => {
   const dispatch = useDispatch();
-  const [state, setState] = useState<FormValues>({
+  const [state, setState] = useState<LoginFormValues>({
     email: "",
     password: "",
   });
@@ -80,6 +58,7 @@ const LoginScreen = () => {
             isAuthenticated: true,
             first_name: result.first_name,
             last_name: result.last_name,
+            user_id: result.userId,
           })
         );
 
