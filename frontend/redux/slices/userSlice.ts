@@ -1,17 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface UserState {
-  homes: { home_name: string; aiokey: string }[];
-  isAuthenticated: boolean;
-  first_name: string | null;
-  last_name: string | null;
-}
+import UserState from "@/interface/userState.interface";
 
 const initialState: UserState = {
   homes: [],
   isAuthenticated: false,
   first_name: null,
   last_name: null,
+  user_id: null,
 };
 
 const userSlice = createSlice({
@@ -23,6 +18,7 @@ const userSlice = createSlice({
       state.isAuthenticated = action.payload.isAuthenticated;
       state.first_name = action.payload.first_name;
       state.last_name = action.payload.last_name;
+      state.user_id = action.payload.user_id;
     },
 
     logout: (state) => {
@@ -30,6 +26,7 @@ const userSlice = createSlice({
       state.isAuthenticated = false;
       state.first_name = null;
       state.last_name = null;
+      state.user_id = null;
     },
   },
 });
