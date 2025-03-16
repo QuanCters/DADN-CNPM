@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { router } from "expo-router";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/redux/slices/userSlice";
 
 // Interface to define the structure of form values
 interface FormValues {
@@ -15,7 +17,25 @@ interface FormValues {
   password: string;
 }
 
+interface DeviceItem {
+  id: string;
+  status: string;
+  type: string;
+  power_rating: string;
+  room_name: string;
+  password: string | null;
+  serial_number: string;
+}
+
+interface HomeItem {
+  home_id: string;
+  home_name: string;
+  aoikey: string;
+  devices: DeviceItem[];
+}
+
 const LoginScreen = () => {
+  const dispatch = useDispatch();
   const [state, setState] = useState<FormValues>({
     email: "",
     password: "",
@@ -41,6 +61,28 @@ const LoginScreen = () => {
       const result = await response.json();
 
       if (result.status === 200) {
+        const home = await fetch(
+          process.env.EXPO_PUBLIC_BACKEND_URL + "/device/user/" + result.userId,
+          {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        const homeList = await home.json();
+
+        dispatch(
+          setUser({
+            homes: homeList,
+            isAuthenticated: true,
+            first_name: result.first_name,
+            last_name: result.last_name,
+          })
+        );
+
         router.push("/(screens)/HomeScreen");
       } else {
         console.error("Login failed:", result.message);

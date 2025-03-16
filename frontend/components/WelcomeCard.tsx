@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
-
 import { View, StyleSheet, Text, Image, ImageBackground } from "react-native";
 import { Colors } from "@/constants/Colors";
 import InformationBar from "@/components/InformationBar";
 import Title from "@/components/Title";
 import Fontisto from "@expo/vector-icons/Fontisto";
-
-interface WelcomeProps {
-  first_name: string;
-  last_name: string;
-}
+import { useSelector, UseSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { mqttService } from "@/services/mqtt.service";
 
 interface UserData {
-  username: string;
+  homename: string;
   aiokey: string;
   feeds: string[];
 }
@@ -67,12 +64,12 @@ const USERNAME = "John Doe";
 const NOTIFICATION_COUNT = 3;
 
 const WelcomeCard = () => {
-  const [userData, setUserData] = useState<UserData | null>(null);
-  const [temperature, setTemperature] = useState<string>("");
-  const [water, setWater] = useState<string>("");
+  const userData: UserData = useSelector((state: RootState) => state.user);
+  const [temperature, setTemperature] = useState<string>("No data");
+  const [water, setWater] = useState<string>("No data");
   const [notiCount, setNotiCount] = useState<string>("");
 
-  // fetch user data
+  useEffect(() => {});
 
   return (
     <View style={styles.container}>

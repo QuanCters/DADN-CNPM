@@ -1,7 +1,7 @@
 import mqtt, { MqttClient } from "mqtt";
 
 interface UserData {
-  username: string;
+  homename: string;
   aiokey: string;
   feeds: string[];
 }
@@ -10,12 +10,12 @@ let client: MqttClient | null = null;
 
 export const mqttService = {
   connect: (userData: UserData) => {
-    if (!userData.username || !userData.aiokey || !userData.feeds) {
+    if (!userData.homename || !userData.aiokey || !userData.feeds) {
       console.error(`Invalid user data`);
       return;
     }
     client = mqtt.connect("mqtts://io.adafruit.com", {
-      username: userData.username,
+      username: userData.homename,
       password: userData.aiokey,
     });
 
@@ -23,7 +23,7 @@ export const mqttService = {
       console.log("Connected to MQTT");
 
       userData.feeds.forEach((feed) => {
-        const topic = `${userData.username}/feeds/${feed}`;
+        const topic = `${userData.homename}/feeds/${feed}`;
         client?.subscribe(topic, (err) => {
           if (!err) {
             console.log(`Subscribed to ${topic}`);
