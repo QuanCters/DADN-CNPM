@@ -25,7 +25,7 @@ const HomeScreen = () => {
         <Title ownStyle={styles.QuickAccessTitle}>Quick access</Title>
         <View style={styles.QuickAcessCards}>
           <QuickAccessCard
-            deviceName={deviceTypes.airConditioner}
+            deviceName={deviceTypes.light}
             roomName={roomTypes.livingRoom}
           />
           <QuickAccessCard

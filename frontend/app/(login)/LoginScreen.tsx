@@ -20,6 +20,7 @@ const LoginScreen = () => {
   });
 
   const handleSubmit = async () => {
+    console.log("Login form submitted:", state);
     try {
       const response = await fetch(
         process.env.EXPO_PUBLIC_BACKEND_URL + "/user/login",
@@ -37,6 +38,7 @@ const LoginScreen = () => {
       );
 
       const result = await response.json();
+      console.log(result);
 
       if (result.status === 200) {
         const home = await fetch(
