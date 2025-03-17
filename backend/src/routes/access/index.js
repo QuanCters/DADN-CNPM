@@ -97,6 +97,12 @@ router.post("/user/signup", asyncHandler(accessController.signup));
  *                message:
  *                  type: string
  *                  description: message response
+ *                first_name:
+ *                  type: string
+ *                  description: first name of user
+ *                last_name:
+ *                  type: string
+ *                  description: last name of user
  *                access_token:
  *                  type: string
  *                  description: A token used for accessing protected routes

@@ -8,15 +8,13 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { router } from "expo-router";
-
-// Interface to define the structure of form values
-interface FormValues {
-  email: string;
-  password: string;
-}
+import { useDispatch } from "react-redux";
+import { setUser } from "@/redux/slices/userSlice";
+import LoginFormValues from "@/interface/loginFormValues.interface";
 
 const LoginScreen = () => {
-  const [state, setState] = useState<FormValues>({
+  const dispatch = useDispatch();
+  const [state, setState] = useState<LoginFormValues>({
     email: "",
     password: "",
   });
@@ -41,6 +39,29 @@ const LoginScreen = () => {
       const result = await response.json();
 
       if (result.status === 200) {
+        const home = await fetch(
+          process.env.EXPO_PUBLIC_BACKEND_URL + "/device/user/" + result.userId,
+          {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        const homeList = await home.json();
+
+        dispatch(
+          setUser({
+            homes: homeList,
+            isAuthenticated: true,
+            first_name: result.first_name,
+            last_name: result.last_name,
+            user_id: result.userId,
+          })
+        );
+
         router.push("/(screens)/HomeScreen");
       } else {
         console.error("Login failed:", result.message);
