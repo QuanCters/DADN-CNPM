@@ -97,12 +97,14 @@ const WelcomeCard = (props: WelcomeCardProps) => {
 
   const [connected, setConnected] = useState<boolean>(false);
   const [temperature, setTemperature] = useState<string>("Unknown");
+  const [humidity, setHumidity] = useState<string>("unknown");
   const [light, setLight] = useState<string>("Unknown");
 
-  const user_id = useSelector((state: any) => state.user.user_id);
+  const selectedHome = useSelector((state: any) => state.user.selectedHome);
   const homes: Home[] = useSelector((state: any) => state.user.homes);
-
-  const home: Home = homes.filter((home) => home.manager_id === user_id)[0];
+  const home: Home = homes.filter(
+    (home: any) => home.home_id === selectedHome
+  )[0];
 
   useEffect(() => {
     if (home) {
@@ -111,15 +113,13 @@ const WelcomeCard = (props: WelcomeCardProps) => {
         home.aio_key,
         home.devices,
         (topic: string, message: string) => {
-          console.log(`Receive from topic ${topic} : ${message}`);
-          // check if topic is light sensor or temperature sensor
-          /*
-            if (topic === "cambienas") {
-              setLight(message)
-            } else if (topic === "nhietdo") {
-              setTemperature(message)
-            }
-          */
+          if (topic === "cambienas") {
+            setLight(message);
+          } else if (topic === "cambiennd") {
+            setTemperature(message);
+          } else if (topic === "cambienda") {
+            setHumidity(message);
+          }
         }
       );
 
@@ -144,7 +144,7 @@ const WelcomeCard = (props: WelcomeCardProps) => {
       <View style={styles.mainBarContainer}>
         <View id="show-in4" style={styles.infoContainer}>
           <InformationBar imgSrc="weather-icon.png" text={temperature} />
-          <InformationBar imgSrc="water-percent.png" text={light} />
+          <InformationBar imgSrc="water-percent.png" text={humidity} />
           <InformationBar imgSrc="calendar-icon.png" text={getCurrentDate()} />
         </View>
         <View style={styles.avatarContainer}>

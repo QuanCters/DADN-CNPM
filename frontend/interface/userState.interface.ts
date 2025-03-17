@@ -9,6 +9,7 @@ export default interface UserState {
     manager_id: number;
     devices: Device[];
   }[];
+  selectedHome: null;
   isAuthenticated: boolean;
   first_name: string | null;
   last_name: string | null;

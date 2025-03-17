@@ -5,6 +5,7 @@ import { View, StyleSheet, Text, Keyboard, Pressable } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Colors } from "@/constants/Colors";
 import Header from "@/components/Header";
+import { useSelector } from "react-redux";
 
 const KEYBOARD = [
   ["1", "4", "7", "Delete"],
@@ -12,20 +13,28 @@ const KEYBOARD = [
   ["3", "6", "9", "Enter"],
 ];
 
-const CORRECT_PASS = "123456";
-
 const SmartDoorScreen = () => {
   const [isCorrectPass, setIsCorrectPass] = useState<boolean | null>(null);
-  const [pass, setPass] = useState("");
+  const [pass, setPass] = useState<string>("");
+  const [isChangingPassword, setIsChangingPassword] = useState<boolean>(false);
+  const [newPassword, setNewPassword] = useState<string>("");
+  let CORRECT_PASS = "123456";
 
   function handleKeyPress(key: string) {
     if (key === "Enter") {
-      if (pass === CORRECT_PASS) {
+      if (isChangingPassword) {
+        CORRECT_PASS = newPassword;
+        setIsChangingPassword(false);
+        setNewPassword("");
         setIsCorrectPass(true);
-        Keyboard.dismiss();
       } else {
-        setIsCorrectPass(false);
-        setPass("");
+        if (pass === CORRECT_PASS) {
+          setIsCorrectPass(true);
+          Keyboard.dismiss();
+        } else {
+          setIsCorrectPass(false);
+          setPass("");
+        }
       }
     } else if (key === "Delete") {
       setPass(pass.slice(0, pass.length - 1));

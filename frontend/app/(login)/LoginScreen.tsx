@@ -52,9 +52,18 @@ const LoginScreen = () => {
 
         const homeList = await home.json();
 
+        let selectedHome = homeList.filter(
+          (home: any) => home.manager_id === result.userId
+        )[0];
+
+        if (!selectedHome) {
+          selectedHome = homeList[0];
+        }
+
         dispatch(
           setUser({
             homes: homeList,
+            selectedHome: selectedHome.home_id,
             isAuthenticated: true,
             first_name: result.first_name,
             last_name: result.last_name,
