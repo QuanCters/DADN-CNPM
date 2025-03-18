@@ -12,7 +12,7 @@ import roomTypes from "@/constants/roomType";
 const HomeScreen = () => {
   return (
     <View style={styles.container}>
-      <WelcomeCard />
+      <WelcomeCard onScreen="home" />
       <View style={styles.scheduleContainer}>
         <ScheduleCard />
         <ScheduleCard />

@@ -81,11 +81,12 @@ const WelcomeCard = (props: WelcomeCardProps) => {
         home.aio_key,
         home.devices,
         (topic: string, message: string) => {
-          if (topic === "cambienas") {
+          console.log(topic, " ", message);
+          if (topic === `${home.home_name}/feeds/cambienas`) {
             setLight(message);
-          } else if (topic === "cambiennd") {
+          } else if (topic === `${home.home_name}/feeds/cambiennd`) {
             setTemperature(message);
-          } else if (topic === "cambienda") {
+          } else if (topic === `${home.home_name}/feeds/cambienda`) {
             setHumidity(message);
           }
         }
@@ -131,7 +132,7 @@ const WelcomeCard = (props: WelcomeCardProps) => {
       <View style={styles.mainBarContainer}>
         <View id="show-in4" style={styles.infoContainer}>
           <InformationBar imgSrc="weather-icon.png" text={temperature} />
-          <InformationBar imgSrc="water-percent.png" text={light} />
+          <InformationBar imgSrc="water-percent.png" text={humidity} />
           <InformationBar imgSrc="sun-icon.png" text={light} />
           <InformationBar imgSrc="calendar-icon.png" text={getCurrentDate()} />
         </View>
