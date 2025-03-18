@@ -12,7 +12,7 @@ import roomTypes from "@/constants/roomType";
 const HomeScreen = () => {
   return (
     <View style={styles.container}>
-      <WelcomeCard />
+      <WelcomeCard onScreen="home" />
       <View style={styles.scheduleContainer}>
         <ScheduleCard />
         <ScheduleCard />
@@ -25,7 +25,7 @@ const HomeScreen = () => {
         <Title ownStyle={styles.QuickAccessTitle}>Quick access</Title>
         <View style={styles.QuickAcessCards}>
           <QuickAccessCard
-            deviceName={deviceTypes.airConditioner}
+            deviceName={deviceTypes.light}
             roomName={roomTypes.livingRoom}
           />
           <QuickAccessCard

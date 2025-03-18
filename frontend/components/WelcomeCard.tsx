@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  Image,
-  ImageBackground,
-  Pressable,
-} from "react-native";
+import { View, StyleSheet, Text, Image, ImageBackground } from "react-native";
 import { Colors } from "@/constants/Colors";
 import InformationBar from "@/components/InformationBar";
 import Title from "@/components/Title";
 import Fontisto from "@expo/vector-icons/Fontisto";
-import Entypo from "@expo/vector-icons/Entypo";
 import { useSelector } from "react-redux";
 import { mqttService } from "@/services/mqtt.service";
 import Home from "@/interface/home.interface";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import Members from "@/components/Members";
 
 const getCurrentDate = () => {
   const date = new Date();
@@ -66,43 +60,19 @@ const USERNAME = "John Doe";
 const NOTIFICATION_COUNT = 3;
 
 type WelcomeCardProps = {
-  onAutomation?: boolean;
+  onScreen: "home" | "automation" | "user";
 };
 const WelcomeCard = (props: WelcomeCardProps) => {
-  const namingUI = (
-    <View style={styles.nameContainer}>
-      <Title ownStyle={{ color: "white" }}>Hi, {USERNAME}</Title>
-      <View></View>
-      <Fontisto name="bell-alt" size={24} color="#ffffff" />
-      {NOTIFICATION_COUNT > 0 && (
-        <View style={styles.notificationCount}>
-          <Text style={{ color: "white", fontSize: 12 }}>
-            {NOTIFICATION_COUNT}
-          </Text>
-        </View>
-      )}
-    </View>
-  );
-
-  const automationUI = (
-    <View style={styles.nameContainer}>
-      <Title ownStyle={{ color: "white" }}>Automation</Title>
-      <View></View>
-
-      <Pressable style={styles.addBtn}>
-        <Entypo name="plus" size={24} color="#ffffff" />
-      </Pressable>
-    </View>
-  );
-
   const [connected, setConnected] = useState<boolean>(false);
   const [temperature, setTemperature] = useState<string>("Unknown");
+  const [humidity, setHumidity] = useState<string>("unknown");
   const [light, setLight] = useState<string>("Unknown");
 
-  const user_id = useSelector((state: any) => state.user.user_id);
+  const selectedHome = useSelector((state: any) => state.user.selectedHome);
   const homes: Home[] = useSelector((state: any) => state.user.homes);
-
-  const home: Home = homes.filter((home) => home.manager_id === user_id)[0];
+  const home: Home = homes.filter(
+    (home: any) => home.home_id === selectedHome
+  )[0];
 
   useEffect(() => {
     if (home) {
@@ -111,15 +81,14 @@ const WelcomeCard = (props: WelcomeCardProps) => {
         home.aio_key,
         home.devices,
         (topic: string, message: string) => {
-          console.log(`Receive from topic ${topic} : ${message}`);
-          // check if topic is light sensor or temperature sensor
-          /*
-            if (topic === "cambienas") {
-              setLight(message)
-            } else if (topic === "nhietdo") {
-              setTemperature(message)
-            }
-          */
+          console.log(topic, " ", message);
+          if (topic === `${home.home_name}/feeds/cambienas`) {
+            setLight(message);
+          } else if (topic === `${home.home_name}/feeds/cambiennd`) {
+            setTemperature(message);
+          } else if (topic === `${home.home_name}/feeds/cambienda`) {
+            setHumidity(message);
+          }
         }
       );
 
@@ -134,6 +103,25 @@ const WelcomeCard = (props: WelcomeCardProps) => {
     }
   }, [home]);
 
+  const homeUI = (
+    <>
+      <Fontisto name="bell-alt" size={24} color={Colors.iconBackground} />
+      {NOTIFICATION_COUNT > 0 && (
+        <View style={styles.notificationCount}>
+          <Text style={{ color: "white", fontSize: 12 }}>
+            {NOTIFICATION_COUNT}
+          </Text>
+        </View>
+      )}
+    </>
+  );
+
+  const userUI = (
+    <>
+      <AntDesign name="setting" size={24} color={Colors.iconBackground} />
+    </>
+  );
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -144,7 +132,8 @@ const WelcomeCard = (props: WelcomeCardProps) => {
       <View style={styles.mainBarContainer}>
         <View id="show-in4" style={styles.infoContainer}>
           <InformationBar imgSrc="weather-icon.png" text={temperature} />
-          <InformationBar imgSrc="water-percent.png" text={light} />
+          <InformationBar imgSrc="water-percent.png" text={humidity} />
+          <InformationBar imgSrc="sun-icon.png" text={light} />
           <InformationBar imgSrc="calendar-icon.png" text={getCurrentDate()} />
         </View>
         <View style={styles.avatarContainer}>
@@ -154,7 +143,18 @@ const WelcomeCard = (props: WelcomeCardProps) => {
           />
         </View>
       </View>
-      {props.onAutomation ? automationUI : namingUI}
+      {props.onScreen !== "automation" ? (
+        <View style={styles.nameContainer}>
+          <Title ownStyle={{ color: "white" }}>Hi, {USERNAME}</Title>
+          <View></View>
+          {props.onScreen === "home" ? homeUI : userUI}
+        </View>
+      ) : (
+        <Title ownStyle={{ color: "white", paddingHorizontal: 16 }}>
+          Automation
+        </Title>
+      )}
+      {props.onScreen === "user" && <Members />}
     </View>
   );
 };
@@ -178,9 +178,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary800,
     borderEndEndRadius: 20,
     borderStartEndRadius: 20,
-    // justifyContent: "center",
-    // alignItems: "center",
-    // backgroundColor: Colors.primary800,
   },
   mainBarContainer: {
     marginTop: 22,

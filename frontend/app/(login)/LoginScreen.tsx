@@ -20,6 +20,7 @@ const LoginScreen = () => {
   });
 
   const handleSubmit = async () => {
+    console.log("Login form submitted:", state);
     try {
       const response = await fetch(
         process.env.EXPO_PUBLIC_BACKEND_URL + "/user/login",
@@ -37,6 +38,7 @@ const LoginScreen = () => {
       );
 
       const result = await response.json();
+      console.log(result);
 
       if (result.status === 200) {
         const home = await fetch(
@@ -52,9 +54,18 @@ const LoginScreen = () => {
 
         const homeList = await home.json();
 
+        let selectedHome = homeList.filter(
+          (home: any) => home.manager_id === result.userId
+        )[0];
+
+        if (!selectedHome) {
+          selectedHome = homeList[0];
+        }
+
         dispatch(
           setUser({
             homes: homeList,
+            selectedHome: selectedHome.home_id,
             isAuthenticated: true,
             first_name: result.first_name,
             last_name: result.last_name,

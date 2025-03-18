@@ -48,7 +48,7 @@ const devices = [
 const AutomationScreen = () => {
   return (
     <View style={styles.container}>
-      <WelcomeCard onAutomation={true} />
+      <WelcomeCard onScreen="automation" />
       <FlatList
         style={styles.flatList}
         data={devices}

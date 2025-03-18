@@ -14,7 +14,7 @@ class MqttService {
       return this.client;
     }
 
-    this.client = mqtt.connect("mqtt://io.adafruit.com", {
+    this.client = mqtt.connect("mqtts://io.adafruit.com", {
       username: home_name,
       password: aiokey,
     });
@@ -30,6 +30,10 @@ class MqttService {
           }
         });
       });
+    });
+
+    this.client.on("error", (err) => {
+      console.error(`MQTT Client encountered an error: ${err.message}`);
     });
 
     this.client.on("message", (topic, message) => {
