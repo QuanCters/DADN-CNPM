@@ -72,9 +72,25 @@ const updateManagerByHomeId = async (userId, home_id) => {
   return result;
 };
 
+const getHomeBySerialNumber = async (serialNumber) => {
+  const result = prisma.home
+    .findUnique({
+      where: {
+        serial_number: serialNumber,
+      },
+    })
+    .catch((err) => {
+      console.error(err);
+      throw new err();
+    });
+
+  return result;
+};
+
 module.exports = {
   getHomeByUserId,
   addUserToHomeById,
   updateManagerByHomeId,
   getHomeByHomeId,
+  getHomeBySerialNumber,
 };

@@ -4,11 +4,13 @@ const {
   BadRequestError,
   ConflictRequestError,
 } = require("../core/error.response");
+const { getDevicesBySerialNumber } = require("../dbs/repositories/device.repo");
 const {
   getHomeByUserId,
   addUserToHomeById,
   updateManagerByHomeId,
   getHomeByHomeId,
+  getHomeBySerialNumber,
 } = require("../dbs/repositories/home.repo");
 
 class HomeService {
@@ -26,7 +28,7 @@ class HomeService {
 
   static async addUserToHomeById({ userId, homeId }) {
     const foundHome = await getHomeByUserId(userId);
-    if (foundHome.length > 0) {
+    if (foundHome.home_id === userId) {
       throw new ConflictRequestError("User already in home");
     }
 
@@ -46,6 +48,21 @@ class HomeService {
     return {
       status: 200,
       message: "Add User Successfully",
+    };
+  }
+
+  static async getHomeBySerialNumber({ serialNumber }) {
+    const result = await getHomeBySerialNumber(serialNumber);
+    if (!result) {
+      throw new BadRequestError("Home not found");
+    }
+
+    const devices = await getDevicesBySerialNumber(serialNumber);
+
+    return {
+      status: 200,
+      message: "Get home successfully",
+      home: { ...result, devices: devices },
     };
   }
 }

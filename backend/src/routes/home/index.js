@@ -52,6 +52,11 @@ const { asyncHandler } = require("../../helper/asyncHandler");
  */
 router.get("/:userId", asyncHandler(homeController.getHomeByUserId));
 
+router.get(
+  "/serial/:serialNumber",
+  asyncHandler(homeController.getHomeBySerialNumber)
+);
+
 /**
  * @swagger
  * '/v1/api/home/add':
