@@ -8,17 +8,90 @@ import {
   StyleSheet,
 } from "react-native";
 import Slider from "@react-native-community/slider";
-import { router } from "expo-router";
 import { SafeAreaView } from "react-native";
 import Header from "@/components/Header";
-import { Colors } from "@/constants/Colors";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import Home from "@/interface/home.interface";
+import Device from "@/interface/device.interface";
+import { useLocalSearchParams } from "expo-router";
+import { changeDeviceStatus } from "@/redux/slices/userSlice";
 
 const Light = () => {
-  const [isOn, setIsOn] = useState(true);
-  const [brightness, setBrightness] = useState(47);
-  const [selectedColor, setSelectedColor] = useState("#FFD700"); // Default light color
+  const { id, deviceType } = useLocalSearchParams();
+  const homeId = useSelector((state: any) => state.user.selectedHome);
+  const deviceId = typeof id === "string" ? parseInt(id, 10) : null;
+
+  if (deviceId === null || isNaN(deviceId)) {
+    return (
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#EAF1F8" }}>
+        <View style={styles.container}>
+          <Header>Smart Light</Header>
+          <Text style={styles.errorText}>Invalid device ID</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  const deviceStatus = useSelector((state: RootState) => {
+    const home = state.user.homes.find((home: Home) => home.home_id === homeId);
+    if (!home) return null;
+
+    const device = home.devices.find(
+      (device: Device) => device.id === deviceId
+    );
+    return device ? device.status : null;
+  });
+
+  if (deviceStatus === null) {
+    return (
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#EAF1F8" }}>
+        <View style={styles.container}>
+          <Header>Smart Light</Header>
+          <Text style={styles.errorText}>Device not found</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  const [isOn, setIsOn] = useState(deviceStatus === "on");
+  const [brightness, setBrightness] = useState(100);
+  const [selectedColor, setSelectedColor] = useState("#FFD700");
 
   const colors = ["#0057FF", "#FFFFE0", "#FFD700"];
+
+  const dispatch = useDispatch();
+
+  const handleChange = async () => {
+    const response = await fetch(
+      process.env.EXPO_PUBLIC_BACKEND_URL + "/device/update/status",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          device_id: deviceId,
+          status: !isOn ? "on" : "off",
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Error change status");
+    }
+
+    setIsOn(!isOn);
+
+    dispatch(
+      changeDeviceStatus({
+        homeId,
+        deviceId,
+        status: !isOn ? "on" : "off",
+      })
+    );
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#EAF1F8" }}>
@@ -30,7 +103,7 @@ const Light = () => {
 
         {/* Toggle Switch */}
         <View style={styles.switchContainer}>
-          <Switch value={isOn} onValueChange={() => setIsOn(!isOn)} />
+          <Switch value={isOn} onValueChange={handleChange} />
         </View>
 
         {/* Color Selection */}
@@ -175,5 +248,10 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     textAlign: "center",
+  },
+  errorText: {
+    fontSize: 18,
+    color: "red",
+    marginTop: 20,
   },
 });

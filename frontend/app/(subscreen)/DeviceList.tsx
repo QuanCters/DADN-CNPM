@@ -54,9 +54,11 @@ const DeviceList = () => {
           }
           const pathname = getDevicePathname(device.type);
           if (!pathname) return null;
+
           return (
             <QuickAccessCard
               key={device.id}
+              id={device.id}
               havingSwitch={["light", "fan"].includes(device.type)}
               deviceType={device.type}
               roomName={roomName}

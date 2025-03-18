@@ -40,9 +40,29 @@ const userSlice = createSlice({
     addHome: (state: UserState, action: PayloadAction<Home>) => {
       state.homes.push(action.payload);
     },
+
+    changeDeviceStatus: (
+      state: UserState,
+      action: PayloadAction<{
+        homeId: number;
+        deviceId: number;
+        status: string;
+      }>
+    ) => {
+      const { homeId, deviceId, status } = action.payload;
+
+      const home = state.homes.find((home) => home.home_id === homeId);
+      if (!home) return;
+
+      const device = home.devices.find((device) => device.id === deviceId);
+      if (!device) return;
+
+      device.status = status;
+    },
   },
 });
 
-export const { setUser, logout, setSelectedHome, addHome } = userSlice.actions;
+export const { setUser, logout, setSelectedHome, addHome, changeDeviceStatus } =
+  userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,10 +1,24 @@
 import React, { useState } from "react";
 
-import { Image, Pressable, StyleSheet, Switch, Text, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Switch,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { Colors } from "@/constants/Colors";
 import { deviceTypes, DeviceType } from "@/constants/deviceType";
+import { useDispatch, useSelector } from "react-redux";
+import { changeDeviceStatus } from "@/redux/slices/userSlice";
+import Home from "@/interface/home.interface";
+import Device from "@/interface/device.interface";
+import { RootState } from "@/redux/store";
 
 type QuickAccessCardProps = {
+  id: number;
   havingSwitch?: boolean;
   deviceType: DeviceType;
   roomName: string;
@@ -18,13 +32,54 @@ const DEVICE_IMAGES: Record<DeviceType, any> = {
 };
 
 const QuickAccessCard = ({
+  id,
   havingSwitch = true,
   deviceType,
   roomName,
   onPress,
 }: QuickAccessCardProps) => {
-  // const [isEnabled, setIsEnabled] = useState(false);
+  const homeId = useSelector((state: any) => state.user.selectedHome);
+  const deviceStatus = useSelector((state: RootState) => {
+    const home = state.user.homes.find((home: Home) => home.home_id === homeId);
+    if (!home) return null;
+
+    const device = home.devices.find((device: Device) => device.id === id);
+    return device ? device.status : null;
+  });
+  const dispatch = useDispatch();
+  const [isEnabled, setIsEnabled] = useState<boolean>(deviceStatus === "on");
   const deviceName = deviceTypes[deviceType];
+
+  const handleChange = async () => {
+    const response = await fetch(
+      process.env.EXPO_PUBLIC_BACKEND_URL + "/device/update/status",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          device_id: id,
+          status: !isEnabled ? "on" : "off",
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Error change status");
+    }
+
+    setIsEnabled(!isEnabled);
+
+    dispatch(
+      changeDeviceStatus({
+        homeId,
+        deviceId: id,
+        status: !isEnabled ? "on" : "off",
+      })
+    );
+  };
 
   return (
     <Pressable
@@ -39,16 +94,21 @@ const QuickAccessCard = ({
       />
       <Text style={styles.titleText}>{deviceName}</Text>
       <Text style={styles.roomText}>{roomName}</Text>
-      {/* {havingSwitch && (
-        <Switch
-          trackColor={{ false: "#D1D1D6", true: Colors.primary800 }}
-          thumbColor={isEnabled ? "#FFFFFF" : "#F2F2F7"}
-          ios_backgroundColor="#D1D1D6"
-          onValueChange={() => setIsEnabled(!isEnabled)}
-          value={isEnabled}
-          style={styles.switch}
-        />
-      )} */}
+      {havingSwitch && (
+        <TouchableOpacity
+          onPress={(e) => e.stopPropagation()}
+          activeOpacity={1}
+        >
+          <Switch
+            trackColor={{ false: "#D1D1D6", true: Colors.primary800 }}
+            thumbColor={isEnabled ? "#FFFFFF" : "#F2F2F7"}
+            ios_backgroundColor="#D1D1D6"
+            onValueChange={handleChange}
+            value={isEnabled}
+            style={styles.switch}
+          />
+        </TouchableOpacity>
+      )}
     </Pressable>
   );
 };
