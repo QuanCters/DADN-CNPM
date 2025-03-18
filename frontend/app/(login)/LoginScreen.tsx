@@ -38,7 +38,6 @@ const LoginScreen = () => {
       );
 
       const result = await response.json();
-      console.log(result);
 
       if (result.status === 200) {
         const home = await fetch(

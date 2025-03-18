@@ -7,35 +7,23 @@ import Home from "@/interface/home.interface";
 import Entypo from "@expo/vector-icons/Entypo";
 
 import { router } from "expo-router";
-
-const ACCESS_CODE = "1234";
-const HOME_LIST: Home[] = [
-  {
-    home_id: 1,
-    home_name: "Home 1",
-    serial_number: "1234 Home Street",
-    aio_key: "1234",
-    manager_id: 1,
-    devices: [],
-  },
-  {
-    home_id: 2,
-    home_name: "Home 2",
-    serial_number: "1234 Home Street",
-    aio_key: "1234",
-    manager_id: 1,
-    devices: [],
-  },
-];
+import { useSelector } from "react-redux";
 
 const ControlScreen = () => {
+  const home_list: Home[] = useSelector((state: any) => state.user.homes);
   const [isAccess, setIsAccess] = useState(false);
   const [isOpenPrompt, setIsOpenPrompt] = useState(false);
+
+  const handleHomePress = (home: Home) => {
+    router.push({
+      pathname: "/RoomList",
+      params: { devices: JSON.stringify(home.devices) },
+    });
+  };
 
   return (
     <View style={styles.container}>
       <Dialog
-        homeAccessCode={ACCESS_CODE}
         modalVisible={isOpenPrompt}
         setIsAccess={setIsAccess}
         onModalVisibleChange={setIsOpenPrompt}
@@ -43,7 +31,7 @@ const ControlScreen = () => {
 
       <Title ownStyle={styles.title}>Control Device</Title>
       <FlatList
-        data={HOME_LIST}
+        data={home_list}
         showsVerticalScrollIndicator={false}
         style={styles.homesContainer}
         contentContainerStyle={{
@@ -53,7 +41,7 @@ const ControlScreen = () => {
           return (
             <Pressable
               style={styles.homeCard}
-              onPress={() => router.push("/RoomList")}
+              onPress={() => handleHomePress(item)}
             >
               <View>
                 <Text style={styles.homeCardTitle}>{item.home_name}</Text>

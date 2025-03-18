@@ -1,7 +1,7 @@
 const roomTypes = {
-  kitchen: "Kitchen",
-  livingRoom: "Living Room",
-  bedroom: "Bed Room",
+  kitchen: "kitchen",
+  livingRoom: "livingroom",
+  bedroom: "bedroom",
 };
 
 export default roomTypes;

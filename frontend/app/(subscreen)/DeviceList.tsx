@@ -1,35 +1,74 @@
 import Header from "@/components/Header";
 import QuickAccessCard from "@/components/QuickAccessCard";
-import deviceTypes from "@/constants/deviceType";
-import roomTypes from "@/constants/roomType";
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
+import { router, useLocalSearchParams } from "expo-router";
+import Device from "@/interface/device.interface";
+
+type DeviceListParams = {
+  devices?: string;
+  roomName: string;
+};
+
+const isDeviceType = (
+  type: string
+): type is "light" | "fan" | "airConditioner" => {
+  return ["light", "fan", "airConditioner"].includes(type);
+};
 
 const DeviceList = () => {
+  const { devices, roomName } = useLocalSearchParams<DeviceListParams>();
+  const parsedDevices: Device[] = devices ? JSON.parse(devices as string) : [];
+
+  const getDevicePathname = (deviceType: string) => {
+    switch (deviceType) {
+      case "fan":
+        return "/(deviceconfig)/Fan";
+      case "light":
+        return "/(deviceconfig)/Light";
+      case "airConditioner":
+        return "/(deviceconfig)/AirConditioner";
+      default:
+        console.warn(`Invalid device type: ${deviceType}`);
+        return null;
+    }
+  };
+
+  if (parsedDevices.length === 0) {
+    return (
+      <View style={styles.container}>
+        <Header>{`${roomName} Devices`}</Header>
+        <Text style={styles.emptyText}>No devices found in this room</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
-      <Header>Device List</Header>
+      <Header>{`${roomName} Devices`}</Header>
       <View style={styles.cardContainer}>
-        <QuickAccessCard
-          havingSwitch={false}
-          deviceName={deviceTypes.fan}
-          roomName={roomTypes.kitchen}
-        />
-        <QuickAccessCard
-          havingSwitch={false}
-          deviceName={deviceTypes.airConditioner}
-          roomName={roomTypes.livingRoom}
-        />
-        <QuickAccessCard
-          havingSwitch={false}
-          deviceName={deviceTypes.light}
-          roomName={roomTypes.kitchen}
-        />
-        <QuickAccessCard
-          havingSwitch={false}
-          deviceName={deviceTypes.fan}
-          roomName={roomTypes.bedroom}
-        />
+        {parsedDevices.map((device) => {
+          if (!isDeviceType(device.type)) {
+            console.warn(`Invalid device type: ${device.type}`);
+            return null;
+          }
+          const pathname = getDevicePathname(device.type);
+          if (!pathname) return null;
+          return (
+            <QuickAccessCard
+              key={device.id}
+              havingSwitch={["light", "fan"].includes(device.type)}
+              deviceType={device.type}
+              roomName={roomName}
+              onPress={() =>
+                router.push({
+                  pathname: pathname,
+                  params: { id: device.id, deviceType: device.type },
+                })
+              }
+            />
+          );
+        })}
       </View>
     </View>
   );
@@ -47,5 +86,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
+  },
+  emptyText: {
+    marginTop: 20,
+    fontSize: 16,
+    color: "#666",
   },
 });

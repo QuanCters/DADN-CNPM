@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import UserState from "@/interface/userState.interface";
+import Home from "@/interface/home.interface";
 
 const initialState: UserState = {
   homes: [],
@@ -35,9 +36,13 @@ const userSlice = createSlice({
       state.last_name = null;
       state.user_id = null;
     },
+
+    addHome: (state: UserState, action: PayloadAction<Home>) => {
+      state.homes.push(action.payload);
+    },
   },
 });
 
-export const { setUser, logout, setSelectedHome } = userSlice.actions;
+export const { setUser, logout, setSelectedHome, addHome } = userSlice.actions;
 
 export default userSlice.reducer;

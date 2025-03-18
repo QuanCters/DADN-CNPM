@@ -2,58 +2,44 @@ import React, { useState } from "react";
 
 import { Image, Pressable, StyleSheet, Switch, Text, View } from "react-native";
 import { Colors } from "@/constants/Colors";
-import deviceTypes from "@/constants/deviceType";
-
-import { router } from "expo-router";
+import { deviceTypes, DeviceType } from "@/constants/deviceType";
 
 type QuickAccessCardProps = {
   havingSwitch?: boolean;
-  deviceName: string;
+  deviceType: DeviceType;
   roomName: string;
+  onPress: () => void;
+};
+
+const DEVICE_IMAGES: Record<DeviceType, any> = {
+  fan: require("@/assets/images/devices/image-fan.png"),
+  light: require("@/assets/images/devices/image-light.png"),
+  airConditioner: require("@/assets/images/devices/image-air-conditioner.png"),
 };
 
 const QuickAccessCard = ({
   havingSwitch = true,
-  deviceName,
+  deviceType,
   roomName,
+  onPress,
 }: QuickAccessCardProps) => {
-  let image;
-  let path: any;
-
-  if (deviceName === deviceTypes.fan) {
-    image = (
-      <Image
-        style={styles.imgStyle}
-        source={require("@/assets/images/devices/image-fan.png")}
-      />
-    );
-    path = "/(deviceconfig)/Fan";
-  } else if (deviceName === deviceTypes.light) {
-    image = (
-      <Image
-        style={styles.imgStyle}
-        source={require("@/assets/images/devices/image-light.png")}
-      />
-    );
-    path = "/(deviceconfig)/Light";
-  } else if (deviceName === deviceTypes.airConditioner) {
-    image = (
-      <Image
-        style={styles.imgStyle}
-        source={require("@/assets/images/devices/image-air-conditioner.png")}
-      />
-    );
-    path = "/(deviceconfig)/AirConditioner";
-  }
-
-  const [isEnabled, setIsEnabled] = useState(false);
+  // const [isEnabled, setIsEnabled] = useState(false);
+  const deviceName = deviceTypes[deviceType];
 
   return (
-    <Pressable style={styles.container} onPress={() => router.push(path)}>
-      {image}
+    <Pressable
+      style={styles.container}
+      onPress={onPress}
+      accessibilityRole="button"
+    >
+      <Image
+        style={styles.imgStyle}
+        source={DEVICE_IMAGES[deviceType]}
+        accessibilityLabel={`${deviceName} icon`}
+      />
       <Text style={styles.titleText}>{deviceName}</Text>
-      <Text>{roomName}</Text>
-      {havingSwitch && (
+      <Text style={styles.roomText}>{roomName}</Text>
+      {/* {havingSwitch && (
         <Switch
           trackColor={{ false: "#D1D1D6", true: Colors.primary800 }}
           thumbColor={isEnabled ? "#FFFFFF" : "#F2F2F7"}
@@ -62,7 +48,7 @@ const QuickAccessCard = ({
           value={isEnabled}
           style={styles.switch}
         />
-      )}
+      )} */}
     </Pressable>
   );
 };
@@ -87,6 +73,11 @@ const styles = StyleSheet.create({
   titleText: {
     color: Colors.primary800,
     fontSize: 20,
+  },
+  roomText: {
+    color: Colors.neutral500,
+    fontSize: 14,
+    marginBottom: 12,
   },
   switch: {
     transform: [{ scale: 1.2 }], // Makes the switch bigger
