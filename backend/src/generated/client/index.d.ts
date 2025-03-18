@@ -19,10 +19,10 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type users = $Result.DefaultSelection<Prisma.$usersPayload>
 /**
- * Model user_in_home
+ * Model user_have_home
  * 
  */
-export type user_in_home = $Result.DefaultSelection<Prisma.$user_in_homePayload>
+export type user_have_home = $Result.DefaultSelection<Prisma.$user_have_homePayload>
 /**
  * Model device
  * 
@@ -48,6 +48,11 @@ export type log_event = $Result.DefaultSelection<Prisma.$log_eventPayload>
  * 
  */
 export type notification = $Result.DefaultSelection<Prisma.$notificationPayload>
+/**
+ * Model schedule_have_notification
+ * 
+ */
+export type schedule_have_notification = $Result.DefaultSelection<Prisma.$schedule_have_notificationPayload>
 /**
  * Model device_have_notification
  * 
@@ -195,14 +200,14 @@ export class PrismaClient<
   get users(): Prisma.usersDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.user_in_home`: Exposes CRUD operations for the **user_in_home** model.
+   * `prisma.user_have_home`: Exposes CRUD operations for the **user_have_home** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more User_in_homes
-    * const user_in_homes = await prisma.user_in_home.findMany()
+    * // Fetch zero or more User_have_homes
+    * const user_have_homes = await prisma.user_have_home.findMany()
     * ```
     */
-  get user_in_home(): Prisma.user_in_homeDelegate<ExtArgs, ClientOptions>;
+  get user_have_home(): Prisma.user_have_homeDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.device`: Exposes CRUD operations for the **device** model.
@@ -253,6 +258,16 @@ export class PrismaClient<
     * ```
     */
   get notification(): Prisma.notificationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.schedule_have_notification`: Exposes CRUD operations for the **schedule_have_notification** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Schedule_have_notifications
+    * const schedule_have_notifications = await prisma.schedule_have_notification.findMany()
+    * ```
+    */
+  get schedule_have_notification(): Prisma.schedule_have_notificationDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.device_have_notification`: Exposes CRUD operations for the **device_have_notification** model.
@@ -714,12 +729,13 @@ export namespace Prisma {
 
   export const ModelName: {
     users: 'users',
-    user_in_home: 'user_in_home',
+    user_have_home: 'user_have_home',
     device: 'device',
     measurement: 'measurement',
     schedule: 'schedule',
     log_event: 'log_event',
     notification: 'notification',
+    schedule_have_notification: 'schedule_have_notification',
     device_have_notification: 'device_have_notification',
     home: 'home'
   };
@@ -737,7 +753,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "users" | "user_in_home" | "device" | "measurement" | "schedule" | "log_event" | "notification" | "device_have_notification" | "home"
+      modelProps: "users" | "user_have_home" | "device" | "measurement" | "schedule" | "log_event" | "notification" | "schedule_have_notification" | "device_have_notification" | "home"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -815,77 +831,77 @@ export namespace Prisma {
           }
         }
       }
-      user_in_home: {
-        payload: Prisma.$user_in_homePayload<ExtArgs>
-        fields: Prisma.user_in_homeFieldRefs
+      user_have_home: {
+        payload: Prisma.$user_have_homePayload<ExtArgs>
+        fields: Prisma.user_have_homeFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.user_in_homeFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$user_in_homePayload> | null
+            args: Prisma.user_have_homeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$user_have_homePayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.user_in_homeFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$user_in_homePayload>
+            args: Prisma.user_have_homeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$user_have_homePayload>
           }
           findFirst: {
-            args: Prisma.user_in_homeFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$user_in_homePayload> | null
+            args: Prisma.user_have_homeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$user_have_homePayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.user_in_homeFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$user_in_homePayload>
+            args: Prisma.user_have_homeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$user_have_homePayload>
           }
           findMany: {
-            args: Prisma.user_in_homeFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$user_in_homePayload>[]
+            args: Prisma.user_have_homeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$user_have_homePayload>[]
           }
           create: {
-            args: Prisma.user_in_homeCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$user_in_homePayload>
+            args: Prisma.user_have_homeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$user_have_homePayload>
           }
           createMany: {
-            args: Prisma.user_in_homeCreateManyArgs<ExtArgs>
+            args: Prisma.user_have_homeCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.user_in_homeCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$user_in_homePayload>[]
+            args: Prisma.user_have_homeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$user_have_homePayload>[]
           }
           delete: {
-            args: Prisma.user_in_homeDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$user_in_homePayload>
+            args: Prisma.user_have_homeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$user_have_homePayload>
           }
           update: {
-            args: Prisma.user_in_homeUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$user_in_homePayload>
+            args: Prisma.user_have_homeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$user_have_homePayload>
           }
           deleteMany: {
-            args: Prisma.user_in_homeDeleteManyArgs<ExtArgs>
+            args: Prisma.user_have_homeDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.user_in_homeUpdateManyArgs<ExtArgs>
+            args: Prisma.user_have_homeUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.user_in_homeUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$user_in_homePayload>[]
+            args: Prisma.user_have_homeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$user_have_homePayload>[]
           }
           upsert: {
-            args: Prisma.user_in_homeUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$user_in_homePayload>
+            args: Prisma.user_have_homeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$user_have_homePayload>
           }
           aggregate: {
-            args: Prisma.User_in_homeAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateUser_in_home>
+            args: Prisma.User_have_homeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUser_have_home>
           }
           groupBy: {
-            args: Prisma.user_in_homeGroupByArgs<ExtArgs>
-            result: $Utils.Optional<User_in_homeGroupByOutputType>[]
+            args: Prisma.user_have_homeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<User_have_homeGroupByOutputType>[]
           }
           count: {
-            args: Prisma.user_in_homeCountArgs<ExtArgs>
-            result: $Utils.Optional<User_in_homeCountAggregateOutputType> | number
+            args: Prisma.user_have_homeCountArgs<ExtArgs>
+            result: $Utils.Optional<User_have_homeCountAggregateOutputType> | number
           }
         }
       }
@@ -1259,6 +1275,80 @@ export namespace Prisma {
           }
         }
       }
+      schedule_have_notification: {
+        payload: Prisma.$schedule_have_notificationPayload<ExtArgs>
+        fields: Prisma.schedule_have_notificationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.schedule_have_notificationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$schedule_have_notificationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.schedule_have_notificationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$schedule_have_notificationPayload>
+          }
+          findFirst: {
+            args: Prisma.schedule_have_notificationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$schedule_have_notificationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.schedule_have_notificationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$schedule_have_notificationPayload>
+          }
+          findMany: {
+            args: Prisma.schedule_have_notificationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$schedule_have_notificationPayload>[]
+          }
+          create: {
+            args: Prisma.schedule_have_notificationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$schedule_have_notificationPayload>
+          }
+          createMany: {
+            args: Prisma.schedule_have_notificationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.schedule_have_notificationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$schedule_have_notificationPayload>[]
+          }
+          delete: {
+            args: Prisma.schedule_have_notificationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$schedule_have_notificationPayload>
+          }
+          update: {
+            args: Prisma.schedule_have_notificationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$schedule_have_notificationPayload>
+          }
+          deleteMany: {
+            args: Prisma.schedule_have_notificationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.schedule_have_notificationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.schedule_have_notificationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$schedule_have_notificationPayload>[]
+          }
+          upsert: {
+            args: Prisma.schedule_have_notificationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$schedule_have_notificationPayload>
+          }
+          aggregate: {
+            args: Prisma.Schedule_have_notificationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSchedule_have_notification>
+          }
+          groupBy: {
+            args: Prisma.schedule_have_notificationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Schedule_have_notificationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.schedule_have_notificationCountArgs<ExtArgs>
+            result: $Utils.Optional<Schedule_have_notificationCountAggregateOutputType> | number
+          }
+        }
+      }
       device_have_notification: {
         payload: Prisma.$device_have_notificationPayload<ExtArgs>
         fields: Prisma.device_have_notificationFieldRefs
@@ -1492,12 +1582,13 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     users?: usersOmit
-    user_in_home?: user_in_homeOmit
+    user_have_home?: user_have_homeOmit
     device?: deviceOmit
     measurement?: measurementOmit
     schedule?: scheduleOmit
     log_event?: log_eventOmit
     notification?: notificationOmit
+    schedule_have_notification?: schedule_have_notificationOmit
     device_have_notification?: device_have_notificationOmit
     home?: homeOmit
   }
@@ -1594,11 +1685,13 @@ export namespace Prisma {
    */
 
   export type UsersCountOutputType = {
-    user_in_home: number
+    user_have_home: number
+    home: number
   }
 
   export type UsersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user_in_home?: boolean | UsersCountOutputTypeCountUser_in_homeArgs
+    user_have_home?: boolean | UsersCountOutputTypeCountUser_have_homeArgs
+    home?: boolean | UsersCountOutputTypeCountHomeArgs
   }
 
   // Custom InputTypes
@@ -1615,8 +1708,15 @@ export namespace Prisma {
   /**
    * UsersCountOutputType without action
    */
-  export type UsersCountOutputTypeCountUser_in_homeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: user_in_homeWhereInput
+  export type UsersCountOutputTypeCountUser_have_homeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: user_have_homeWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountHomeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: homeWhereInput
   }
 
 
@@ -1679,15 +1779,48 @@ export namespace Prisma {
 
 
   /**
+   * Count Type ScheduleCountOutputType
+   */
+
+  export type ScheduleCountOutputType = {
+    schedule_have_notification: number
+  }
+
+  export type ScheduleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    schedule_have_notification?: boolean | ScheduleCountOutputTypeCountSchedule_have_notificationArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ScheduleCountOutputType without action
+   */
+  export type ScheduleCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScheduleCountOutputType
+     */
+    select?: ScheduleCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ScheduleCountOutputType without action
+   */
+  export type ScheduleCountOutputTypeCountSchedule_have_notificationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: schedule_have_notificationWhereInput
+  }
+
+
+  /**
    * Count Type NotificationCountOutputType
    */
 
   export type NotificationCountOutputType = {
     device_have_notification: number
+    schedule_have_notification: number
   }
 
   export type NotificationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     device_have_notification?: boolean | NotificationCountOutputTypeCountDevice_have_notificationArgs
+    schedule_have_notification?: boolean | NotificationCountOutputTypeCountSchedule_have_notificationArgs
   }
 
   // Custom InputTypes
@@ -1708,6 +1841,13 @@ export namespace Prisma {
     where?: device_have_notificationWhereInput
   }
 
+  /**
+   * NotificationCountOutputType without action
+   */
+  export type NotificationCountOutputTypeCountSchedule_have_notificationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: schedule_have_notificationWhereInput
+  }
+
 
   /**
    * Count Type HomeCountOutputType
@@ -1715,12 +1855,12 @@ export namespace Prisma {
 
   export type HomeCountOutputType = {
     device: number
-    user_in_home: number
+    user_have_home: number
   }
 
   export type HomeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     device?: boolean | HomeCountOutputTypeCountDeviceArgs
-    user_in_home?: boolean | HomeCountOutputTypeCountUser_in_homeArgs
+    user_have_home?: boolean | HomeCountOutputTypeCountUser_have_homeArgs
   }
 
   // Custom InputTypes
@@ -1744,8 +1884,8 @@ export namespace Prisma {
   /**
    * HomeCountOutputType without action
    */
-  export type HomeCountOutputTypeCountUser_in_homeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: user_in_homeWhereInput
+  export type HomeCountOutputTypeCountUser_have_homeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: user_have_homeWhereInput
   }
 
 
@@ -1983,7 +2123,8 @@ export namespace Prisma {
     salt?: boolean
     created_at?: boolean
     updated_at?: boolean
-    user_in_home?: boolean | users$user_in_homeArgs<ExtArgs>
+    user_have_home?: boolean | users$user_have_homeArgs<ExtArgs>
+    home?: boolean | users$homeArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["users"]>
 
@@ -2025,7 +2166,8 @@ export namespace Prisma {
 
   export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "first_name" | "last_name" | "email" | "password_hash" | "access_token" | "salt" | "created_at" | "updated_at", ExtArgs["result"]["users"]>
   export type usersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user_in_home?: boolean | users$user_in_homeArgs<ExtArgs>
+    user_have_home?: boolean | users$user_have_homeArgs<ExtArgs>
+    home?: boolean | users$homeArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type usersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2034,7 +2176,8 @@ export namespace Prisma {
   export type $usersPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "users"
     objects: {
-      user_in_home: Prisma.$user_in_homePayload<ExtArgs>[]
+      user_have_home: Prisma.$user_have_homePayload<ExtArgs>[]
+      home: Prisma.$homePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2440,7 +2583,8 @@ export namespace Prisma {
    */
   export interface Prisma__usersClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user_in_home<T extends users$user_in_homeArgs<ExtArgs> = {}>(args?: Subset<T, users$user_in_homeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$user_in_homePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    user_have_home<T extends users$user_have_homeArgs<ExtArgs> = {}>(args?: Subset<T, users$user_have_homeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$user_have_homePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    home<T extends users$homeArgs<ExtArgs> = {}>(args?: Subset<T, users$homeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$homePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2867,27 +3011,51 @@ export namespace Prisma {
   }
 
   /**
-   * users.user_in_home
+   * users.user_have_home
    */
-  export type users$user_in_homeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type users$user_have_homeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the user_in_home
+     * Select specific fields to fetch from the user_have_home
      */
-    select?: user_in_homeSelect<ExtArgs> | null
+    select?: user_have_homeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the user_in_home
+     * Omit specific fields from the user_have_home
      */
-    omit?: user_in_homeOmit<ExtArgs> | null
+    omit?: user_have_homeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: user_in_homeInclude<ExtArgs> | null
-    where?: user_in_homeWhereInput
-    orderBy?: user_in_homeOrderByWithRelationInput | user_in_homeOrderByWithRelationInput[]
-    cursor?: user_in_homeWhereUniqueInput
+    include?: user_have_homeInclude<ExtArgs> | null
+    where?: user_have_homeWhereInput
+    orderBy?: user_have_homeOrderByWithRelationInput | user_have_homeOrderByWithRelationInput[]
+    cursor?: user_have_homeWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: User_in_homeScalarFieldEnum | User_in_homeScalarFieldEnum[]
+    distinct?: User_have_homeScalarFieldEnum | User_have_homeScalarFieldEnum[]
+  }
+
+  /**
+   * users.home
+   */
+  export type users$homeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the home
+     */
+    select?: homeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the home
+     */
+    omit?: homeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: homeInclude<ExtArgs> | null
+    where?: homeWhereInput
+    orderBy?: homeOrderByWithRelationInput | homeOrderByWithRelationInput[]
+    cursor?: homeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HomeScalarFieldEnum | HomeScalarFieldEnum[]
   }
 
   /**
@@ -2910,222 +3078,222 @@ export namespace Prisma {
 
 
   /**
-   * Model user_in_home
+   * Model user_have_home
    */
 
-  export type AggregateUser_in_home = {
-    _count: User_in_homeCountAggregateOutputType | null
-    _avg: User_in_homeAvgAggregateOutputType | null
-    _sum: User_in_homeSumAggregateOutputType | null
-    _min: User_in_homeMinAggregateOutputType | null
-    _max: User_in_homeMaxAggregateOutputType | null
+  export type AggregateUser_have_home = {
+    _count: User_have_homeCountAggregateOutputType | null
+    _avg: User_have_homeAvgAggregateOutputType | null
+    _sum: User_have_homeSumAggregateOutputType | null
+    _min: User_have_homeMinAggregateOutputType | null
+    _max: User_have_homeMaxAggregateOutputType | null
   }
 
-  export type User_in_homeAvgAggregateOutputType = {
+  export type User_have_homeAvgAggregateOutputType = {
     user_id: number | null
     home_id: number | null
   }
 
-  export type User_in_homeSumAggregateOutputType = {
+  export type User_have_homeSumAggregateOutputType = {
     user_id: number | null
     home_id: number | null
   }
 
-  export type User_in_homeMinAggregateOutputType = {
+  export type User_have_homeMinAggregateOutputType = {
     user_id: number | null
     home_id: number | null
   }
 
-  export type User_in_homeMaxAggregateOutputType = {
+  export type User_have_homeMaxAggregateOutputType = {
     user_id: number | null
     home_id: number | null
   }
 
-  export type User_in_homeCountAggregateOutputType = {
+  export type User_have_homeCountAggregateOutputType = {
     user_id: number
     home_id: number
     _all: number
   }
 
 
-  export type User_in_homeAvgAggregateInputType = {
+  export type User_have_homeAvgAggregateInputType = {
     user_id?: true
     home_id?: true
   }
 
-  export type User_in_homeSumAggregateInputType = {
+  export type User_have_homeSumAggregateInputType = {
     user_id?: true
     home_id?: true
   }
 
-  export type User_in_homeMinAggregateInputType = {
+  export type User_have_homeMinAggregateInputType = {
     user_id?: true
     home_id?: true
   }
 
-  export type User_in_homeMaxAggregateInputType = {
+  export type User_have_homeMaxAggregateInputType = {
     user_id?: true
     home_id?: true
   }
 
-  export type User_in_homeCountAggregateInputType = {
+  export type User_have_homeCountAggregateInputType = {
     user_id?: true
     home_id?: true
     _all?: true
   }
 
-  export type User_in_homeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User_have_homeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which user_in_home to aggregate.
+     * Filter which user_have_home to aggregate.
      */
-    where?: user_in_homeWhereInput
+    where?: user_have_homeWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of user_in_homes to fetch.
+     * Determine the order of user_have_homes to fetch.
      */
-    orderBy?: user_in_homeOrderByWithRelationInput | user_in_homeOrderByWithRelationInput[]
+    orderBy?: user_have_homeOrderByWithRelationInput | user_have_homeOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: user_in_homeWhereUniqueInput
+    cursor?: user_have_homeWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` user_in_homes from the position of the cursor.
+     * Take `±n` user_have_homes from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` user_in_homes.
+     * Skip the first `n` user_have_homes.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned user_in_homes
+     * Count returned user_have_homes
     **/
-    _count?: true | User_in_homeCountAggregateInputType
+    _count?: true | User_have_homeCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: User_in_homeAvgAggregateInputType
+    _avg?: User_have_homeAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: User_in_homeSumAggregateInputType
+    _sum?: User_have_homeSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: User_in_homeMinAggregateInputType
+    _min?: User_have_homeMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: User_in_homeMaxAggregateInputType
+    _max?: User_have_homeMaxAggregateInputType
   }
 
-  export type GetUser_in_homeAggregateType<T extends User_in_homeAggregateArgs> = {
-        [P in keyof T & keyof AggregateUser_in_home]: P extends '_count' | 'count'
+  export type GetUser_have_homeAggregateType<T extends User_have_homeAggregateArgs> = {
+        [P in keyof T & keyof AggregateUser_have_home]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateUser_in_home[P]>
-      : GetScalarType<T[P], AggregateUser_in_home[P]>
+        : GetScalarType<T[P], AggregateUser_have_home[P]>
+      : GetScalarType<T[P], AggregateUser_have_home[P]>
   }
 
 
 
 
-  export type user_in_homeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: user_in_homeWhereInput
-    orderBy?: user_in_homeOrderByWithAggregationInput | user_in_homeOrderByWithAggregationInput[]
-    by: User_in_homeScalarFieldEnum[] | User_in_homeScalarFieldEnum
-    having?: user_in_homeScalarWhereWithAggregatesInput
+  export type user_have_homeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: user_have_homeWhereInput
+    orderBy?: user_have_homeOrderByWithAggregationInput | user_have_homeOrderByWithAggregationInput[]
+    by: User_have_homeScalarFieldEnum[] | User_have_homeScalarFieldEnum
+    having?: user_have_homeScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: User_in_homeCountAggregateInputType | true
-    _avg?: User_in_homeAvgAggregateInputType
-    _sum?: User_in_homeSumAggregateInputType
-    _min?: User_in_homeMinAggregateInputType
-    _max?: User_in_homeMaxAggregateInputType
+    _count?: User_have_homeCountAggregateInputType | true
+    _avg?: User_have_homeAvgAggregateInputType
+    _sum?: User_have_homeSumAggregateInputType
+    _min?: User_have_homeMinAggregateInputType
+    _max?: User_have_homeMaxAggregateInputType
   }
 
-  export type User_in_homeGroupByOutputType = {
+  export type User_have_homeGroupByOutputType = {
     user_id: number
     home_id: number
-    _count: User_in_homeCountAggregateOutputType | null
-    _avg: User_in_homeAvgAggregateOutputType | null
-    _sum: User_in_homeSumAggregateOutputType | null
-    _min: User_in_homeMinAggregateOutputType | null
-    _max: User_in_homeMaxAggregateOutputType | null
+    _count: User_have_homeCountAggregateOutputType | null
+    _avg: User_have_homeAvgAggregateOutputType | null
+    _sum: User_have_homeSumAggregateOutputType | null
+    _min: User_have_homeMinAggregateOutputType | null
+    _max: User_have_homeMaxAggregateOutputType | null
   }
 
-  type GetUser_in_homeGroupByPayload<T extends user_in_homeGroupByArgs> = Prisma.PrismaPromise<
+  type GetUser_have_homeGroupByPayload<T extends user_have_homeGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<User_in_homeGroupByOutputType, T['by']> &
+      PickEnumerable<User_have_homeGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof User_in_homeGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof User_have_homeGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], User_in_homeGroupByOutputType[P]>
-            : GetScalarType<T[P], User_in_homeGroupByOutputType[P]>
+              : GetScalarType<T[P], User_have_homeGroupByOutputType[P]>
+            : GetScalarType<T[P], User_have_homeGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type user_in_homeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type user_have_homeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     user_id?: boolean
     home_id?: boolean
     user?: boolean | usersDefaultArgs<ExtArgs>
     home?: boolean | homeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["user_in_home"]>
+  }, ExtArgs["result"]["user_have_home"]>
 
-  export type user_in_homeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type user_have_homeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     user_id?: boolean
     home_id?: boolean
     user?: boolean | usersDefaultArgs<ExtArgs>
     home?: boolean | homeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["user_in_home"]>
+  }, ExtArgs["result"]["user_have_home"]>
 
-  export type user_in_homeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type user_have_homeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     user_id?: boolean
     home_id?: boolean
     user?: boolean | usersDefaultArgs<ExtArgs>
     home?: boolean | homeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["user_in_home"]>
+  }, ExtArgs["result"]["user_have_home"]>
 
-  export type user_in_homeSelectScalar = {
+  export type user_have_homeSelectScalar = {
     user_id?: boolean
     home_id?: boolean
   }
 
-  export type user_in_homeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_id" | "home_id", ExtArgs["result"]["user_in_home"]>
-  export type user_in_homeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type user_have_homeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_id" | "home_id", ExtArgs["result"]["user_have_home"]>
+  export type user_have_homeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | usersDefaultArgs<ExtArgs>
     home?: boolean | homeDefaultArgs<ExtArgs>
   }
-  export type user_in_homeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type user_have_homeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | usersDefaultArgs<ExtArgs>
     home?: boolean | homeDefaultArgs<ExtArgs>
   }
-  export type user_in_homeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type user_have_homeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | usersDefaultArgs<ExtArgs>
     home?: boolean | homeDefaultArgs<ExtArgs>
   }
 
-  export type $user_in_homePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "user_in_home"
+  export type $user_have_homePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "user_have_home"
     objects: {
       user: Prisma.$usersPayload<ExtArgs>
       home: Prisma.$homePayload<ExtArgs>
@@ -3133,136 +3301,136 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       user_id: number
       home_id: number
-    }, ExtArgs["result"]["user_in_home"]>
+    }, ExtArgs["result"]["user_have_home"]>
     composites: {}
   }
 
-  type user_in_homeGetPayload<S extends boolean | null | undefined | user_in_homeDefaultArgs> = $Result.GetResult<Prisma.$user_in_homePayload, S>
+  type user_have_homeGetPayload<S extends boolean | null | undefined | user_have_homeDefaultArgs> = $Result.GetResult<Prisma.$user_have_homePayload, S>
 
-  type user_in_homeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<user_in_homeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: User_in_homeCountAggregateInputType | true
+  type user_have_homeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<user_have_homeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: User_have_homeCountAggregateInputType | true
     }
 
-  export interface user_in_homeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['user_in_home'], meta: { name: 'user_in_home' } }
+  export interface user_have_homeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['user_have_home'], meta: { name: 'user_have_home' } }
     /**
-     * Find zero or one User_in_home that matches the filter.
-     * @param {user_in_homeFindUniqueArgs} args - Arguments to find a User_in_home
+     * Find zero or one User_have_home that matches the filter.
+     * @param {user_have_homeFindUniqueArgs} args - Arguments to find a User_have_home
      * @example
-     * // Get one User_in_home
-     * const user_in_home = await prisma.user_in_home.findUnique({
+     * // Get one User_have_home
+     * const user_have_home = await prisma.user_have_home.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends user_in_homeFindUniqueArgs>(args: SelectSubset<T, user_in_homeFindUniqueArgs<ExtArgs>>): Prisma__user_in_homeClient<$Result.GetResult<Prisma.$user_in_homePayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findUnique<T extends user_have_homeFindUniqueArgs>(args: SelectSubset<T, user_have_homeFindUniqueArgs<ExtArgs>>): Prisma__user_have_homeClient<$Result.GetResult<Prisma.$user_have_homePayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one User_in_home that matches the filter or throw an error with `error.code='P2025'`
+     * Find one User_have_home that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {user_in_homeFindUniqueOrThrowArgs} args - Arguments to find a User_in_home
+     * @param {user_have_homeFindUniqueOrThrowArgs} args - Arguments to find a User_have_home
      * @example
-     * // Get one User_in_home
-     * const user_in_home = await prisma.user_in_home.findUniqueOrThrow({
+     * // Get one User_have_home
+     * const user_have_home = await prisma.user_have_home.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends user_in_homeFindUniqueOrThrowArgs>(args: SelectSubset<T, user_in_homeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__user_in_homeClient<$Result.GetResult<Prisma.$user_in_homePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findUniqueOrThrow<T extends user_have_homeFindUniqueOrThrowArgs>(args: SelectSubset<T, user_have_homeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__user_have_homeClient<$Result.GetResult<Prisma.$user_have_homePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
 
     /**
-     * Find the first User_in_home that matches the filter.
+     * Find the first User_have_home that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {user_in_homeFindFirstArgs} args - Arguments to find a User_in_home
+     * @param {user_have_homeFindFirstArgs} args - Arguments to find a User_have_home
      * @example
-     * // Get one User_in_home
-     * const user_in_home = await prisma.user_in_home.findFirst({
+     * // Get one User_have_home
+     * const user_have_home = await prisma.user_have_home.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends user_in_homeFindFirstArgs>(args?: SelectSubset<T, user_in_homeFindFirstArgs<ExtArgs>>): Prisma__user_in_homeClient<$Result.GetResult<Prisma.$user_in_homePayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findFirst<T extends user_have_homeFindFirstArgs>(args?: SelectSubset<T, user_have_homeFindFirstArgs<ExtArgs>>): Prisma__user_have_homeClient<$Result.GetResult<Prisma.$user_have_homePayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find the first User_in_home that matches the filter or
+     * Find the first User_have_home that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {user_in_homeFindFirstOrThrowArgs} args - Arguments to find a User_in_home
+     * @param {user_have_homeFindFirstOrThrowArgs} args - Arguments to find a User_have_home
      * @example
-     * // Get one User_in_home
-     * const user_in_home = await prisma.user_in_home.findFirstOrThrow({
+     * // Get one User_have_home
+     * const user_have_home = await prisma.user_have_home.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends user_in_homeFindFirstOrThrowArgs>(args?: SelectSubset<T, user_in_homeFindFirstOrThrowArgs<ExtArgs>>): Prisma__user_in_homeClient<$Result.GetResult<Prisma.$user_in_homePayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findFirstOrThrow<T extends user_have_homeFindFirstOrThrowArgs>(args?: SelectSubset<T, user_have_homeFindFirstOrThrowArgs<ExtArgs>>): Prisma__user_have_homeClient<$Result.GetResult<Prisma.$user_have_homePayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
 
     /**
-     * Find zero or more User_in_homes that matches the filter.
+     * Find zero or more User_have_homes that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {user_in_homeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {user_have_homeFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all User_in_homes
-     * const user_in_homes = await prisma.user_in_home.findMany()
+     * // Get all User_have_homes
+     * const user_have_homes = await prisma.user_have_home.findMany()
      * 
-     * // Get first 10 User_in_homes
-     * const user_in_homes = await prisma.user_in_home.findMany({ take: 10 })
+     * // Get first 10 User_have_homes
+     * const user_have_homes = await prisma.user_have_home.findMany({ take: 10 })
      * 
      * // Only select the `user_id`
-     * const user_in_homeWithUser_idOnly = await prisma.user_in_home.findMany({ select: { user_id: true } })
+     * const user_have_homeWithUser_idOnly = await prisma.user_have_home.findMany({ select: { user_id: true } })
      * 
      */
-    findMany<T extends user_in_homeFindManyArgs>(args?: SelectSubset<T, user_in_homeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$user_in_homePayload<ExtArgs>, T, "findMany", ClientOptions>>
+    findMany<T extends user_have_homeFindManyArgs>(args?: SelectSubset<T, user_have_homeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$user_have_homePayload<ExtArgs>, T, "findMany", ClientOptions>>
 
     /**
-     * Create a User_in_home.
-     * @param {user_in_homeCreateArgs} args - Arguments to create a User_in_home.
+     * Create a User_have_home.
+     * @param {user_have_homeCreateArgs} args - Arguments to create a User_have_home.
      * @example
-     * // Create one User_in_home
-     * const User_in_home = await prisma.user_in_home.create({
+     * // Create one User_have_home
+     * const User_have_home = await prisma.user_have_home.create({
      *   data: {
-     *     // ... data to create a User_in_home
+     *     // ... data to create a User_have_home
      *   }
      * })
      * 
      */
-    create<T extends user_in_homeCreateArgs>(args: SelectSubset<T, user_in_homeCreateArgs<ExtArgs>>): Prisma__user_in_homeClient<$Result.GetResult<Prisma.$user_in_homePayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+    create<T extends user_have_homeCreateArgs>(args: SelectSubset<T, user_have_homeCreateArgs<ExtArgs>>): Prisma__user_have_homeClient<$Result.GetResult<Prisma.$user_have_homePayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
     /**
-     * Create many User_in_homes.
-     * @param {user_in_homeCreateManyArgs} args - Arguments to create many User_in_homes.
+     * Create many User_have_homes.
+     * @param {user_have_homeCreateManyArgs} args - Arguments to create many User_have_homes.
      * @example
-     * // Create many User_in_homes
-     * const user_in_home = await prisma.user_in_home.createMany({
+     * // Create many User_have_homes
+     * const user_have_home = await prisma.user_have_home.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends user_in_homeCreateManyArgs>(args?: SelectSubset<T, user_in_homeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends user_have_homeCreateManyArgs>(args?: SelectSubset<T, user_have_homeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many User_in_homes and returns the data saved in the database.
-     * @param {user_in_homeCreateManyAndReturnArgs} args - Arguments to create many User_in_homes.
+     * Create many User_have_homes and returns the data saved in the database.
+     * @param {user_have_homeCreateManyAndReturnArgs} args - Arguments to create many User_have_homes.
      * @example
-     * // Create many User_in_homes
-     * const user_in_home = await prisma.user_in_home.createManyAndReturn({
+     * // Create many User_have_homes
+     * const user_have_home = await prisma.user_have_home.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many User_in_homes and only return the `user_id`
-     * const user_in_homeWithUser_idOnly = await prisma.user_in_home.createManyAndReturn({
+     * // Create many User_have_homes and only return the `user_id`
+     * const user_have_homeWithUser_idOnly = await prisma.user_have_home.createManyAndReturn({
      *   select: { user_id: true },
      *   data: [
      *     // ... provide data here
@@ -3272,28 +3440,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends user_in_homeCreateManyAndReturnArgs>(args?: SelectSubset<T, user_in_homeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$user_in_homePayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+    createManyAndReturn<T extends user_have_homeCreateManyAndReturnArgs>(args?: SelectSubset<T, user_have_homeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$user_have_homePayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
     /**
-     * Delete a User_in_home.
-     * @param {user_in_homeDeleteArgs} args - Arguments to delete one User_in_home.
+     * Delete a User_have_home.
+     * @param {user_have_homeDeleteArgs} args - Arguments to delete one User_have_home.
      * @example
-     * // Delete one User_in_home
-     * const User_in_home = await prisma.user_in_home.delete({
+     * // Delete one User_have_home
+     * const User_have_home = await prisma.user_have_home.delete({
      *   where: {
-     *     // ... filter to delete one User_in_home
+     *     // ... filter to delete one User_have_home
      *   }
      * })
      * 
      */
-    delete<T extends user_in_homeDeleteArgs>(args: SelectSubset<T, user_in_homeDeleteArgs<ExtArgs>>): Prisma__user_in_homeClient<$Result.GetResult<Prisma.$user_in_homePayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+    delete<T extends user_have_homeDeleteArgs>(args: SelectSubset<T, user_have_homeDeleteArgs<ExtArgs>>): Prisma__user_have_homeClient<$Result.GetResult<Prisma.$user_have_homePayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
     /**
-     * Update one User_in_home.
-     * @param {user_in_homeUpdateArgs} args - Arguments to update one User_in_home.
+     * Update one User_have_home.
+     * @param {user_have_homeUpdateArgs} args - Arguments to update one User_have_home.
      * @example
-     * // Update one User_in_home
-     * const user_in_home = await prisma.user_in_home.update({
+     * // Update one User_have_home
+     * const user_have_home = await prisma.user_have_home.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -3303,30 +3471,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends user_in_homeUpdateArgs>(args: SelectSubset<T, user_in_homeUpdateArgs<ExtArgs>>): Prisma__user_in_homeClient<$Result.GetResult<Prisma.$user_in_homePayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+    update<T extends user_have_homeUpdateArgs>(args: SelectSubset<T, user_have_homeUpdateArgs<ExtArgs>>): Prisma__user_have_homeClient<$Result.GetResult<Prisma.$user_have_homePayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
     /**
-     * Delete zero or more User_in_homes.
-     * @param {user_in_homeDeleteManyArgs} args - Arguments to filter User_in_homes to delete.
+     * Delete zero or more User_have_homes.
+     * @param {user_have_homeDeleteManyArgs} args - Arguments to filter User_have_homes to delete.
      * @example
-     * // Delete a few User_in_homes
-     * const { count } = await prisma.user_in_home.deleteMany({
+     * // Delete a few User_have_homes
+     * const { count } = await prisma.user_have_home.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends user_in_homeDeleteManyArgs>(args?: SelectSubset<T, user_in_homeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends user_have_homeDeleteManyArgs>(args?: SelectSubset<T, user_have_homeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more User_in_homes.
+     * Update zero or more User_have_homes.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {user_in_homeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {user_have_homeUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many User_in_homes
-     * const user_in_home = await prisma.user_in_home.updateMany({
+     * // Update many User_have_homes
+     * const user_have_home = await prisma.user_have_home.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -3336,14 +3504,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends user_in_homeUpdateManyArgs>(args: SelectSubset<T, user_in_homeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends user_have_homeUpdateManyArgs>(args: SelectSubset<T, user_have_homeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more User_in_homes and returns the data updated in the database.
-     * @param {user_in_homeUpdateManyAndReturnArgs} args - Arguments to update many User_in_homes.
+     * Update zero or more User_have_homes and returns the data updated in the database.
+     * @param {user_have_homeUpdateManyAndReturnArgs} args - Arguments to update many User_have_homes.
      * @example
-     * // Update many User_in_homes
-     * const user_in_home = await prisma.user_in_home.updateManyAndReturn({
+     * // Update many User_have_homes
+     * const user_have_home = await prisma.user_have_home.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -3352,8 +3520,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more User_in_homes and only return the `user_id`
-     * const user_in_homeWithUser_idOnly = await prisma.user_in_home.updateManyAndReturn({
+     * // Update zero or more User_have_homes and only return the `user_id`
+     * const user_have_homeWithUser_idOnly = await prisma.user_have_home.updateManyAndReturn({
      *   select: { user_id: true },
      *   where: {
      *     // ... provide filter here
@@ -3366,56 +3534,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends user_in_homeUpdateManyAndReturnArgs>(args: SelectSubset<T, user_in_homeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$user_in_homePayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+    updateManyAndReturn<T extends user_have_homeUpdateManyAndReturnArgs>(args: SelectSubset<T, user_have_homeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$user_have_homePayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
 
     /**
-     * Create or update one User_in_home.
-     * @param {user_in_homeUpsertArgs} args - Arguments to update or create a User_in_home.
+     * Create or update one User_have_home.
+     * @param {user_have_homeUpsertArgs} args - Arguments to update or create a User_have_home.
      * @example
-     * // Update or create a User_in_home
-     * const user_in_home = await prisma.user_in_home.upsert({
+     * // Update or create a User_have_home
+     * const user_have_home = await prisma.user_have_home.upsert({
      *   create: {
-     *     // ... data to create a User_in_home
+     *     // ... data to create a User_have_home
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the User_in_home we want to update
+     *     // ... the filter for the User_have_home we want to update
      *   }
      * })
      */
-    upsert<T extends user_in_homeUpsertArgs>(args: SelectSubset<T, user_in_homeUpsertArgs<ExtArgs>>): Prisma__user_in_homeClient<$Result.GetResult<Prisma.$user_in_homePayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+    upsert<T extends user_have_homeUpsertArgs>(args: SelectSubset<T, user_have_homeUpsertArgs<ExtArgs>>): Prisma__user_have_homeClient<$Result.GetResult<Prisma.$user_have_homePayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
 
 
     /**
-     * Count the number of User_in_homes.
+     * Count the number of User_have_homes.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {user_in_homeCountArgs} args - Arguments to filter User_in_homes to count.
+     * @param {user_have_homeCountArgs} args - Arguments to filter User_have_homes to count.
      * @example
-     * // Count the number of User_in_homes
-     * const count = await prisma.user_in_home.count({
+     * // Count the number of User_have_homes
+     * const count = await prisma.user_have_home.count({
      *   where: {
-     *     // ... the filter for the User_in_homes we want to count
+     *     // ... the filter for the User_have_homes we want to count
      *   }
      * })
     **/
-    count<T extends user_in_homeCountArgs>(
-      args?: Subset<T, user_in_homeCountArgs>,
+    count<T extends user_have_homeCountArgs>(
+      args?: Subset<T, user_have_homeCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], User_in_homeCountAggregateOutputType>
+          : GetScalarType<T['select'], User_have_homeCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a User_in_home.
+     * Allows you to perform aggregations operations on a User_have_home.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {User_in_homeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {User_have_homeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -3435,13 +3603,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends User_in_homeAggregateArgs>(args: Subset<T, User_in_homeAggregateArgs>): Prisma.PrismaPromise<GetUser_in_homeAggregateType<T>>
+    aggregate<T extends User_have_homeAggregateArgs>(args: Subset<T, User_have_homeAggregateArgs>): Prisma.PrismaPromise<GetUser_have_homeAggregateType<T>>
 
     /**
-     * Group by User_in_home.
+     * Group by User_have_home.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {user_in_homeGroupByArgs} args - Group by arguments.
+     * @param {user_have_homeGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -3456,14 +3624,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends user_in_homeGroupByArgs,
+      T extends user_have_homeGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: user_in_homeGroupByArgs['orderBy'] }
-        : { orderBy?: user_in_homeGroupByArgs['orderBy'] },
+        ? { orderBy: user_have_homeGroupByArgs['orderBy'] }
+        : { orderBy?: user_have_homeGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -3512,20 +3680,20 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, user_in_homeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUser_in_homeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, user_have_homeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUser_have_homeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the user_in_home model
+   * Fields of the user_have_home model
    */
-  readonly fields: user_in_homeFieldRefs;
+  readonly fields: user_have_homeFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for user_in_home.
+   * The delegate class that acts as a "Promise-like" for user_have_home.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__user_in_homeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__user_have_homeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
     home<T extends homeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, homeDefaultArgs<ExtArgs>>): Prisma__homeClient<$Result.GetResult<Prisma.$homePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
@@ -3555,422 +3723,422 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the user_in_home model
+   * Fields of the user_have_home model
    */ 
-  interface user_in_homeFieldRefs {
-    readonly user_id: FieldRef<"user_in_home", 'Int'>
-    readonly home_id: FieldRef<"user_in_home", 'Int'>
+  interface user_have_homeFieldRefs {
+    readonly user_id: FieldRef<"user_have_home", 'Int'>
+    readonly home_id: FieldRef<"user_have_home", 'Int'>
   }
     
 
   // Custom InputTypes
   /**
-   * user_in_home findUnique
+   * user_have_home findUnique
    */
-  export type user_in_homeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type user_have_homeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the user_in_home
+     * Select specific fields to fetch from the user_have_home
      */
-    select?: user_in_homeSelect<ExtArgs> | null
+    select?: user_have_homeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the user_in_home
+     * Omit specific fields from the user_have_home
      */
-    omit?: user_in_homeOmit<ExtArgs> | null
+    omit?: user_have_homeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: user_in_homeInclude<ExtArgs> | null
+    include?: user_have_homeInclude<ExtArgs> | null
     /**
-     * Filter, which user_in_home to fetch.
+     * Filter, which user_have_home to fetch.
      */
-    where: user_in_homeWhereUniqueInput
+    where: user_have_homeWhereUniqueInput
   }
 
   /**
-   * user_in_home findUniqueOrThrow
+   * user_have_home findUniqueOrThrow
    */
-  export type user_in_homeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type user_have_homeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the user_in_home
+     * Select specific fields to fetch from the user_have_home
      */
-    select?: user_in_homeSelect<ExtArgs> | null
+    select?: user_have_homeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the user_in_home
+     * Omit specific fields from the user_have_home
      */
-    omit?: user_in_homeOmit<ExtArgs> | null
+    omit?: user_have_homeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: user_in_homeInclude<ExtArgs> | null
+    include?: user_have_homeInclude<ExtArgs> | null
     /**
-     * Filter, which user_in_home to fetch.
+     * Filter, which user_have_home to fetch.
      */
-    where: user_in_homeWhereUniqueInput
+    where: user_have_homeWhereUniqueInput
   }
 
   /**
-   * user_in_home findFirst
+   * user_have_home findFirst
    */
-  export type user_in_homeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type user_have_homeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the user_in_home
+     * Select specific fields to fetch from the user_have_home
      */
-    select?: user_in_homeSelect<ExtArgs> | null
+    select?: user_have_homeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the user_in_home
+     * Omit specific fields from the user_have_home
      */
-    omit?: user_in_homeOmit<ExtArgs> | null
+    omit?: user_have_homeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: user_in_homeInclude<ExtArgs> | null
+    include?: user_have_homeInclude<ExtArgs> | null
     /**
-     * Filter, which user_in_home to fetch.
+     * Filter, which user_have_home to fetch.
      */
-    where?: user_in_homeWhereInput
+    where?: user_have_homeWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of user_in_homes to fetch.
+     * Determine the order of user_have_homes to fetch.
      */
-    orderBy?: user_in_homeOrderByWithRelationInput | user_in_homeOrderByWithRelationInput[]
+    orderBy?: user_have_homeOrderByWithRelationInput | user_have_homeOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for user_in_homes.
+     * Sets the position for searching for user_have_homes.
      */
-    cursor?: user_in_homeWhereUniqueInput
+    cursor?: user_have_homeWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` user_in_homes from the position of the cursor.
+     * Take `±n` user_have_homes from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` user_in_homes.
+     * Skip the first `n` user_have_homes.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of user_in_homes.
+     * Filter by unique combinations of user_have_homes.
      */
-    distinct?: User_in_homeScalarFieldEnum | User_in_homeScalarFieldEnum[]
+    distinct?: User_have_homeScalarFieldEnum | User_have_homeScalarFieldEnum[]
   }
 
   /**
-   * user_in_home findFirstOrThrow
+   * user_have_home findFirstOrThrow
    */
-  export type user_in_homeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type user_have_homeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the user_in_home
+     * Select specific fields to fetch from the user_have_home
      */
-    select?: user_in_homeSelect<ExtArgs> | null
+    select?: user_have_homeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the user_in_home
+     * Omit specific fields from the user_have_home
      */
-    omit?: user_in_homeOmit<ExtArgs> | null
+    omit?: user_have_homeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: user_in_homeInclude<ExtArgs> | null
+    include?: user_have_homeInclude<ExtArgs> | null
     /**
-     * Filter, which user_in_home to fetch.
+     * Filter, which user_have_home to fetch.
      */
-    where?: user_in_homeWhereInput
+    where?: user_have_homeWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of user_in_homes to fetch.
+     * Determine the order of user_have_homes to fetch.
      */
-    orderBy?: user_in_homeOrderByWithRelationInput | user_in_homeOrderByWithRelationInput[]
+    orderBy?: user_have_homeOrderByWithRelationInput | user_have_homeOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for user_in_homes.
+     * Sets the position for searching for user_have_homes.
      */
-    cursor?: user_in_homeWhereUniqueInput
+    cursor?: user_have_homeWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` user_in_homes from the position of the cursor.
+     * Take `±n` user_have_homes from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` user_in_homes.
+     * Skip the first `n` user_have_homes.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of user_in_homes.
+     * Filter by unique combinations of user_have_homes.
      */
-    distinct?: User_in_homeScalarFieldEnum | User_in_homeScalarFieldEnum[]
+    distinct?: User_have_homeScalarFieldEnum | User_have_homeScalarFieldEnum[]
   }
 
   /**
-   * user_in_home findMany
+   * user_have_home findMany
    */
-  export type user_in_homeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type user_have_homeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the user_in_home
+     * Select specific fields to fetch from the user_have_home
      */
-    select?: user_in_homeSelect<ExtArgs> | null
+    select?: user_have_homeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the user_in_home
+     * Omit specific fields from the user_have_home
      */
-    omit?: user_in_homeOmit<ExtArgs> | null
+    omit?: user_have_homeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: user_in_homeInclude<ExtArgs> | null
+    include?: user_have_homeInclude<ExtArgs> | null
     /**
-     * Filter, which user_in_homes to fetch.
+     * Filter, which user_have_homes to fetch.
      */
-    where?: user_in_homeWhereInput
+    where?: user_have_homeWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of user_in_homes to fetch.
+     * Determine the order of user_have_homes to fetch.
      */
-    orderBy?: user_in_homeOrderByWithRelationInput | user_in_homeOrderByWithRelationInput[]
+    orderBy?: user_have_homeOrderByWithRelationInput | user_have_homeOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing user_in_homes.
+     * Sets the position for listing user_have_homes.
      */
-    cursor?: user_in_homeWhereUniqueInput
+    cursor?: user_have_homeWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` user_in_homes from the position of the cursor.
+     * Take `±n` user_have_homes from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` user_in_homes.
+     * Skip the first `n` user_have_homes.
      */
     skip?: number
-    distinct?: User_in_homeScalarFieldEnum | User_in_homeScalarFieldEnum[]
+    distinct?: User_have_homeScalarFieldEnum | User_have_homeScalarFieldEnum[]
   }
 
   /**
-   * user_in_home create
+   * user_have_home create
    */
-  export type user_in_homeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type user_have_homeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the user_in_home
+     * Select specific fields to fetch from the user_have_home
      */
-    select?: user_in_homeSelect<ExtArgs> | null
+    select?: user_have_homeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the user_in_home
+     * Omit specific fields from the user_have_home
      */
-    omit?: user_in_homeOmit<ExtArgs> | null
+    omit?: user_have_homeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: user_in_homeInclude<ExtArgs> | null
+    include?: user_have_homeInclude<ExtArgs> | null
     /**
-     * The data needed to create a user_in_home.
+     * The data needed to create a user_have_home.
      */
-    data: XOR<user_in_homeCreateInput, user_in_homeUncheckedCreateInput>
+    data: XOR<user_have_homeCreateInput, user_have_homeUncheckedCreateInput>
   }
 
   /**
-   * user_in_home createMany
+   * user_have_home createMany
    */
-  export type user_in_homeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type user_have_homeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many user_in_homes.
+     * The data used to create many user_have_homes.
      */
-    data: user_in_homeCreateManyInput | user_in_homeCreateManyInput[]
+    data: user_have_homeCreateManyInput | user_have_homeCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * user_in_home createManyAndReturn
+   * user_have_home createManyAndReturn
    */
-  export type user_in_homeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type user_have_homeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the user_in_home
+     * Select specific fields to fetch from the user_have_home
      */
-    select?: user_in_homeSelectCreateManyAndReturn<ExtArgs> | null
+    select?: user_have_homeSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the user_in_home
+     * Omit specific fields from the user_have_home
      */
-    omit?: user_in_homeOmit<ExtArgs> | null
+    omit?: user_have_homeOmit<ExtArgs> | null
     /**
-     * The data used to create many user_in_homes.
+     * The data used to create many user_have_homes.
      */
-    data: user_in_homeCreateManyInput | user_in_homeCreateManyInput[]
+    data: user_have_homeCreateManyInput | user_have_homeCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: user_in_homeIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: user_have_homeIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * user_in_home update
+   * user_have_home update
    */
-  export type user_in_homeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type user_have_homeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the user_in_home
+     * Select specific fields to fetch from the user_have_home
      */
-    select?: user_in_homeSelect<ExtArgs> | null
+    select?: user_have_homeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the user_in_home
+     * Omit specific fields from the user_have_home
      */
-    omit?: user_in_homeOmit<ExtArgs> | null
+    omit?: user_have_homeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: user_in_homeInclude<ExtArgs> | null
+    include?: user_have_homeInclude<ExtArgs> | null
     /**
-     * The data needed to update a user_in_home.
+     * The data needed to update a user_have_home.
      */
-    data: XOR<user_in_homeUpdateInput, user_in_homeUncheckedUpdateInput>
+    data: XOR<user_have_homeUpdateInput, user_have_homeUncheckedUpdateInput>
     /**
-     * Choose, which user_in_home to update.
+     * Choose, which user_have_home to update.
      */
-    where: user_in_homeWhereUniqueInput
+    where: user_have_homeWhereUniqueInput
   }
 
   /**
-   * user_in_home updateMany
+   * user_have_home updateMany
    */
-  export type user_in_homeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type user_have_homeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update user_in_homes.
+     * The data used to update user_have_homes.
      */
-    data: XOR<user_in_homeUpdateManyMutationInput, user_in_homeUncheckedUpdateManyInput>
+    data: XOR<user_have_homeUpdateManyMutationInput, user_have_homeUncheckedUpdateManyInput>
     /**
-     * Filter which user_in_homes to update
+     * Filter which user_have_homes to update
      */
-    where?: user_in_homeWhereInput
+    where?: user_have_homeWhereInput
     /**
-     * Limit how many user_in_homes to update.
+     * Limit how many user_have_homes to update.
      */
     limit?: number
   }
 
   /**
-   * user_in_home updateManyAndReturn
+   * user_have_home updateManyAndReturn
    */
-  export type user_in_homeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type user_have_homeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the user_in_home
+     * Select specific fields to fetch from the user_have_home
      */
-    select?: user_in_homeSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: user_have_homeSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the user_in_home
+     * Omit specific fields from the user_have_home
      */
-    omit?: user_in_homeOmit<ExtArgs> | null
+    omit?: user_have_homeOmit<ExtArgs> | null
     /**
-     * The data used to update user_in_homes.
+     * The data used to update user_have_homes.
      */
-    data: XOR<user_in_homeUpdateManyMutationInput, user_in_homeUncheckedUpdateManyInput>
+    data: XOR<user_have_homeUpdateManyMutationInput, user_have_homeUncheckedUpdateManyInput>
     /**
-     * Filter which user_in_homes to update
+     * Filter which user_have_homes to update
      */
-    where?: user_in_homeWhereInput
+    where?: user_have_homeWhereInput
     /**
-     * Limit how many user_in_homes to update.
+     * Limit how many user_have_homes to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: user_in_homeIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: user_have_homeIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * user_in_home upsert
+   * user_have_home upsert
    */
-  export type user_in_homeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type user_have_homeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the user_in_home
+     * Select specific fields to fetch from the user_have_home
      */
-    select?: user_in_homeSelect<ExtArgs> | null
+    select?: user_have_homeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the user_in_home
+     * Omit specific fields from the user_have_home
      */
-    omit?: user_in_homeOmit<ExtArgs> | null
+    omit?: user_have_homeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: user_in_homeInclude<ExtArgs> | null
+    include?: user_have_homeInclude<ExtArgs> | null
     /**
-     * The filter to search for the user_in_home to update in case it exists.
+     * The filter to search for the user_have_home to update in case it exists.
      */
-    where: user_in_homeWhereUniqueInput
+    where: user_have_homeWhereUniqueInput
     /**
-     * In case the user_in_home found by the `where` argument doesn't exist, create a new user_in_home with this data.
+     * In case the user_have_home found by the `where` argument doesn't exist, create a new user_have_home with this data.
      */
-    create: XOR<user_in_homeCreateInput, user_in_homeUncheckedCreateInput>
+    create: XOR<user_have_homeCreateInput, user_have_homeUncheckedCreateInput>
     /**
-     * In case the user_in_home was found with the provided `where` argument, update it with this data.
+     * In case the user_have_home was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<user_in_homeUpdateInput, user_in_homeUncheckedUpdateInput>
+    update: XOR<user_have_homeUpdateInput, user_have_homeUncheckedUpdateInput>
   }
 
   /**
-   * user_in_home delete
+   * user_have_home delete
    */
-  export type user_in_homeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type user_have_homeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the user_in_home
+     * Select specific fields to fetch from the user_have_home
      */
-    select?: user_in_homeSelect<ExtArgs> | null
+    select?: user_have_homeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the user_in_home
+     * Omit specific fields from the user_have_home
      */
-    omit?: user_in_homeOmit<ExtArgs> | null
+    omit?: user_have_homeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: user_in_homeInclude<ExtArgs> | null
+    include?: user_have_homeInclude<ExtArgs> | null
     /**
-     * Filter which user_in_home to delete.
+     * Filter which user_have_home to delete.
      */
-    where: user_in_homeWhereUniqueInput
+    where: user_have_homeWhereUniqueInput
   }
 
   /**
-   * user_in_home deleteMany
+   * user_have_home deleteMany
    */
-  export type user_in_homeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type user_have_homeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which user_in_homes to delete
+     * Filter which user_have_homes to delete
      */
-    where?: user_in_homeWhereInput
+    where?: user_have_homeWhereInput
     /**
-     * Limit how many user_in_homes to delete.
+     * Limit how many user_have_homes to delete.
      */
     limit?: number
   }
 
   /**
-   * user_in_home without action
+   * user_have_home without action
    */
-  export type user_in_homeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type user_have_homeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the user_in_home
+     * Select specific fields to fetch from the user_have_home
      */
-    select?: user_in_homeSelect<ExtArgs> | null
+    select?: user_have_homeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the user_in_home
+     * Omit specific fields from the user_have_home
      */
-    omit?: user_in_homeOmit<ExtArgs> | null
+    omit?: user_have_homeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: user_in_homeInclude<ExtArgs> | null
+    include?: user_have_homeInclude<ExtArgs> | null
   }
 
 
@@ -6347,19 +6515,19 @@ export namespace Prisma {
 
   export type ScheduleMinAggregateOutputType = {
     device_id: number | null
-    time_action: Date | null
+    action_time: Date | null
     action: string | null
   }
 
   export type ScheduleMaxAggregateOutputType = {
     device_id: number | null
-    time_action: Date | null
+    action_time: Date | null
     action: string | null
   }
 
   export type ScheduleCountAggregateOutputType = {
     device_id: number
-    time_action: number
+    action_time: number
     action: number
     _all: number
   }
@@ -6375,19 +6543,19 @@ export namespace Prisma {
 
   export type ScheduleMinAggregateInputType = {
     device_id?: true
-    time_action?: true
+    action_time?: true
     action?: true
   }
 
   export type ScheduleMaxAggregateInputType = {
     device_id?: true
-    time_action?: true
+    action_time?: true
     action?: true
   }
 
   export type ScheduleCountAggregateInputType = {
     device_id?: true
-    time_action?: true
+    action_time?: true
     action?: true
     _all?: true
   }
@@ -6480,7 +6648,7 @@ export namespace Prisma {
 
   export type ScheduleGroupByOutputType = {
     device_id: number
-    time_action: Date
+    action_time: Date
     action: string
     _count: ScheduleCountAggregateOutputType | null
     _avg: ScheduleAvgAggregateOutputType | null
@@ -6505,34 +6673,38 @@ export namespace Prisma {
 
   export type scheduleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     device_id?: boolean
-    time_action?: boolean
+    action_time?: boolean
     action?: boolean
     device?: boolean | deviceDefaultArgs<ExtArgs>
+    schedule_have_notification?: boolean | schedule$schedule_have_notificationArgs<ExtArgs>
+    _count?: boolean | ScheduleCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["schedule"]>
 
   export type scheduleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     device_id?: boolean
-    time_action?: boolean
+    action_time?: boolean
     action?: boolean
     device?: boolean | deviceDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["schedule"]>
 
   export type scheduleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     device_id?: boolean
-    time_action?: boolean
+    action_time?: boolean
     action?: boolean
     device?: boolean | deviceDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["schedule"]>
 
   export type scheduleSelectScalar = {
     device_id?: boolean
-    time_action?: boolean
+    action_time?: boolean
     action?: boolean
   }
 
-  export type scheduleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"device_id" | "time_action" | "action", ExtArgs["result"]["schedule"]>
+  export type scheduleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"device_id" | "action_time" | "action", ExtArgs["result"]["schedule"]>
   export type scheduleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     device?: boolean | deviceDefaultArgs<ExtArgs>
+    schedule_have_notification?: boolean | schedule$schedule_have_notificationArgs<ExtArgs>
+    _count?: boolean | ScheduleCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type scheduleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     device?: boolean | deviceDefaultArgs<ExtArgs>
@@ -6545,10 +6717,11 @@ export namespace Prisma {
     name: "schedule"
     objects: {
       device: Prisma.$devicePayload<ExtArgs>
+      schedule_have_notification: Prisma.$schedule_have_notificationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       device_id: number
-      time_action: Date
+      action_time: Date
       action: string
     }, ExtArgs["result"]["schedule"]>
     composites: {}
@@ -6945,6 +7118,7 @@ export namespace Prisma {
   export interface Prisma__scheduleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     device<T extends deviceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, deviceDefaultArgs<ExtArgs>>): Prisma__deviceClient<$Result.GetResult<Prisma.$devicePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    schedule_have_notification<T extends schedule$schedule_have_notificationArgs<ExtArgs> = {}>(args?: Subset<T, schedule$schedule_have_notificationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$schedule_have_notificationPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6975,7 +7149,7 @@ export namespace Prisma {
    */ 
   interface scheduleFieldRefs {
     readonly device_id: FieldRef<"schedule", 'Int'>
-    readonly time_action: FieldRef<"schedule", 'DateTime'>
+    readonly action_time: FieldRef<"schedule", 'DateTime'>
     readonly action: FieldRef<"schedule", 'String'>
   }
     
@@ -7370,6 +7544,30 @@ export namespace Prisma {
      * Limit how many schedules to delete.
      */
     limit?: number
+  }
+
+  /**
+   * schedule.schedule_have_notification
+   */
+  export type schedule$schedule_have_notificationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the schedule_have_notification
+     */
+    select?: schedule_have_notificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the schedule_have_notification
+     */
+    omit?: schedule_have_notificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: schedule_have_notificationInclude<ExtArgs> | null
+    where?: schedule_have_notificationWhereInput
+    orderBy?: schedule_have_notificationOrderByWithRelationInput | schedule_have_notificationOrderByWithRelationInput[]
+    cursor?: schedule_have_notificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Schedule_have_notificationScalarFieldEnum | Schedule_have_notificationScalarFieldEnum[]
   }
 
   /**
@@ -8681,6 +8879,7 @@ export namespace Prisma {
     id?: boolean
     content?: boolean
     device_have_notification?: boolean | notification$device_have_notificationArgs<ExtArgs>
+    schedule_have_notification?: boolean | notification$schedule_have_notificationArgs<ExtArgs>
     _count?: boolean | NotificationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["notification"]>
 
@@ -8702,6 +8901,7 @@ export namespace Prisma {
   export type notificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content", ExtArgs["result"]["notification"]>
   export type notificationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     device_have_notification?: boolean | notification$device_have_notificationArgs<ExtArgs>
+    schedule_have_notification?: boolean | notification$schedule_have_notificationArgs<ExtArgs>
     _count?: boolean | NotificationCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type notificationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -8711,6 +8911,7 @@ export namespace Prisma {
     name: "notification"
     objects: {
       device_have_notification: Prisma.$device_have_notificationPayload<ExtArgs>[]
+      schedule_have_notification: Prisma.$schedule_have_notificationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -9110,6 +9311,7 @@ export namespace Prisma {
   export interface Prisma__notificationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     device_have_notification<T extends notification$device_have_notificationArgs<ExtArgs> = {}>(args?: Subset<T, notification$device_have_notificationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$device_have_notificationPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    schedule_have_notification<T extends notification$schedule_have_notificationArgs<ExtArgs> = {}>(args?: Subset<T, notification$schedule_have_notificationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$schedule_have_notificationPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9553,6 +9755,30 @@ export namespace Prisma {
   }
 
   /**
+   * notification.schedule_have_notification
+   */
+  export type notification$schedule_have_notificationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the schedule_have_notification
+     */
+    select?: schedule_have_notificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the schedule_have_notification
+     */
+    omit?: schedule_have_notificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: schedule_have_notificationInclude<ExtArgs> | null
+    where?: schedule_have_notificationWhereInput
+    orderBy?: schedule_have_notificationOrderByWithRelationInput | schedule_have_notificationOrderByWithRelationInput[]
+    cursor?: schedule_have_notificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Schedule_have_notificationScalarFieldEnum | Schedule_have_notificationScalarFieldEnum[]
+  }
+
+  /**
    * notification without action
    */
   export type notificationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9568,6 +9794,1084 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: notificationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model schedule_have_notification
+   */
+
+  export type AggregateSchedule_have_notification = {
+    _count: Schedule_have_notificationCountAggregateOutputType | null
+    _avg: Schedule_have_notificationAvgAggregateOutputType | null
+    _sum: Schedule_have_notificationSumAggregateOutputType | null
+    _min: Schedule_have_notificationMinAggregateOutputType | null
+    _max: Schedule_have_notificationMaxAggregateOutputType | null
+  }
+
+  export type Schedule_have_notificationAvgAggregateOutputType = {
+    notification_id: number | null
+    device_id: number | null
+  }
+
+  export type Schedule_have_notificationSumAggregateOutputType = {
+    notification_id: number | null
+    device_id: number | null
+  }
+
+  export type Schedule_have_notificationMinAggregateOutputType = {
+    notification_id: number | null
+    device_id: number | null
+    action_time: Date | null
+  }
+
+  export type Schedule_have_notificationMaxAggregateOutputType = {
+    notification_id: number | null
+    device_id: number | null
+    action_time: Date | null
+  }
+
+  export type Schedule_have_notificationCountAggregateOutputType = {
+    notification_id: number
+    device_id: number
+    action_time: number
+    _all: number
+  }
+
+
+  export type Schedule_have_notificationAvgAggregateInputType = {
+    notification_id?: true
+    device_id?: true
+  }
+
+  export type Schedule_have_notificationSumAggregateInputType = {
+    notification_id?: true
+    device_id?: true
+  }
+
+  export type Schedule_have_notificationMinAggregateInputType = {
+    notification_id?: true
+    device_id?: true
+    action_time?: true
+  }
+
+  export type Schedule_have_notificationMaxAggregateInputType = {
+    notification_id?: true
+    device_id?: true
+    action_time?: true
+  }
+
+  export type Schedule_have_notificationCountAggregateInputType = {
+    notification_id?: true
+    device_id?: true
+    action_time?: true
+    _all?: true
+  }
+
+  export type Schedule_have_notificationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which schedule_have_notification to aggregate.
+     */
+    where?: schedule_have_notificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of schedule_have_notifications to fetch.
+     */
+    orderBy?: schedule_have_notificationOrderByWithRelationInput | schedule_have_notificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: schedule_have_notificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` schedule_have_notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` schedule_have_notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned schedule_have_notifications
+    **/
+    _count?: true | Schedule_have_notificationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Schedule_have_notificationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Schedule_have_notificationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Schedule_have_notificationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Schedule_have_notificationMaxAggregateInputType
+  }
+
+  export type GetSchedule_have_notificationAggregateType<T extends Schedule_have_notificationAggregateArgs> = {
+        [P in keyof T & keyof AggregateSchedule_have_notification]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSchedule_have_notification[P]>
+      : GetScalarType<T[P], AggregateSchedule_have_notification[P]>
+  }
+
+
+
+
+  export type schedule_have_notificationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: schedule_have_notificationWhereInput
+    orderBy?: schedule_have_notificationOrderByWithAggregationInput | schedule_have_notificationOrderByWithAggregationInput[]
+    by: Schedule_have_notificationScalarFieldEnum[] | Schedule_have_notificationScalarFieldEnum
+    having?: schedule_have_notificationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Schedule_have_notificationCountAggregateInputType | true
+    _avg?: Schedule_have_notificationAvgAggregateInputType
+    _sum?: Schedule_have_notificationSumAggregateInputType
+    _min?: Schedule_have_notificationMinAggregateInputType
+    _max?: Schedule_have_notificationMaxAggregateInputType
+  }
+
+  export type Schedule_have_notificationGroupByOutputType = {
+    notification_id: number
+    device_id: number
+    action_time: Date
+    _count: Schedule_have_notificationCountAggregateOutputType | null
+    _avg: Schedule_have_notificationAvgAggregateOutputType | null
+    _sum: Schedule_have_notificationSumAggregateOutputType | null
+    _min: Schedule_have_notificationMinAggregateOutputType | null
+    _max: Schedule_have_notificationMaxAggregateOutputType | null
+  }
+
+  type GetSchedule_have_notificationGroupByPayload<T extends schedule_have_notificationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Schedule_have_notificationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Schedule_have_notificationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Schedule_have_notificationGroupByOutputType[P]>
+            : GetScalarType<T[P], Schedule_have_notificationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type schedule_have_notificationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    notification_id?: boolean
+    device_id?: boolean
+    action_time?: boolean
+    notification?: boolean | notificationDefaultArgs<ExtArgs>
+    schedule?: boolean | scheduleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["schedule_have_notification"]>
+
+  export type schedule_have_notificationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    notification_id?: boolean
+    device_id?: boolean
+    action_time?: boolean
+    notification?: boolean | notificationDefaultArgs<ExtArgs>
+    schedule?: boolean | scheduleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["schedule_have_notification"]>
+
+  export type schedule_have_notificationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    notification_id?: boolean
+    device_id?: boolean
+    action_time?: boolean
+    notification?: boolean | notificationDefaultArgs<ExtArgs>
+    schedule?: boolean | scheduleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["schedule_have_notification"]>
+
+  export type schedule_have_notificationSelectScalar = {
+    notification_id?: boolean
+    device_id?: boolean
+    action_time?: boolean
+  }
+
+  export type schedule_have_notificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"notification_id" | "device_id" | "action_time", ExtArgs["result"]["schedule_have_notification"]>
+  export type schedule_have_notificationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    notification?: boolean | notificationDefaultArgs<ExtArgs>
+    schedule?: boolean | scheduleDefaultArgs<ExtArgs>
+  }
+  export type schedule_have_notificationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    notification?: boolean | notificationDefaultArgs<ExtArgs>
+    schedule?: boolean | scheduleDefaultArgs<ExtArgs>
+  }
+  export type schedule_have_notificationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    notification?: boolean | notificationDefaultArgs<ExtArgs>
+    schedule?: boolean | scheduleDefaultArgs<ExtArgs>
+  }
+
+  export type $schedule_have_notificationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "schedule_have_notification"
+    objects: {
+      notification: Prisma.$notificationPayload<ExtArgs>
+      schedule: Prisma.$schedulePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      notification_id: number
+      device_id: number
+      action_time: Date
+    }, ExtArgs["result"]["schedule_have_notification"]>
+    composites: {}
+  }
+
+  type schedule_have_notificationGetPayload<S extends boolean | null | undefined | schedule_have_notificationDefaultArgs> = $Result.GetResult<Prisma.$schedule_have_notificationPayload, S>
+
+  type schedule_have_notificationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<schedule_have_notificationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Schedule_have_notificationCountAggregateInputType | true
+    }
+
+  export interface schedule_have_notificationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['schedule_have_notification'], meta: { name: 'schedule_have_notification' } }
+    /**
+     * Find zero or one Schedule_have_notification that matches the filter.
+     * @param {schedule_have_notificationFindUniqueArgs} args - Arguments to find a Schedule_have_notification
+     * @example
+     * // Get one Schedule_have_notification
+     * const schedule_have_notification = await prisma.schedule_have_notification.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends schedule_have_notificationFindUniqueArgs>(args: SelectSubset<T, schedule_have_notificationFindUniqueArgs<ExtArgs>>): Prisma__schedule_have_notificationClient<$Result.GetResult<Prisma.$schedule_have_notificationPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one Schedule_have_notification that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {schedule_have_notificationFindUniqueOrThrowArgs} args - Arguments to find a Schedule_have_notification
+     * @example
+     * // Get one Schedule_have_notification
+     * const schedule_have_notification = await prisma.schedule_have_notification.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends schedule_have_notificationFindUniqueOrThrowArgs>(args: SelectSubset<T, schedule_have_notificationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__schedule_have_notificationClient<$Result.GetResult<Prisma.$schedule_have_notificationPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Schedule_have_notification that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {schedule_have_notificationFindFirstArgs} args - Arguments to find a Schedule_have_notification
+     * @example
+     * // Get one Schedule_have_notification
+     * const schedule_have_notification = await prisma.schedule_have_notification.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends schedule_have_notificationFindFirstArgs>(args?: SelectSubset<T, schedule_have_notificationFindFirstArgs<ExtArgs>>): Prisma__schedule_have_notificationClient<$Result.GetResult<Prisma.$schedule_have_notificationPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Schedule_have_notification that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {schedule_have_notificationFindFirstOrThrowArgs} args - Arguments to find a Schedule_have_notification
+     * @example
+     * // Get one Schedule_have_notification
+     * const schedule_have_notification = await prisma.schedule_have_notification.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends schedule_have_notificationFindFirstOrThrowArgs>(args?: SelectSubset<T, schedule_have_notificationFindFirstOrThrowArgs<ExtArgs>>): Prisma__schedule_have_notificationClient<$Result.GetResult<Prisma.$schedule_have_notificationPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Schedule_have_notifications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {schedule_have_notificationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Schedule_have_notifications
+     * const schedule_have_notifications = await prisma.schedule_have_notification.findMany()
+     * 
+     * // Get first 10 Schedule_have_notifications
+     * const schedule_have_notifications = await prisma.schedule_have_notification.findMany({ take: 10 })
+     * 
+     * // Only select the `notification_id`
+     * const schedule_have_notificationWithNotification_idOnly = await prisma.schedule_have_notification.findMany({ select: { notification_id: true } })
+     * 
+     */
+    findMany<T extends schedule_have_notificationFindManyArgs>(args?: SelectSubset<T, schedule_have_notificationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$schedule_have_notificationPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a Schedule_have_notification.
+     * @param {schedule_have_notificationCreateArgs} args - Arguments to create a Schedule_have_notification.
+     * @example
+     * // Create one Schedule_have_notification
+     * const Schedule_have_notification = await prisma.schedule_have_notification.create({
+     *   data: {
+     *     // ... data to create a Schedule_have_notification
+     *   }
+     * })
+     * 
+     */
+    create<T extends schedule_have_notificationCreateArgs>(args: SelectSubset<T, schedule_have_notificationCreateArgs<ExtArgs>>): Prisma__schedule_have_notificationClient<$Result.GetResult<Prisma.$schedule_have_notificationPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many Schedule_have_notifications.
+     * @param {schedule_have_notificationCreateManyArgs} args - Arguments to create many Schedule_have_notifications.
+     * @example
+     * // Create many Schedule_have_notifications
+     * const schedule_have_notification = await prisma.schedule_have_notification.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends schedule_have_notificationCreateManyArgs>(args?: SelectSubset<T, schedule_have_notificationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Schedule_have_notifications and returns the data saved in the database.
+     * @param {schedule_have_notificationCreateManyAndReturnArgs} args - Arguments to create many Schedule_have_notifications.
+     * @example
+     * // Create many Schedule_have_notifications
+     * const schedule_have_notification = await prisma.schedule_have_notification.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Schedule_have_notifications and only return the `notification_id`
+     * const schedule_have_notificationWithNotification_idOnly = await prisma.schedule_have_notification.createManyAndReturn({
+     *   select: { notification_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends schedule_have_notificationCreateManyAndReturnArgs>(args?: SelectSubset<T, schedule_have_notificationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$schedule_have_notificationPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+
+    /**
+     * Delete a Schedule_have_notification.
+     * @param {schedule_have_notificationDeleteArgs} args - Arguments to delete one Schedule_have_notification.
+     * @example
+     * // Delete one Schedule_have_notification
+     * const Schedule_have_notification = await prisma.schedule_have_notification.delete({
+     *   where: {
+     *     // ... filter to delete one Schedule_have_notification
+     *   }
+     * })
+     * 
+     */
+    delete<T extends schedule_have_notificationDeleteArgs>(args: SelectSubset<T, schedule_have_notificationDeleteArgs<ExtArgs>>): Prisma__schedule_have_notificationClient<$Result.GetResult<Prisma.$schedule_have_notificationPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one Schedule_have_notification.
+     * @param {schedule_have_notificationUpdateArgs} args - Arguments to update one Schedule_have_notification.
+     * @example
+     * // Update one Schedule_have_notification
+     * const schedule_have_notification = await prisma.schedule_have_notification.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends schedule_have_notificationUpdateArgs>(args: SelectSubset<T, schedule_have_notificationUpdateArgs<ExtArgs>>): Prisma__schedule_have_notificationClient<$Result.GetResult<Prisma.$schedule_have_notificationPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more Schedule_have_notifications.
+     * @param {schedule_have_notificationDeleteManyArgs} args - Arguments to filter Schedule_have_notifications to delete.
+     * @example
+     * // Delete a few Schedule_have_notifications
+     * const { count } = await prisma.schedule_have_notification.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends schedule_have_notificationDeleteManyArgs>(args?: SelectSubset<T, schedule_have_notificationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Schedule_have_notifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {schedule_have_notificationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Schedule_have_notifications
+     * const schedule_have_notification = await prisma.schedule_have_notification.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends schedule_have_notificationUpdateManyArgs>(args: SelectSubset<T, schedule_have_notificationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Schedule_have_notifications and returns the data updated in the database.
+     * @param {schedule_have_notificationUpdateManyAndReturnArgs} args - Arguments to update many Schedule_have_notifications.
+     * @example
+     * // Update many Schedule_have_notifications
+     * const schedule_have_notification = await prisma.schedule_have_notification.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Schedule_have_notifications and only return the `notification_id`
+     * const schedule_have_notificationWithNotification_idOnly = await prisma.schedule_have_notification.updateManyAndReturn({
+     *   select: { notification_id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends schedule_have_notificationUpdateManyAndReturnArgs>(args: SelectSubset<T, schedule_have_notificationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$schedule_have_notificationPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+
+    /**
+     * Create or update one Schedule_have_notification.
+     * @param {schedule_have_notificationUpsertArgs} args - Arguments to update or create a Schedule_have_notification.
+     * @example
+     * // Update or create a Schedule_have_notification
+     * const schedule_have_notification = await prisma.schedule_have_notification.upsert({
+     *   create: {
+     *     // ... data to create a Schedule_have_notification
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Schedule_have_notification we want to update
+     *   }
+     * })
+     */
+    upsert<T extends schedule_have_notificationUpsertArgs>(args: SelectSubset<T, schedule_have_notificationUpsertArgs<ExtArgs>>): Prisma__schedule_have_notificationClient<$Result.GetResult<Prisma.$schedule_have_notificationPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+
+    /**
+     * Count the number of Schedule_have_notifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {schedule_have_notificationCountArgs} args - Arguments to filter Schedule_have_notifications to count.
+     * @example
+     * // Count the number of Schedule_have_notifications
+     * const count = await prisma.schedule_have_notification.count({
+     *   where: {
+     *     // ... the filter for the Schedule_have_notifications we want to count
+     *   }
+     * })
+    **/
+    count<T extends schedule_have_notificationCountArgs>(
+      args?: Subset<T, schedule_have_notificationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Schedule_have_notificationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Schedule_have_notification.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Schedule_have_notificationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Schedule_have_notificationAggregateArgs>(args: Subset<T, Schedule_have_notificationAggregateArgs>): Prisma.PrismaPromise<GetSchedule_have_notificationAggregateType<T>>
+
+    /**
+     * Group by Schedule_have_notification.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {schedule_have_notificationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends schedule_have_notificationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: schedule_have_notificationGroupByArgs['orderBy'] }
+        : { orderBy?: schedule_have_notificationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, schedule_have_notificationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSchedule_have_notificationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the schedule_have_notification model
+   */
+  readonly fields: schedule_have_notificationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for schedule_have_notification.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__schedule_have_notificationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    notification<T extends notificationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, notificationDefaultArgs<ExtArgs>>): Prisma__notificationClient<$Result.GetResult<Prisma.$notificationPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    schedule<T extends scheduleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, scheduleDefaultArgs<ExtArgs>>): Prisma__scheduleClient<$Result.GetResult<Prisma.$schedulePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the schedule_have_notification model
+   */ 
+  interface schedule_have_notificationFieldRefs {
+    readonly notification_id: FieldRef<"schedule_have_notification", 'Int'>
+    readonly device_id: FieldRef<"schedule_have_notification", 'Int'>
+    readonly action_time: FieldRef<"schedule_have_notification", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * schedule_have_notification findUnique
+   */
+  export type schedule_have_notificationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the schedule_have_notification
+     */
+    select?: schedule_have_notificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the schedule_have_notification
+     */
+    omit?: schedule_have_notificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: schedule_have_notificationInclude<ExtArgs> | null
+    /**
+     * Filter, which schedule_have_notification to fetch.
+     */
+    where: schedule_have_notificationWhereUniqueInput
+  }
+
+  /**
+   * schedule_have_notification findUniqueOrThrow
+   */
+  export type schedule_have_notificationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the schedule_have_notification
+     */
+    select?: schedule_have_notificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the schedule_have_notification
+     */
+    omit?: schedule_have_notificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: schedule_have_notificationInclude<ExtArgs> | null
+    /**
+     * Filter, which schedule_have_notification to fetch.
+     */
+    where: schedule_have_notificationWhereUniqueInput
+  }
+
+  /**
+   * schedule_have_notification findFirst
+   */
+  export type schedule_have_notificationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the schedule_have_notification
+     */
+    select?: schedule_have_notificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the schedule_have_notification
+     */
+    omit?: schedule_have_notificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: schedule_have_notificationInclude<ExtArgs> | null
+    /**
+     * Filter, which schedule_have_notification to fetch.
+     */
+    where?: schedule_have_notificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of schedule_have_notifications to fetch.
+     */
+    orderBy?: schedule_have_notificationOrderByWithRelationInput | schedule_have_notificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for schedule_have_notifications.
+     */
+    cursor?: schedule_have_notificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` schedule_have_notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` schedule_have_notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of schedule_have_notifications.
+     */
+    distinct?: Schedule_have_notificationScalarFieldEnum | Schedule_have_notificationScalarFieldEnum[]
+  }
+
+  /**
+   * schedule_have_notification findFirstOrThrow
+   */
+  export type schedule_have_notificationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the schedule_have_notification
+     */
+    select?: schedule_have_notificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the schedule_have_notification
+     */
+    omit?: schedule_have_notificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: schedule_have_notificationInclude<ExtArgs> | null
+    /**
+     * Filter, which schedule_have_notification to fetch.
+     */
+    where?: schedule_have_notificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of schedule_have_notifications to fetch.
+     */
+    orderBy?: schedule_have_notificationOrderByWithRelationInput | schedule_have_notificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for schedule_have_notifications.
+     */
+    cursor?: schedule_have_notificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` schedule_have_notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` schedule_have_notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of schedule_have_notifications.
+     */
+    distinct?: Schedule_have_notificationScalarFieldEnum | Schedule_have_notificationScalarFieldEnum[]
+  }
+
+  /**
+   * schedule_have_notification findMany
+   */
+  export type schedule_have_notificationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the schedule_have_notification
+     */
+    select?: schedule_have_notificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the schedule_have_notification
+     */
+    omit?: schedule_have_notificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: schedule_have_notificationInclude<ExtArgs> | null
+    /**
+     * Filter, which schedule_have_notifications to fetch.
+     */
+    where?: schedule_have_notificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of schedule_have_notifications to fetch.
+     */
+    orderBy?: schedule_have_notificationOrderByWithRelationInput | schedule_have_notificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing schedule_have_notifications.
+     */
+    cursor?: schedule_have_notificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` schedule_have_notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` schedule_have_notifications.
+     */
+    skip?: number
+    distinct?: Schedule_have_notificationScalarFieldEnum | Schedule_have_notificationScalarFieldEnum[]
+  }
+
+  /**
+   * schedule_have_notification create
+   */
+  export type schedule_have_notificationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the schedule_have_notification
+     */
+    select?: schedule_have_notificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the schedule_have_notification
+     */
+    omit?: schedule_have_notificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: schedule_have_notificationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a schedule_have_notification.
+     */
+    data: XOR<schedule_have_notificationCreateInput, schedule_have_notificationUncheckedCreateInput>
+  }
+
+  /**
+   * schedule_have_notification createMany
+   */
+  export type schedule_have_notificationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many schedule_have_notifications.
+     */
+    data: schedule_have_notificationCreateManyInput | schedule_have_notificationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * schedule_have_notification createManyAndReturn
+   */
+  export type schedule_have_notificationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the schedule_have_notification
+     */
+    select?: schedule_have_notificationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the schedule_have_notification
+     */
+    omit?: schedule_have_notificationOmit<ExtArgs> | null
+    /**
+     * The data used to create many schedule_have_notifications.
+     */
+    data: schedule_have_notificationCreateManyInput | schedule_have_notificationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: schedule_have_notificationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * schedule_have_notification update
+   */
+  export type schedule_have_notificationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the schedule_have_notification
+     */
+    select?: schedule_have_notificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the schedule_have_notification
+     */
+    omit?: schedule_have_notificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: schedule_have_notificationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a schedule_have_notification.
+     */
+    data: XOR<schedule_have_notificationUpdateInput, schedule_have_notificationUncheckedUpdateInput>
+    /**
+     * Choose, which schedule_have_notification to update.
+     */
+    where: schedule_have_notificationWhereUniqueInput
+  }
+
+  /**
+   * schedule_have_notification updateMany
+   */
+  export type schedule_have_notificationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update schedule_have_notifications.
+     */
+    data: XOR<schedule_have_notificationUpdateManyMutationInput, schedule_have_notificationUncheckedUpdateManyInput>
+    /**
+     * Filter which schedule_have_notifications to update
+     */
+    where?: schedule_have_notificationWhereInput
+    /**
+     * Limit how many schedule_have_notifications to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * schedule_have_notification updateManyAndReturn
+   */
+  export type schedule_have_notificationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the schedule_have_notification
+     */
+    select?: schedule_have_notificationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the schedule_have_notification
+     */
+    omit?: schedule_have_notificationOmit<ExtArgs> | null
+    /**
+     * The data used to update schedule_have_notifications.
+     */
+    data: XOR<schedule_have_notificationUpdateManyMutationInput, schedule_have_notificationUncheckedUpdateManyInput>
+    /**
+     * Filter which schedule_have_notifications to update
+     */
+    where?: schedule_have_notificationWhereInput
+    /**
+     * Limit how many schedule_have_notifications to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: schedule_have_notificationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * schedule_have_notification upsert
+   */
+  export type schedule_have_notificationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the schedule_have_notification
+     */
+    select?: schedule_have_notificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the schedule_have_notification
+     */
+    omit?: schedule_have_notificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: schedule_have_notificationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the schedule_have_notification to update in case it exists.
+     */
+    where: schedule_have_notificationWhereUniqueInput
+    /**
+     * In case the schedule_have_notification found by the `where` argument doesn't exist, create a new schedule_have_notification with this data.
+     */
+    create: XOR<schedule_have_notificationCreateInput, schedule_have_notificationUncheckedCreateInput>
+    /**
+     * In case the schedule_have_notification was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<schedule_have_notificationUpdateInput, schedule_have_notificationUncheckedUpdateInput>
+  }
+
+  /**
+   * schedule_have_notification delete
+   */
+  export type schedule_have_notificationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the schedule_have_notification
+     */
+    select?: schedule_have_notificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the schedule_have_notification
+     */
+    omit?: schedule_have_notificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: schedule_have_notificationInclude<ExtArgs> | null
+    /**
+     * Filter which schedule_have_notification to delete.
+     */
+    where: schedule_have_notificationWhereUniqueInput
+  }
+
+  /**
+   * schedule_have_notification deleteMany
+   */
+  export type schedule_have_notificationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which schedule_have_notifications to delete
+     */
+    where?: schedule_have_notificationWhereInput
+    /**
+     * Limit how many schedule_have_notifications to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * schedule_have_notification without action
+   */
+  export type schedule_have_notificationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the schedule_have_notification
+     */
+    select?: schedule_have_notificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the schedule_have_notification
+     */
+    omit?: schedule_have_notificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: schedule_have_notificationInclude<ExtArgs> | null
   }
 
 
@@ -9731,7 +11035,7 @@ export namespace Prisma {
   export type Device_have_notificationGroupByOutputType = {
     notification_id: number
     device_id: number
-    notification_time: Date | null
+    notification_time: Date
     _count: Device_have_notificationCountAggregateOutputType | null
     _avg: Device_have_notificationAvgAggregateOutputType | null
     _sum: Device_have_notificationSumAggregateOutputType | null
@@ -9806,7 +11110,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       notification_id: number
       device_id: number
-      notification_time: Date | null
+      notification_time: Date
     }, ExtArgs["result"]["device_have_notification"]>
     composites: {}
   }
@@ -10673,24 +11977,24 @@ export namespace Prisma {
 
   export type HomeMinAggregateOutputType = {
     id: number | null
-    serial_number: string | null
     home_name: string | null
+    serial_number: string | null
     manager_id: number | null
     aio_key: string | null
   }
 
   export type HomeMaxAggregateOutputType = {
     id: number | null
-    serial_number: string | null
     home_name: string | null
+    serial_number: string | null
     manager_id: number | null
     aio_key: string | null
   }
 
   export type HomeCountAggregateOutputType = {
     id: number
-    serial_number: number
     home_name: number
+    serial_number: number
     manager_id: number
     aio_key: number
     _all: number
@@ -10709,24 +12013,24 @@ export namespace Prisma {
 
   export type HomeMinAggregateInputType = {
     id?: true
-    serial_number?: true
     home_name?: true
+    serial_number?: true
     manager_id?: true
     aio_key?: true
   }
 
   export type HomeMaxAggregateInputType = {
     id?: true
-    serial_number?: true
     home_name?: true
+    serial_number?: true
     manager_id?: true
     aio_key?: true
   }
 
   export type HomeCountAggregateInputType = {
     id?: true
-    serial_number?: true
     home_name?: true
+    serial_number?: true
     manager_id?: true
     aio_key?: true
     _all?: true
@@ -10820,8 +12124,8 @@ export namespace Prisma {
 
   export type HomeGroupByOutputType = {
     id: number
-    serial_number: string
     home_name: string
+    serial_number: string
     manager_id: number | null
     aio_key: string
     _count: HomeCountAggregateOutputType | null
@@ -10847,58 +12151,67 @@ export namespace Prisma {
 
   export type homeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    serial_number?: boolean
     home_name?: boolean
+    serial_number?: boolean
     manager_id?: boolean
     aio_key?: boolean
+    users?: boolean | home$usersArgs<ExtArgs>
     device?: boolean | home$deviceArgs<ExtArgs>
-    user_in_home?: boolean | home$user_in_homeArgs<ExtArgs>
+    user_have_home?: boolean | home$user_have_homeArgs<ExtArgs>
     _count?: boolean | HomeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["home"]>
 
   export type homeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    serial_number?: boolean
     home_name?: boolean
+    serial_number?: boolean
     manager_id?: boolean
     aio_key?: boolean
+    users?: boolean | home$usersArgs<ExtArgs>
   }, ExtArgs["result"]["home"]>
 
   export type homeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    serial_number?: boolean
     home_name?: boolean
+    serial_number?: boolean
     manager_id?: boolean
     aio_key?: boolean
+    users?: boolean | home$usersArgs<ExtArgs>
   }, ExtArgs["result"]["home"]>
 
   export type homeSelectScalar = {
     id?: boolean
-    serial_number?: boolean
     home_name?: boolean
+    serial_number?: boolean
     manager_id?: boolean
     aio_key?: boolean
   }
 
-  export type homeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "serial_number" | "home_name" | "manager_id" | "aio_key", ExtArgs["result"]["home"]>
+  export type homeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "home_name" | "serial_number" | "manager_id" | "aio_key", ExtArgs["result"]["home"]>
   export type homeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | home$usersArgs<ExtArgs>
     device?: boolean | home$deviceArgs<ExtArgs>
-    user_in_home?: boolean | home$user_in_homeArgs<ExtArgs>
+    user_have_home?: boolean | home$user_have_homeArgs<ExtArgs>
     _count?: boolean | HomeCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type homeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type homeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type homeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | home$usersArgs<ExtArgs>
+  }
+  export type homeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | home$usersArgs<ExtArgs>
+  }
 
   export type $homePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "home"
     objects: {
+      users: Prisma.$usersPayload<ExtArgs> | null
       device: Prisma.$devicePayload<ExtArgs>[]
-      user_in_home: Prisma.$user_in_homePayload<ExtArgs>[]
+      user_have_home: Prisma.$user_have_homePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      serial_number: string
       home_name: string
+      serial_number: string
       manager_id: number | null
       aio_key: string
     }, ExtArgs["result"]["home"]>
@@ -11295,8 +12608,9 @@ export namespace Prisma {
    */
   export interface Prisma__homeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    users<T extends home$usersArgs<ExtArgs> = {}>(args?: Subset<T, home$usersArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
     device<T extends home$deviceArgs<ExtArgs> = {}>(args?: Subset<T, home$deviceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$devicePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
-    user_in_home<T extends home$user_in_homeArgs<ExtArgs> = {}>(args?: Subset<T, home$user_in_homeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$user_in_homePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    user_have_home<T extends home$user_have_homeArgs<ExtArgs> = {}>(args?: Subset<T, home$user_have_homeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$user_have_homePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11327,8 +12641,8 @@ export namespace Prisma {
    */ 
   interface homeFieldRefs {
     readonly id: FieldRef<"home", 'Int'>
-    readonly serial_number: FieldRef<"home", 'String'>
     readonly home_name: FieldRef<"home", 'String'>
+    readonly serial_number: FieldRef<"home", 'String'>
     readonly manager_id: FieldRef<"home", 'Int'>
     readonly aio_key: FieldRef<"home", 'String'>
   }
@@ -11580,6 +12894,10 @@ export namespace Prisma {
      */
     data: homeCreateManyInput | homeCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: homeIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -11650,6 +12968,10 @@ export namespace Prisma {
      * Limit how many homes to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: homeIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -11719,6 +13041,25 @@ export namespace Prisma {
   }
 
   /**
+   * home.users
+   */
+  export type home$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the users
+     */
+    select?: usersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the users
+     */
+    omit?: usersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: usersInclude<ExtArgs> | null
+    where?: usersWhereInput
+  }
+
+  /**
    * home.device
    */
   export type home$deviceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11743,27 +13084,27 @@ export namespace Prisma {
   }
 
   /**
-   * home.user_in_home
+   * home.user_have_home
    */
-  export type home$user_in_homeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type home$user_have_homeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the user_in_home
+     * Select specific fields to fetch from the user_have_home
      */
-    select?: user_in_homeSelect<ExtArgs> | null
+    select?: user_have_homeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the user_in_home
+     * Omit specific fields from the user_have_home
      */
-    omit?: user_in_homeOmit<ExtArgs> | null
+    omit?: user_have_homeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: user_in_homeInclude<ExtArgs> | null
-    where?: user_in_homeWhereInput
-    orderBy?: user_in_homeOrderByWithRelationInput | user_in_homeOrderByWithRelationInput[]
-    cursor?: user_in_homeWhereUniqueInput
+    include?: user_have_homeInclude<ExtArgs> | null
+    where?: user_have_homeWhereInput
+    orderBy?: user_have_homeOrderByWithRelationInput | user_have_homeOrderByWithRelationInput[]
+    cursor?: user_have_homeWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: User_in_homeScalarFieldEnum | User_in_homeScalarFieldEnum[]
+    distinct?: User_have_homeScalarFieldEnum | User_have_homeScalarFieldEnum[]
   }
 
   /**
@@ -11814,12 +13155,12 @@ export namespace Prisma {
   export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
 
 
-  export const User_in_homeScalarFieldEnum: {
+  export const User_have_homeScalarFieldEnum: {
     user_id: 'user_id',
     home_id: 'home_id'
   };
 
-  export type User_in_homeScalarFieldEnum = (typeof User_in_homeScalarFieldEnum)[keyof typeof User_in_homeScalarFieldEnum]
+  export type User_have_homeScalarFieldEnum = (typeof User_have_homeScalarFieldEnum)[keyof typeof User_have_homeScalarFieldEnum]
 
 
   export const DeviceScalarFieldEnum: {
@@ -11848,7 +13189,7 @@ export namespace Prisma {
 
   export const ScheduleScalarFieldEnum: {
     device_id: 'device_id',
-    time_action: 'time_action',
+    action_time: 'action_time',
     action: 'action'
   };
 
@@ -11874,6 +13215,15 @@ export namespace Prisma {
   export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
 
 
+  export const Schedule_have_notificationScalarFieldEnum: {
+    notification_id: 'notification_id',
+    device_id: 'device_id',
+    action_time: 'action_time'
+  };
+
+  export type Schedule_have_notificationScalarFieldEnum = (typeof Schedule_have_notificationScalarFieldEnum)[keyof typeof Schedule_have_notificationScalarFieldEnum]
+
+
   export const Device_have_notificationScalarFieldEnum: {
     notification_id: 'notification_id',
     device_id: 'device_id',
@@ -11885,8 +13235,8 @@ export namespace Prisma {
 
   export const HomeScalarFieldEnum: {
     id: 'id',
-    serial_number: 'serial_number',
     home_name: 'home_name',
+    serial_number: 'serial_number',
     manager_id: 'manager_id',
     aio_key: 'aio_key'
   };
@@ -11995,7 +13345,8 @@ export namespace Prisma {
     salt?: StringNullableFilter<"users"> | string | null
     created_at?: DateTimeFilter<"users"> | Date | string
     updated_at?: DateTimeFilter<"users"> | Date | string
-    user_in_home?: User_in_homeListRelationFilter
+    user_have_home?: User_have_homeListRelationFilter
+    home?: HomeListRelationFilter
   }
 
   export type usersOrderByWithRelationInput = {
@@ -12008,7 +13359,8 @@ export namespace Prisma {
     salt?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    user_in_home?: user_in_homeOrderByRelationAggregateInput
+    user_have_home?: user_have_homeOrderByRelationAggregateInput
+    home?: homeOrderByRelationAggregateInput
   }
 
   export type usersWhereUniqueInput = Prisma.AtLeast<{
@@ -12024,7 +13376,8 @@ export namespace Prisma {
     salt?: StringNullableFilter<"users"> | string | null
     created_at?: DateTimeFilter<"users"> | Date | string
     updated_at?: DateTimeFilter<"users"> | Date | string
-    user_in_home?: User_in_homeListRelationFilter
+    user_have_home?: User_have_homeListRelationFilter
+    home?: HomeListRelationFilter
   }, "id" | "email">
 
   export type usersOrderByWithAggregationInput = {
@@ -12059,50 +13412,50 @@ export namespace Prisma {
     updated_at?: DateTimeWithAggregatesFilter<"users"> | Date | string
   }
 
-  export type user_in_homeWhereInput = {
-    AND?: user_in_homeWhereInput | user_in_homeWhereInput[]
-    OR?: user_in_homeWhereInput[]
-    NOT?: user_in_homeWhereInput | user_in_homeWhereInput[]
-    user_id?: IntFilter<"user_in_home"> | number
-    home_id?: IntFilter<"user_in_home"> | number
+  export type user_have_homeWhereInput = {
+    AND?: user_have_homeWhereInput | user_have_homeWhereInput[]
+    OR?: user_have_homeWhereInput[]
+    NOT?: user_have_homeWhereInput | user_have_homeWhereInput[]
+    user_id?: IntFilter<"user_have_home"> | number
+    home_id?: IntFilter<"user_have_home"> | number
     user?: XOR<UsersScalarRelationFilter, usersWhereInput>
     home?: XOR<HomeScalarRelationFilter, homeWhereInput>
   }
 
-  export type user_in_homeOrderByWithRelationInput = {
+  export type user_have_homeOrderByWithRelationInput = {
     user_id?: SortOrder
     home_id?: SortOrder
     user?: usersOrderByWithRelationInput
     home?: homeOrderByWithRelationInput
   }
 
-  export type user_in_homeWhereUniqueInput = Prisma.AtLeast<{
-    user_id_home_id?: user_in_homeUser_idHome_idCompoundUniqueInput
-    AND?: user_in_homeWhereInput | user_in_homeWhereInput[]
-    OR?: user_in_homeWhereInput[]
-    NOT?: user_in_homeWhereInput | user_in_homeWhereInput[]
-    user_id?: IntFilter<"user_in_home"> | number
-    home_id?: IntFilter<"user_in_home"> | number
+  export type user_have_homeWhereUniqueInput = Prisma.AtLeast<{
+    user_id_home_id?: user_have_homeUser_idHome_idCompoundUniqueInput
+    AND?: user_have_homeWhereInput | user_have_homeWhereInput[]
+    OR?: user_have_homeWhereInput[]
+    NOT?: user_have_homeWhereInput | user_have_homeWhereInput[]
+    user_id?: IntFilter<"user_have_home"> | number
+    home_id?: IntFilter<"user_have_home"> | number
     user?: XOR<UsersScalarRelationFilter, usersWhereInput>
     home?: XOR<HomeScalarRelationFilter, homeWhereInput>
   }, "user_id_home_id">
 
-  export type user_in_homeOrderByWithAggregationInput = {
+  export type user_have_homeOrderByWithAggregationInput = {
     user_id?: SortOrder
     home_id?: SortOrder
-    _count?: user_in_homeCountOrderByAggregateInput
-    _avg?: user_in_homeAvgOrderByAggregateInput
-    _max?: user_in_homeMaxOrderByAggregateInput
-    _min?: user_in_homeMinOrderByAggregateInput
-    _sum?: user_in_homeSumOrderByAggregateInput
+    _count?: user_have_homeCountOrderByAggregateInput
+    _avg?: user_have_homeAvgOrderByAggregateInput
+    _max?: user_have_homeMaxOrderByAggregateInput
+    _min?: user_have_homeMinOrderByAggregateInput
+    _sum?: user_have_homeSumOrderByAggregateInput
   }
 
-  export type user_in_homeScalarWhereWithAggregatesInput = {
-    AND?: user_in_homeScalarWhereWithAggregatesInput | user_in_homeScalarWhereWithAggregatesInput[]
-    OR?: user_in_homeScalarWhereWithAggregatesInput[]
-    NOT?: user_in_homeScalarWhereWithAggregatesInput | user_in_homeScalarWhereWithAggregatesInput[]
-    user_id?: IntWithAggregatesFilter<"user_in_home"> | number
-    home_id?: IntWithAggregatesFilter<"user_in_home"> | number
+  export type user_have_homeScalarWhereWithAggregatesInput = {
+    AND?: user_have_homeScalarWhereWithAggregatesInput | user_have_homeScalarWhereWithAggregatesInput[]
+    OR?: user_have_homeScalarWhereWithAggregatesInput[]
+    NOT?: user_have_homeScalarWhereWithAggregatesInput | user_have_homeScalarWhereWithAggregatesInput[]
+    user_id?: IntWithAggregatesFilter<"user_have_home"> | number
+    home_id?: IntWithAggregatesFilter<"user_have_home"> | number
   }
 
   export type deviceWhereInput = {
@@ -12246,32 +13599,35 @@ export namespace Prisma {
     OR?: scheduleWhereInput[]
     NOT?: scheduleWhereInput | scheduleWhereInput[]
     device_id?: IntFilter<"schedule"> | number
-    time_action?: DateTimeFilter<"schedule"> | Date | string
+    action_time?: DateTimeFilter<"schedule"> | Date | string
     action?: StringFilter<"schedule"> | string
     device?: XOR<DeviceScalarRelationFilter, deviceWhereInput>
+    schedule_have_notification?: Schedule_have_notificationListRelationFilter
   }
 
   export type scheduleOrderByWithRelationInput = {
     device_id?: SortOrder
-    time_action?: SortOrder
+    action_time?: SortOrder
     action?: SortOrder
     device?: deviceOrderByWithRelationInput
+    schedule_have_notification?: schedule_have_notificationOrderByRelationAggregateInput
   }
 
   export type scheduleWhereUniqueInput = Prisma.AtLeast<{
-    time_action_device_id?: scheduleTime_actionDevice_idCompoundUniqueInput
+    action_time_device_id?: scheduleAction_timeDevice_idCompoundUniqueInput
     AND?: scheduleWhereInput | scheduleWhereInput[]
     OR?: scheduleWhereInput[]
     NOT?: scheduleWhereInput | scheduleWhereInput[]
     device_id?: IntFilter<"schedule"> | number
-    time_action?: DateTimeFilter<"schedule"> | Date | string
+    action_time?: DateTimeFilter<"schedule"> | Date | string
     action?: StringFilter<"schedule"> | string
     device?: XOR<DeviceScalarRelationFilter, deviceWhereInput>
-  }, "time_action_device_id">
+    schedule_have_notification?: Schedule_have_notificationListRelationFilter
+  }, "action_time_device_id">
 
   export type scheduleOrderByWithAggregationInput = {
     device_id?: SortOrder
-    time_action?: SortOrder
+    action_time?: SortOrder
     action?: SortOrder
     _count?: scheduleCountOrderByAggregateInput
     _avg?: scheduleAvgOrderByAggregateInput
@@ -12285,7 +13641,7 @@ export namespace Prisma {
     OR?: scheduleScalarWhereWithAggregatesInput[]
     NOT?: scheduleScalarWhereWithAggregatesInput | scheduleScalarWhereWithAggregatesInput[]
     device_id?: IntWithAggregatesFilter<"schedule"> | number
-    time_action?: DateTimeWithAggregatesFilter<"schedule"> | Date | string
+    action_time?: DateTimeWithAggregatesFilter<"schedule"> | Date | string
     action?: StringWithAggregatesFilter<"schedule"> | string
   }
 
@@ -12353,12 +13709,14 @@ export namespace Prisma {
     id?: IntFilter<"notification"> | number
     content?: StringNullableFilter<"notification"> | string | null
     device_have_notification?: Device_have_notificationListRelationFilter
+    schedule_have_notification?: Schedule_have_notificationListRelationFilter
   }
 
   export type notificationOrderByWithRelationInput = {
     id?: SortOrder
     content?: SortOrderInput | SortOrder
     device_have_notification?: device_have_notificationOrderByRelationAggregateInput
+    schedule_have_notification?: schedule_have_notificationOrderByRelationAggregateInput
   }
 
   export type notificationWhereUniqueInput = Prisma.AtLeast<{
@@ -12368,6 +13726,7 @@ export namespace Prisma {
     NOT?: notificationWhereInput | notificationWhereInput[]
     content?: StringNullableFilter<"notification"> | string | null
     device_have_notification?: Device_have_notificationListRelationFilter
+    schedule_have_notification?: Schedule_have_notificationListRelationFilter
   }, "id">
 
   export type notificationOrderByWithAggregationInput = {
@@ -12388,13 +13747,64 @@ export namespace Prisma {
     content?: StringNullableWithAggregatesFilter<"notification"> | string | null
   }
 
+  export type schedule_have_notificationWhereInput = {
+    AND?: schedule_have_notificationWhereInput | schedule_have_notificationWhereInput[]
+    OR?: schedule_have_notificationWhereInput[]
+    NOT?: schedule_have_notificationWhereInput | schedule_have_notificationWhereInput[]
+    notification_id?: IntFilter<"schedule_have_notification"> | number
+    device_id?: IntFilter<"schedule_have_notification"> | number
+    action_time?: DateTimeFilter<"schedule_have_notification"> | Date | string
+    notification?: XOR<NotificationScalarRelationFilter, notificationWhereInput>
+    schedule?: XOR<ScheduleScalarRelationFilter, scheduleWhereInput>
+  }
+
+  export type schedule_have_notificationOrderByWithRelationInput = {
+    notification_id?: SortOrder
+    device_id?: SortOrder
+    action_time?: SortOrder
+    notification?: notificationOrderByWithRelationInput
+    schedule?: scheduleOrderByWithRelationInput
+  }
+
+  export type schedule_have_notificationWhereUniqueInput = Prisma.AtLeast<{
+    notification_id_device_id_action_time?: schedule_have_notificationNotification_idDevice_idAction_timeCompoundUniqueInput
+    AND?: schedule_have_notificationWhereInput | schedule_have_notificationWhereInput[]
+    OR?: schedule_have_notificationWhereInput[]
+    NOT?: schedule_have_notificationWhereInput | schedule_have_notificationWhereInput[]
+    notification_id?: IntFilter<"schedule_have_notification"> | number
+    device_id?: IntFilter<"schedule_have_notification"> | number
+    action_time?: DateTimeFilter<"schedule_have_notification"> | Date | string
+    notification?: XOR<NotificationScalarRelationFilter, notificationWhereInput>
+    schedule?: XOR<ScheduleScalarRelationFilter, scheduleWhereInput>
+  }, "notification_id_device_id_action_time">
+
+  export type schedule_have_notificationOrderByWithAggregationInput = {
+    notification_id?: SortOrder
+    device_id?: SortOrder
+    action_time?: SortOrder
+    _count?: schedule_have_notificationCountOrderByAggregateInput
+    _avg?: schedule_have_notificationAvgOrderByAggregateInput
+    _max?: schedule_have_notificationMaxOrderByAggregateInput
+    _min?: schedule_have_notificationMinOrderByAggregateInput
+    _sum?: schedule_have_notificationSumOrderByAggregateInput
+  }
+
+  export type schedule_have_notificationScalarWhereWithAggregatesInput = {
+    AND?: schedule_have_notificationScalarWhereWithAggregatesInput | schedule_have_notificationScalarWhereWithAggregatesInput[]
+    OR?: schedule_have_notificationScalarWhereWithAggregatesInput[]
+    NOT?: schedule_have_notificationScalarWhereWithAggregatesInput | schedule_have_notificationScalarWhereWithAggregatesInput[]
+    notification_id?: IntWithAggregatesFilter<"schedule_have_notification"> | number
+    device_id?: IntWithAggregatesFilter<"schedule_have_notification"> | number
+    action_time?: DateTimeWithAggregatesFilter<"schedule_have_notification"> | Date | string
+  }
+
   export type device_have_notificationWhereInput = {
     AND?: device_have_notificationWhereInput | device_have_notificationWhereInput[]
     OR?: device_have_notificationWhereInput[]
     NOT?: device_have_notificationWhereInput | device_have_notificationWhereInput[]
     notification_id?: IntFilter<"device_have_notification"> | number
     device_id?: IntFilter<"device_have_notification"> | number
-    notification_time?: DateTimeNullableFilter<"device_have_notification"> | Date | string | null
+    notification_time?: DateTimeFilter<"device_have_notification"> | Date | string
     notification?: XOR<NotificationScalarRelationFilter, notificationWhereInput>
     device?: XOR<DeviceScalarRelationFilter, deviceWhereInput>
   }
@@ -12402,7 +13812,7 @@ export namespace Prisma {
   export type device_have_notificationOrderByWithRelationInput = {
     notification_id?: SortOrder
     device_id?: SortOrder
-    notification_time?: SortOrderInput | SortOrder
+    notification_time?: SortOrder
     notification?: notificationOrderByWithRelationInput
     device?: deviceOrderByWithRelationInput
   }
@@ -12414,7 +13824,7 @@ export namespace Prisma {
     NOT?: device_have_notificationWhereInput | device_have_notificationWhereInput[]
     notification_id?: IntFilter<"device_have_notification"> | number
     device_id?: IntFilter<"device_have_notification"> | number
-    notification_time?: DateTimeNullableFilter<"device_have_notification"> | Date | string | null
+    notification_time?: DateTimeFilter<"device_have_notification"> | Date | string
     notification?: XOR<NotificationScalarRelationFilter, notificationWhereInput>
     device?: XOR<DeviceScalarRelationFilter, deviceWhereInput>
   }, "notification_id_device_id">
@@ -12422,7 +13832,7 @@ export namespace Prisma {
   export type device_have_notificationOrderByWithAggregationInput = {
     notification_id?: SortOrder
     device_id?: SortOrder
-    notification_time?: SortOrderInput | SortOrder
+    notification_time?: SortOrder
     _count?: device_have_notificationCountOrderByAggregateInput
     _avg?: device_have_notificationAvgOrderByAggregateInput
     _max?: device_have_notificationMaxOrderByAggregateInput
@@ -12436,7 +13846,7 @@ export namespace Prisma {
     NOT?: device_have_notificationScalarWhereWithAggregatesInput | device_have_notificationScalarWhereWithAggregatesInput[]
     notification_id?: IntWithAggregatesFilter<"device_have_notification"> | number
     device_id?: IntWithAggregatesFilter<"device_have_notification"> | number
-    notification_time?: DateTimeNullableWithAggregatesFilter<"device_have_notification"> | Date | string | null
+    notification_time?: DateTimeWithAggregatesFilter<"device_have_notification"> | Date | string
   }
 
   export type homeWhereInput = {
@@ -12444,22 +13854,24 @@ export namespace Prisma {
     OR?: homeWhereInput[]
     NOT?: homeWhereInput | homeWhereInput[]
     id?: IntFilter<"home"> | number
-    serial_number?: StringFilter<"home"> | string
     home_name?: StringFilter<"home"> | string
+    serial_number?: StringFilter<"home"> | string
     manager_id?: IntNullableFilter<"home"> | number | null
     aio_key?: StringFilter<"home"> | string
+    users?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
     device?: DeviceListRelationFilter
-    user_in_home?: User_in_homeListRelationFilter
+    user_have_home?: User_have_homeListRelationFilter
   }
 
   export type homeOrderByWithRelationInput = {
     id?: SortOrder
-    serial_number?: SortOrder
     home_name?: SortOrder
+    serial_number?: SortOrder
     manager_id?: SortOrderInput | SortOrder
     aio_key?: SortOrder
+    users?: usersOrderByWithRelationInput
     device?: deviceOrderByRelationAggregateInput
-    user_in_home?: user_in_homeOrderByRelationAggregateInput
+    user_have_home?: user_have_homeOrderByRelationAggregateInput
   }
 
   export type homeWhereUniqueInput = Prisma.AtLeast<{
@@ -12471,14 +13883,15 @@ export namespace Prisma {
     NOT?: homeWhereInput | homeWhereInput[]
     home_name?: StringFilter<"home"> | string
     manager_id?: IntNullableFilter<"home"> | number | null
+    users?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
     device?: DeviceListRelationFilter
-    user_in_home?: User_in_homeListRelationFilter
+    user_have_home?: User_have_homeListRelationFilter
   }, "id" | "serial_number" | "aio_key">
 
   export type homeOrderByWithAggregationInput = {
     id?: SortOrder
-    serial_number?: SortOrder
     home_name?: SortOrder
+    serial_number?: SortOrder
     manager_id?: SortOrderInput | SortOrder
     aio_key?: SortOrder
     _count?: homeCountOrderByAggregateInput
@@ -12493,8 +13906,8 @@ export namespace Prisma {
     OR?: homeScalarWhereWithAggregatesInput[]
     NOT?: homeScalarWhereWithAggregatesInput | homeScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"home"> | number
-    serial_number?: StringWithAggregatesFilter<"home"> | string
     home_name?: StringWithAggregatesFilter<"home"> | string
+    serial_number?: StringWithAggregatesFilter<"home"> | string
     manager_id?: IntNullableWithAggregatesFilter<"home"> | number | null
     aio_key?: StringWithAggregatesFilter<"home"> | string
   }
@@ -12508,7 +13921,8 @@ export namespace Prisma {
     salt?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    user_in_home?: user_in_homeCreateNestedManyWithoutUserInput
+    user_have_home?: user_have_homeCreateNestedManyWithoutUserInput
+    home?: homeCreateNestedManyWithoutUsersInput
   }
 
   export type usersUncheckedCreateInput = {
@@ -12521,7 +13935,8 @@ export namespace Prisma {
     salt?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    user_in_home?: user_in_homeUncheckedCreateNestedManyWithoutUserInput
+    user_have_home?: user_have_homeUncheckedCreateNestedManyWithoutUserInput
+    home?: homeUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type usersUpdateInput = {
@@ -12533,7 +13948,8 @@ export namespace Prisma {
     salt?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    user_in_home?: user_in_homeUpdateManyWithoutUserNestedInput
+    user_have_home?: user_have_homeUpdateManyWithoutUserNestedInput
+    home?: homeUpdateManyWithoutUsersNestedInput
   }
 
   export type usersUncheckedUpdateInput = {
@@ -12546,7 +13962,8 @@ export namespace Prisma {
     salt?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    user_in_home?: user_in_homeUncheckedUpdateManyWithoutUserNestedInput
+    user_have_home?: user_have_homeUncheckedUpdateManyWithoutUserNestedInput
+    home?: homeUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type usersCreateManyInput = {
@@ -12584,36 +14001,36 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type user_in_homeCreateInput = {
-    user: usersCreateNestedOneWithoutUser_in_homeInput
-    home: homeCreateNestedOneWithoutUser_in_homeInput
+  export type user_have_homeCreateInput = {
+    user: usersCreateNestedOneWithoutUser_have_homeInput
+    home: homeCreateNestedOneWithoutUser_have_homeInput
   }
 
-  export type user_in_homeUncheckedCreateInput = {
+  export type user_have_homeUncheckedCreateInput = {
     user_id: number
     home_id: number
   }
 
-  export type user_in_homeUpdateInput = {
-    user?: usersUpdateOneRequiredWithoutUser_in_homeNestedInput
-    home?: homeUpdateOneRequiredWithoutUser_in_homeNestedInput
+  export type user_have_homeUpdateInput = {
+    user?: usersUpdateOneRequiredWithoutUser_have_homeNestedInput
+    home?: homeUpdateOneRequiredWithoutUser_have_homeNestedInput
   }
 
-  export type user_in_homeUncheckedUpdateInput = {
+  export type user_have_homeUncheckedUpdateInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     home_id?: IntFieldUpdateOperationsInput | number
   }
 
-  export type user_in_homeCreateManyInput = {
+  export type user_have_homeCreateManyInput = {
     user_id: number
     home_id: number
   }
 
-  export type user_in_homeUpdateManyMutationInput = {
+  export type user_have_homeUpdateManyMutationInput = {
 
   }
 
-  export type user_in_homeUncheckedUpdateManyInput = {
+  export type user_have_homeUncheckedUpdateManyInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     home_id?: IntFieldUpdateOperationsInput | number
   }
@@ -12753,43 +14170,47 @@ export namespace Prisma {
   }
 
   export type scheduleCreateInput = {
-    time_action: Date | string
+    action_time: Date | string
     action: string
     device: deviceCreateNestedOneWithoutScheduleInput
+    schedule_have_notification?: schedule_have_notificationCreateNestedManyWithoutScheduleInput
   }
 
   export type scheduleUncheckedCreateInput = {
     device_id: number
-    time_action: Date | string
+    action_time: Date | string
     action: string
+    schedule_have_notification?: schedule_have_notificationUncheckedCreateNestedManyWithoutScheduleInput
   }
 
   export type scheduleUpdateInput = {
-    time_action?: DateTimeFieldUpdateOperationsInput | Date | string
+    action_time?: DateTimeFieldUpdateOperationsInput | Date | string
     action?: StringFieldUpdateOperationsInput | string
     device?: deviceUpdateOneRequiredWithoutScheduleNestedInput
+    schedule_have_notification?: schedule_have_notificationUpdateManyWithoutScheduleNestedInput
   }
 
   export type scheduleUncheckedUpdateInput = {
     device_id?: IntFieldUpdateOperationsInput | number
-    time_action?: DateTimeFieldUpdateOperationsInput | Date | string
+    action_time?: DateTimeFieldUpdateOperationsInput | Date | string
     action?: StringFieldUpdateOperationsInput | string
+    schedule_have_notification?: schedule_have_notificationUncheckedUpdateManyWithoutScheduleNestedInput
   }
 
   export type scheduleCreateManyInput = {
     device_id: number
-    time_action: Date | string
+    action_time: Date | string
     action: string
   }
 
   export type scheduleUpdateManyMutationInput = {
-    time_action?: DateTimeFieldUpdateOperationsInput | Date | string
+    action_time?: DateTimeFieldUpdateOperationsInput | Date | string
     action?: StringFieldUpdateOperationsInput | string
   }
 
   export type scheduleUncheckedUpdateManyInput = {
     device_id?: IntFieldUpdateOperationsInput | number
-    time_action?: DateTimeFieldUpdateOperationsInput | Date | string
+    action_time?: DateTimeFieldUpdateOperationsInput | Date | string
     action?: StringFieldUpdateOperationsInput | string
   }
 
@@ -12848,23 +14269,27 @@ export namespace Prisma {
   export type notificationCreateInput = {
     content?: string | null
     device_have_notification?: device_have_notificationCreateNestedManyWithoutNotificationInput
+    schedule_have_notification?: schedule_have_notificationCreateNestedManyWithoutNotificationInput
   }
 
   export type notificationUncheckedCreateInput = {
     id?: number
     content?: string | null
     device_have_notification?: device_have_notificationUncheckedCreateNestedManyWithoutNotificationInput
+    schedule_have_notification?: schedule_have_notificationUncheckedCreateNestedManyWithoutNotificationInput
   }
 
   export type notificationUpdateInput = {
     content?: NullableStringFieldUpdateOperationsInput | string | null
     device_have_notification?: device_have_notificationUpdateManyWithoutNotificationNestedInput
+    schedule_have_notification?: schedule_have_notificationUpdateManyWithoutNotificationNestedInput
   }
 
   export type notificationUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: NullableStringFieldUpdateOperationsInput | string | null
     device_have_notification?: device_have_notificationUncheckedUpdateManyWithoutNotificationNestedInput
+    schedule_have_notification?: schedule_have_notificationUncheckedUpdateManyWithoutNotificationNestedInput
   }
 
   export type notificationCreateManyInput = {
@@ -12881,8 +14306,46 @@ export namespace Prisma {
     content?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type schedule_have_notificationCreateInput = {
+    notification: notificationCreateNestedOneWithoutSchedule_have_notificationInput
+    schedule: scheduleCreateNestedOneWithoutSchedule_have_notificationInput
+  }
+
+  export type schedule_have_notificationUncheckedCreateInput = {
+    notification_id: number
+    device_id: number
+    action_time: Date | string
+  }
+
+  export type schedule_have_notificationUpdateInput = {
+    notification?: notificationUpdateOneRequiredWithoutSchedule_have_notificationNestedInput
+    schedule?: scheduleUpdateOneRequiredWithoutSchedule_have_notificationNestedInput
+  }
+
+  export type schedule_have_notificationUncheckedUpdateInput = {
+    notification_id?: IntFieldUpdateOperationsInput | number
+    device_id?: IntFieldUpdateOperationsInput | number
+    action_time?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type schedule_have_notificationCreateManyInput = {
+    notification_id: number
+    device_id: number
+    action_time: Date | string
+  }
+
+  export type schedule_have_notificationUpdateManyMutationInput = {
+
+  }
+
+  export type schedule_have_notificationUncheckedUpdateManyInput = {
+    notification_id?: IntFieldUpdateOperationsInput | number
+    device_id?: IntFieldUpdateOperationsInput | number
+    action_time?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type device_have_notificationCreateInput = {
-    notification_time?: Date | string | null
+    notification_time: Date | string
     notification: notificationCreateNestedOneWithoutDevice_have_notificationInput
     device: deviceCreateNestedOneWithoutDevice_have_notificationInput
   }
@@ -12890,11 +14353,11 @@ export namespace Prisma {
   export type device_have_notificationUncheckedCreateInput = {
     notification_id: number
     device_id: number
-    notification_time?: Date | string | null
+    notification_time: Date | string
   }
 
   export type device_have_notificationUpdateInput = {
-    notification_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notification_time?: DateTimeFieldUpdateOperationsInput | Date | string
     notification?: notificationUpdateOneRequiredWithoutDevice_have_notificationNestedInput
     device?: deviceUpdateOneRequiredWithoutDevice_have_notificationNestedInput
   }
@@ -12902,82 +14365,81 @@ export namespace Prisma {
   export type device_have_notificationUncheckedUpdateInput = {
     notification_id?: IntFieldUpdateOperationsInput | number
     device_id?: IntFieldUpdateOperationsInput | number
-    notification_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notification_time?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type device_have_notificationCreateManyInput = {
     notification_id: number
     device_id: number
-    notification_time?: Date | string | null
+    notification_time: Date | string
   }
 
   export type device_have_notificationUpdateManyMutationInput = {
-    notification_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notification_time?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type device_have_notificationUncheckedUpdateManyInput = {
     notification_id?: IntFieldUpdateOperationsInput | number
     device_id?: IntFieldUpdateOperationsInput | number
-    notification_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notification_time?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type homeCreateInput = {
-    serial_number: string
     home_name: string
-    manager_id?: number | null
+    serial_number: string
     aio_key: string
+    users?: usersCreateNestedOneWithoutHomeInput
     device?: deviceCreateNestedManyWithoutHomeInput
-    user_in_home?: user_in_homeCreateNestedManyWithoutHomeInput
+    user_have_home?: user_have_homeCreateNestedManyWithoutHomeInput
   }
 
   export type homeUncheckedCreateInput = {
     id?: number
-    serial_number: string
     home_name: string
+    serial_number: string
     manager_id?: number | null
     aio_key: string
     device?: deviceUncheckedCreateNestedManyWithoutHomeInput
-    user_in_home?: user_in_homeUncheckedCreateNestedManyWithoutHomeInput
+    user_have_home?: user_have_homeUncheckedCreateNestedManyWithoutHomeInput
   }
 
   export type homeUpdateInput = {
-    serial_number?: StringFieldUpdateOperationsInput | string
     home_name?: StringFieldUpdateOperationsInput | string
-    manager_id?: NullableIntFieldUpdateOperationsInput | number | null
+    serial_number?: StringFieldUpdateOperationsInput | string
     aio_key?: StringFieldUpdateOperationsInput | string
+    users?: usersUpdateOneWithoutHomeNestedInput
     device?: deviceUpdateManyWithoutHomeNestedInput
-    user_in_home?: user_in_homeUpdateManyWithoutHomeNestedInput
+    user_have_home?: user_have_homeUpdateManyWithoutHomeNestedInput
   }
 
   export type homeUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    serial_number?: StringFieldUpdateOperationsInput | string
     home_name?: StringFieldUpdateOperationsInput | string
+    serial_number?: StringFieldUpdateOperationsInput | string
     manager_id?: NullableIntFieldUpdateOperationsInput | number | null
     aio_key?: StringFieldUpdateOperationsInput | string
     device?: deviceUncheckedUpdateManyWithoutHomeNestedInput
-    user_in_home?: user_in_homeUncheckedUpdateManyWithoutHomeNestedInput
+    user_have_home?: user_have_homeUncheckedUpdateManyWithoutHomeNestedInput
   }
 
   export type homeCreateManyInput = {
     id?: number
-    serial_number: string
     home_name: string
+    serial_number: string
     manager_id?: number | null
     aio_key: string
   }
 
   export type homeUpdateManyMutationInput = {
-    serial_number?: StringFieldUpdateOperationsInput | string
     home_name?: StringFieldUpdateOperationsInput | string
-    manager_id?: NullableIntFieldUpdateOperationsInput | number | null
+    serial_number?: StringFieldUpdateOperationsInput | string
     aio_key?: StringFieldUpdateOperationsInput | string
   }
 
   export type homeUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    serial_number?: StringFieldUpdateOperationsInput | string
     home_name?: StringFieldUpdateOperationsInput | string
+    serial_number?: StringFieldUpdateOperationsInput | string
     manager_id?: NullableIntFieldUpdateOperationsInput | number | null
     aio_key?: StringFieldUpdateOperationsInput | string
   }
@@ -13034,10 +14496,16 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type User_in_homeListRelationFilter = {
-    every?: user_in_homeWhereInput
-    some?: user_in_homeWhereInput
-    none?: user_in_homeWhereInput
+  export type User_have_homeListRelationFilter = {
+    every?: user_have_homeWhereInput
+    some?: user_have_homeWhereInput
+    none?: user_have_homeWhereInput
+  }
+
+  export type HomeListRelationFilter = {
+    every?: homeWhereInput
+    some?: homeWhereInput
+    none?: homeWhereInput
   }
 
   export type SortOrderInput = {
@@ -13045,7 +14513,11 @@ export namespace Prisma {
     nulls?: NullsOrder
   }
 
-  export type user_in_homeOrderByRelationAggregateInput = {
+  export type user_have_homeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type homeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -13169,32 +14641,32 @@ export namespace Prisma {
     isNot?: homeWhereInput
   }
 
-  export type user_in_homeUser_idHome_idCompoundUniqueInput = {
+  export type user_have_homeUser_idHome_idCompoundUniqueInput = {
     user_id: number
     home_id: number
   }
 
-  export type user_in_homeCountOrderByAggregateInput = {
+  export type user_have_homeCountOrderByAggregateInput = {
     user_id?: SortOrder
     home_id?: SortOrder
   }
 
-  export type user_in_homeAvgOrderByAggregateInput = {
+  export type user_have_homeAvgOrderByAggregateInput = {
     user_id?: SortOrder
     home_id?: SortOrder
   }
 
-  export type user_in_homeMaxOrderByAggregateInput = {
+  export type user_have_homeMaxOrderByAggregateInput = {
     user_id?: SortOrder
     home_id?: SortOrder
   }
 
-  export type user_in_homeMinOrderByAggregateInput = {
+  export type user_have_homeMinOrderByAggregateInput = {
     user_id?: SortOrder
     home_id?: SortOrder
   }
 
-  export type user_in_homeSumOrderByAggregateInput = {
+  export type user_have_homeSumOrderByAggregateInput = {
     user_id?: SortOrder
     home_id?: SortOrder
   }
@@ -13350,14 +14822,24 @@ export namespace Prisma {
     isNot?: deviceWhereInput
   }
 
-  export type scheduleTime_actionDevice_idCompoundUniqueInput = {
-    time_action: Date | string
+  export type Schedule_have_notificationListRelationFilter = {
+    every?: schedule_have_notificationWhereInput
+    some?: schedule_have_notificationWhereInput
+    none?: schedule_have_notificationWhereInput
+  }
+
+  export type schedule_have_notificationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type scheduleAction_timeDevice_idCompoundUniqueInput = {
+    action_time: Date | string
     device_id: number
   }
 
   export type scheduleCountOrderByAggregateInput = {
     device_id?: SortOrder
-    time_action?: SortOrder
+    action_time?: SortOrder
     action?: SortOrder
   }
 
@@ -13367,13 +14849,13 @@ export namespace Prisma {
 
   export type scheduleMaxOrderByAggregateInput = {
     device_id?: SortOrder
-    time_action?: SortOrder
+    action_time?: SortOrder
     action?: SortOrder
   }
 
   export type scheduleMinOrderByAggregateInput = {
     device_id?: SortOrder
-    time_action?: SortOrder
+    action_time?: SortOrder
     action?: SortOrder
   }
 
@@ -13468,6 +14950,45 @@ export namespace Prisma {
     isNot?: notificationWhereInput
   }
 
+  export type ScheduleScalarRelationFilter = {
+    is?: scheduleWhereInput
+    isNot?: scheduleWhereInput
+  }
+
+  export type schedule_have_notificationNotification_idDevice_idAction_timeCompoundUniqueInput = {
+    notification_id: number
+    device_id: number
+    action_time: Date | string
+  }
+
+  export type schedule_have_notificationCountOrderByAggregateInput = {
+    notification_id?: SortOrder
+    device_id?: SortOrder
+    action_time?: SortOrder
+  }
+
+  export type schedule_have_notificationAvgOrderByAggregateInput = {
+    notification_id?: SortOrder
+    device_id?: SortOrder
+  }
+
+  export type schedule_have_notificationMaxOrderByAggregateInput = {
+    notification_id?: SortOrder
+    device_id?: SortOrder
+    action_time?: SortOrder
+  }
+
+  export type schedule_have_notificationMinOrderByAggregateInput = {
+    notification_id?: SortOrder
+    device_id?: SortOrder
+    action_time?: SortOrder
+  }
+
+  export type schedule_have_notificationSumOrderByAggregateInput = {
+    notification_id?: SortOrder
+    device_id?: SortOrder
+  }
+
   export type device_have_notificationNotification_idDevice_idCompoundUniqueInput = {
     notification_id: number
     device_id: number
@@ -13501,6 +15022,11 @@ export namespace Prisma {
     device_id?: SortOrder
   }
 
+  export type UsersNullableScalarRelationFilter = {
+    is?: usersWhereInput | null
+    isNot?: usersWhereInput | null
+  }
+
   export type DeviceListRelationFilter = {
     every?: deviceWhereInput
     some?: deviceWhereInput
@@ -13513,8 +15039,8 @@ export namespace Prisma {
 
   export type homeCountOrderByAggregateInput = {
     id?: SortOrder
-    serial_number?: SortOrder
     home_name?: SortOrder
+    serial_number?: SortOrder
     manager_id?: SortOrder
     aio_key?: SortOrder
   }
@@ -13526,16 +15052,16 @@ export namespace Prisma {
 
   export type homeMaxOrderByAggregateInput = {
     id?: SortOrder
-    serial_number?: SortOrder
     home_name?: SortOrder
+    serial_number?: SortOrder
     manager_id?: SortOrder
     aio_key?: SortOrder
   }
 
   export type homeMinOrderByAggregateInput = {
     id?: SortOrder
-    serial_number?: SortOrder
     home_name?: SortOrder
+    serial_number?: SortOrder
     manager_id?: SortOrder
     aio_key?: SortOrder
   }
@@ -13545,18 +15071,32 @@ export namespace Prisma {
     manager_id?: SortOrder
   }
 
-  export type user_in_homeCreateNestedManyWithoutUserInput = {
-    create?: XOR<user_in_homeCreateWithoutUserInput, user_in_homeUncheckedCreateWithoutUserInput> | user_in_homeCreateWithoutUserInput[] | user_in_homeUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: user_in_homeCreateOrConnectWithoutUserInput | user_in_homeCreateOrConnectWithoutUserInput[]
-    createMany?: user_in_homeCreateManyUserInputEnvelope
-    connect?: user_in_homeWhereUniqueInput | user_in_homeWhereUniqueInput[]
+  export type user_have_homeCreateNestedManyWithoutUserInput = {
+    create?: XOR<user_have_homeCreateWithoutUserInput, user_have_homeUncheckedCreateWithoutUserInput> | user_have_homeCreateWithoutUserInput[] | user_have_homeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: user_have_homeCreateOrConnectWithoutUserInput | user_have_homeCreateOrConnectWithoutUserInput[]
+    createMany?: user_have_homeCreateManyUserInputEnvelope
+    connect?: user_have_homeWhereUniqueInput | user_have_homeWhereUniqueInput[]
   }
 
-  export type user_in_homeUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<user_in_homeCreateWithoutUserInput, user_in_homeUncheckedCreateWithoutUserInput> | user_in_homeCreateWithoutUserInput[] | user_in_homeUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: user_in_homeCreateOrConnectWithoutUserInput | user_in_homeCreateOrConnectWithoutUserInput[]
-    createMany?: user_in_homeCreateManyUserInputEnvelope
-    connect?: user_in_homeWhereUniqueInput | user_in_homeWhereUniqueInput[]
+  export type homeCreateNestedManyWithoutUsersInput = {
+    create?: XOR<homeCreateWithoutUsersInput, homeUncheckedCreateWithoutUsersInput> | homeCreateWithoutUsersInput[] | homeUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: homeCreateOrConnectWithoutUsersInput | homeCreateOrConnectWithoutUsersInput[]
+    createMany?: homeCreateManyUsersInputEnvelope
+    connect?: homeWhereUniqueInput | homeWhereUniqueInput[]
+  }
+
+  export type user_have_homeUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<user_have_homeCreateWithoutUserInput, user_have_homeUncheckedCreateWithoutUserInput> | user_have_homeCreateWithoutUserInput[] | user_have_homeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: user_have_homeCreateOrConnectWithoutUserInput | user_have_homeCreateOrConnectWithoutUserInput[]
+    createMany?: user_have_homeCreateManyUserInputEnvelope
+    connect?: user_have_homeWhereUniqueInput | user_have_homeWhereUniqueInput[]
+  }
+
+  export type homeUncheckedCreateNestedManyWithoutUsersInput = {
+    create?: XOR<homeCreateWithoutUsersInput, homeUncheckedCreateWithoutUsersInput> | homeCreateWithoutUsersInput[] | homeUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: homeCreateOrConnectWithoutUsersInput | homeCreateOrConnectWithoutUsersInput[]
+    createMany?: homeCreateManyUsersInputEnvelope
+    connect?: homeWhereUniqueInput | homeWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -13571,18 +15111,32 @@ export namespace Prisma {
     set?: Date | string
   }
 
-  export type user_in_homeUpdateManyWithoutUserNestedInput = {
-    create?: XOR<user_in_homeCreateWithoutUserInput, user_in_homeUncheckedCreateWithoutUserInput> | user_in_homeCreateWithoutUserInput[] | user_in_homeUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: user_in_homeCreateOrConnectWithoutUserInput | user_in_homeCreateOrConnectWithoutUserInput[]
-    upsert?: user_in_homeUpsertWithWhereUniqueWithoutUserInput | user_in_homeUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: user_in_homeCreateManyUserInputEnvelope
-    set?: user_in_homeWhereUniqueInput | user_in_homeWhereUniqueInput[]
-    disconnect?: user_in_homeWhereUniqueInput | user_in_homeWhereUniqueInput[]
-    delete?: user_in_homeWhereUniqueInput | user_in_homeWhereUniqueInput[]
-    connect?: user_in_homeWhereUniqueInput | user_in_homeWhereUniqueInput[]
-    update?: user_in_homeUpdateWithWhereUniqueWithoutUserInput | user_in_homeUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: user_in_homeUpdateManyWithWhereWithoutUserInput | user_in_homeUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: user_in_homeScalarWhereInput | user_in_homeScalarWhereInput[]
+  export type user_have_homeUpdateManyWithoutUserNestedInput = {
+    create?: XOR<user_have_homeCreateWithoutUserInput, user_have_homeUncheckedCreateWithoutUserInput> | user_have_homeCreateWithoutUserInput[] | user_have_homeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: user_have_homeCreateOrConnectWithoutUserInput | user_have_homeCreateOrConnectWithoutUserInput[]
+    upsert?: user_have_homeUpsertWithWhereUniqueWithoutUserInput | user_have_homeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: user_have_homeCreateManyUserInputEnvelope
+    set?: user_have_homeWhereUniqueInput | user_have_homeWhereUniqueInput[]
+    disconnect?: user_have_homeWhereUniqueInput | user_have_homeWhereUniqueInput[]
+    delete?: user_have_homeWhereUniqueInput | user_have_homeWhereUniqueInput[]
+    connect?: user_have_homeWhereUniqueInput | user_have_homeWhereUniqueInput[]
+    update?: user_have_homeUpdateWithWhereUniqueWithoutUserInput | user_have_homeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: user_have_homeUpdateManyWithWhereWithoutUserInput | user_have_homeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: user_have_homeScalarWhereInput | user_have_homeScalarWhereInput[]
+  }
+
+  export type homeUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<homeCreateWithoutUsersInput, homeUncheckedCreateWithoutUsersInput> | homeCreateWithoutUsersInput[] | homeUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: homeCreateOrConnectWithoutUsersInput | homeCreateOrConnectWithoutUsersInput[]
+    upsert?: homeUpsertWithWhereUniqueWithoutUsersInput | homeUpsertWithWhereUniqueWithoutUsersInput[]
+    createMany?: homeCreateManyUsersInputEnvelope
+    set?: homeWhereUniqueInput | homeWhereUniqueInput[]
+    disconnect?: homeWhereUniqueInput | homeWhereUniqueInput[]
+    delete?: homeWhereUniqueInput | homeWhereUniqueInput[]
+    connect?: homeWhereUniqueInput | homeWhereUniqueInput[]
+    update?: homeUpdateWithWhereUniqueWithoutUsersInput | homeUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: homeUpdateManyWithWhereWithoutUsersInput | homeUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: homeScalarWhereInput | homeScalarWhereInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -13593,46 +15147,60 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type user_in_homeUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<user_in_homeCreateWithoutUserInput, user_in_homeUncheckedCreateWithoutUserInput> | user_in_homeCreateWithoutUserInput[] | user_in_homeUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: user_in_homeCreateOrConnectWithoutUserInput | user_in_homeCreateOrConnectWithoutUserInput[]
-    upsert?: user_in_homeUpsertWithWhereUniqueWithoutUserInput | user_in_homeUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: user_in_homeCreateManyUserInputEnvelope
-    set?: user_in_homeWhereUniqueInput | user_in_homeWhereUniqueInput[]
-    disconnect?: user_in_homeWhereUniqueInput | user_in_homeWhereUniqueInput[]
-    delete?: user_in_homeWhereUniqueInput | user_in_homeWhereUniqueInput[]
-    connect?: user_in_homeWhereUniqueInput | user_in_homeWhereUniqueInput[]
-    update?: user_in_homeUpdateWithWhereUniqueWithoutUserInput | user_in_homeUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: user_in_homeUpdateManyWithWhereWithoutUserInput | user_in_homeUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: user_in_homeScalarWhereInput | user_in_homeScalarWhereInput[]
+  export type user_have_homeUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<user_have_homeCreateWithoutUserInput, user_have_homeUncheckedCreateWithoutUserInput> | user_have_homeCreateWithoutUserInput[] | user_have_homeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: user_have_homeCreateOrConnectWithoutUserInput | user_have_homeCreateOrConnectWithoutUserInput[]
+    upsert?: user_have_homeUpsertWithWhereUniqueWithoutUserInput | user_have_homeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: user_have_homeCreateManyUserInputEnvelope
+    set?: user_have_homeWhereUniqueInput | user_have_homeWhereUniqueInput[]
+    disconnect?: user_have_homeWhereUniqueInput | user_have_homeWhereUniqueInput[]
+    delete?: user_have_homeWhereUniqueInput | user_have_homeWhereUniqueInput[]
+    connect?: user_have_homeWhereUniqueInput | user_have_homeWhereUniqueInput[]
+    update?: user_have_homeUpdateWithWhereUniqueWithoutUserInput | user_have_homeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: user_have_homeUpdateManyWithWhereWithoutUserInput | user_have_homeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: user_have_homeScalarWhereInput | user_have_homeScalarWhereInput[]
   }
 
-  export type usersCreateNestedOneWithoutUser_in_homeInput = {
-    create?: XOR<usersCreateWithoutUser_in_homeInput, usersUncheckedCreateWithoutUser_in_homeInput>
-    connectOrCreate?: usersCreateOrConnectWithoutUser_in_homeInput
+  export type homeUncheckedUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<homeCreateWithoutUsersInput, homeUncheckedCreateWithoutUsersInput> | homeCreateWithoutUsersInput[] | homeUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: homeCreateOrConnectWithoutUsersInput | homeCreateOrConnectWithoutUsersInput[]
+    upsert?: homeUpsertWithWhereUniqueWithoutUsersInput | homeUpsertWithWhereUniqueWithoutUsersInput[]
+    createMany?: homeCreateManyUsersInputEnvelope
+    set?: homeWhereUniqueInput | homeWhereUniqueInput[]
+    disconnect?: homeWhereUniqueInput | homeWhereUniqueInput[]
+    delete?: homeWhereUniqueInput | homeWhereUniqueInput[]
+    connect?: homeWhereUniqueInput | homeWhereUniqueInput[]
+    update?: homeUpdateWithWhereUniqueWithoutUsersInput | homeUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: homeUpdateManyWithWhereWithoutUsersInput | homeUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: homeScalarWhereInput | homeScalarWhereInput[]
+  }
+
+  export type usersCreateNestedOneWithoutUser_have_homeInput = {
+    create?: XOR<usersCreateWithoutUser_have_homeInput, usersUncheckedCreateWithoutUser_have_homeInput>
+    connectOrCreate?: usersCreateOrConnectWithoutUser_have_homeInput
     connect?: usersWhereUniqueInput
   }
 
-  export type homeCreateNestedOneWithoutUser_in_homeInput = {
-    create?: XOR<homeCreateWithoutUser_in_homeInput, homeUncheckedCreateWithoutUser_in_homeInput>
-    connectOrCreate?: homeCreateOrConnectWithoutUser_in_homeInput
+  export type homeCreateNestedOneWithoutUser_have_homeInput = {
+    create?: XOR<homeCreateWithoutUser_have_homeInput, homeUncheckedCreateWithoutUser_have_homeInput>
+    connectOrCreate?: homeCreateOrConnectWithoutUser_have_homeInput
     connect?: homeWhereUniqueInput
   }
 
-  export type usersUpdateOneRequiredWithoutUser_in_homeNestedInput = {
-    create?: XOR<usersCreateWithoutUser_in_homeInput, usersUncheckedCreateWithoutUser_in_homeInput>
-    connectOrCreate?: usersCreateOrConnectWithoutUser_in_homeInput
-    upsert?: usersUpsertWithoutUser_in_homeInput
+  export type usersUpdateOneRequiredWithoutUser_have_homeNestedInput = {
+    create?: XOR<usersCreateWithoutUser_have_homeInput, usersUncheckedCreateWithoutUser_have_homeInput>
+    connectOrCreate?: usersCreateOrConnectWithoutUser_have_homeInput
+    upsert?: usersUpsertWithoutUser_have_homeInput
     connect?: usersWhereUniqueInput
-    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutUser_in_homeInput, usersUpdateWithoutUser_in_homeInput>, usersUncheckedUpdateWithoutUser_in_homeInput>
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutUser_have_homeInput, usersUpdateWithoutUser_have_homeInput>, usersUncheckedUpdateWithoutUser_have_homeInput>
   }
 
-  export type homeUpdateOneRequiredWithoutUser_in_homeNestedInput = {
-    create?: XOR<homeCreateWithoutUser_in_homeInput, homeUncheckedCreateWithoutUser_in_homeInput>
-    connectOrCreate?: homeCreateOrConnectWithoutUser_in_homeInput
-    upsert?: homeUpsertWithoutUser_in_homeInput
+  export type homeUpdateOneRequiredWithoutUser_have_homeNestedInput = {
+    create?: XOR<homeCreateWithoutUser_have_homeInput, homeUncheckedCreateWithoutUser_have_homeInput>
+    connectOrCreate?: homeCreateOrConnectWithoutUser_have_homeInput
+    upsert?: homeUpsertWithoutUser_have_homeInput
     connect?: homeWhereUniqueInput
-    update?: XOR<XOR<homeUpdateToOneWithWhereWithoutUser_in_homeInput, homeUpdateWithoutUser_in_homeInput>, homeUncheckedUpdateWithoutUser_in_homeInput>
+    update?: XOR<XOR<homeUpdateToOneWithWhereWithoutUser_have_homeInput, homeUpdateWithoutUser_have_homeInput>, homeUncheckedUpdateWithoutUser_have_homeInput>
   }
 
   export type measurementCreateNestedManyWithoutDeviceInput = {
@@ -13847,12 +15415,54 @@ export namespace Prisma {
     connect?: deviceWhereUniqueInput
   }
 
+  export type schedule_have_notificationCreateNestedManyWithoutScheduleInput = {
+    create?: XOR<schedule_have_notificationCreateWithoutScheduleInput, schedule_have_notificationUncheckedCreateWithoutScheduleInput> | schedule_have_notificationCreateWithoutScheduleInput[] | schedule_have_notificationUncheckedCreateWithoutScheduleInput[]
+    connectOrCreate?: schedule_have_notificationCreateOrConnectWithoutScheduleInput | schedule_have_notificationCreateOrConnectWithoutScheduleInput[]
+    createMany?: schedule_have_notificationCreateManyScheduleInputEnvelope
+    connect?: schedule_have_notificationWhereUniqueInput | schedule_have_notificationWhereUniqueInput[]
+  }
+
+  export type schedule_have_notificationUncheckedCreateNestedManyWithoutScheduleInput = {
+    create?: XOR<schedule_have_notificationCreateWithoutScheduleInput, schedule_have_notificationUncheckedCreateWithoutScheduleInput> | schedule_have_notificationCreateWithoutScheduleInput[] | schedule_have_notificationUncheckedCreateWithoutScheduleInput[]
+    connectOrCreate?: schedule_have_notificationCreateOrConnectWithoutScheduleInput | schedule_have_notificationCreateOrConnectWithoutScheduleInput[]
+    createMany?: schedule_have_notificationCreateManyScheduleInputEnvelope
+    connect?: schedule_have_notificationWhereUniqueInput | schedule_have_notificationWhereUniqueInput[]
+  }
+
   export type deviceUpdateOneRequiredWithoutScheduleNestedInput = {
     create?: XOR<deviceCreateWithoutScheduleInput, deviceUncheckedCreateWithoutScheduleInput>
     connectOrCreate?: deviceCreateOrConnectWithoutScheduleInput
     upsert?: deviceUpsertWithoutScheduleInput
     connect?: deviceWhereUniqueInput
     update?: XOR<XOR<deviceUpdateToOneWithWhereWithoutScheduleInput, deviceUpdateWithoutScheduleInput>, deviceUncheckedUpdateWithoutScheduleInput>
+  }
+
+  export type schedule_have_notificationUpdateManyWithoutScheduleNestedInput = {
+    create?: XOR<schedule_have_notificationCreateWithoutScheduleInput, schedule_have_notificationUncheckedCreateWithoutScheduleInput> | schedule_have_notificationCreateWithoutScheduleInput[] | schedule_have_notificationUncheckedCreateWithoutScheduleInput[]
+    connectOrCreate?: schedule_have_notificationCreateOrConnectWithoutScheduleInput | schedule_have_notificationCreateOrConnectWithoutScheduleInput[]
+    upsert?: schedule_have_notificationUpsertWithWhereUniqueWithoutScheduleInput | schedule_have_notificationUpsertWithWhereUniqueWithoutScheduleInput[]
+    createMany?: schedule_have_notificationCreateManyScheduleInputEnvelope
+    set?: schedule_have_notificationWhereUniqueInput | schedule_have_notificationWhereUniqueInput[]
+    disconnect?: schedule_have_notificationWhereUniqueInput | schedule_have_notificationWhereUniqueInput[]
+    delete?: schedule_have_notificationWhereUniqueInput | schedule_have_notificationWhereUniqueInput[]
+    connect?: schedule_have_notificationWhereUniqueInput | schedule_have_notificationWhereUniqueInput[]
+    update?: schedule_have_notificationUpdateWithWhereUniqueWithoutScheduleInput | schedule_have_notificationUpdateWithWhereUniqueWithoutScheduleInput[]
+    updateMany?: schedule_have_notificationUpdateManyWithWhereWithoutScheduleInput | schedule_have_notificationUpdateManyWithWhereWithoutScheduleInput[]
+    deleteMany?: schedule_have_notificationScalarWhereInput | schedule_have_notificationScalarWhereInput[]
+  }
+
+  export type schedule_have_notificationUncheckedUpdateManyWithoutScheduleNestedInput = {
+    create?: XOR<schedule_have_notificationCreateWithoutScheduleInput, schedule_have_notificationUncheckedCreateWithoutScheduleInput> | schedule_have_notificationCreateWithoutScheduleInput[] | schedule_have_notificationUncheckedCreateWithoutScheduleInput[]
+    connectOrCreate?: schedule_have_notificationCreateOrConnectWithoutScheduleInput | schedule_have_notificationCreateOrConnectWithoutScheduleInput[]
+    upsert?: schedule_have_notificationUpsertWithWhereUniqueWithoutScheduleInput | schedule_have_notificationUpsertWithWhereUniqueWithoutScheduleInput[]
+    createMany?: schedule_have_notificationCreateManyScheduleInputEnvelope
+    set?: schedule_have_notificationWhereUniqueInput | schedule_have_notificationWhereUniqueInput[]
+    disconnect?: schedule_have_notificationWhereUniqueInput | schedule_have_notificationWhereUniqueInput[]
+    delete?: schedule_have_notificationWhereUniqueInput | schedule_have_notificationWhereUniqueInput[]
+    connect?: schedule_have_notificationWhereUniqueInput | schedule_have_notificationWhereUniqueInput[]
+    update?: schedule_have_notificationUpdateWithWhereUniqueWithoutScheduleInput | schedule_have_notificationUpdateWithWhereUniqueWithoutScheduleInput[]
+    updateMany?: schedule_have_notificationUpdateManyWithWhereWithoutScheduleInput | schedule_have_notificationUpdateManyWithWhereWithoutScheduleInput[]
+    deleteMany?: schedule_have_notificationScalarWhereInput | schedule_have_notificationScalarWhereInput[]
   }
 
   export type deviceCreateNestedOneWithoutLog_eventInput = {
@@ -13882,11 +15492,25 @@ export namespace Prisma {
     connect?: device_have_notificationWhereUniqueInput | device_have_notificationWhereUniqueInput[]
   }
 
+  export type schedule_have_notificationCreateNestedManyWithoutNotificationInput = {
+    create?: XOR<schedule_have_notificationCreateWithoutNotificationInput, schedule_have_notificationUncheckedCreateWithoutNotificationInput> | schedule_have_notificationCreateWithoutNotificationInput[] | schedule_have_notificationUncheckedCreateWithoutNotificationInput[]
+    connectOrCreate?: schedule_have_notificationCreateOrConnectWithoutNotificationInput | schedule_have_notificationCreateOrConnectWithoutNotificationInput[]
+    createMany?: schedule_have_notificationCreateManyNotificationInputEnvelope
+    connect?: schedule_have_notificationWhereUniqueInput | schedule_have_notificationWhereUniqueInput[]
+  }
+
   export type device_have_notificationUncheckedCreateNestedManyWithoutNotificationInput = {
     create?: XOR<device_have_notificationCreateWithoutNotificationInput, device_have_notificationUncheckedCreateWithoutNotificationInput> | device_have_notificationCreateWithoutNotificationInput[] | device_have_notificationUncheckedCreateWithoutNotificationInput[]
     connectOrCreate?: device_have_notificationCreateOrConnectWithoutNotificationInput | device_have_notificationCreateOrConnectWithoutNotificationInput[]
     createMany?: device_have_notificationCreateManyNotificationInputEnvelope
     connect?: device_have_notificationWhereUniqueInput | device_have_notificationWhereUniqueInput[]
+  }
+
+  export type schedule_have_notificationUncheckedCreateNestedManyWithoutNotificationInput = {
+    create?: XOR<schedule_have_notificationCreateWithoutNotificationInput, schedule_have_notificationUncheckedCreateWithoutNotificationInput> | schedule_have_notificationCreateWithoutNotificationInput[] | schedule_have_notificationUncheckedCreateWithoutNotificationInput[]
+    connectOrCreate?: schedule_have_notificationCreateOrConnectWithoutNotificationInput | schedule_have_notificationCreateOrConnectWithoutNotificationInput[]
+    createMany?: schedule_have_notificationCreateManyNotificationInputEnvelope
+    connect?: schedule_have_notificationWhereUniqueInput | schedule_have_notificationWhereUniqueInput[]
   }
 
   export type device_have_notificationUpdateManyWithoutNotificationNestedInput = {
@@ -13903,6 +15527,20 @@ export namespace Prisma {
     deleteMany?: device_have_notificationScalarWhereInput | device_have_notificationScalarWhereInput[]
   }
 
+  export type schedule_have_notificationUpdateManyWithoutNotificationNestedInput = {
+    create?: XOR<schedule_have_notificationCreateWithoutNotificationInput, schedule_have_notificationUncheckedCreateWithoutNotificationInput> | schedule_have_notificationCreateWithoutNotificationInput[] | schedule_have_notificationUncheckedCreateWithoutNotificationInput[]
+    connectOrCreate?: schedule_have_notificationCreateOrConnectWithoutNotificationInput | schedule_have_notificationCreateOrConnectWithoutNotificationInput[]
+    upsert?: schedule_have_notificationUpsertWithWhereUniqueWithoutNotificationInput | schedule_have_notificationUpsertWithWhereUniqueWithoutNotificationInput[]
+    createMany?: schedule_have_notificationCreateManyNotificationInputEnvelope
+    set?: schedule_have_notificationWhereUniqueInput | schedule_have_notificationWhereUniqueInput[]
+    disconnect?: schedule_have_notificationWhereUniqueInput | schedule_have_notificationWhereUniqueInput[]
+    delete?: schedule_have_notificationWhereUniqueInput | schedule_have_notificationWhereUniqueInput[]
+    connect?: schedule_have_notificationWhereUniqueInput | schedule_have_notificationWhereUniqueInput[]
+    update?: schedule_have_notificationUpdateWithWhereUniqueWithoutNotificationInput | schedule_have_notificationUpdateWithWhereUniqueWithoutNotificationInput[]
+    updateMany?: schedule_have_notificationUpdateManyWithWhereWithoutNotificationInput | schedule_have_notificationUpdateManyWithWhereWithoutNotificationInput[]
+    deleteMany?: schedule_have_notificationScalarWhereInput | schedule_have_notificationScalarWhereInput[]
+  }
+
   export type device_have_notificationUncheckedUpdateManyWithoutNotificationNestedInput = {
     create?: XOR<device_have_notificationCreateWithoutNotificationInput, device_have_notificationUncheckedCreateWithoutNotificationInput> | device_have_notificationCreateWithoutNotificationInput[] | device_have_notificationUncheckedCreateWithoutNotificationInput[]
     connectOrCreate?: device_have_notificationCreateOrConnectWithoutNotificationInput | device_have_notificationCreateOrConnectWithoutNotificationInput[]
@@ -13915,6 +15553,48 @@ export namespace Prisma {
     update?: device_have_notificationUpdateWithWhereUniqueWithoutNotificationInput | device_have_notificationUpdateWithWhereUniqueWithoutNotificationInput[]
     updateMany?: device_have_notificationUpdateManyWithWhereWithoutNotificationInput | device_have_notificationUpdateManyWithWhereWithoutNotificationInput[]
     deleteMany?: device_have_notificationScalarWhereInput | device_have_notificationScalarWhereInput[]
+  }
+
+  export type schedule_have_notificationUncheckedUpdateManyWithoutNotificationNestedInput = {
+    create?: XOR<schedule_have_notificationCreateWithoutNotificationInput, schedule_have_notificationUncheckedCreateWithoutNotificationInput> | schedule_have_notificationCreateWithoutNotificationInput[] | schedule_have_notificationUncheckedCreateWithoutNotificationInput[]
+    connectOrCreate?: schedule_have_notificationCreateOrConnectWithoutNotificationInput | schedule_have_notificationCreateOrConnectWithoutNotificationInput[]
+    upsert?: schedule_have_notificationUpsertWithWhereUniqueWithoutNotificationInput | schedule_have_notificationUpsertWithWhereUniqueWithoutNotificationInput[]
+    createMany?: schedule_have_notificationCreateManyNotificationInputEnvelope
+    set?: schedule_have_notificationWhereUniqueInput | schedule_have_notificationWhereUniqueInput[]
+    disconnect?: schedule_have_notificationWhereUniqueInput | schedule_have_notificationWhereUniqueInput[]
+    delete?: schedule_have_notificationWhereUniqueInput | schedule_have_notificationWhereUniqueInput[]
+    connect?: schedule_have_notificationWhereUniqueInput | schedule_have_notificationWhereUniqueInput[]
+    update?: schedule_have_notificationUpdateWithWhereUniqueWithoutNotificationInput | schedule_have_notificationUpdateWithWhereUniqueWithoutNotificationInput[]
+    updateMany?: schedule_have_notificationUpdateManyWithWhereWithoutNotificationInput | schedule_have_notificationUpdateManyWithWhereWithoutNotificationInput[]
+    deleteMany?: schedule_have_notificationScalarWhereInput | schedule_have_notificationScalarWhereInput[]
+  }
+
+  export type notificationCreateNestedOneWithoutSchedule_have_notificationInput = {
+    create?: XOR<notificationCreateWithoutSchedule_have_notificationInput, notificationUncheckedCreateWithoutSchedule_have_notificationInput>
+    connectOrCreate?: notificationCreateOrConnectWithoutSchedule_have_notificationInput
+    connect?: notificationWhereUniqueInput
+  }
+
+  export type scheduleCreateNestedOneWithoutSchedule_have_notificationInput = {
+    create?: XOR<scheduleCreateWithoutSchedule_have_notificationInput, scheduleUncheckedCreateWithoutSchedule_have_notificationInput>
+    connectOrCreate?: scheduleCreateOrConnectWithoutSchedule_have_notificationInput
+    connect?: scheduleWhereUniqueInput
+  }
+
+  export type notificationUpdateOneRequiredWithoutSchedule_have_notificationNestedInput = {
+    create?: XOR<notificationCreateWithoutSchedule_have_notificationInput, notificationUncheckedCreateWithoutSchedule_have_notificationInput>
+    connectOrCreate?: notificationCreateOrConnectWithoutSchedule_have_notificationInput
+    upsert?: notificationUpsertWithoutSchedule_have_notificationInput
+    connect?: notificationWhereUniqueInput
+    update?: XOR<XOR<notificationUpdateToOneWithWhereWithoutSchedule_have_notificationInput, notificationUpdateWithoutSchedule_have_notificationInput>, notificationUncheckedUpdateWithoutSchedule_have_notificationInput>
+  }
+
+  export type scheduleUpdateOneRequiredWithoutSchedule_have_notificationNestedInput = {
+    create?: XOR<scheduleCreateWithoutSchedule_have_notificationInput, scheduleUncheckedCreateWithoutSchedule_have_notificationInput>
+    connectOrCreate?: scheduleCreateOrConnectWithoutSchedule_have_notificationInput
+    upsert?: scheduleUpsertWithoutSchedule_have_notificationInput
+    connect?: scheduleWhereUniqueInput
+    update?: XOR<XOR<scheduleUpdateToOneWithWhereWithoutSchedule_have_notificationInput, scheduleUpdateWithoutSchedule_have_notificationInput>, scheduleUncheckedUpdateWithoutSchedule_have_notificationInput>
   }
 
   export type notificationCreateNestedOneWithoutDevice_have_notificationInput = {
@@ -13945,6 +15625,12 @@ export namespace Prisma {
     update?: XOR<XOR<deviceUpdateToOneWithWhereWithoutDevice_have_notificationInput, deviceUpdateWithoutDevice_have_notificationInput>, deviceUncheckedUpdateWithoutDevice_have_notificationInput>
   }
 
+  export type usersCreateNestedOneWithoutHomeInput = {
+    create?: XOR<usersCreateWithoutHomeInput, usersUncheckedCreateWithoutHomeInput>
+    connectOrCreate?: usersCreateOrConnectWithoutHomeInput
+    connect?: usersWhereUniqueInput
+  }
+
   export type deviceCreateNestedManyWithoutHomeInput = {
     create?: XOR<deviceCreateWithoutHomeInput, deviceUncheckedCreateWithoutHomeInput> | deviceCreateWithoutHomeInput[] | deviceUncheckedCreateWithoutHomeInput[]
     connectOrCreate?: deviceCreateOrConnectWithoutHomeInput | deviceCreateOrConnectWithoutHomeInput[]
@@ -13952,11 +15638,11 @@ export namespace Prisma {
     connect?: deviceWhereUniqueInput | deviceWhereUniqueInput[]
   }
 
-  export type user_in_homeCreateNestedManyWithoutHomeInput = {
-    create?: XOR<user_in_homeCreateWithoutHomeInput, user_in_homeUncheckedCreateWithoutHomeInput> | user_in_homeCreateWithoutHomeInput[] | user_in_homeUncheckedCreateWithoutHomeInput[]
-    connectOrCreate?: user_in_homeCreateOrConnectWithoutHomeInput | user_in_homeCreateOrConnectWithoutHomeInput[]
-    createMany?: user_in_homeCreateManyHomeInputEnvelope
-    connect?: user_in_homeWhereUniqueInput | user_in_homeWhereUniqueInput[]
+  export type user_have_homeCreateNestedManyWithoutHomeInput = {
+    create?: XOR<user_have_homeCreateWithoutHomeInput, user_have_homeUncheckedCreateWithoutHomeInput> | user_have_homeCreateWithoutHomeInput[] | user_have_homeUncheckedCreateWithoutHomeInput[]
+    connectOrCreate?: user_have_homeCreateOrConnectWithoutHomeInput | user_have_homeCreateOrConnectWithoutHomeInput[]
+    createMany?: user_have_homeCreateManyHomeInputEnvelope
+    connect?: user_have_homeWhereUniqueInput | user_have_homeWhereUniqueInput[]
   }
 
   export type deviceUncheckedCreateNestedManyWithoutHomeInput = {
@@ -13966,11 +15652,21 @@ export namespace Prisma {
     connect?: deviceWhereUniqueInput | deviceWhereUniqueInput[]
   }
 
-  export type user_in_homeUncheckedCreateNestedManyWithoutHomeInput = {
-    create?: XOR<user_in_homeCreateWithoutHomeInput, user_in_homeUncheckedCreateWithoutHomeInput> | user_in_homeCreateWithoutHomeInput[] | user_in_homeUncheckedCreateWithoutHomeInput[]
-    connectOrCreate?: user_in_homeCreateOrConnectWithoutHomeInput | user_in_homeCreateOrConnectWithoutHomeInput[]
-    createMany?: user_in_homeCreateManyHomeInputEnvelope
-    connect?: user_in_homeWhereUniqueInput | user_in_homeWhereUniqueInput[]
+  export type user_have_homeUncheckedCreateNestedManyWithoutHomeInput = {
+    create?: XOR<user_have_homeCreateWithoutHomeInput, user_have_homeUncheckedCreateWithoutHomeInput> | user_have_homeCreateWithoutHomeInput[] | user_have_homeUncheckedCreateWithoutHomeInput[]
+    connectOrCreate?: user_have_homeCreateOrConnectWithoutHomeInput | user_have_homeCreateOrConnectWithoutHomeInput[]
+    createMany?: user_have_homeCreateManyHomeInputEnvelope
+    connect?: user_have_homeWhereUniqueInput | user_have_homeWhereUniqueInput[]
+  }
+
+  export type usersUpdateOneWithoutHomeNestedInput = {
+    create?: XOR<usersCreateWithoutHomeInput, usersUncheckedCreateWithoutHomeInput>
+    connectOrCreate?: usersCreateOrConnectWithoutHomeInput
+    upsert?: usersUpsertWithoutHomeInput
+    disconnect?: usersWhereInput | boolean
+    delete?: usersWhereInput | boolean
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutHomeInput, usersUpdateWithoutHomeInput>, usersUncheckedUpdateWithoutHomeInput>
   }
 
   export type deviceUpdateManyWithoutHomeNestedInput = {
@@ -13987,18 +15683,18 @@ export namespace Prisma {
     deleteMany?: deviceScalarWhereInput | deviceScalarWhereInput[]
   }
 
-  export type user_in_homeUpdateManyWithoutHomeNestedInput = {
-    create?: XOR<user_in_homeCreateWithoutHomeInput, user_in_homeUncheckedCreateWithoutHomeInput> | user_in_homeCreateWithoutHomeInput[] | user_in_homeUncheckedCreateWithoutHomeInput[]
-    connectOrCreate?: user_in_homeCreateOrConnectWithoutHomeInput | user_in_homeCreateOrConnectWithoutHomeInput[]
-    upsert?: user_in_homeUpsertWithWhereUniqueWithoutHomeInput | user_in_homeUpsertWithWhereUniqueWithoutHomeInput[]
-    createMany?: user_in_homeCreateManyHomeInputEnvelope
-    set?: user_in_homeWhereUniqueInput | user_in_homeWhereUniqueInput[]
-    disconnect?: user_in_homeWhereUniqueInput | user_in_homeWhereUniqueInput[]
-    delete?: user_in_homeWhereUniqueInput | user_in_homeWhereUniqueInput[]
-    connect?: user_in_homeWhereUniqueInput | user_in_homeWhereUniqueInput[]
-    update?: user_in_homeUpdateWithWhereUniqueWithoutHomeInput | user_in_homeUpdateWithWhereUniqueWithoutHomeInput[]
-    updateMany?: user_in_homeUpdateManyWithWhereWithoutHomeInput | user_in_homeUpdateManyWithWhereWithoutHomeInput[]
-    deleteMany?: user_in_homeScalarWhereInput | user_in_homeScalarWhereInput[]
+  export type user_have_homeUpdateManyWithoutHomeNestedInput = {
+    create?: XOR<user_have_homeCreateWithoutHomeInput, user_have_homeUncheckedCreateWithoutHomeInput> | user_have_homeCreateWithoutHomeInput[] | user_have_homeUncheckedCreateWithoutHomeInput[]
+    connectOrCreate?: user_have_homeCreateOrConnectWithoutHomeInput | user_have_homeCreateOrConnectWithoutHomeInput[]
+    upsert?: user_have_homeUpsertWithWhereUniqueWithoutHomeInput | user_have_homeUpsertWithWhereUniqueWithoutHomeInput[]
+    createMany?: user_have_homeCreateManyHomeInputEnvelope
+    set?: user_have_homeWhereUniqueInput | user_have_homeWhereUniqueInput[]
+    disconnect?: user_have_homeWhereUniqueInput | user_have_homeWhereUniqueInput[]
+    delete?: user_have_homeWhereUniqueInput | user_have_homeWhereUniqueInput[]
+    connect?: user_have_homeWhereUniqueInput | user_have_homeWhereUniqueInput[]
+    update?: user_have_homeUpdateWithWhereUniqueWithoutHomeInput | user_have_homeUpdateWithWhereUniqueWithoutHomeInput[]
+    updateMany?: user_have_homeUpdateManyWithWhereWithoutHomeInput | user_have_homeUpdateManyWithWhereWithoutHomeInput[]
+    deleteMany?: user_have_homeScalarWhereInput | user_have_homeScalarWhereInput[]
   }
 
   export type deviceUncheckedUpdateManyWithoutHomeNestedInput = {
@@ -14015,18 +15711,18 @@ export namespace Prisma {
     deleteMany?: deviceScalarWhereInput | deviceScalarWhereInput[]
   }
 
-  export type user_in_homeUncheckedUpdateManyWithoutHomeNestedInput = {
-    create?: XOR<user_in_homeCreateWithoutHomeInput, user_in_homeUncheckedCreateWithoutHomeInput> | user_in_homeCreateWithoutHomeInput[] | user_in_homeUncheckedCreateWithoutHomeInput[]
-    connectOrCreate?: user_in_homeCreateOrConnectWithoutHomeInput | user_in_homeCreateOrConnectWithoutHomeInput[]
-    upsert?: user_in_homeUpsertWithWhereUniqueWithoutHomeInput | user_in_homeUpsertWithWhereUniqueWithoutHomeInput[]
-    createMany?: user_in_homeCreateManyHomeInputEnvelope
-    set?: user_in_homeWhereUniqueInput | user_in_homeWhereUniqueInput[]
-    disconnect?: user_in_homeWhereUniqueInput | user_in_homeWhereUniqueInput[]
-    delete?: user_in_homeWhereUniqueInput | user_in_homeWhereUniqueInput[]
-    connect?: user_in_homeWhereUniqueInput | user_in_homeWhereUniqueInput[]
-    update?: user_in_homeUpdateWithWhereUniqueWithoutHomeInput | user_in_homeUpdateWithWhereUniqueWithoutHomeInput[]
-    updateMany?: user_in_homeUpdateManyWithWhereWithoutHomeInput | user_in_homeUpdateManyWithWhereWithoutHomeInput[]
-    deleteMany?: user_in_homeScalarWhereInput | user_in_homeScalarWhereInput[]
+  export type user_have_homeUncheckedUpdateManyWithoutHomeNestedInput = {
+    create?: XOR<user_have_homeCreateWithoutHomeInput, user_have_homeUncheckedCreateWithoutHomeInput> | user_have_homeCreateWithoutHomeInput[] | user_have_homeUncheckedCreateWithoutHomeInput[]
+    connectOrCreate?: user_have_homeCreateOrConnectWithoutHomeInput | user_have_homeCreateOrConnectWithoutHomeInput[]
+    upsert?: user_have_homeUpsertWithWhereUniqueWithoutHomeInput | user_have_homeUpsertWithWhereUniqueWithoutHomeInput[]
+    createMany?: user_have_homeCreateManyHomeInputEnvelope
+    set?: user_have_homeWhereUniqueInput | user_have_homeWhereUniqueInput[]
+    disconnect?: user_have_homeWhereUniqueInput | user_have_homeWhereUniqueInput[]
+    delete?: user_have_homeWhereUniqueInput | user_have_homeWhereUniqueInput[]
+    connect?: user_have_homeWhereUniqueInput | user_have_homeWhereUniqueInput[]
+    update?: user_have_homeUpdateWithWhereUniqueWithoutHomeInput | user_have_homeUpdateWithWhereUniqueWithoutHomeInput[]
+    updateMany?: user_have_homeUpdateManyWithWhereWithoutHomeInput | user_have_homeUpdateManyWithWhereWithoutHomeInput[]
+    deleteMany?: user_have_homeScalarWhereInput | user_have_homeScalarWhereInput[]
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -14217,49 +15913,103 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type user_in_homeCreateWithoutUserInput = {
-    home: homeCreateNestedOneWithoutUser_in_homeInput
+  export type user_have_homeCreateWithoutUserInput = {
+    home: homeCreateNestedOneWithoutUser_have_homeInput
   }
 
-  export type user_in_homeUncheckedCreateWithoutUserInput = {
+  export type user_have_homeUncheckedCreateWithoutUserInput = {
     home_id: number
   }
 
-  export type user_in_homeCreateOrConnectWithoutUserInput = {
-    where: user_in_homeWhereUniqueInput
-    create: XOR<user_in_homeCreateWithoutUserInput, user_in_homeUncheckedCreateWithoutUserInput>
+  export type user_have_homeCreateOrConnectWithoutUserInput = {
+    where: user_have_homeWhereUniqueInput
+    create: XOR<user_have_homeCreateWithoutUserInput, user_have_homeUncheckedCreateWithoutUserInput>
   }
 
-  export type user_in_homeCreateManyUserInputEnvelope = {
-    data: user_in_homeCreateManyUserInput | user_in_homeCreateManyUserInput[]
+  export type user_have_homeCreateManyUserInputEnvelope = {
+    data: user_have_homeCreateManyUserInput | user_have_homeCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
-  export type user_in_homeUpsertWithWhereUniqueWithoutUserInput = {
-    where: user_in_homeWhereUniqueInput
-    update: XOR<user_in_homeUpdateWithoutUserInput, user_in_homeUncheckedUpdateWithoutUserInput>
-    create: XOR<user_in_homeCreateWithoutUserInput, user_in_homeUncheckedCreateWithoutUserInput>
+  export type homeCreateWithoutUsersInput = {
+    home_name: string
+    serial_number: string
+    aio_key: string
+    device?: deviceCreateNestedManyWithoutHomeInput
+    user_have_home?: user_have_homeCreateNestedManyWithoutHomeInput
   }
 
-  export type user_in_homeUpdateWithWhereUniqueWithoutUserInput = {
-    where: user_in_homeWhereUniqueInput
-    data: XOR<user_in_homeUpdateWithoutUserInput, user_in_homeUncheckedUpdateWithoutUserInput>
+  export type homeUncheckedCreateWithoutUsersInput = {
+    id?: number
+    home_name: string
+    serial_number: string
+    aio_key: string
+    device?: deviceUncheckedCreateNestedManyWithoutHomeInput
+    user_have_home?: user_have_homeUncheckedCreateNestedManyWithoutHomeInput
   }
 
-  export type user_in_homeUpdateManyWithWhereWithoutUserInput = {
-    where: user_in_homeScalarWhereInput
-    data: XOR<user_in_homeUpdateManyMutationInput, user_in_homeUncheckedUpdateManyWithoutUserInput>
+  export type homeCreateOrConnectWithoutUsersInput = {
+    where: homeWhereUniqueInput
+    create: XOR<homeCreateWithoutUsersInput, homeUncheckedCreateWithoutUsersInput>
   }
 
-  export type user_in_homeScalarWhereInput = {
-    AND?: user_in_homeScalarWhereInput | user_in_homeScalarWhereInput[]
-    OR?: user_in_homeScalarWhereInput[]
-    NOT?: user_in_homeScalarWhereInput | user_in_homeScalarWhereInput[]
-    user_id?: IntFilter<"user_in_home"> | number
-    home_id?: IntFilter<"user_in_home"> | number
+  export type homeCreateManyUsersInputEnvelope = {
+    data: homeCreateManyUsersInput | homeCreateManyUsersInput[]
+    skipDuplicates?: boolean
   }
 
-  export type usersCreateWithoutUser_in_homeInput = {
+  export type user_have_homeUpsertWithWhereUniqueWithoutUserInput = {
+    where: user_have_homeWhereUniqueInput
+    update: XOR<user_have_homeUpdateWithoutUserInput, user_have_homeUncheckedUpdateWithoutUserInput>
+    create: XOR<user_have_homeCreateWithoutUserInput, user_have_homeUncheckedCreateWithoutUserInput>
+  }
+
+  export type user_have_homeUpdateWithWhereUniqueWithoutUserInput = {
+    where: user_have_homeWhereUniqueInput
+    data: XOR<user_have_homeUpdateWithoutUserInput, user_have_homeUncheckedUpdateWithoutUserInput>
+  }
+
+  export type user_have_homeUpdateManyWithWhereWithoutUserInput = {
+    where: user_have_homeScalarWhereInput
+    data: XOR<user_have_homeUpdateManyMutationInput, user_have_homeUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type user_have_homeScalarWhereInput = {
+    AND?: user_have_homeScalarWhereInput | user_have_homeScalarWhereInput[]
+    OR?: user_have_homeScalarWhereInput[]
+    NOT?: user_have_homeScalarWhereInput | user_have_homeScalarWhereInput[]
+    user_id?: IntFilter<"user_have_home"> | number
+    home_id?: IntFilter<"user_have_home"> | number
+  }
+
+  export type homeUpsertWithWhereUniqueWithoutUsersInput = {
+    where: homeWhereUniqueInput
+    update: XOR<homeUpdateWithoutUsersInput, homeUncheckedUpdateWithoutUsersInput>
+    create: XOR<homeCreateWithoutUsersInput, homeUncheckedCreateWithoutUsersInput>
+  }
+
+  export type homeUpdateWithWhereUniqueWithoutUsersInput = {
+    where: homeWhereUniqueInput
+    data: XOR<homeUpdateWithoutUsersInput, homeUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type homeUpdateManyWithWhereWithoutUsersInput = {
+    where: homeScalarWhereInput
+    data: XOR<homeUpdateManyMutationInput, homeUncheckedUpdateManyWithoutUsersInput>
+  }
+
+  export type homeScalarWhereInput = {
+    AND?: homeScalarWhereInput | homeScalarWhereInput[]
+    OR?: homeScalarWhereInput[]
+    NOT?: homeScalarWhereInput | homeScalarWhereInput[]
+    id?: IntFilter<"home"> | number
+    home_name?: StringFilter<"home"> | string
+    serial_number?: StringFilter<"home"> | string
+    manager_id?: IntNullableFilter<"home"> | number | null
+    aio_key?: StringFilter<"home"> | string
+  }
+
+  export type usersCreateWithoutUser_have_homeInput = {
     first_name: string
     last_name: string
     email: string
@@ -14268,9 +16018,10 @@ export namespace Prisma {
     salt?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    home?: homeCreateNestedManyWithoutUsersInput
   }
 
-  export type usersUncheckedCreateWithoutUser_in_homeInput = {
+  export type usersUncheckedCreateWithoutUser_have_homeInput = {
     id?: number
     first_name: string
     last_name: string
@@ -14280,47 +16031,48 @@ export namespace Prisma {
     salt?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    home?: homeUncheckedCreateNestedManyWithoutUsersInput
   }
 
-  export type usersCreateOrConnectWithoutUser_in_homeInput = {
+  export type usersCreateOrConnectWithoutUser_have_homeInput = {
     where: usersWhereUniqueInput
-    create: XOR<usersCreateWithoutUser_in_homeInput, usersUncheckedCreateWithoutUser_in_homeInput>
+    create: XOR<usersCreateWithoutUser_have_homeInput, usersUncheckedCreateWithoutUser_have_homeInput>
   }
 
-  export type homeCreateWithoutUser_in_homeInput = {
-    serial_number: string
+  export type homeCreateWithoutUser_have_homeInput = {
     home_name: string
-    manager_id?: number | null
+    serial_number: string
     aio_key: string
+    users?: usersCreateNestedOneWithoutHomeInput
     device?: deviceCreateNestedManyWithoutHomeInput
   }
 
-  export type homeUncheckedCreateWithoutUser_in_homeInput = {
+  export type homeUncheckedCreateWithoutUser_have_homeInput = {
     id?: number
-    serial_number: string
     home_name: string
+    serial_number: string
     manager_id?: number | null
     aio_key: string
     device?: deviceUncheckedCreateNestedManyWithoutHomeInput
   }
 
-  export type homeCreateOrConnectWithoutUser_in_homeInput = {
+  export type homeCreateOrConnectWithoutUser_have_homeInput = {
     where: homeWhereUniqueInput
-    create: XOR<homeCreateWithoutUser_in_homeInput, homeUncheckedCreateWithoutUser_in_homeInput>
+    create: XOR<homeCreateWithoutUser_have_homeInput, homeUncheckedCreateWithoutUser_have_homeInput>
   }
 
-  export type usersUpsertWithoutUser_in_homeInput = {
-    update: XOR<usersUpdateWithoutUser_in_homeInput, usersUncheckedUpdateWithoutUser_in_homeInput>
-    create: XOR<usersCreateWithoutUser_in_homeInput, usersUncheckedCreateWithoutUser_in_homeInput>
+  export type usersUpsertWithoutUser_have_homeInput = {
+    update: XOR<usersUpdateWithoutUser_have_homeInput, usersUncheckedUpdateWithoutUser_have_homeInput>
+    create: XOR<usersCreateWithoutUser_have_homeInput, usersUncheckedCreateWithoutUser_have_homeInput>
     where?: usersWhereInput
   }
 
-  export type usersUpdateToOneWithWhereWithoutUser_in_homeInput = {
+  export type usersUpdateToOneWithWhereWithoutUser_have_homeInput = {
     where?: usersWhereInput
-    data: XOR<usersUpdateWithoutUser_in_homeInput, usersUncheckedUpdateWithoutUser_in_homeInput>
+    data: XOR<usersUpdateWithoutUser_have_homeInput, usersUncheckedUpdateWithoutUser_have_homeInput>
   }
 
-  export type usersUpdateWithoutUser_in_homeInput = {
+  export type usersUpdateWithoutUser_have_homeInput = {
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -14329,9 +16081,10 @@ export namespace Prisma {
     salt?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    home?: homeUpdateManyWithoutUsersNestedInput
   }
 
-  export type usersUncheckedUpdateWithoutUser_in_homeInput = {
+  export type usersUncheckedUpdateWithoutUser_have_homeInput = {
     id?: IntFieldUpdateOperationsInput | number
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
@@ -14341,31 +16094,32 @@ export namespace Prisma {
     salt?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    home?: homeUncheckedUpdateManyWithoutUsersNestedInput
   }
 
-  export type homeUpsertWithoutUser_in_homeInput = {
-    update: XOR<homeUpdateWithoutUser_in_homeInput, homeUncheckedUpdateWithoutUser_in_homeInput>
-    create: XOR<homeCreateWithoutUser_in_homeInput, homeUncheckedCreateWithoutUser_in_homeInput>
+  export type homeUpsertWithoutUser_have_homeInput = {
+    update: XOR<homeUpdateWithoutUser_have_homeInput, homeUncheckedUpdateWithoutUser_have_homeInput>
+    create: XOR<homeCreateWithoutUser_have_homeInput, homeUncheckedCreateWithoutUser_have_homeInput>
     where?: homeWhereInput
   }
 
-  export type homeUpdateToOneWithWhereWithoutUser_in_homeInput = {
+  export type homeUpdateToOneWithWhereWithoutUser_have_homeInput = {
     where?: homeWhereInput
-    data: XOR<homeUpdateWithoutUser_in_homeInput, homeUncheckedUpdateWithoutUser_in_homeInput>
+    data: XOR<homeUpdateWithoutUser_have_homeInput, homeUncheckedUpdateWithoutUser_have_homeInput>
   }
 
-  export type homeUpdateWithoutUser_in_homeInput = {
-    serial_number?: StringFieldUpdateOperationsInput | string
+  export type homeUpdateWithoutUser_have_homeInput = {
     home_name?: StringFieldUpdateOperationsInput | string
-    manager_id?: NullableIntFieldUpdateOperationsInput | number | null
+    serial_number?: StringFieldUpdateOperationsInput | string
     aio_key?: StringFieldUpdateOperationsInput | string
+    users?: usersUpdateOneWithoutHomeNestedInput
     device?: deviceUpdateManyWithoutHomeNestedInput
   }
 
-  export type homeUncheckedUpdateWithoutUser_in_homeInput = {
+  export type homeUncheckedUpdateWithoutUser_have_homeInput = {
     id?: IntFieldUpdateOperationsInput | number
-    serial_number?: StringFieldUpdateOperationsInput | string
     home_name?: StringFieldUpdateOperationsInput | string
+    serial_number?: StringFieldUpdateOperationsInput | string
     manager_id?: NullableIntFieldUpdateOperationsInput | number | null
     aio_key?: StringFieldUpdateOperationsInput | string
     device?: deviceUncheckedUpdateManyWithoutHomeNestedInput
@@ -14393,13 +16147,15 @@ export namespace Prisma {
   }
 
   export type scheduleCreateWithoutDeviceInput = {
-    time_action: Date | string
+    action_time: Date | string
     action: string
+    schedule_have_notification?: schedule_have_notificationCreateNestedManyWithoutScheduleInput
   }
 
   export type scheduleUncheckedCreateWithoutDeviceInput = {
-    time_action: Date | string
+    action_time: Date | string
     action: string
+    schedule_have_notification?: schedule_have_notificationUncheckedCreateNestedManyWithoutScheduleInput
   }
 
   export type scheduleCreateOrConnectWithoutDeviceInput = {
@@ -14436,13 +16192,13 @@ export namespace Prisma {
   }
 
   export type device_have_notificationCreateWithoutDeviceInput = {
-    notification_time?: Date | string | null
+    notification_time: Date | string
     notification: notificationCreateNestedOneWithoutDevice_have_notificationInput
   }
 
   export type device_have_notificationUncheckedCreateWithoutDeviceInput = {
     notification_id: number
-    notification_time?: Date | string | null
+    notification_time: Date | string
   }
 
   export type device_have_notificationCreateOrConnectWithoutDeviceInput = {
@@ -14456,20 +16212,20 @@ export namespace Prisma {
   }
 
   export type homeCreateWithoutDeviceInput = {
-    serial_number: string
     home_name: string
-    manager_id?: number | null
+    serial_number: string
     aio_key: string
-    user_in_home?: user_in_homeCreateNestedManyWithoutHomeInput
+    users?: usersCreateNestedOneWithoutHomeInput
+    user_have_home?: user_have_homeCreateNestedManyWithoutHomeInput
   }
 
   export type homeUncheckedCreateWithoutDeviceInput = {
     id?: number
-    serial_number: string
     home_name: string
+    serial_number: string
     manager_id?: number | null
     aio_key: string
-    user_in_home?: user_in_homeUncheckedCreateNestedManyWithoutHomeInput
+    user_have_home?: user_have_homeUncheckedCreateNestedManyWithoutHomeInput
   }
 
   export type homeCreateOrConnectWithoutDeviceInput = {
@@ -14524,7 +16280,7 @@ export namespace Prisma {
     OR?: scheduleScalarWhereInput[]
     NOT?: scheduleScalarWhereInput | scheduleScalarWhereInput[]
     device_id?: IntFilter<"schedule"> | number
-    time_action?: DateTimeFilter<"schedule"> | Date | string
+    action_time?: DateTimeFilter<"schedule"> | Date | string
     action?: StringFilter<"schedule"> | string
   }
 
@@ -14577,7 +16333,7 @@ export namespace Prisma {
     NOT?: device_have_notificationScalarWhereInput | device_have_notificationScalarWhereInput[]
     notification_id?: IntFilter<"device_have_notification"> | number
     device_id?: IntFilter<"device_have_notification"> | number
-    notification_time?: DateTimeNullableFilter<"device_have_notification"> | Date | string | null
+    notification_time?: DateTimeFilter<"device_have_notification"> | Date | string
   }
 
   export type homeUpsertWithoutDeviceInput = {
@@ -14592,20 +16348,20 @@ export namespace Prisma {
   }
 
   export type homeUpdateWithoutDeviceInput = {
-    serial_number?: StringFieldUpdateOperationsInput | string
     home_name?: StringFieldUpdateOperationsInput | string
-    manager_id?: NullableIntFieldUpdateOperationsInput | number | null
+    serial_number?: StringFieldUpdateOperationsInput | string
     aio_key?: StringFieldUpdateOperationsInput | string
-    user_in_home?: user_in_homeUpdateManyWithoutHomeNestedInput
+    users?: usersUpdateOneWithoutHomeNestedInput
+    user_have_home?: user_have_homeUpdateManyWithoutHomeNestedInput
   }
 
   export type homeUncheckedUpdateWithoutDeviceInput = {
     id?: IntFieldUpdateOperationsInput | number
-    serial_number?: StringFieldUpdateOperationsInput | string
     home_name?: StringFieldUpdateOperationsInput | string
+    serial_number?: StringFieldUpdateOperationsInput | string
     manager_id?: NullableIntFieldUpdateOperationsInput | number | null
     aio_key?: StringFieldUpdateOperationsInput | string
-    user_in_home?: user_in_homeUncheckedUpdateManyWithoutHomeNestedInput
+    user_have_home?: user_have_homeUncheckedUpdateManyWithoutHomeNestedInput
   }
 
   export type deviceCreateWithoutMeasurementInput = {
@@ -14710,6 +16466,24 @@ export namespace Prisma {
     create: XOR<deviceCreateWithoutScheduleInput, deviceUncheckedCreateWithoutScheduleInput>
   }
 
+  export type schedule_have_notificationCreateWithoutScheduleInput = {
+    notification: notificationCreateNestedOneWithoutSchedule_have_notificationInput
+  }
+
+  export type schedule_have_notificationUncheckedCreateWithoutScheduleInput = {
+    notification_id: number
+  }
+
+  export type schedule_have_notificationCreateOrConnectWithoutScheduleInput = {
+    where: schedule_have_notificationWhereUniqueInput
+    create: XOR<schedule_have_notificationCreateWithoutScheduleInput, schedule_have_notificationUncheckedCreateWithoutScheduleInput>
+  }
+
+  export type schedule_have_notificationCreateManyScheduleInputEnvelope = {
+    data: schedule_have_notificationCreateManyScheduleInput | schedule_have_notificationCreateManyScheduleInput[]
+    skipDuplicates?: boolean
+  }
+
   export type deviceUpsertWithoutScheduleInput = {
     update: XOR<deviceUpdateWithoutScheduleInput, deviceUncheckedUpdateWithoutScheduleInput>
     create: XOR<deviceCreateWithoutScheduleInput, deviceUncheckedCreateWithoutScheduleInput>
@@ -14746,6 +16520,31 @@ export namespace Prisma {
     measurement?: measurementUncheckedUpdateManyWithoutDeviceNestedInput
     log_event?: log_eventUncheckedUpdateManyWithoutDeviceNestedInput
     device_have_notification?: device_have_notificationUncheckedUpdateManyWithoutDeviceNestedInput
+  }
+
+  export type schedule_have_notificationUpsertWithWhereUniqueWithoutScheduleInput = {
+    where: schedule_have_notificationWhereUniqueInput
+    update: XOR<schedule_have_notificationUpdateWithoutScheduleInput, schedule_have_notificationUncheckedUpdateWithoutScheduleInput>
+    create: XOR<schedule_have_notificationCreateWithoutScheduleInput, schedule_have_notificationUncheckedCreateWithoutScheduleInput>
+  }
+
+  export type schedule_have_notificationUpdateWithWhereUniqueWithoutScheduleInput = {
+    where: schedule_have_notificationWhereUniqueInput
+    data: XOR<schedule_have_notificationUpdateWithoutScheduleInput, schedule_have_notificationUncheckedUpdateWithoutScheduleInput>
+  }
+
+  export type schedule_have_notificationUpdateManyWithWhereWithoutScheduleInput = {
+    where: schedule_have_notificationScalarWhereInput
+    data: XOR<schedule_have_notificationUpdateManyMutationInput, schedule_have_notificationUncheckedUpdateManyWithoutScheduleInput>
+  }
+
+  export type schedule_have_notificationScalarWhereInput = {
+    AND?: schedule_have_notificationScalarWhereInput | schedule_have_notificationScalarWhereInput[]
+    OR?: schedule_have_notificationScalarWhereInput[]
+    NOT?: schedule_have_notificationScalarWhereInput | schedule_have_notificationScalarWhereInput[]
+    notification_id?: IntFilter<"schedule_have_notification"> | number
+    device_id?: IntFilter<"schedule_have_notification"> | number
+    action_time?: DateTimeFilter<"schedule_have_notification"> | Date | string
   }
 
   export type deviceCreateWithoutLog_eventInput = {
@@ -14819,13 +16618,13 @@ export namespace Prisma {
   }
 
   export type device_have_notificationCreateWithoutNotificationInput = {
-    notification_time?: Date | string | null
+    notification_time: Date | string
     device: deviceCreateNestedOneWithoutDevice_have_notificationInput
   }
 
   export type device_have_notificationUncheckedCreateWithoutNotificationInput = {
     device_id: number
-    notification_time?: Date | string | null
+    notification_time: Date | string
   }
 
   export type device_have_notificationCreateOrConnectWithoutNotificationInput = {
@@ -14835,6 +16634,25 @@ export namespace Prisma {
 
   export type device_have_notificationCreateManyNotificationInputEnvelope = {
     data: device_have_notificationCreateManyNotificationInput | device_have_notificationCreateManyNotificationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type schedule_have_notificationCreateWithoutNotificationInput = {
+    schedule: scheduleCreateNestedOneWithoutSchedule_have_notificationInput
+  }
+
+  export type schedule_have_notificationUncheckedCreateWithoutNotificationInput = {
+    device_id: number
+    action_time: Date | string
+  }
+
+  export type schedule_have_notificationCreateOrConnectWithoutNotificationInput = {
+    where: schedule_have_notificationWhereUniqueInput
+    create: XOR<schedule_have_notificationCreateWithoutNotificationInput, schedule_have_notificationUncheckedCreateWithoutNotificationInput>
+  }
+
+  export type schedule_have_notificationCreateManyNotificationInputEnvelope = {
+    data: schedule_have_notificationCreateManyNotificationInput | schedule_have_notificationCreateManyNotificationInput[]
     skipDuplicates?: boolean
   }
 
@@ -14854,13 +16672,109 @@ export namespace Prisma {
     data: XOR<device_have_notificationUpdateManyMutationInput, device_have_notificationUncheckedUpdateManyWithoutNotificationInput>
   }
 
+  export type schedule_have_notificationUpsertWithWhereUniqueWithoutNotificationInput = {
+    where: schedule_have_notificationWhereUniqueInput
+    update: XOR<schedule_have_notificationUpdateWithoutNotificationInput, schedule_have_notificationUncheckedUpdateWithoutNotificationInput>
+    create: XOR<schedule_have_notificationCreateWithoutNotificationInput, schedule_have_notificationUncheckedCreateWithoutNotificationInput>
+  }
+
+  export type schedule_have_notificationUpdateWithWhereUniqueWithoutNotificationInput = {
+    where: schedule_have_notificationWhereUniqueInput
+    data: XOR<schedule_have_notificationUpdateWithoutNotificationInput, schedule_have_notificationUncheckedUpdateWithoutNotificationInput>
+  }
+
+  export type schedule_have_notificationUpdateManyWithWhereWithoutNotificationInput = {
+    where: schedule_have_notificationScalarWhereInput
+    data: XOR<schedule_have_notificationUpdateManyMutationInput, schedule_have_notificationUncheckedUpdateManyWithoutNotificationInput>
+  }
+
+  export type notificationCreateWithoutSchedule_have_notificationInput = {
+    content?: string | null
+    device_have_notification?: device_have_notificationCreateNestedManyWithoutNotificationInput
+  }
+
+  export type notificationUncheckedCreateWithoutSchedule_have_notificationInput = {
+    id?: number
+    content?: string | null
+    device_have_notification?: device_have_notificationUncheckedCreateNestedManyWithoutNotificationInput
+  }
+
+  export type notificationCreateOrConnectWithoutSchedule_have_notificationInput = {
+    where: notificationWhereUniqueInput
+    create: XOR<notificationCreateWithoutSchedule_have_notificationInput, notificationUncheckedCreateWithoutSchedule_have_notificationInput>
+  }
+
+  export type scheduleCreateWithoutSchedule_have_notificationInput = {
+    action_time: Date | string
+    action: string
+    device: deviceCreateNestedOneWithoutScheduleInput
+  }
+
+  export type scheduleUncheckedCreateWithoutSchedule_have_notificationInput = {
+    device_id: number
+    action_time: Date | string
+    action: string
+  }
+
+  export type scheduleCreateOrConnectWithoutSchedule_have_notificationInput = {
+    where: scheduleWhereUniqueInput
+    create: XOR<scheduleCreateWithoutSchedule_have_notificationInput, scheduleUncheckedCreateWithoutSchedule_have_notificationInput>
+  }
+
+  export type notificationUpsertWithoutSchedule_have_notificationInput = {
+    update: XOR<notificationUpdateWithoutSchedule_have_notificationInput, notificationUncheckedUpdateWithoutSchedule_have_notificationInput>
+    create: XOR<notificationCreateWithoutSchedule_have_notificationInput, notificationUncheckedCreateWithoutSchedule_have_notificationInput>
+    where?: notificationWhereInput
+  }
+
+  export type notificationUpdateToOneWithWhereWithoutSchedule_have_notificationInput = {
+    where?: notificationWhereInput
+    data: XOR<notificationUpdateWithoutSchedule_have_notificationInput, notificationUncheckedUpdateWithoutSchedule_have_notificationInput>
+  }
+
+  export type notificationUpdateWithoutSchedule_have_notificationInput = {
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    device_have_notification?: device_have_notificationUpdateManyWithoutNotificationNestedInput
+  }
+
+  export type notificationUncheckedUpdateWithoutSchedule_have_notificationInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    device_have_notification?: device_have_notificationUncheckedUpdateManyWithoutNotificationNestedInput
+  }
+
+  export type scheduleUpsertWithoutSchedule_have_notificationInput = {
+    update: XOR<scheduleUpdateWithoutSchedule_have_notificationInput, scheduleUncheckedUpdateWithoutSchedule_have_notificationInput>
+    create: XOR<scheduleCreateWithoutSchedule_have_notificationInput, scheduleUncheckedCreateWithoutSchedule_have_notificationInput>
+    where?: scheduleWhereInput
+  }
+
+  export type scheduleUpdateToOneWithWhereWithoutSchedule_have_notificationInput = {
+    where?: scheduleWhereInput
+    data: XOR<scheduleUpdateWithoutSchedule_have_notificationInput, scheduleUncheckedUpdateWithoutSchedule_have_notificationInput>
+  }
+
+  export type scheduleUpdateWithoutSchedule_have_notificationInput = {
+    action_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    action?: StringFieldUpdateOperationsInput | string
+    device?: deviceUpdateOneRequiredWithoutScheduleNestedInput
+  }
+
+  export type scheduleUncheckedUpdateWithoutSchedule_have_notificationInput = {
+    device_id?: IntFieldUpdateOperationsInput | number
+    action_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    action?: StringFieldUpdateOperationsInput | string
+  }
+
   export type notificationCreateWithoutDevice_have_notificationInput = {
     content?: string | null
+    schedule_have_notification?: schedule_have_notificationCreateNestedManyWithoutNotificationInput
   }
 
   export type notificationUncheckedCreateWithoutDevice_have_notificationInput = {
     id?: number
     content?: string | null
+    schedule_have_notification?: schedule_have_notificationUncheckedCreateNestedManyWithoutNotificationInput
   }
 
   export type notificationCreateOrConnectWithoutDevice_have_notificationInput = {
@@ -14913,11 +16827,13 @@ export namespace Prisma {
 
   export type notificationUpdateWithoutDevice_have_notificationInput = {
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    schedule_have_notification?: schedule_have_notificationUpdateManyWithoutNotificationNestedInput
   }
 
   export type notificationUncheckedUpdateWithoutDevice_have_notificationInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    schedule_have_notification?: schedule_have_notificationUncheckedUpdateManyWithoutNotificationNestedInput
   }
 
   export type deviceUpsertWithoutDevice_have_notificationInput = {
@@ -14958,6 +16874,36 @@ export namespace Prisma {
     log_event?: log_eventUncheckedUpdateManyWithoutDeviceNestedInput
   }
 
+  export type usersCreateWithoutHomeInput = {
+    first_name: string
+    last_name: string
+    email: string
+    password_hash: string
+    access_token?: string | null
+    salt?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    user_have_home?: user_have_homeCreateNestedManyWithoutUserInput
+  }
+
+  export type usersUncheckedCreateWithoutHomeInput = {
+    id?: number
+    first_name: string
+    last_name: string
+    email: string
+    password_hash: string
+    access_token?: string | null
+    salt?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    user_have_home?: user_have_homeUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type usersCreateOrConnectWithoutHomeInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutHomeInput, usersUncheckedCreateWithoutHomeInput>
+  }
+
   export type deviceCreateWithoutHomeInput = {
     status: string
     type: string
@@ -14995,22 +16941,58 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type user_in_homeCreateWithoutHomeInput = {
-    user: usersCreateNestedOneWithoutUser_in_homeInput
+  export type user_have_homeCreateWithoutHomeInput = {
+    user: usersCreateNestedOneWithoutUser_have_homeInput
   }
 
-  export type user_in_homeUncheckedCreateWithoutHomeInput = {
+  export type user_have_homeUncheckedCreateWithoutHomeInput = {
     user_id: number
   }
 
-  export type user_in_homeCreateOrConnectWithoutHomeInput = {
-    where: user_in_homeWhereUniqueInput
-    create: XOR<user_in_homeCreateWithoutHomeInput, user_in_homeUncheckedCreateWithoutHomeInput>
+  export type user_have_homeCreateOrConnectWithoutHomeInput = {
+    where: user_have_homeWhereUniqueInput
+    create: XOR<user_have_homeCreateWithoutHomeInput, user_have_homeUncheckedCreateWithoutHomeInput>
   }
 
-  export type user_in_homeCreateManyHomeInputEnvelope = {
-    data: user_in_homeCreateManyHomeInput | user_in_homeCreateManyHomeInput[]
+  export type user_have_homeCreateManyHomeInputEnvelope = {
+    data: user_have_homeCreateManyHomeInput | user_have_homeCreateManyHomeInput[]
     skipDuplicates?: boolean
+  }
+
+  export type usersUpsertWithoutHomeInput = {
+    update: XOR<usersUpdateWithoutHomeInput, usersUncheckedUpdateWithoutHomeInput>
+    create: XOR<usersCreateWithoutHomeInput, usersUncheckedCreateWithoutHomeInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutHomeInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutHomeInput, usersUncheckedUpdateWithoutHomeInput>
+  }
+
+  export type usersUpdateWithoutHomeInput = {
+    first_name?: StringFieldUpdateOperationsInput | string
+    last_name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password_hash?: StringFieldUpdateOperationsInput | string
+    access_token?: NullableStringFieldUpdateOperationsInput | string | null
+    salt?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_have_home?: user_have_homeUpdateManyWithoutUserNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutHomeInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    first_name?: StringFieldUpdateOperationsInput | string
+    last_name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password_hash?: StringFieldUpdateOperationsInput | string
+    access_token?: NullableStringFieldUpdateOperationsInput | string | null
+    salt?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_have_home?: user_have_homeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type deviceUpsertWithWhereUniqueWithoutHomeInput = {
@@ -15043,36 +17025,67 @@ export namespace Prisma {
     feed?: StringFilter<"device"> | string
   }
 
-  export type user_in_homeUpsertWithWhereUniqueWithoutHomeInput = {
-    where: user_in_homeWhereUniqueInput
-    update: XOR<user_in_homeUpdateWithoutHomeInput, user_in_homeUncheckedUpdateWithoutHomeInput>
-    create: XOR<user_in_homeCreateWithoutHomeInput, user_in_homeUncheckedCreateWithoutHomeInput>
+  export type user_have_homeUpsertWithWhereUniqueWithoutHomeInput = {
+    where: user_have_homeWhereUniqueInput
+    update: XOR<user_have_homeUpdateWithoutHomeInput, user_have_homeUncheckedUpdateWithoutHomeInput>
+    create: XOR<user_have_homeCreateWithoutHomeInput, user_have_homeUncheckedCreateWithoutHomeInput>
   }
 
-  export type user_in_homeUpdateWithWhereUniqueWithoutHomeInput = {
-    where: user_in_homeWhereUniqueInput
-    data: XOR<user_in_homeUpdateWithoutHomeInput, user_in_homeUncheckedUpdateWithoutHomeInput>
+  export type user_have_homeUpdateWithWhereUniqueWithoutHomeInput = {
+    where: user_have_homeWhereUniqueInput
+    data: XOR<user_have_homeUpdateWithoutHomeInput, user_have_homeUncheckedUpdateWithoutHomeInput>
   }
 
-  export type user_in_homeUpdateManyWithWhereWithoutHomeInput = {
-    where: user_in_homeScalarWhereInput
-    data: XOR<user_in_homeUpdateManyMutationInput, user_in_homeUncheckedUpdateManyWithoutHomeInput>
+  export type user_have_homeUpdateManyWithWhereWithoutHomeInput = {
+    where: user_have_homeScalarWhereInput
+    data: XOR<user_have_homeUpdateManyMutationInput, user_have_homeUncheckedUpdateManyWithoutHomeInput>
   }
 
-  export type user_in_homeCreateManyUserInput = {
+  export type user_have_homeCreateManyUserInput = {
     home_id: number
   }
 
-  export type user_in_homeUpdateWithoutUserInput = {
-    home?: homeUpdateOneRequiredWithoutUser_in_homeNestedInput
+  export type homeCreateManyUsersInput = {
+    id?: number
+    home_name: string
+    serial_number: string
+    aio_key: string
   }
 
-  export type user_in_homeUncheckedUpdateWithoutUserInput = {
+  export type user_have_homeUpdateWithoutUserInput = {
+    home?: homeUpdateOneRequiredWithoutUser_have_homeNestedInput
+  }
+
+  export type user_have_homeUncheckedUpdateWithoutUserInput = {
     home_id?: IntFieldUpdateOperationsInput | number
   }
 
-  export type user_in_homeUncheckedUpdateManyWithoutUserInput = {
+  export type user_have_homeUncheckedUpdateManyWithoutUserInput = {
     home_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type homeUpdateWithoutUsersInput = {
+    home_name?: StringFieldUpdateOperationsInput | string
+    serial_number?: StringFieldUpdateOperationsInput | string
+    aio_key?: StringFieldUpdateOperationsInput | string
+    device?: deviceUpdateManyWithoutHomeNestedInput
+    user_have_home?: user_have_homeUpdateManyWithoutHomeNestedInput
+  }
+
+  export type homeUncheckedUpdateWithoutUsersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    home_name?: StringFieldUpdateOperationsInput | string
+    serial_number?: StringFieldUpdateOperationsInput | string
+    aio_key?: StringFieldUpdateOperationsInput | string
+    device?: deviceUncheckedUpdateManyWithoutHomeNestedInput
+    user_have_home?: user_have_homeUncheckedUpdateManyWithoutHomeNestedInput
+  }
+
+  export type homeUncheckedUpdateManyWithoutUsersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    home_name?: StringFieldUpdateOperationsInput | string
+    serial_number?: StringFieldUpdateOperationsInput | string
+    aio_key?: StringFieldUpdateOperationsInput | string
   }
 
   export type measurementCreateManyDeviceInput = {
@@ -15082,7 +17095,7 @@ export namespace Prisma {
   }
 
   export type scheduleCreateManyDeviceInput = {
-    time_action: Date | string
+    action_time: Date | string
     action: string
   }
 
@@ -15095,7 +17108,7 @@ export namespace Prisma {
 
   export type device_have_notificationCreateManyDeviceInput = {
     notification_id: number
-    notification_time?: Date | string | null
+    notification_time: Date | string
   }
 
   export type measurementUpdateWithoutDeviceInput = {
@@ -15116,17 +17129,19 @@ export namespace Prisma {
   }
 
   export type scheduleUpdateWithoutDeviceInput = {
-    time_action?: DateTimeFieldUpdateOperationsInput | Date | string
+    action_time?: DateTimeFieldUpdateOperationsInput | Date | string
     action?: StringFieldUpdateOperationsInput | string
+    schedule_have_notification?: schedule_have_notificationUpdateManyWithoutScheduleNestedInput
   }
 
   export type scheduleUncheckedUpdateWithoutDeviceInput = {
-    time_action?: DateTimeFieldUpdateOperationsInput | Date | string
+    action_time?: DateTimeFieldUpdateOperationsInput | Date | string
     action?: StringFieldUpdateOperationsInput | string
+    schedule_have_notification?: schedule_have_notificationUncheckedUpdateManyWithoutScheduleNestedInput
   }
 
   export type scheduleUncheckedUpdateManyWithoutDeviceInput = {
-    time_action?: DateTimeFieldUpdateOperationsInput | Date | string
+    action_time?: DateTimeFieldUpdateOperationsInput | Date | string
     action?: StringFieldUpdateOperationsInput | string
   }
 
@@ -15151,38 +17166,73 @@ export namespace Prisma {
   }
 
   export type device_have_notificationUpdateWithoutDeviceInput = {
-    notification_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notification_time?: DateTimeFieldUpdateOperationsInput | Date | string
     notification?: notificationUpdateOneRequiredWithoutDevice_have_notificationNestedInput
   }
 
   export type device_have_notificationUncheckedUpdateWithoutDeviceInput = {
     notification_id?: IntFieldUpdateOperationsInput | number
-    notification_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notification_time?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type device_have_notificationUncheckedUpdateManyWithoutDeviceInput = {
     notification_id?: IntFieldUpdateOperationsInput | number
-    notification_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notification_time?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type schedule_have_notificationCreateManyScheduleInput = {
+    notification_id: number
+  }
+
+  export type schedule_have_notificationUpdateWithoutScheduleInput = {
+    notification?: notificationUpdateOneRequiredWithoutSchedule_have_notificationNestedInput
+  }
+
+  export type schedule_have_notificationUncheckedUpdateWithoutScheduleInput = {
+    notification_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type schedule_have_notificationUncheckedUpdateManyWithoutScheduleInput = {
+    notification_id?: IntFieldUpdateOperationsInput | number
   }
 
   export type device_have_notificationCreateManyNotificationInput = {
     device_id: number
-    notification_time?: Date | string | null
+    notification_time: Date | string
+  }
+
+  export type schedule_have_notificationCreateManyNotificationInput = {
+    device_id: number
+    action_time: Date | string
   }
 
   export type device_have_notificationUpdateWithoutNotificationInput = {
-    notification_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notification_time?: DateTimeFieldUpdateOperationsInput | Date | string
     device?: deviceUpdateOneRequiredWithoutDevice_have_notificationNestedInput
   }
 
   export type device_have_notificationUncheckedUpdateWithoutNotificationInput = {
     device_id?: IntFieldUpdateOperationsInput | number
-    notification_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notification_time?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type device_have_notificationUncheckedUpdateManyWithoutNotificationInput = {
     device_id?: IntFieldUpdateOperationsInput | number
-    notification_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notification_time?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type schedule_have_notificationUpdateWithoutNotificationInput = {
+    schedule?: scheduleUpdateOneRequiredWithoutSchedule_have_notificationNestedInput
+  }
+
+  export type schedule_have_notificationUncheckedUpdateWithoutNotificationInput = {
+    device_id?: IntFieldUpdateOperationsInput | number
+    action_time?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type schedule_have_notificationUncheckedUpdateManyWithoutNotificationInput = {
+    device_id?: IntFieldUpdateOperationsInput | number
+    action_time?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type deviceCreateManyHomeInput = {
@@ -15195,7 +17245,7 @@ export namespace Prisma {
     feed: string
   }
 
-  export type user_in_homeCreateManyHomeInput = {
+  export type user_have_homeCreateManyHomeInput = {
     user_id: number
   }
 
@@ -15236,15 +17286,15 @@ export namespace Prisma {
     feed?: StringFieldUpdateOperationsInput | string
   }
 
-  export type user_in_homeUpdateWithoutHomeInput = {
-    user?: usersUpdateOneRequiredWithoutUser_in_homeNestedInput
+  export type user_have_homeUpdateWithoutHomeInput = {
+    user?: usersUpdateOneRequiredWithoutUser_have_homeNestedInput
   }
 
-  export type user_in_homeUncheckedUpdateWithoutHomeInput = {
+  export type user_have_homeUncheckedUpdateWithoutHomeInput = {
     user_id?: IntFieldUpdateOperationsInput | number
   }
 
-  export type user_in_homeUncheckedUpdateManyWithoutHomeInput = {
+  export type user_have_homeUncheckedUpdateManyWithoutHomeInput = {
     user_id?: IntFieldUpdateOperationsInput | number
   }
 

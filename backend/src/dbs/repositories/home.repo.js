@@ -2,7 +2,7 @@
 const prisma = require("../init.prisma");
 
 const getHomeByUserId = async (userId) => {
-  const result = await prisma.user_in_home
+  const result = await prisma.user_have_home
     .findMany({
       where: {
         user_id: parseInt(userId),
@@ -40,7 +40,7 @@ const getHomeByHomeId = async (homeId) => {
 };
 
 const addUserToHomeById = async (userId, homdeId) => {
-  const result = await prisma.user_in_home
+  const result = await prisma.user_have_home
     .create({
       data: {
         home_id: parseInt(homdeId),
