@@ -69,6 +69,8 @@ const WelcomeCard = (props: WelcomeCardProps) => {
 
   const user_id = useSelector((state: any) => state.user.user_id);
   const homes: Home[] = useSelector((state: any) => state.user.homes);
+  console.log(homes);
+  console.log(user_id);
   const home: Home = homes.filter((home) => home.manager_id === user_id)[0];
 
   useEffect(() => {

@@ -44,7 +44,7 @@ const SmartDoorScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Header>Smart Door</Header>
+      <Title ownStyle={styles.title}>Smart Door</Title>
 
       <View style={styles.indexInputs}>
         {passArray.map((char, index) => (
@@ -90,6 +90,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+  },
+  title: {
+    paddingTop: 40,
   },
 
   indexInputs: {

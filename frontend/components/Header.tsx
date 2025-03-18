@@ -19,7 +19,7 @@ const Header: React.FC<HeaderProps> = ({ children }) => {
           alignItems: "center",
         }}
       >
-        <Ionicons name="chevron-back" size={12} color="#000000" />
+        <Ionicons name="chevron-back" size={18} color="#000000" />
       </Pressable>
       <Title>{children}</Title>
       <Text></Text>

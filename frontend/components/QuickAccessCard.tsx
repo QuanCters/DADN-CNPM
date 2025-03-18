@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#F5F5F7",
     borderRadius: 20,
     elevation: 10, // For Android shadow
-    marginBottom: 20,
   },
   imgStyle: {
     width: 60,
