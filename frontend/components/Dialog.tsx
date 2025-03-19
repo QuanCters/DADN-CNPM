@@ -11,18 +11,17 @@ import {
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import Title from "@/components/Title";
 import { Colors } from "@/constants/Colors";
-import PrimaryBtn from "@/components/PrimaryBtn";
+import { useDispatch, useSelector } from "react-redux";
+import { addHome } from "@/redux/slices/userSlice";
 
 interface DialogProps {
   modalVisible: boolean;
   onModalVisibleChange: (visible: boolean) => void;
-  homeAccessCode: string;
   setIsAccess: (isAccess: boolean) => void;
 }
 
 const Dialog: React.FC<DialogProps> = ({
   modalVisible,
-  homeAccessCode,
   onModalVisibleChange,
   setIsAccess,
 }) => {
@@ -31,20 +30,73 @@ const Dialog: React.FC<DialogProps> = ({
     message: "Enter Your home series",
   });
 
-  function handleAddHome() {
-    // MATCH HOME ACCESS CODE
-    if (messAndHomeSeries.homeSeries === homeAccessCode) {
-      // ADD HOME
+  const userId = useSelector((state: any) => state.user.user_id);
+
+  const dispatch = useDispatch();
+
+  const handleAddHome = async () => {
+    const { homeSeries } = messAndHomeSeries;
+
+    if (!homeSeries) {
+      setMessAndHomeSeries({
+        homeSeries: "",
+        message: "Please enter a home series",
+      });
+      return;
+    }
+
+    try {
+      const homeResponse: any = await fetch(
+        process.env.EXPO_PUBLIC_BACKEND_URL + "/home/serial/" + homeSeries,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!homeResponse.ok) {
+        throw new Error("Invalid home series");
+      }
+
+      const homeJson = await homeResponse.json();
+
+      const homeId = homeJson.home.id;
+
+      const response = await fetch(
+        process.env.EXPO_PUBLIC_BACKEND_URL + "/home/add",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: userId,
+            homeId: homeId,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to add user to home");
+      }
+
+      dispatch(addHome(homeJson.home));
+
       onModalVisibleChange(false);
       setIsAccess(true);
-    } else {
-      // SHOW ERROR
+      Alert.alert("Success", "Home added successfully");
+    } catch (error) {
       setMessAndHomeSeries({
         homeSeries: "",
         message: "Invalid Home Series",
       });
+      Alert.alert("Error", "Failed to add home. Please try again.");
     }
-  }
+  };
 
   return (
     <Modal

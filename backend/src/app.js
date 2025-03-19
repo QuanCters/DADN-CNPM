@@ -1,6 +1,5 @@
 const compression = require("compression");
 const express = require("express");
-const swaggerDocs = require("../swagger");
 const cors = require("cors");
 const app = express();
 
@@ -10,9 +9,12 @@ if (process.env.NODE_ENV === "production") {
 
 // init middlewares
 if (process.env.NODE_ENV !== "production") {
+  const swaggerDocs = require("../swagger");
   require("dotenv").config();
   const morgan = require("morgan");
   app.use(morgan("dev"));
+  // init swagger
+  swaggerDocs(app);
 }
 
 app.use(compression());
@@ -30,9 +32,6 @@ app.use(
     extended: true,
   })
 );
-
-// init swagger
-swaggerDocs(app);
 
 // init db
 const initRedis = require("./dbs/init.redis");

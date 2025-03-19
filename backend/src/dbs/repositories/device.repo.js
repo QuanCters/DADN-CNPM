@@ -6,6 +6,13 @@ const getDevicesBySerialNumber = async (serial_number) => {
       where: {
         serial_number: serial_number,
       },
+      select: {
+        id: true,
+        status: true,
+        type: true,
+        room_name: true,
+        feed: true,
+      },
     })
     .catch((error) => {
       console.error(error);

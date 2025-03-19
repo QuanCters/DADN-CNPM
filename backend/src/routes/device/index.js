@@ -63,4 +63,9 @@ router.get("/:serialNumber", asyncHandler(deviceController.getAllDevices));
 
 router.get("/user/:userId", asyncHandler(deviceController.getDevicesByUserId));
 
+router.post(
+  "/update/status",
+  asyncHandler(deviceController.updateDeviceStatus)
+);
+
 module.exports = router;

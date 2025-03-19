@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import UserState from "@/interface/userState.interface";
+import Home from "@/interface/home.interface";
 
 const initialState: UserState = {
   homes: [],
@@ -35,9 +36,33 @@ const userSlice = createSlice({
       state.last_name = null;
       state.user_id = null;
     },
+
+    addHome: (state: UserState, action: PayloadAction<Home>) => {
+      state.homes.push(action.payload);
+    },
+
+    changeDeviceStatus: (
+      state: UserState,
+      action: PayloadAction<{
+        homeId: number;
+        deviceId: number;
+        status: string;
+      }>
+    ) => {
+      const { homeId, deviceId, status } = action.payload;
+
+      const home = state.homes.find((home) => home.home_id === homeId);
+      if (!home) return;
+
+      const device = home.devices.find((device) => device.id === deviceId);
+      if (!device) return;
+
+      device.status = status;
+    },
   },
 });
 
-export const { setUser, logout, setSelectedHome } = userSlice.actions;
+export const { setUser, logout, setSelectedHome, addHome, changeDeviceStatus } =
+  userSlice.actions;
 
 export default userSlice.reducer;

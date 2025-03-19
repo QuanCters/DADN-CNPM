@@ -15,6 +15,7 @@ const {
 } = require("../dbs/repositories/user.repo");
 
 const { generateKey } = require("../authUtils/auth");
+const { getDeviceById } = require("../dbs/repositories/device.repo");
 
 class AccessService {
   static signup = async ({ email, password, first_name, last_name }) => {
@@ -119,6 +120,18 @@ class AccessService {
       message: "Reset password successfully",
       salt: salt,
     };
+  };
+
+  static unlockDoor = async ({ device_id, password }) => {
+    const door = await getDeviceById(device_id);
+    if (door.password === password) {
+      return {
+        status: 200,
+        message: "Unlock successfully",
+      };
+    } else {
+      throw new AuthFailureError("Incorrect password");
+    }
   };
 }
 

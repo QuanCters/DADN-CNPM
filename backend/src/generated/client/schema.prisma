@@ -1,7 +1,7 @@
 generator client {
-  provider      = "prisma-client-js"
-  binaryTargets = ["native", "rhel-openssl-3.0.x"]
-  output        = "../src/generated/client"
+  provider = "prisma-client-js"
+  // binaryTargets = ["native", "rhel-openssl-3.0.x"]
+  // output        = "../src/generated/client"
 }
 
 datasource db {
@@ -10,21 +10,22 @@ datasource db {
 }
 
 model users {
-  id            Int            @id @default(autoincrement())
-  first_name    String         @db.VarChar(255)
-  last_name     String         @db.VarChar(255)
-  email         String         @unique @db.VarChar(255)
-  password_hash String         @db.VarChar(255)
-  access_token  String?        @default("") @db.VarChar(255)
-  salt          String?        @default("") @db.VarChar(255)
-  created_at    DateTime       @default(now()) @db.Timestamp(6)
-  updated_at    DateTime       @updatedAt @db.Timestamp(6)
-  user_in_home  user_in_home[]
+  id             Int              @id @default(autoincrement())
+  first_name     String           @db.VarChar(255)
+  last_name      String           @db.VarChar(255)
+  email          String           @unique @db.VarChar(255)
+  password_hash  String           @db.VarChar(255)
+  access_token   String?          @default("") @db.VarChar(255)
+  salt           String?          @default("") @db.VarChar(255)
+  created_at     DateTime         @default(now()) @db.Timestamp(6)
+  updated_at     DateTime         @updatedAt @db.Timestamp(6)
+  user_have_home user_have_home[]
+  home           home[]
 
   @@index([email], map: "idx_user_email")
 }
 
-model user_in_home {
+model user_have_home {
   user_id Int
   home_id Int
 
@@ -64,12 +65,14 @@ model measurement {
 
 model schedule {
   device_id   Int
-  time_action DateTime @db.Timestamp(6)
+  action_time DateTime @db.Timestamp(6)
   action      String   @db.VarChar(255)
 
   device device @relation(fields: [device_id], references: [id])
 
-  @@id([time_action, device_id])
+  schedule_have_notification schedule_have_notification[]
+
+  @@id([action_time, device_id])
 }
 
 model log_event {
@@ -86,13 +89,25 @@ model notification {
   id      Int     @id @default(autoincrement())
   content String? @db.Text
 
-  device_have_notification device_have_notification[]
+  device_have_notification   device_have_notification[]
+  schedule_have_notification schedule_have_notification[]
+}
+
+model schedule_have_notification {
+  notification_id Int
+  device_id       Int
+  action_time     DateTime @db.Timestamp(6)
+
+  notification notification @relation(fields: [notification_id], references: [id])
+  schedule     schedule     @relation(fields: [device_id, action_time], references: [device_id, action_time])
+
+  @@id([notification_id, device_id, action_time])
 }
 
 model device_have_notification {
   notification_id   Int
   device_id         Int
-  notification_time DateTime? @db.Timestamp(6)
+  notification_time DateTime
 
   notification notification @relation(fields: [notification_id], references: [id])
   device       device       @relation(fields: [device_id], references: [id])
@@ -102,11 +117,12 @@ model device_have_notification {
 
 model home {
   id            Int    @id @default(autoincrement())
-  serial_number String @unique @db.VarChar(255)
   home_name     String @db.VarChar(255)
+  serial_number String @unique @db.VarChar(255)
   manager_id    Int?   @db.Integer
   aio_key       String @unique @db.VarChar(255)
 
-  device       device[]
-  user_in_home user_in_home[]
+  users          users?           @relation(fields: [manager_id], references: [id])
+  device         device[]
+  user_have_home user_have_home[]
 }
