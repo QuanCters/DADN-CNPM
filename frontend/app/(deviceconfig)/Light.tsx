@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import Home from "@/interface/home.interface";
 import Device from "@/interface/device.interface";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { changeDeviceStatus } from "@/redux/slices/userSlice";
 
 const Light = () => {
@@ -161,7 +161,12 @@ const Light = () => {
         </View>
 
         {/* Schedule Button */}
-        <TouchableOpacity style={styles.scheduleButton}>
+        <TouchableOpacity
+          style={styles.scheduleButton}
+          onPress={() => {
+            router.push("/(subscreen)/ScheduleScreen");
+          }}
+        >
           <Text style={styles.scheduleText}>Set Schedule</Text>
         </TouchableOpacity>
       </View>

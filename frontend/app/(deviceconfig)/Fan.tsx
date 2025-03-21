@@ -8,6 +8,7 @@ import { Colors } from "@/constants/Colors";
 import Title from "@/components/Title";
 import { LinearGradient } from "expo-linear-gradient";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import { router } from "expo-router";
 
 const Fan = () => {
   const [isFanOn, setIsFanOn] = useState(true);
@@ -146,7 +147,12 @@ const Fan = () => {
           })}
         </View>
       </View>
-      <TouchableOpacity style={styles.scheduleButton}>
+      <TouchableOpacity
+        style={styles.scheduleButton}
+        onPress={() => {
+          router.push("/(subscreen)/ScheduleScreen");
+        }}
+      >
         <Text style={styles.scheduleText}>Set Schedule</Text>
       </TouchableOpacity>
     </View>
