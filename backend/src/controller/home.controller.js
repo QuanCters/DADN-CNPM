@@ -11,6 +11,11 @@ class HomeController {
     const response = await HomeService.addUserToHomeById(req.body);
     return res.status(200).json(response);
   };
+
+  getHomeBySerialNumber = async (req, res) => {
+    const response = await HomeService.getHomeBySerialNumber(req.params);
+    return res.status(200).json(response);
+  };
 }
 
 module.exports = new HomeController();

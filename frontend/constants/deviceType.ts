@@ -1,7 +1,7 @@
-const deviceTypes = {
-  light: "Light",
-  fan: "Fan",
+export const deviceTypes = {
+  light: "light",
+  fan: "fan",
   airConditioner: "Air Conditioner",
-};
+} as const;
 
-export default deviceTypes;
+export type DeviceType = keyof typeof deviceTypes;

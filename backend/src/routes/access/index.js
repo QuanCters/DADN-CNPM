@@ -209,4 +209,6 @@ router.use(authentication);
  */
 router.post("/user/logout", asyncHandler(accessController.logout));
 
+router.post("/door/unlock", asyncHandler(accessController.unlockDoor));
+
 module.exports = router;

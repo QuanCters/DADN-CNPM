@@ -10,4 +10,5 @@ export const Colors = {
   black800: "#111111",
   linearInAcive: ["#DFE0E4", "#FFFFFF"],
   linearActive: ["#0051E3", "#0ADFF4"],
+  neutral500: "#737373",
 };

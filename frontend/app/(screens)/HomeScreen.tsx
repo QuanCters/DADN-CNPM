@@ -6,8 +6,9 @@ import WelcomeCard from "@/components/WelcomeCard";
 import React from "react";
 import { View, StyleSheet } from "react-native";
 
-import deviceTypes from "@/constants/deviceType";
+import { deviceTypes } from "@/constants/deviceType";
 import roomTypes from "@/constants/roomType";
+import { router } from "expo-router";
 
 const HomeScreen = () => {
   return (
@@ -25,12 +26,26 @@ const HomeScreen = () => {
         <Title ownStyle={styles.QuickAccessTitle}>Quick access</Title>
         <View style={styles.QuickAcessCards}>
           <QuickAccessCard
-            deviceName={deviceTypes.light}
+            deviceType="light"
             roomName={roomTypes.livingRoom}
+            havingSwitch={true}
+            onPress={() =>
+              router.push({
+                pathname: "/(deviceconfig)/Light",
+                params: { id: 1 },
+              })
+            }
           />
           <QuickAccessCard
-            deviceName={deviceTypes.fan}
+            deviceType="fan"
             roomName={roomTypes.bedroom}
+            havingSwitch={true}
+            onPress={() =>
+              router.push({
+                pathname: "/(deviceconfig)/Fan",
+                params: { id: 2 },
+              })
+            }
           />
         </View>
       </View>

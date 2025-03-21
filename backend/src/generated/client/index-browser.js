@@ -129,7 +129,7 @@ exports.Prisma.UsersScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
-exports.Prisma.User_in_homeScalarFieldEnum = {
+exports.Prisma.User_have_homeScalarFieldEnum = {
   user_id: 'user_id',
   home_id: 'home_id'
 };
@@ -154,7 +154,7 @@ exports.Prisma.MeasurementScalarFieldEnum = {
 
 exports.Prisma.ScheduleScalarFieldEnum = {
   device_id: 'device_id',
-  time_action: 'time_action',
+  action_time: 'action_time',
   action: 'action'
 };
 
@@ -171,6 +171,12 @@ exports.Prisma.NotificationScalarFieldEnum = {
   content: 'content'
 };
 
+exports.Prisma.Schedule_have_notificationScalarFieldEnum = {
+  notification_id: 'notification_id',
+  device_id: 'device_id',
+  action_time: 'action_time'
+};
+
 exports.Prisma.Device_have_notificationScalarFieldEnum = {
   notification_id: 'notification_id',
   device_id: 'device_id',
@@ -179,8 +185,8 @@ exports.Prisma.Device_have_notificationScalarFieldEnum = {
 
 exports.Prisma.HomeScalarFieldEnum = {
   id: 'id',
-  serial_number: 'serial_number',
   home_name: 'home_name',
+  serial_number: 'serial_number',
   manager_id: 'manager_id',
   aio_key: 'aio_key'
 };
@@ -203,12 +209,13 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   users: 'users',
-  user_in_home: 'user_in_home',
+  user_have_home: 'user_have_home',
   device: 'device',
   measurement: 'measurement',
   schedule: 'schedule',
   log_event: 'log_event',
   notification: 'notification',
+  schedule_have_notification: 'schedule_have_notification',
   device_have_notification: 'device_have_notification',
   home: 'home'
 };

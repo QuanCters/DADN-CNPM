@@ -24,6 +24,11 @@ class AccessController {
     const response = await AccessService.resetPassword(req.body);
     return res.status(200).json(response);
   };
+
+  unlockDoor = async (req, res) => {
+    const response = await AccessService.unlockDoor(req.body);
+    return res.status(200).json(response);
+  };
 }
 
 module.exports = new AccessController();

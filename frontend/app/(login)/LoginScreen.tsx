@@ -38,7 +38,6 @@ const LoginScreen = () => {
       );
 
       const result = await response.json();
-      console.log(result);
 
       if (result.status === 200) {
         const home = await fetch(
@@ -54,18 +53,24 @@ const LoginScreen = () => {
 
         const homeList = await home.json();
 
-        let selectedHome = homeList.filter(
-          (home: any) => home.manager_id === result.userId
-        )[0];
+        let selectedHome = null;
 
-        if (!selectedHome) {
-          selectedHome = homeList[0];
+        if (homeList.length > 0) {
+          let manager_home: any = homeList.filter(
+            (home: any) => home.manager_id === result.userId
+          )[0];
+
+          if (!manager_home) {
+            selectedHome = homeList[0].home_id;
+          } else {
+            selectedHome = manager_home.home_id;
+          }
         }
 
         dispatch(
           setUser({
             homes: homeList,
-            selectedHome: selectedHome.home_id,
+            selectedHome: selectedHome,
             isAuthenticated: true,
             first_name: result.first_name,
             last_name: result.last_name,

@@ -72,8 +72,8 @@ export default function Index() {
                 height: 50,
                 borderRadius: 10,
               }}
-              // onPress={() => router.push("/(login)/LoginScreen")}
-              onPress={() => router.push("/(screens)/HomeScreen")}
+              onPress={() => router.push("/(login)/LoginScreen")}
+              // onPress={() => router.push("/(screens)/HomeScreen")}
             >
               <Text
                 style={{ color: "white", fontWeight: "bold", fontSize: 20 }}
