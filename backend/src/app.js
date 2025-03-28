@@ -2,7 +2,8 @@ const compression = require("compression");
 const express = require("express");
 const cors = require("cors");
 const app = express();
-
+const { startScheduler } = require("./utils/cronJobs");
+startScheduler();
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("public"));
 }

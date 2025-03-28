@@ -61,11 +61,197 @@ const { asyncHandler } = require("../../helper/asyncHandler");
  */
 router.get("/:serialNumber", asyncHandler(deviceController.getAllDevices));
 
+/**
+ * @swagger
+ * '/v1/api/device/all':
+ *  get:
+ *     tags:
+ *     - Device controller
+ *     summary: Get all devices
+ *     produces:
+ *     - application/json
+ *     responses:
+ *       200:
+ *         description: Devices retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Device'
+ *       500:
+ *         description: Server error
+ */
+
+router.get("/all", asyncHandler(deviceController.getAllDevicesHave));
+
+/**
+ * @swagger
+ * '/v1/api/device/user/{userId}':
+ *  get:
+ *     tags:
+ *     - Device controller
+ *     summary: Get devices by user ID
+ *     produces:
+ *     - application/json
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         description: The ID of the user
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Devices retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Device'
+ *       404:
+ *         description: No devices found for the given user ID
+ *       500:
+ *         description: Server error
+ */
+
 router.get("/user/:userId", asyncHandler(deviceController.getDevicesByUserId));
+
+/**
+ * @swagger
+ * '/v1/api/device/update/status':
+ *  post:
+ *     tags:
+ *     - Device controller
+ *     summary: Update device status
+ *     produces:
+ *     - application/json
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               device_id:
+ *                 type: integer
+ *                 description: The ID of the device
+ *               status:
+ *                 type: string
+ *                 description: The new status of the device
+ *     responses:
+ *       200:
+ *         description: Device status updated successfully
+ *       400:
+ *         description: Invalid request payload
+ *       404:
+ *         description: Device not found
+ *       500:
+ *         description: Server error
+ */
 
 router.post(
   "/update/status",
   asyncHandler(deviceController.updateDeviceStatus)
 );
 
+/**
+ * @swagger
+ * '/v1/api/device/turn-on/{id}':
+ *  post:
+ *     tags:
+ *     - Device controller
+ *     summary: Turn on a device
+ *     produces:
+ *     - application/json
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the device
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               value:
+ *                 type: integer
+ *                 description: The value to set when turning on the device
+ *                 example: 1
+ *     responses:
+ *       200:
+ *         description: Device turned on successfully
+ *       400:
+ *         description: Missing value in request body
+ *       404:
+ *         description: Device not found
+ *       500:
+ *         description: Server error
+ */
+router.post("/turn-on/:id", asyncHandler(deviceController.turnOnDevice));
+
+/**
+ * @swagger
+ * '/v1/api/device/turn-off/{id}':
+ *  post:
+ *     tags:
+ *     - Device controller
+ *     summary: Turn off a device
+ *     produces:
+ *     - application/json
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the device
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Device turned off successfully
+ *       404:
+ *         description: Device not found
+ *       500:
+ *         description: Server error
+ */
+router.post("/turn-off/:id", asyncHandler(deviceController.turnOffDevice));
+
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Device:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *           description: The device ID
+ *         status:
+ *           type: string
+ *           description: The status of the device
+ *         type:
+ *           type: string
+ *           description: The type of the device
+ *         power_rating:
+ *           type: string
+ *           description: The power rating of the device
+ *         room_name:
+ *           type: string
+ *           description: The location of the device
+ *         password:
+ *           type: string
+ *           description: The password of the main door
+ *         serial_number:
+ *           type: string
+ *           description: The serial number of the house containing the device
+ *         feed:
+ *           type: string
+ *           description: Name of feed to connect Adafruit
+ */
 module.exports = router;

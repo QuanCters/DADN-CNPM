@@ -51,6 +51,32 @@ class HomeService {
     };
   }
 
+  static async addUserToGroupById({ userId, homeId, managerId }) {
+    
+    const foundHome = await getHomeByUserId(userId);
+    if (foundHome.home_id === userId) {
+      throw new ConflictRequestError("User already in home");
+    }
+
+    const result = await addUserToHomeById(userId, homeId);
+    if (!result) {
+      throw new BadRequestError("Home not found");
+    }
+
+    const home = await getHomeByHomeId(homeId);
+
+    if (!home.manager_id) {
+      const temp = await updateManagerByHomeId(userId, homeId);
+      if (!temp) {
+        throw new BadRequestError("Error during add manager");
+      }
+    }
+    return {
+      status: 200,
+      message: "Add User Successfully",
+    };
+  }
+
   static async getHomeBySerialNumber({ serialNumber }) {
     const result = await getHomeBySerialNumber(serialNumber);
     if (!result) {

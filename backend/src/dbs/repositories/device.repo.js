@@ -54,9 +54,27 @@ const updateDeviceStatus = async (id, status) => {
 
   return result;
 };
+const getAllDevices = async () => {
+  const result = await prisma.device.findMany({select: {
+    id: true,
+    status: true,
+    type: true,
+    room_name: true,
+    feed: true,
+    serial_number: true,
+  },
+})
+
+.catch((error) => {
+  console.error(error);
+  throw error;
+});
+  return result;
+};
 
 module.exports = {
   getDeviceById,
   getDevicesBySerialNumber,
   updateDeviceStatus,
+  getAllDevices,
 };
