@@ -2,6 +2,7 @@
 
 const router = require("express").Router();
 
+router.use("/v1/api/schedule", require("./schedule"));
 router.use("/v1/api/device", require("./device"));
 router.use("/v1/api/home", require("./home"));
 router.use("/v1/api/otp", require("./otp"));

@@ -86,11 +86,23 @@ const getHomeBySerialNumber = async (serialNumber) => {
 
   return result;
 };
-
+const getDevicesByHomeId = async (homeId) => {
+  const home = await prisma.home
+    .findUnique({
+    where: { id: homeId },
+    include: { device: true }, 
+  })
+    .catch((error) => {
+    console.error(error);
+    throw error;
+  });
+  return home.device; 
+};
 module.exports = {
   getHomeByUserId,
   addUserToHomeById,
   updateManagerByHomeId,
   getHomeByHomeId,
   getHomeBySerialNumber,
+  getDevicesByHomeId,
 };

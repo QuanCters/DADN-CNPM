@@ -10,6 +10,7 @@ const {
   getDeviceById,
   getDevicesBySerialNumber,
   updateDeviceStatus,
+  getAllDevices,
 } = require("../dbs/repositories/device.repo");
 const {
   getHomeByUserId,
@@ -32,7 +33,17 @@ class DeviceService {
       metadata: devices,
     };
   };
+  static getAllDevicesHave = async () => {
+    const devices = await getAllDevices();
+    if (!devices || devices.length === 0) {
+      throw new NotFoundError("No devices found");
+    }
 
+    return {
+      message: "Get devices successfully",
+      metadata: devices,
+    };
+  };
   /**
    * 1 - Tìm thiết bị theo ID
    * 2 - Nếu không tồn tại, trả về lỗi
@@ -88,6 +99,46 @@ class DeviceService {
     };
   };
 
+  static turnOnDevice = async ({ device_id, value }) => {
+    const device = await getDeviceById(device_id);
+    if (!device) {
+      throw new NotFoundError("Device not found");
+    }
+    const status = await getDeviceStatus(device.feed);
+    if (status != "0") {
+      throw new ConflictRequestError("Device is already on");
+    }
+    const updatedDevice = await controlDevice(device.feed, `${value}`);
+    if (!updatedDevice) {
+      throw new ConflictRequestError("Failed to update device status");
+    }
+
+    return {
+      message: "Update device status successfully",
+      metadata: updatedDevice,
+    };
+  };
+
+  static turnOffDevice = async ({ device_id }) => {
+    const device = await getDeviceById(device_id);
+    if (!device) {
+      throw new NotFoundError("Device not found");
+    }
+    const status = await getDeviceStatus(device.feed);
+    if (status == "0") {
+      throw new ConflictRequestError("Device is already off");
+    }
+    const updatedDevice = await controlDevice(device.feed, "0");
+    if (!updatedDevice) {
+      throw new ConflictRequestError("Failed to update device status");
+    }
+
+    return {
+      message: "Update device status successfully",
+      metadata: updatedDevice,
+    };
+  };
+
   static async getDevicesByUserId({ userId }) {
     const foundHome = await getHomeByUserId(userId);
     if (!foundHome) {
@@ -111,5 +162,4 @@ class DeviceService {
     return foundDevice;
   }
 }
-
 module.exports = DeviceService;
