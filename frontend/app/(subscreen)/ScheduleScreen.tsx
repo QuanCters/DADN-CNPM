@@ -1,12 +1,16 @@
 import Header from "@/components/Header";
 import ScheduleList from "@/components/ScheduleList";
-import React from "react";
+import ScheduleType from "@/interface/schedule.interface";
+import { useLocalSearchParams } from "expo-router";
+import React, { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 
 const ScheduleScreen = () => {
+  const { deviceId } = useLocalSearchParams();
+
   return (
     <View style={styles.container}>
-      <ScheduleList />
+      <ScheduleList deviceId={deviceId as string} />
     </View>
   );
 };

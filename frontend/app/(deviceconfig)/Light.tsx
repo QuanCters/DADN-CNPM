@@ -37,6 +37,7 @@ const Light = () => {
     const home = state.user.homes.find((home: Home) => home.home_id === homeId);
     if (!home) return null;
 
+    // xu li k thuoc home
     const device = home.devices.find(
       (device: Device) => device.id === deviceId
     );
@@ -164,7 +165,10 @@ const Light = () => {
         <TouchableOpacity
           style={styles.scheduleButton}
           onPress={() => {
-            router.push("/(subscreen)/ScheduleScreen");
+            router.push({
+              pathname: "/(subscreen)/ScheduleScreen",
+              params: { deviceId },
+            });
           }}
         >
           <Text style={styles.scheduleText}>Set Schedule</Text>

@@ -8,27 +8,99 @@ import { Colors } from "@/constants/Colors";
 import Title from "@/components/Title";
 import { LinearGradient } from "expo-linear-gradient";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
+import { useDispatch, useSelector } from "react-redux";
+import { SafeAreaView } from "react-native";
+import { changeDeviceStatus } from "@/redux/slices/userSlice";
+import Device from "@/interface/device.interface";
+import { RootState } from "@/redux/store";
+import Home from "@/interface/home.interface";
 
 const Fan = () => {
-  const [isFanOn, setIsFanOn] = useState(true);
+  const { id } = useLocalSearchParams();
+  const homeId = useSelector((state: any) => state.user.selectedHome);
+  const deviceId = typeof id === "string" ? parseInt(id, 10) : null;
+
+  if (deviceId === null || isNaN(deviceId)) {
+    return (
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#EAF1F8" }}>
+        <View style={styles.container}>
+          <Header>Smart Fan</Header>
+          <Text style={styles.errorText}>Invalid device ID</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  const deviceStatus = useSelector((state: RootState) => {
+    const home = state.user.homes.find((home: Home) => home.home_id === homeId);
+    if (!home) return null;
+
+    const device = home.devices.find(
+      (device: Device) => device.id === deviceId
+    );
+    return device ? device.status : null;
+  });
+  if (deviceStatus === null) {
+    return (
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#EAF1F8" }}>
+        <View style={styles.container}>
+          <Header>Smart Fan</Header>
+          <Text style={styles.errorText}>Device not found</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  const [isOn, setIsOn] = useState(true);
   const [fanSpeed, setFanSpeed] = useState(1);
   const [mode, setMode] = useState("Normal");
+  const dispatch = useDispatch();
+  const handleChange = async () => {
+    const response = await fetch(
+      process.env.EXPO_PUBLIC_BACKEND_URL + "/device/update/status",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          device_id: deviceId,
+          status: !isOn ? "on" : "off",
+        }),
+      }
+    );
 
-  const toggleFan = () => setIsFanOn(!isFanOn);
+    if (!response.ok) {
+      throw new Error("Error change status");
+    }
+
+    setIsOn(!isOn);
+
+    dispatch(
+      changeDeviceStatus({
+        homeId,
+        deviceId,
+        status: !isOn ? "on" : "off",
+      })
+    );
+    console.log("Device ", deviceId, " status changed:", !isOn ? "on" : "off");
+  };
+
   const increaseSpeed = () => {
-    if (isFanOn) setFanSpeed((prev) => (prev < 5 ? prev + 1 : prev));
-    setIsFanOn(true);
+    if (isOn) setFanSpeed((prev) => (prev < 5 ? prev + 1 : prev));
+    setIsOn(true);
   };
   const decreaseSpeed = () =>
     setFanSpeed((prev) => (prev > 1 ? prev - 1 : prev));
 
-  const iconUI = isFanOn ? (
+  const iconUI = isOn ? (
     <MaterialCommunityIcons name="fan" size={80} color={Colors.primary800} />
   ) : (
     <MaterialCommunityIcons name="fan-off" size={80} color="#CCC" />
   );
-  const speedUI = isFanOn ? (
+  const speedUI = isOn ? (
     <Text style={styles.speedText}>{fanSpeed}</Text>
   ) : (
     <Text style={styles.speedText}></Text>
@@ -39,8 +111,8 @@ const Fan = () => {
       <Header>Fan</Header>
 
       <Switch
-        value={isFanOn}
-        onValueChange={toggleFan}
+        value={isOn}
+        onValueChange={handleChange}
         style={{ alignSelf: "flex-end", marginRight: 20 }}
       />
 
@@ -52,7 +124,7 @@ const Fan = () => {
           maxHeight: "40%",
         }}
       >
-        {/* <Feather name="wind" size={80} color={isFanOn ? "#007AFF" : "#CCC"} /> */}
+        {/* <Feather name="wind" size={80} color={isOn ? "#007AFF" : "#CCC"} /> */}
         {iconUI}
         {speedUI}
         <View style={styles.iconRowContainer}>
@@ -150,7 +222,10 @@ const Fan = () => {
       <TouchableOpacity
         style={styles.scheduleButton}
         onPress={() => {
-          router.push("/(subscreen)/ScheduleScreen");
+          router.push({
+            pathname: "/(subscreen)/ScheduleScreen",
+            params: { deviceId },
+          });
         }}
       >
         <Text style={styles.scheduleText}>Set Schedule</Text>
@@ -216,5 +291,10 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     textAlign: "center",
+  },
+  errorText: {
+    fontSize: 18,
+    color: "red",
+    marginTop: 20,
   },
 });

@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FlatList,
   Switch,
@@ -9,95 +9,109 @@ import {
   StyleSheet,
   Pressable,
 } from "react-native";
-
 import { router } from "expo-router";
 import ScheduleModal from "@/components/ScheduleModal";
+import ScheduleType from "@/interface/schedule.interface";
+const formatTime = (isoString: string) => {
+  const date = new Date(isoString);
+  const options = {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  };
+  // @ts-expect-error type missing
+  return date.toLocaleTimeString([], options);
+};
 
-// ATTENTION: timeFormat is "HH:MM:AM/PM"
-const ScheduleList = () => {
-  const [alarms, setAlarms] = useState([
-    {
-      id: "1",
-      time: "06:00:AM",
-      days: ["M", "T", "W"],
-      enabled: true,
-      turnTo: "on",
-    },
-    {
-      id: "2",
-      time: "07:00:PM",
-      days: ["S", "M", "T", "W", "T", "F", "S"],
-      enabled: false,
-      turnTo: "off",
-    },
-    {
-      id: "3",
-      time: "10:35:PM",
-      days: ["M", "T", "W", "T", "F"],
-      enabled: true,
-      turnTo: "off",
-    },
-    {
-      id: "4",
-      time: "08:00:AM",
-      days: ["M", "F"],
-      enabled: false,
-      turnTo: "on",
-    },
-  ]);
+const ScheduleList = ({ deviceId }: { deviceId: string }) => {
+  const [schedule, setSchedule] = useState<ScheduleType[] | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    async function fetchSchedule() {
+      try {
+        setIsLoading(true);
+        const response = await fetch(
+          process.env.EXPO_PUBLIC_BACKEND_URL + "/schedule/device/" + deviceId
+        );
+        // /v1/api/schedule/device/{device_id}
+        console.log("waiting for schedule of device " + deviceId);
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch schedule of device " + deviceId);
+        }
+        const data = await response.json();
+        setSchedule(data.metadata);
+        setIsLoading(false);
+      } catch (error) {
+        setError("Error fetching schedule: " + error);
+        setIsLoading(false);
+      }
+    }
+    fetchSchedule();
+  }, [deviceId]);
+
+  console.log("ScheduleList", schedule);
+
+  const [alarms, setAlarms] = useState<ScheduleType[] | null>(null);
+  useEffect(() => {
+    if (schedule) setAlarms(schedule);
+  }, [schedule]);
 
   const [action, setAction] = useState<"update" | "add" | undefined>(undefined);
   const [currTime, setCurrTime] = useState("00:00:AM");
 
-  const toggleSwitch = (id: string) => {
-    setAlarms((prevAlarms) =>
-      prevAlarms.map((alarm) =>
-        alarm.id === id ? { ...alarm, enabled: !alarm.enabled } : alarm
-      )
-    );
-  };
-
-  const renderAlarmItem = ({ item }: any) => (
-    <Pressable
-      onPress={() => {
-        setAction("update");
-        setCurrTime(item.time);
-      }}
-      style={styles.alarmItem}
-    >
-      <View>
-        <Text
-          style={[
-            styles.alarmTime,
-            item.enabled ? styles.activeText : styles.inactiveText,
-          ]}
-        >
-          {item.time}
-        </Text>
-        <View style={{ flexDirection: "row" }}>
+  // const toggleSwitch = (id: string) => {
+  //   setAlarms((prevAlarms) =>
+  //     prevAlarms.map((alarm) =>
+  //       alarm.id === id ? { ...alarm, enabled: !alarm.enabled } : alarm
+  //     )
+  //   );
+  // };
+  console.log("alarms", alarms);
+  const renderAlarmItem = ({ item }: { item: ScheduleType }) => {
+    return (
+      <Pressable
+        onPress={() => {
+          setAction("update");
+          setCurrTime(formatTime(item.action_time));
+        }}
+        style={styles.alarmItem}
+      >
+        <View>
           <Text
             style={[
-              styles.alarmDays,
-              {
-                marginRight: 10,
-                fontWeight: "500",
-                borderRightWidth: 1,
-                borderRightColor: "#ddd",
-                paddingRight: 10,
-              },
+              styles.alarmTime,
+              item.is_enabled ? styles.activeText : styles.inactiveText,
             ]}
           >
-            {item.turnTo === "on" ? "Turn On" : "Turn Off"}
+            {formatTime(item.action_time)}
           </Text>
-          <Text style={styles.alarmDays}>{item.days.join(" ")}</Text>
+          <View style={{ flexDirection: "row" }}>
+            <Text
+              style={[
+                styles.alarmDays,
+                {
+                  marginRight: 10,
+                  fontWeight: "500",
+                  borderRightWidth: 1,
+                  borderRightColor: "#ddd",
+                  paddingRight: 10,
+                },
+              ]}
+            >
+              {item.action === "on" ? "Turn On" : "Turn Off"}
+            </Text>
+            <Text style={styles.alarmDays}>{item.action_day}</Text>
+          </View>
         </View>
-      </View>
-      <Switch
-        value={item.enabled}
-        onValueChange={() => toggleSwitch(item.id)}
-      />
-    </Pressable>
-  );
+        <Switch
+          value={item.action === "on"}
+          // onValueChange={() => toggleSwitch(item.id)}
+        />
+      </Pressable>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -112,16 +126,22 @@ const ScheduleList = () => {
           <Ionicons name="chevron-back" size={18} color="#000000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Alarm</Text>
+
         <TouchableOpacity onPress={() => setAction("add")}>
           <Ionicons name="add" size={24} color="black" />
         </TouchableOpacity>
       </View>
-
-      <FlatList
-        data={alarms}
-        keyExtractor={(item) => item.id}
-        renderItem={renderAlarmItem}
-      />
+      {isLoading ? (
+        <Text>Loading...</Text>
+      ) : error ? (
+        <Text>An error occur</Text>
+      ) : (
+        <FlatList
+          data={alarms}
+          keyExtractor={(item) => String(item.device_id) + item.action_time}
+          renderItem={renderAlarmItem}
+        />
+      )}
 
       {/* <Modal visible={modalVisible} animationType="slide" transparent></Modal> */}
       {action && (
