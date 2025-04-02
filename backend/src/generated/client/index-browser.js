@@ -154,9 +154,11 @@ exports.Prisma.MeasurementScalarFieldEnum = {
 
 exports.Prisma.ScheduleScalarFieldEnum = {
   device_id: 'device_id',
+  action_day: 'action_day',
   action_time: 'action_time',
   action: 'action',
-  value: 'value'
+  value: 'value',
+  is_enable: 'is_enable'
 };
 
 exports.Prisma.Log_eventScalarFieldEnum = {
@@ -169,13 +171,15 @@ exports.Prisma.Log_eventScalarFieldEnum = {
 
 exports.Prisma.NotificationScalarFieldEnum = {
   id: 'id',
-  content: 'content'
+  content: 'content',
+  is_read: 'is_read'
 };
 
 exports.Prisma.Schedule_have_notificationScalarFieldEnum = {
   notification_id: 'notification_id',
   device_id: 'device_id',
-  action_time: 'action_time'
+  action_time: 'action_time',
+  action_day: 'action_day'
 };
 
 exports.Prisma.Device_have_notificationScalarFieldEnum = {
