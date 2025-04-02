@@ -6520,23 +6520,29 @@ export namespace Prisma {
 
   export type ScheduleMinAggregateOutputType = {
     device_id: number | null
+    action_day: string | null
     action_time: Date | null
     action: string | null
     value: number | null
+    is_enable: boolean | null
   }
 
   export type ScheduleMaxAggregateOutputType = {
     device_id: number | null
+    action_day: string | null
     action_time: Date | null
     action: string | null
     value: number | null
+    is_enable: boolean | null
   }
 
   export type ScheduleCountAggregateOutputType = {
     device_id: number
+    action_day: number
     action_time: number
     action: number
     value: number
+    is_enable: number
     _all: number
   }
 
@@ -6553,23 +6559,29 @@ export namespace Prisma {
 
   export type ScheduleMinAggregateInputType = {
     device_id?: true
+    action_day?: true
     action_time?: true
     action?: true
     value?: true
+    is_enable?: true
   }
 
   export type ScheduleMaxAggregateInputType = {
     device_id?: true
+    action_day?: true
     action_time?: true
     action?: true
     value?: true
+    is_enable?: true
   }
 
   export type ScheduleCountAggregateInputType = {
     device_id?: true
+    action_day?: true
     action_time?: true
     action?: true
     value?: true
+    is_enable?: true
     _all?: true
   }
 
@@ -6661,9 +6673,11 @@ export namespace Prisma {
 
   export type ScheduleGroupByOutputType = {
     device_id: number
+    action_day: string
     action_time: Date
     action: string
     value: number | null
+    is_enable: boolean
     _count: ScheduleCountAggregateOutputType | null
     _avg: ScheduleAvgAggregateOutputType | null
     _sum: ScheduleSumAggregateOutputType | null
@@ -6687,9 +6701,11 @@ export namespace Prisma {
 
   export type scheduleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     device_id?: boolean
+    action_day?: boolean
     action_time?: boolean
     action?: boolean
     value?: boolean
+    is_enable?: boolean
     device?: boolean | deviceDefaultArgs<ExtArgs>
     schedule_have_notification?: boolean | schedule$schedule_have_notificationArgs<ExtArgs>
     _count?: boolean | ScheduleCountOutputTypeDefaultArgs<ExtArgs>
@@ -6697,28 +6713,34 @@ export namespace Prisma {
 
   export type scheduleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     device_id?: boolean
+    action_day?: boolean
     action_time?: boolean
     action?: boolean
     value?: boolean
+    is_enable?: boolean
     device?: boolean | deviceDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["schedule"]>
 
   export type scheduleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     device_id?: boolean
+    action_day?: boolean
     action_time?: boolean
     action?: boolean
     value?: boolean
+    is_enable?: boolean
     device?: boolean | deviceDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["schedule"]>
 
   export type scheduleSelectScalar = {
     device_id?: boolean
+    action_day?: boolean
     action_time?: boolean
     action?: boolean
     value?: boolean
+    is_enable?: boolean
   }
 
-  export type scheduleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"device_id" | "action_time" | "action" | "value", ExtArgs["result"]["schedule"]>
+  export type scheduleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"device_id" | "action_day" | "action_time" | "action" | "value" | "is_enable", ExtArgs["result"]["schedule"]>
   export type scheduleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     device?: boolean | deviceDefaultArgs<ExtArgs>
     schedule_have_notification?: boolean | schedule$schedule_have_notificationArgs<ExtArgs>
@@ -6739,9 +6761,11 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       device_id: number
+      action_day: string
       action_time: Date
       action: string
       value: number | null
+      is_enable: boolean
     }, ExtArgs["result"]["schedule"]>
     composites: {}
   }
@@ -7168,9 +7192,11 @@ export namespace Prisma {
    */ 
   interface scheduleFieldRefs {
     readonly device_id: FieldRef<"schedule", 'Int'>
+    readonly action_day: FieldRef<"schedule", 'String'>
     readonly action_time: FieldRef<"schedule", 'DateTime'>
     readonly action: FieldRef<"schedule", 'String'>
     readonly value: FieldRef<"schedule", 'Float'>
+    readonly is_enable: FieldRef<"schedule", 'Boolean'>
   }
     
 
@@ -8747,16 +8773,19 @@ export namespace Prisma {
   export type NotificationMinAggregateOutputType = {
     id: number | null
     content: string | null
+    is_read: boolean | null
   }
 
   export type NotificationMaxAggregateOutputType = {
     id: number | null
     content: string | null
+    is_read: boolean | null
   }
 
   export type NotificationCountAggregateOutputType = {
     id: number
     content: number
+    is_read: number
     _all: number
   }
 
@@ -8772,16 +8801,19 @@ export namespace Prisma {
   export type NotificationMinAggregateInputType = {
     id?: true
     content?: true
+    is_read?: true
   }
 
   export type NotificationMaxAggregateInputType = {
     id?: true
     content?: true
+    is_read?: true
   }
 
   export type NotificationCountAggregateInputType = {
     id?: true
     content?: true
+    is_read?: true
     _all?: true
   }
 
@@ -8874,6 +8906,7 @@ export namespace Prisma {
   export type NotificationGroupByOutputType = {
     id: number
     content: string | null
+    is_read: boolean
     _count: NotificationCountAggregateOutputType | null
     _avg: NotificationAvgAggregateOutputType | null
     _sum: NotificationSumAggregateOutputType | null
@@ -8898,6 +8931,7 @@ export namespace Prisma {
   export type notificationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     content?: boolean
+    is_read?: boolean
     device_have_notification?: boolean | notification$device_have_notificationArgs<ExtArgs>
     schedule_have_notification?: boolean | notification$schedule_have_notificationArgs<ExtArgs>
     _count?: boolean | NotificationCountOutputTypeDefaultArgs<ExtArgs>
@@ -8906,19 +8940,22 @@ export namespace Prisma {
   export type notificationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     content?: boolean
+    is_read?: boolean
   }, ExtArgs["result"]["notification"]>
 
   export type notificationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     content?: boolean
+    is_read?: boolean
   }, ExtArgs["result"]["notification"]>
 
   export type notificationSelectScalar = {
     id?: boolean
     content?: boolean
+    is_read?: boolean
   }
 
-  export type notificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content", ExtArgs["result"]["notification"]>
+  export type notificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "is_read", ExtArgs["result"]["notification"]>
   export type notificationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     device_have_notification?: boolean | notification$device_have_notificationArgs<ExtArgs>
     schedule_have_notification?: boolean | notification$schedule_have_notificationArgs<ExtArgs>
@@ -8936,6 +8973,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       content: string | null
+      is_read: boolean
     }, ExtArgs["result"]["notification"]>
     composites: {}
   }
@@ -9363,6 +9401,7 @@ export namespace Prisma {
   interface notificationFieldRefs {
     readonly id: FieldRef<"notification", 'Int'>
     readonly content: FieldRef<"notification", 'String'>
+    readonly is_read: FieldRef<"notification", 'Boolean'>
   }
     
 
@@ -9843,18 +9882,21 @@ export namespace Prisma {
     notification_id: number | null
     device_id: number | null
     action_time: Date | null
+    action_day: string | null
   }
 
   export type Schedule_have_notificationMaxAggregateOutputType = {
     notification_id: number | null
     device_id: number | null
     action_time: Date | null
+    action_day: string | null
   }
 
   export type Schedule_have_notificationCountAggregateOutputType = {
     notification_id: number
     device_id: number
     action_time: number
+    action_day: number
     _all: number
   }
 
@@ -9873,18 +9915,21 @@ export namespace Prisma {
     notification_id?: true
     device_id?: true
     action_time?: true
+    action_day?: true
   }
 
   export type Schedule_have_notificationMaxAggregateInputType = {
     notification_id?: true
     device_id?: true
     action_time?: true
+    action_day?: true
   }
 
   export type Schedule_have_notificationCountAggregateInputType = {
     notification_id?: true
     device_id?: true
     action_time?: true
+    action_day?: true
     _all?: true
   }
 
@@ -9978,6 +10023,7 @@ export namespace Prisma {
     notification_id: number
     device_id: number
     action_time: Date
+    action_day: string
     _count: Schedule_have_notificationCountAggregateOutputType | null
     _avg: Schedule_have_notificationAvgAggregateOutputType | null
     _sum: Schedule_have_notificationSumAggregateOutputType | null
@@ -10003,6 +10049,7 @@ export namespace Prisma {
     notification_id?: boolean
     device_id?: boolean
     action_time?: boolean
+    action_day?: boolean
     schedule?: boolean | scheduleDefaultArgs<ExtArgs>
     notification?: boolean | notificationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["schedule_have_notification"]>
@@ -10011,6 +10058,7 @@ export namespace Prisma {
     notification_id?: boolean
     device_id?: boolean
     action_time?: boolean
+    action_day?: boolean
     schedule?: boolean | scheduleDefaultArgs<ExtArgs>
     notification?: boolean | notificationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["schedule_have_notification"]>
@@ -10019,6 +10067,7 @@ export namespace Prisma {
     notification_id?: boolean
     device_id?: boolean
     action_time?: boolean
+    action_day?: boolean
     schedule?: boolean | scheduleDefaultArgs<ExtArgs>
     notification?: boolean | notificationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["schedule_have_notification"]>
@@ -10027,9 +10076,10 @@ export namespace Prisma {
     notification_id?: boolean
     device_id?: boolean
     action_time?: boolean
+    action_day?: boolean
   }
 
-  export type schedule_have_notificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"notification_id" | "device_id" | "action_time", ExtArgs["result"]["schedule_have_notification"]>
+  export type schedule_have_notificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"notification_id" | "device_id" | "action_time" | "action_day", ExtArgs["result"]["schedule_have_notification"]>
   export type schedule_have_notificationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     schedule?: boolean | scheduleDefaultArgs<ExtArgs>
     notification?: boolean | notificationDefaultArgs<ExtArgs>
@@ -10053,6 +10103,7 @@ export namespace Prisma {
       notification_id: number
       device_id: number
       action_time: Date
+      action_day: string
     }, ExtArgs["result"]["schedule_have_notification"]>
     composites: {}
   }
@@ -10481,6 +10532,7 @@ export namespace Prisma {
     readonly notification_id: FieldRef<"schedule_have_notification", 'Int'>
     readonly device_id: FieldRef<"schedule_have_notification", 'Int'>
     readonly action_time: FieldRef<"schedule_have_notification", 'DateTime'>
+    readonly action_day: FieldRef<"schedule_have_notification", 'String'>
   }
     
 
@@ -13209,9 +13261,11 @@ export namespace Prisma {
 
   export const ScheduleScalarFieldEnum: {
     device_id: 'device_id',
+    action_day: 'action_day',
     action_time: 'action_time',
     action: 'action',
-    value: 'value'
+    value: 'value',
+    is_enable: 'is_enable'
   };
 
   export type ScheduleScalarFieldEnum = (typeof ScheduleScalarFieldEnum)[keyof typeof ScheduleScalarFieldEnum]
@@ -13230,7 +13284,8 @@ export namespace Prisma {
 
   export const NotificationScalarFieldEnum: {
     id: 'id',
-    content: 'content'
+    content: 'content',
+    is_read: 'is_read'
   };
 
   export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
@@ -13239,7 +13294,8 @@ export namespace Prisma {
   export const Schedule_have_notificationScalarFieldEnum: {
     notification_id: 'notification_id',
     device_id: 'device_id',
-    action_time: 'action_time'
+    action_time: 'action_time',
+    action_day: 'action_day'
   };
 
   export type Schedule_have_notificationScalarFieldEnum = (typeof Schedule_have_notificationScalarFieldEnum)[keyof typeof Schedule_have_notificationScalarFieldEnum]
@@ -13347,6 +13403,13 @@ export namespace Prisma {
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
   /**
    * Deep Input Types
@@ -13620,40 +13683,48 @@ export namespace Prisma {
     OR?: scheduleWhereInput[]
     NOT?: scheduleWhereInput | scheduleWhereInput[]
     device_id?: IntFilter<"schedule"> | number
+    action_day?: StringFilter<"schedule"> | string
     action_time?: DateTimeFilter<"schedule"> | Date | string
     action?: StringFilter<"schedule"> | string
     value?: FloatNullableFilter<"schedule"> | number | null
+    is_enable?: BoolFilter<"schedule"> | boolean
     device?: XOR<DeviceScalarRelationFilter, deviceWhereInput>
     schedule_have_notification?: Schedule_have_notificationListRelationFilter
   }
 
   export type scheduleOrderByWithRelationInput = {
     device_id?: SortOrder
+    action_day?: SortOrder
     action_time?: SortOrder
     action?: SortOrder
     value?: SortOrderInput | SortOrder
+    is_enable?: SortOrder
     device?: deviceOrderByWithRelationInput
     schedule_have_notification?: schedule_have_notificationOrderByRelationAggregateInput
   }
 
   export type scheduleWhereUniqueInput = Prisma.AtLeast<{
-    action_time_device_id?: scheduleAction_timeDevice_idCompoundUniqueInput
+    action_time_device_id_action_day?: scheduleAction_timeDevice_idAction_dayCompoundUniqueInput
     AND?: scheduleWhereInput | scheduleWhereInput[]
     OR?: scheduleWhereInput[]
     NOT?: scheduleWhereInput | scheduleWhereInput[]
     device_id?: IntFilter<"schedule"> | number
+    action_day?: StringFilter<"schedule"> | string
     action_time?: DateTimeFilter<"schedule"> | Date | string
     action?: StringFilter<"schedule"> | string
     value?: FloatNullableFilter<"schedule"> | number | null
+    is_enable?: BoolFilter<"schedule"> | boolean
     device?: XOR<DeviceScalarRelationFilter, deviceWhereInput>
     schedule_have_notification?: Schedule_have_notificationListRelationFilter
-  }, "action_time_device_id">
+  }, "action_time_device_id_action_day">
 
   export type scheduleOrderByWithAggregationInput = {
     device_id?: SortOrder
+    action_day?: SortOrder
     action_time?: SortOrder
     action?: SortOrder
     value?: SortOrderInput | SortOrder
+    is_enable?: SortOrder
     _count?: scheduleCountOrderByAggregateInput
     _avg?: scheduleAvgOrderByAggregateInput
     _max?: scheduleMaxOrderByAggregateInput
@@ -13666,9 +13737,11 @@ export namespace Prisma {
     OR?: scheduleScalarWhereWithAggregatesInput[]
     NOT?: scheduleScalarWhereWithAggregatesInput | scheduleScalarWhereWithAggregatesInput[]
     device_id?: IntWithAggregatesFilter<"schedule"> | number
+    action_day?: StringWithAggregatesFilter<"schedule"> | string
     action_time?: DateTimeWithAggregatesFilter<"schedule"> | Date | string
     action?: StringWithAggregatesFilter<"schedule"> | string
     value?: FloatNullableWithAggregatesFilter<"schedule"> | number | null
+    is_enable?: BoolWithAggregatesFilter<"schedule"> | boolean
   }
 
   export type log_eventWhereInput = {
@@ -13734,6 +13807,7 @@ export namespace Prisma {
     NOT?: notificationWhereInput | notificationWhereInput[]
     id?: IntFilter<"notification"> | number
     content?: StringNullableFilter<"notification"> | string | null
+    is_read?: BoolFilter<"notification"> | boolean
     device_have_notification?: Device_have_notificationListRelationFilter
     schedule_have_notification?: Schedule_have_notificationListRelationFilter
   }
@@ -13741,6 +13815,7 @@ export namespace Prisma {
   export type notificationOrderByWithRelationInput = {
     id?: SortOrder
     content?: SortOrderInput | SortOrder
+    is_read?: SortOrder
     device_have_notification?: device_have_notificationOrderByRelationAggregateInput
     schedule_have_notification?: schedule_have_notificationOrderByRelationAggregateInput
   }
@@ -13751,6 +13826,7 @@ export namespace Prisma {
     OR?: notificationWhereInput[]
     NOT?: notificationWhereInput | notificationWhereInput[]
     content?: StringNullableFilter<"notification"> | string | null
+    is_read?: BoolFilter<"notification"> | boolean
     device_have_notification?: Device_have_notificationListRelationFilter
     schedule_have_notification?: Schedule_have_notificationListRelationFilter
   }, "id">
@@ -13758,6 +13834,7 @@ export namespace Prisma {
   export type notificationOrderByWithAggregationInput = {
     id?: SortOrder
     content?: SortOrderInput | SortOrder
+    is_read?: SortOrder
     _count?: notificationCountOrderByAggregateInput
     _avg?: notificationAvgOrderByAggregateInput
     _max?: notificationMaxOrderByAggregateInput
@@ -13771,6 +13848,7 @@ export namespace Prisma {
     NOT?: notificationScalarWhereWithAggregatesInput | notificationScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"notification"> | number
     content?: StringNullableWithAggregatesFilter<"notification"> | string | null
+    is_read?: BoolWithAggregatesFilter<"notification"> | boolean
   }
 
   export type schedule_have_notificationWhereInput = {
@@ -13780,6 +13858,7 @@ export namespace Prisma {
     notification_id?: IntFilter<"schedule_have_notification"> | number
     device_id?: IntFilter<"schedule_have_notification"> | number
     action_time?: DateTimeFilter<"schedule_have_notification"> | Date | string
+    action_day?: StringFilter<"schedule_have_notification"> | string
     schedule?: XOR<ScheduleScalarRelationFilter, scheduleWhereInput>
     notification?: XOR<NotificationScalarRelationFilter, notificationWhereInput>
   }
@@ -13788,6 +13867,7 @@ export namespace Prisma {
     notification_id?: SortOrder
     device_id?: SortOrder
     action_time?: SortOrder
+    action_day?: SortOrder
     schedule?: scheduleOrderByWithRelationInput
     notification?: notificationOrderByWithRelationInput
   }
@@ -13800,6 +13880,7 @@ export namespace Prisma {
     notification_id?: IntFilter<"schedule_have_notification"> | number
     device_id?: IntFilter<"schedule_have_notification"> | number
     action_time?: DateTimeFilter<"schedule_have_notification"> | Date | string
+    action_day?: StringFilter<"schedule_have_notification"> | string
     schedule?: XOR<ScheduleScalarRelationFilter, scheduleWhereInput>
     notification?: XOR<NotificationScalarRelationFilter, notificationWhereInput>
   }, "notification_id_device_id_action_time">
@@ -13808,6 +13889,7 @@ export namespace Prisma {
     notification_id?: SortOrder
     device_id?: SortOrder
     action_time?: SortOrder
+    action_day?: SortOrder
     _count?: schedule_have_notificationCountOrderByAggregateInput
     _avg?: schedule_have_notificationAvgOrderByAggregateInput
     _max?: schedule_have_notificationMaxOrderByAggregateInput
@@ -13822,6 +13904,7 @@ export namespace Prisma {
     notification_id?: IntWithAggregatesFilter<"schedule_have_notification"> | number
     device_id?: IntWithAggregatesFilter<"schedule_have_notification"> | number
     action_time?: DateTimeWithAggregatesFilter<"schedule_have_notification"> | Date | string
+    action_day?: StringWithAggregatesFilter<"schedule_have_notification"> | string
   }
 
   export type device_have_notificationWhereInput = {
@@ -14196,55 +14279,69 @@ export namespace Prisma {
   }
 
   export type scheduleCreateInput = {
+    action_day: string
     action_time: Date | string
     action: string
     value?: number | null
+    is_enable?: boolean
     device: deviceCreateNestedOneWithoutScheduleInput
     schedule_have_notification?: schedule_have_notificationCreateNestedManyWithoutScheduleInput
   }
 
   export type scheduleUncheckedCreateInput = {
     device_id: number
+    action_day: string
     action_time: Date | string
     action: string
     value?: number | null
+    is_enable?: boolean
     schedule_have_notification?: schedule_have_notificationUncheckedCreateNestedManyWithoutScheduleInput
   }
 
   export type scheduleUpdateInput = {
+    action_day?: StringFieldUpdateOperationsInput | string
     action_time?: DateTimeFieldUpdateOperationsInput | Date | string
     action?: StringFieldUpdateOperationsInput | string
     value?: NullableFloatFieldUpdateOperationsInput | number | null
+    is_enable?: BoolFieldUpdateOperationsInput | boolean
     device?: deviceUpdateOneRequiredWithoutScheduleNestedInput
     schedule_have_notification?: schedule_have_notificationUpdateManyWithoutScheduleNestedInput
   }
 
   export type scheduleUncheckedUpdateInput = {
     device_id?: IntFieldUpdateOperationsInput | number
+    action_day?: StringFieldUpdateOperationsInput | string
     action_time?: DateTimeFieldUpdateOperationsInput | Date | string
     action?: StringFieldUpdateOperationsInput | string
     value?: NullableFloatFieldUpdateOperationsInput | number | null
+    is_enable?: BoolFieldUpdateOperationsInput | boolean
     schedule_have_notification?: schedule_have_notificationUncheckedUpdateManyWithoutScheduleNestedInput
   }
 
   export type scheduleCreateManyInput = {
     device_id: number
+    action_day: string
     action_time: Date | string
     action: string
     value?: number | null
+    is_enable?: boolean
   }
 
   export type scheduleUpdateManyMutationInput = {
+    action_day?: StringFieldUpdateOperationsInput | string
     action_time?: DateTimeFieldUpdateOperationsInput | Date | string
     action?: StringFieldUpdateOperationsInput | string
     value?: NullableFloatFieldUpdateOperationsInput | number | null
+    is_enable?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type scheduleUncheckedUpdateManyInput = {
     device_id?: IntFieldUpdateOperationsInput | number
+    action_day?: StringFieldUpdateOperationsInput | string
     action_time?: DateTimeFieldUpdateOperationsInput | Date | string
     action?: StringFieldUpdateOperationsInput | string
     value?: NullableFloatFieldUpdateOperationsInput | number | null
+    is_enable?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type log_eventCreateInput = {
@@ -14301,6 +14398,7 @@ export namespace Prisma {
 
   export type notificationCreateInput = {
     content?: string | null
+    is_read?: boolean
     device_have_notification?: device_have_notificationCreateNestedManyWithoutNotificationInput
     schedule_have_notification?: schedule_have_notificationCreateNestedManyWithoutNotificationInput
   }
@@ -14308,12 +14406,14 @@ export namespace Prisma {
   export type notificationUncheckedCreateInput = {
     id?: number
     content?: string | null
+    is_read?: boolean
     device_have_notification?: device_have_notificationUncheckedCreateNestedManyWithoutNotificationInput
     schedule_have_notification?: schedule_have_notificationUncheckedCreateNestedManyWithoutNotificationInput
   }
 
   export type notificationUpdateInput = {
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    is_read?: BoolFieldUpdateOperationsInput | boolean
     device_have_notification?: device_have_notificationUpdateManyWithoutNotificationNestedInput
     schedule_have_notification?: schedule_have_notificationUpdateManyWithoutNotificationNestedInput
   }
@@ -14321,6 +14421,7 @@ export namespace Prisma {
   export type notificationUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    is_read?: BoolFieldUpdateOperationsInput | boolean
     device_have_notification?: device_have_notificationUncheckedUpdateManyWithoutNotificationNestedInput
     schedule_have_notification?: schedule_have_notificationUncheckedUpdateManyWithoutNotificationNestedInput
   }
@@ -14328,15 +14429,18 @@ export namespace Prisma {
   export type notificationCreateManyInput = {
     id?: number
     content?: string | null
+    is_read?: boolean
   }
 
   export type notificationUpdateManyMutationInput = {
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    is_read?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type notificationUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    is_read?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type schedule_have_notificationCreateInput = {
@@ -14348,6 +14452,7 @@ export namespace Prisma {
     notification_id: number
     device_id: number
     action_time: Date | string
+    action_day: string
   }
 
   export type schedule_have_notificationUpdateInput = {
@@ -14359,12 +14464,14 @@ export namespace Prisma {
     notification_id?: IntFieldUpdateOperationsInput | number
     device_id?: IntFieldUpdateOperationsInput | number
     action_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    action_day?: StringFieldUpdateOperationsInput | string
   }
 
   export type schedule_have_notificationCreateManyInput = {
     notification_id: number
     device_id: number
     action_time: Date | string
+    action_day: string
   }
 
   export type schedule_have_notificationUpdateManyMutationInput = {
@@ -14375,6 +14482,7 @@ export namespace Prisma {
     notification_id?: IntFieldUpdateOperationsInput | number
     device_id?: IntFieldUpdateOperationsInput | number
     action_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    action_day?: StringFieldUpdateOperationsInput | string
   }
 
   export type device_have_notificationCreateInput = {
@@ -14861,6 +14969,11 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type DeviceScalarRelationFilter = {
     is?: deviceWhereInput
     isNot?: deviceWhereInput
@@ -14876,16 +14989,19 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type scheduleAction_timeDevice_idCompoundUniqueInput = {
+  export type scheduleAction_timeDevice_idAction_dayCompoundUniqueInput = {
     action_time: Date | string
     device_id: number
+    action_day: string
   }
 
   export type scheduleCountOrderByAggregateInput = {
     device_id?: SortOrder
+    action_day?: SortOrder
     action_time?: SortOrder
     action?: SortOrder
     value?: SortOrder
+    is_enable?: SortOrder
   }
 
   export type scheduleAvgOrderByAggregateInput = {
@@ -14895,16 +15011,20 @@ export namespace Prisma {
 
   export type scheduleMaxOrderByAggregateInput = {
     device_id?: SortOrder
+    action_day?: SortOrder
     action_time?: SortOrder
     action?: SortOrder
     value?: SortOrder
+    is_enable?: SortOrder
   }
 
   export type scheduleMinOrderByAggregateInput = {
     device_id?: SortOrder
+    action_day?: SortOrder
     action_time?: SortOrder
     action?: SortOrder
     value?: SortOrder
+    is_enable?: SortOrder
   }
 
   export type scheduleSumOrderByAggregateInput = {
@@ -14926,6 +15046,14 @@ export namespace Prisma {
     _sum?: NestedFloatNullableFilter<$PrismaModel>
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type DateTimeNullableFilter<$PrismaModel = never> = {
@@ -14990,6 +15118,7 @@ export namespace Prisma {
   export type notificationCountOrderByAggregateInput = {
     id?: SortOrder
     content?: SortOrder
+    is_read?: SortOrder
   }
 
   export type notificationAvgOrderByAggregateInput = {
@@ -14999,11 +15128,13 @@ export namespace Prisma {
   export type notificationMaxOrderByAggregateInput = {
     id?: SortOrder
     content?: SortOrder
+    is_read?: SortOrder
   }
 
   export type notificationMinOrderByAggregateInput = {
     id?: SortOrder
     content?: SortOrder
+    is_read?: SortOrder
   }
 
   export type notificationSumOrderByAggregateInput = {
@@ -15030,6 +15161,7 @@ export namespace Prisma {
     notification_id?: SortOrder
     device_id?: SortOrder
     action_time?: SortOrder
+    action_day?: SortOrder
   }
 
   export type schedule_have_notificationAvgOrderByAggregateInput = {
@@ -15041,12 +15173,14 @@ export namespace Prisma {
     notification_id?: SortOrder
     device_id?: SortOrder
     action_time?: SortOrder
+    action_day?: SortOrder
   }
 
   export type schedule_have_notificationMinOrderByAggregateInput = {
     notification_id?: SortOrder
     device_id?: SortOrder
     action_time?: SortOrder
+    action_day?: SortOrder
   }
 
   export type schedule_have_notificationSumOrderByAggregateInput = {
@@ -15500,6 +15634,10 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type deviceUpdateOneRequiredWithoutScheduleNestedInput = {
@@ -15961,6 +16099,11 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
@@ -15975,6 +16118,14 @@ export namespace Prisma {
     _sum?: NestedFloatNullableFilter<$PrismaModel>
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
@@ -16301,16 +16452,20 @@ export namespace Prisma {
   }
 
   export type scheduleCreateWithoutDeviceInput = {
+    action_day: string
     action_time: Date | string
     action: string
     value?: number | null
+    is_enable?: boolean
     schedule_have_notification?: schedule_have_notificationCreateNestedManyWithoutScheduleInput
   }
 
   export type scheduleUncheckedCreateWithoutDeviceInput = {
+    action_day: string
     action_time: Date | string
     action: string
     value?: number | null
+    is_enable?: boolean
     schedule_have_notification?: schedule_have_notificationUncheckedCreateNestedManyWithoutScheduleInput
   }
 
@@ -16451,9 +16606,11 @@ export namespace Prisma {
     OR?: scheduleScalarWhereInput[]
     NOT?: scheduleScalarWhereInput | scheduleScalarWhereInput[]
     device_id?: IntFilter<"schedule"> | number
+    action_day?: StringFilter<"schedule"> | string
     action_time?: DateTimeFilter<"schedule"> | Date | string
     action?: StringFilter<"schedule"> | string
     value?: FloatNullableFilter<"schedule"> | number | null
+    is_enable?: BoolFilter<"schedule"> | boolean
   }
 
   export type deviceCreateWithoutMeasurementInput = {
@@ -16637,6 +16794,7 @@ export namespace Prisma {
     notification_id?: IntFilter<"schedule_have_notification"> | number
     device_id?: IntFilter<"schedule_have_notification"> | number
     action_time?: DateTimeFilter<"schedule_have_notification"> | Date | string
+    action_day?: StringFilter<"schedule_have_notification"> | string
   }
 
   export type deviceCreateWithoutLog_eventInput = {
@@ -16736,6 +16894,7 @@ export namespace Prisma {
   export type schedule_have_notificationUncheckedCreateWithoutNotificationInput = {
     device_id: number
     action_time: Date | string
+    action_day: string
   }
 
   export type schedule_have_notificationCreateOrConnectWithoutNotificationInput = {
@@ -16781,17 +16940,21 @@ export namespace Prisma {
   }
 
   export type scheduleCreateWithoutSchedule_have_notificationInput = {
+    action_day: string
     action_time: Date | string
     action: string
     value?: number | null
+    is_enable?: boolean
     device: deviceCreateNestedOneWithoutScheduleInput
   }
 
   export type scheduleUncheckedCreateWithoutSchedule_have_notificationInput = {
     device_id: number
+    action_day: string
     action_time: Date | string
     action: string
     value?: number | null
+    is_enable?: boolean
   }
 
   export type scheduleCreateOrConnectWithoutSchedule_have_notificationInput = {
@@ -16801,12 +16964,14 @@ export namespace Prisma {
 
   export type notificationCreateWithoutSchedule_have_notificationInput = {
     content?: string | null
+    is_read?: boolean
     device_have_notification?: device_have_notificationCreateNestedManyWithoutNotificationInput
   }
 
   export type notificationUncheckedCreateWithoutSchedule_have_notificationInput = {
     id?: number
     content?: string | null
+    is_read?: boolean
     device_have_notification?: device_have_notificationUncheckedCreateNestedManyWithoutNotificationInput
   }
 
@@ -16827,17 +16992,21 @@ export namespace Prisma {
   }
 
   export type scheduleUpdateWithoutSchedule_have_notificationInput = {
+    action_day?: StringFieldUpdateOperationsInput | string
     action_time?: DateTimeFieldUpdateOperationsInput | Date | string
     action?: StringFieldUpdateOperationsInput | string
     value?: NullableFloatFieldUpdateOperationsInput | number | null
+    is_enable?: BoolFieldUpdateOperationsInput | boolean
     device?: deviceUpdateOneRequiredWithoutScheduleNestedInput
   }
 
   export type scheduleUncheckedUpdateWithoutSchedule_have_notificationInput = {
     device_id?: IntFieldUpdateOperationsInput | number
+    action_day?: StringFieldUpdateOperationsInput | string
     action_time?: DateTimeFieldUpdateOperationsInput | Date | string
     action?: StringFieldUpdateOperationsInput | string
     value?: NullableFloatFieldUpdateOperationsInput | number | null
+    is_enable?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type notificationUpsertWithoutSchedule_have_notificationInput = {
@@ -16853,12 +17022,14 @@ export namespace Prisma {
 
   export type notificationUpdateWithoutSchedule_have_notificationInput = {
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    is_read?: BoolFieldUpdateOperationsInput | boolean
     device_have_notification?: device_have_notificationUpdateManyWithoutNotificationNestedInput
   }
 
   export type notificationUncheckedUpdateWithoutSchedule_have_notificationInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    is_read?: BoolFieldUpdateOperationsInput | boolean
     device_have_notification?: device_have_notificationUncheckedUpdateManyWithoutNotificationNestedInput
   }
 
@@ -16896,12 +17067,14 @@ export namespace Prisma {
 
   export type notificationCreateWithoutDevice_have_notificationInput = {
     content?: string | null
+    is_read?: boolean
     schedule_have_notification?: schedule_have_notificationCreateNestedManyWithoutNotificationInput
   }
 
   export type notificationUncheckedCreateWithoutDevice_have_notificationInput = {
     id?: number
     content?: string | null
+    is_read?: boolean
     schedule_have_notification?: schedule_have_notificationUncheckedCreateNestedManyWithoutNotificationInput
   }
 
@@ -16961,12 +17134,14 @@ export namespace Prisma {
 
   export type notificationUpdateWithoutDevice_have_notificationInput = {
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    is_read?: BoolFieldUpdateOperationsInput | boolean
     schedule_have_notification?: schedule_have_notificationUpdateManyWithoutNotificationNestedInput
   }
 
   export type notificationUncheckedUpdateWithoutDevice_have_notificationInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    is_read?: BoolFieldUpdateOperationsInput | boolean
     schedule_have_notification?: schedule_have_notificationUncheckedUpdateManyWithoutNotificationNestedInput
   }
 
@@ -17203,9 +17378,11 @@ export namespace Prisma {
   }
 
   export type scheduleCreateManyDeviceInput = {
+    action_day: string
     action_time: Date | string
     action: string
     value?: number | null
+    is_enable?: boolean
   }
 
   export type device_have_notificationUpdateWithoutDeviceInput = {
@@ -17261,23 +17438,29 @@ export namespace Prisma {
   }
 
   export type scheduleUpdateWithoutDeviceInput = {
+    action_day?: StringFieldUpdateOperationsInput | string
     action_time?: DateTimeFieldUpdateOperationsInput | Date | string
     action?: StringFieldUpdateOperationsInput | string
     value?: NullableFloatFieldUpdateOperationsInput | number | null
+    is_enable?: BoolFieldUpdateOperationsInput | boolean
     schedule_have_notification?: schedule_have_notificationUpdateManyWithoutScheduleNestedInput
   }
 
   export type scheduleUncheckedUpdateWithoutDeviceInput = {
+    action_day?: StringFieldUpdateOperationsInput | string
     action_time?: DateTimeFieldUpdateOperationsInput | Date | string
     action?: StringFieldUpdateOperationsInput | string
     value?: NullableFloatFieldUpdateOperationsInput | number | null
+    is_enable?: BoolFieldUpdateOperationsInput | boolean
     schedule_have_notification?: schedule_have_notificationUncheckedUpdateManyWithoutScheduleNestedInput
   }
 
   export type scheduleUncheckedUpdateManyWithoutDeviceInput = {
+    action_day?: StringFieldUpdateOperationsInput | string
     action_time?: DateTimeFieldUpdateOperationsInput | Date | string
     action?: StringFieldUpdateOperationsInput | string
     value?: NullableFloatFieldUpdateOperationsInput | number | null
+    is_enable?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type schedule_have_notificationCreateManyScheduleInput = {
@@ -17304,6 +17487,7 @@ export namespace Prisma {
   export type schedule_have_notificationCreateManyNotificationInput = {
     device_id: number
     action_time: Date | string
+    action_day: string
   }
 
   export type device_have_notificationUpdateWithoutNotificationInput = {
@@ -17328,11 +17512,13 @@ export namespace Prisma {
   export type schedule_have_notificationUncheckedUpdateWithoutNotificationInput = {
     device_id?: IntFieldUpdateOperationsInput | number
     action_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    action_day?: StringFieldUpdateOperationsInput | string
   }
 
   export type schedule_have_notificationUncheckedUpdateManyWithoutNotificationInput = {
     device_id?: IntFieldUpdateOperationsInput | number
     action_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    action_day?: StringFieldUpdateOperationsInput | string
   }
 
   export type deviceCreateManyHomeInput = {

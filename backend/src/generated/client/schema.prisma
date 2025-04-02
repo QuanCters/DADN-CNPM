@@ -62,13 +62,15 @@ model measurement {
 
 model schedule {
   device_id                  Int
+  action_day                 String
   action_time                DateTime                     @db.Timestamp(6)
   action                     String                       @db.VarChar(255)
   value                      Float?
+  is_enable                  Boolean                      @default(true)
   device                     device                       @relation(fields: [device_id], references: [id])
   schedule_have_notification schedule_have_notification[]
 
-  @@id([action_time, device_id])
+  @@id([action_time, device_id, action_day])
 }
 
 model log_event {
@@ -83,6 +85,7 @@ model log_event {
 model notification {
   id                         Int                          @id @default(autoincrement())
   content                    String?
+  is_read                    Boolean                      @default(false)
   device_have_notification   device_have_notification[]
   schedule_have_notification schedule_have_notification[]
 }
@@ -91,7 +94,8 @@ model schedule_have_notification {
   notification_id Int
   device_id       Int
   action_time     DateTime     @db.Timestamp(6)
-  schedule        schedule     @relation(fields: [device_id, action_time], references: [device_id, action_time])
+  action_day      String
+  schedule        schedule     @relation(fields: [device_id, action_time, action_day], references: [device_id, action_time, action_day])
   notification    notification @relation(fields: [notification_id], references: [id])
 
   @@id([notification_id, device_id, action_time])

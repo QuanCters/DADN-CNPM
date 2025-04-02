@@ -24,7 +24,7 @@ const HomeScreen = () => {
       </View>
       <View style={styles.QuickAccessCardContainer}>
         <Title ownStyle={styles.QuickAccessTitle}>Quick access</Title>
-        <View style={styles.QuickAcessCards}>
+        {/* <View style={styles.QuickAcessCards}>
           <QuickAccessCard
             deviceType="light"
             roomName={roomTypes.livingRoom}
@@ -47,7 +47,7 @@ const HomeScreen = () => {
               })
             }
           />
-        </View>
+        </View> */}
       </View>
     </View>
   );

@@ -11,22 +11,22 @@ const { asyncHandler } = require("../../helper/asyncHandler");
  *   description: API for managing device schedules
  */
 
-/**
- * @swagger
- * '/v1/api/schedule/all':
- *  get:
- *     tags:
- *     - Schedule
- *     summary: Get all schedules
- *     responses:
- *       200:
- *         description: List of schedules
- *       404:
- *         description: No schedules found
- *       500:
- *         description: Server error
- */
-router.get("/all", asyncHandler(scheduleController.getAllSchedule));
+// /**
+//  * @swagger
+//  * '/v1/api/schedule/all':
+//  *  get:
+//  *     tags:
+//  *     - Schedule
+//  *     summary: Get all schedules
+//  *     responses:
+//  *       200:
+//  *         description: List of schedules
+//  *       404:
+//  *         description: No schedules found
+//  *       500:
+//  *         description: Server error
+//  */
+// router.get("/all", asyncHandler(scheduleController.getAllSchedule));
 
 /**
  * @swagger
@@ -50,7 +50,10 @@ router.get("/all", asyncHandler(scheduleController.getAllSchedule));
  *       500:
  *         description: Server error
  */
-router.get("/device/:device_id", asyncHandler(scheduleController.getScheduleByDevice));
+router.get(
+  "/device/:device_id",
+  asyncHandler(scheduleController.getScheduleByDevice)
+);
 
 /**
  * @swagger
@@ -77,6 +80,11 @@ router.get("/device/:device_id", asyncHandler(scheduleController.getScheduleByDe
  *                 type: string
  *                 format: date-time
  *                 description: Time of action
+ *               action_day:
+ *                 type: string
+ *                 format: string
+ *                 description: Day of week
+ *                 enum: [monday, tuesday, wednesday, thursday, friday, saturday, sunday]
  *               action:
  *                 type: string
  *                 enum: [on, off]
@@ -138,7 +146,10 @@ router.post("/:device_id", asyncHandler(scheduleController.createSchedule));
  *       500:
  *         description: Server error
  */
-router.post("/full/:device_id", asyncHandler(scheduleController.createScheduleFull));
+router.post(
+  "/full/:device_id",
+  asyncHandler(scheduleController.createScheduleFull)
+);
 
 /**
  * @swagger
@@ -186,22 +197,25 @@ router.post("/full/:device_id", asyncHandler(scheduleController.createScheduleFu
  *       500:
  *         description: Server error
  */
-router.put("/:device_id", asyncHandler(scheduleController.updateDeviceSchedule));
+router.put(
+  "/:device_id",
+  asyncHandler(scheduleController.updateDeviceSchedule)
+);
 
-/**
- * @swagger
- * '/v1/api/schedule/all':
- *  delete:
- *     tags:
- *     - Schedule
- *     summary: Delete all schedules
- *     responses:
- *       200:
- *         description: All schedules deleted successfully
- *       500:
- *         description: Server error
- */
-router.delete("/all", asyncHandler(scheduleController.deleteAllSchedule));
+// /**
+//  * @swagger
+//  * '/v1/api/schedule/all':
+//  *  delete:
+//  *     tags:
+//  *     - Schedule
+//  *     summary: Delete all schedules
+//  *     responses:
+//  *       200:
+//  *         description: All schedules deleted successfully
+//  *       500:
+//  *         description: Server error
+//  */
+// router.delete("/all", asyncHandler(scheduleController.deleteAllSchedule));
 
 /**
  * @swagger
@@ -238,7 +252,9 @@ router.delete("/all", asyncHandler(scheduleController.deleteAllSchedule));
  *       500:
  *         description: Server error
  */
-router.delete("/:device_id", asyncHandler(scheduleController.deleteScheduleByDevice));
-
+router.delete(
+  "/:device_id",
+  asyncHandler(scheduleController.deleteScheduleByDevice)
+);
 
 module.exports = router;

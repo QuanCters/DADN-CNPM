@@ -12,8 +12,10 @@ const {
   updateDeviceStatus,
   getAllDevices,
 } = require("../dbs/repositories/device.repo");
-const { getDeviceStatus, controlDevice } = require("../utils/ConnectDevice");
-const { getHomeByUserId } = require("../dbs/repositories/home.repo");
+const {
+  getHomeByUserId,
+  getHomeBySerialNumber,
+} = require("../dbs/repositories/home.repo");
 
 class DeviceService {
   /**
@@ -31,7 +33,7 @@ class DeviceService {
       metadata: devices,
     };
   };
-  static getAllDevicesHave = async() => {
+  static getAllDevicesHave = async () => {
     const devices = await getAllDevices();
     if (!devices || devices.length === 0) {
       throw new NotFoundError("No devices found");
@@ -41,7 +43,7 @@ class DeviceService {
       message: "Get devices successfully",
       metadata: devices,
     };
-  }
+  };
   /**
    * 1 - Tìm thiết bị theo ID
    * 2 - Nếu không tồn tại, trả về lỗi
@@ -66,14 +68,29 @@ class DeviceService {
    * 4 - Trả về kết quả cập nhật
    */
   static updateDeviceStatus = async ({ device_id, status }) => {
-    const device = await getDeviceById(device_id);
-    if (!device) {
-      throw new NotFoundError("Device not found");
-    }
-
     const updatedDevice = await updateDeviceStatus(device_id, status);
     if (!updatedDevice) {
       throw new ConflictRequestError("Failed to update device status");
+    }
+
+    const home = await getHomeBySerialNumber(updatedDevice.serial_number);
+
+    const response = await fetch(
+      `https://io.adafruit.com/api/v2/${home.home_name}/feeds/${updatedDevice.feed}/data?x-aio-key=${home.aio_key}`,
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          value: status === "on" ? 1 : 0,
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      throw new BadRequestError("Error update status to Adafruit");
     }
 
     return {
@@ -82,13 +99,13 @@ class DeviceService {
     };
   };
 
-  static turnOnDevice = async ({device_id, value}) => {
+  static turnOnDevice = async ({ device_id, value }) => {
     const device = await getDeviceById(device_id);
     if (!device) {
       throw new NotFoundError("Device not found");
     }
     const status = await getDeviceStatus(device.feed);
-    if (status != "0"){
+    if (status != "0") {
       throw new ConflictRequestError("Device is already on");
     }
     const updatedDevice = await controlDevice(device.feed, `${value}`);
@@ -102,13 +119,13 @@ class DeviceService {
     };
   };
 
-  static turnOffDevice = async ({device_id}) => {
+  static turnOffDevice = async ({ device_id }) => {
     const device = await getDeviceById(device_id);
     if (!device) {
       throw new NotFoundError("Device not found");
     }
     const status = await getDeviceStatus(device.feed);
-    if (status == "0"){
+    if (status == "0") {
       throw new ConflictRequestError("Device is already off");
     }
     const updatedDevice = await controlDevice(device.feed, "0");
