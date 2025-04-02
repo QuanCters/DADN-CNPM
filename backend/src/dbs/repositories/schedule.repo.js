@@ -34,7 +34,7 @@ const updateDeviceSchedule = async (schedule) => {
         action_time_device_id_action_day: {
           action_time: new Date(schedule.action_time_old),
           device_id: schedule.device_id,
-          action_day: schedule.action_day,
+          action_day: schedule.action_day_old,
         },
       },
       data: {
@@ -97,7 +97,6 @@ const getSchedules = async () => {
   const now = new Date();
   const nowVN = new Date(now.getTime() + 7 * 60 * 59 * 1000);
   const twoMinutesLater = new Date(nowVN.getTime() + 2 * 60 * 1000);
-  console.log("Now VN checker:", nowVN);
   const schedules = await prisma.schedule.findMany({
     where: {
       action_time: {
