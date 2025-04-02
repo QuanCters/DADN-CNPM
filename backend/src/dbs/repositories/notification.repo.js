@@ -12,7 +12,7 @@ const createNotification = async (notification) => {
   return result;
 };
 
-const getAllNotifications = async (page = 1, limit = 5) => {
+const getAllNotificationsByDeviceId = async (page = 1, limit = 5, home_id) => {
   return await prisma.notification
     .findMany({
       orderBy: { id: "desc" },
@@ -27,5 +27,5 @@ const getAllNotifications = async (page = 1, limit = 5) => {
 
 module.exports = {
   createNotification,
-  getAllNotifications,
+  getAllNotificationsByDeviceId,
 };

@@ -22,7 +22,7 @@ app.use(compression());
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:8081",
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
     allowedHeaders: "*",
