@@ -1,4 +1,5 @@
 import NumberSlider from "@/components/NumberSlider";
+import PrimaryBtn from "@/components/PrimaryBtn";
 import Title from "@/components/Title";
 import { Colors } from "@/constants/Colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -69,6 +70,7 @@ const ScheduleModal = ({
     ampm: ampm,
   });
   const [repeat, setRepeat] = useState<string[]>([]);
+  const [turnTo, setTurnTo] = useState<"on" | "off">("on");
 
   useEffect(() => {
     if (action === "add") {
@@ -89,6 +91,13 @@ const ScheduleModal = ({
     } else {
       setRepeat((prev) => [...prev, id]);
     }
+  }
+
+  function handleSet() {
+    console.log("Set schedule with the following values:");
+    console.log("Time:", time);
+    console.log("Repeat:", repeat);
+    console.log("Turn to:", turnTo);
   }
 
   return (
@@ -131,9 +140,10 @@ const ScheduleModal = ({
                   { id: Math.random() * 10000, title: "" },
                 ]}
               />
-              {/* <NumberSlider data={} /> */}
             </View>
-            <Text>Repeat</Text>
+            <Text style={{ paddingTop: 20, paddingBottom: 10, fontSize: 16 }}>
+              Repeat
+            </Text>
             <View
               style={{
                 flexDirection: "row",
@@ -167,15 +177,62 @@ const ScheduleModal = ({
             </View>
           </View>
 
-          {/* Buttons */}
           <View style={styles.btnContainer}>
-            {/* <TouchableOpacity
-              style={[styles.button, { backgroundColor: Colors.primary800 }]}
-              onPress={handleAddHome}
+            <TouchableOpacity
+              style={[
+                styles.button,
+                {
+                  backgroundColor:
+                    turnTo === "on"
+                      ? Colors.primary800
+                      : Colors.backgroundColor,
+                },
+              ]}
+              onPress={() => setTurnTo("on")}
             >
-              <Text style={styles.buttonText}>Add</Text>
-            </TouchableOpacity> */}
+              <Text
+                style={[
+                  styles.cancelButtonText,
+                  { color: turnTo === "on" ? "white" : "" },
+                ]}
+              >
+                Turn On
+              </Text>
+            </TouchableOpacity>
 
+            <TouchableOpacity
+              style={[
+                styles.button,
+                {
+                  backgroundColor:
+                    turnTo === "off"
+                      ? Colors.primary800
+                      : Colors.backgroundColor,
+                },
+              ]}
+              onPress={() => setTurnTo("off")}
+            >
+              <Text
+                style={[
+                  styles.cancelButtonText,
+                  { color: turnTo === "off" ? "white" : "" },
+                ]}
+              >
+                Turn Off
+              </Text>
+            </TouchableOpacity>
+          </View>
+          {/* Buttons */}
+          <View
+            style={[
+              styles.btnContainer,
+              {
+                width: "100%",
+                flex: 1,
+                alignItems: "flex-end",
+              },
+            ]}
+          >
             <TouchableOpacity
               style={[
                 styles.button,
@@ -184,6 +241,15 @@ const ScheduleModal = ({
               onPress={onModalVisibleChange}
             >
               <Text style={styles.cancelButtonText}>Cancel</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.button, { backgroundColor: Colors.primary800 }]}
+              onPress={handleSet}
+            >
+              <Text style={[styles.cancelButtonText, { color: "white" }]}>
+                Set
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -207,7 +273,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 20,
     alignItems: "center",
-    height: 600,
+    height: 500,
   },
   iconPlaceholder: {
     marginTop: 20,
@@ -232,14 +298,18 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   btnContainer: {
+    marginTop: 20,
     width: "80%",
     gap: 10,
+    flexDirection: "row",
   },
   button: {
     padding: 10,
-    borderRadius: 5,
-    width: "100%",
+    flex: 1,
     alignItems: "center",
+    borderRadius: 32,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
   },
   buttonText: { color: "white", fontSize: 16 },
   cancelButtonText: { color: "#333", fontSize: 16 },
