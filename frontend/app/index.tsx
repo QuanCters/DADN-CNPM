@@ -1,8 +1,23 @@
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
+import { useEffect } from "react";
+import FCMService from "@/services/fcm.service";
 
 export default function Index() {
+  useEffect(() => {
+    const initializeFCM = async () => {
+      const user: Number = 1;
+      if (user) {
+        await FCMService.init(user);
+      }
+    };
+
+    initializeFCM();
+
+    return () => {};
+  }, []);
+
   return (
     <SafeAreaView
       style={{
