@@ -1,5 +1,6 @@
 import messaging from "@react-native-firebase/messaging";
 import { PermissionsAndroid } from "react-native";
+import { showLocalNotification } from "./notification.service";
 
 class FCMService {
   currentToken: null | string;
@@ -21,7 +22,6 @@ class FCMService {
 
   async _registerToken(userId: Number) {
     try {
-      console.log("HELLO");
       this.currentToken = await messaging().getToken();
       console.log(this.currentToken);
     } catch (error) {
@@ -32,6 +32,7 @@ class FCMService {
   _setupListener() {
     messaging().onMessage(async (remoteMessage) => {
       console.log(remoteMessage);
+      await showLocalNotification(remoteMessage);
     });
 
     messaging().onNotificationOpenedApp((remoteMessage) => {
@@ -47,6 +48,9 @@ class FCMService {
 
   _handleNotificationClick = (remoteMessage: any) => {
     console.log("Notification Clicked:", remoteMessage);
+    if (remoteMessage.data.deviceId) {
+      console.log(remoteMessage);
+    }
   };
 }
 
