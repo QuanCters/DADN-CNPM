@@ -67,7 +67,7 @@ class AccessService {
 
     const token = jwt.sign(
       { userId: foundUser.id, email: foundUser.email },
-      process.env.SECREC_KEY || "HCMUT"
+      process.env.SECRET_KEY || "HCMUT"
     );
 
     const setToken = await setTokenById(token, foundUser.id);

@@ -6,21 +6,21 @@ const { asyncHandler } = require("../../helper/asyncHandler");
 
 /**
  * @swagger
- * '/v1/api/home/{userId}':
+ * '/v1/api/notification/{deviceId}':
  *  get:
  *     tags:
  *     - Notification controller
- *     summary: Get Homes By User Id
+ *     summary: Get Notification By Device Id
  *     parameters:
  *       - in: path
- *         name: userId
+ *         name: deviceId
  *         required: true
- *         description: The ID of the user to retrieve homes for
+ *         description: The ID of the device
  *         schema:
  *           type: integer
  *     responses:
  *      200:
- *        description: Homes retrieved successfully
+ *        description: Notification retrieved successfully
  *        content:
  *          application/json:
  *            schema:
@@ -28,21 +28,15 @@ const { asyncHandler } = require("../../helper/asyncHandler");
  *              items:
  *                type: object
  *                properties:
- *                  user_id:
+ *                  id:
  *                    type: integer
- *                    description: The user ID
- *                  home_id:
- *                    type: integer
- *                    description: The home ID
- *                  home:
- *                    type: object
- *                    properties:
- *                      serial_number:
- *                        type: string
- *                        description: The serial number of the home
- *                      home_name:
- *                        type: string
- *                        description: The name of the home
+ *                    description: The Device ID
+ *                  content:
+ *                    type: string
+ *                    description: content of notification
+ *                  is_read:
+ *                    type: boolean
+ *                    description: Notification is read or not
  *      400:
  *        description: Bad Request (Invalid userId format)
  *      404:
@@ -51,17 +45,24 @@ const { asyncHandler } = require("../../helper/asyncHandler");
  *        description: Server error
  */
 router.get(
-  "/:device_id",
-  asyncHandler(notificationController.getAllNotifications)
+  "/:deviceId",
+  asyncHandler(notificationController.getAllNotificationsByDeviceId)
 );
 
 /**
  * @swagger
- * '/v1/api/home/add':
+ * '/v1/api/notification/add/{deviceId}':
  *  post:
  *     tags:
  *     - Notification controller
- *     summary: Add user to home
+ *     summary: Add notification
+ *     parameters:
+ *       - in: path
+ *         name: deviceId
+ *         required: true
+ *         description: The ID of the device
+ *         schema:
+ *           type: integer
  *     requestBody:
  *      required: true
  *      content:
@@ -69,12 +70,9 @@ router.get(
  *          schema:
  *            type: object
  *            required:
- *              - userId
- *              - homeId
+ *              - content
  *            properties:
- *              userId:
- *                type: string
- *              homeId:
+ *              content:
  *                type: string
  *     responses:
  *      200:
@@ -91,14 +89,70 @@ router.get(
  *                  type: string
  *                  description: message response
  *      400:
- *        description: Bad Request (Invalid userId or homeId)
+ *        description: Bad Request
  *      404:
  *        description: Not Found
  *      409:
- *        description: Conflict (User is already in home)
+ *        description: Conflict
  *      500:
  *        description: Server error
  */
-router.post("/add", asyncHandler(notificationController.createNotification));
+router.post(
+  "/add/:deviceId",
+  asyncHandler(notificationController.createNotification)
+);
+
+/**
+ * @swagger
+ * '/v1/api/notification/token/{userId}':
+ *  post:
+ *     tags:
+ *     - Notification controller
+ *     summary: Add notification
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         description: The ID of user
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required:
+ *              - token
+ *            properties:
+ *              content:
+ *                type: string
+ *     responses:
+ *      200:
+ *        description: save successfully
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                status:
+ *                  type: integer
+ *                  example: 200
+ *                message:
+ *                  type: string
+ *                  description: message response
+ *      400:
+ *        description: Bad Request
+ *      404:
+ *        description: Not Found
+ *      409:
+ *        description: Conflict
+ *      500:
+ *        description: Server error
+ */
+router.post(
+  "/token/:userId",
+  asyncHandler(notificationController.saveFCMToken)
+);
 
 module.exports = router;

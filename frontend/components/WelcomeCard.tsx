@@ -97,8 +97,8 @@ const WelcomeCard = (props: WelcomeCardProps) => {
       });
 
       return () => {
-        mqttService.disconnect();
-        setConnected(false);
+        // mqttService.disconnect();
+        // setConnected(false);
       };
     }
   }, [home]);

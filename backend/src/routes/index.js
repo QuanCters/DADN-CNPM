@@ -2,6 +2,7 @@
 
 const router = require("express").Router();
 
+// router.use("/sse", require("./sse"));
 router.use("/v1/api/notification", require("./notification"));
 router.use("/v1/api/schedule", require("./schedule"));
 router.use("/v1/api/device", require("./device"));

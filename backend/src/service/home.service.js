@@ -52,7 +52,6 @@ class HomeService {
   }
 
   static async addUserToGroupById({ userId, homeId, managerId }) {
-    
     const foundHome = await getHomeByUserId(userId);
     if (foundHome.home_id === userId) {
       throw new ConflictRequestError("User already in home");
