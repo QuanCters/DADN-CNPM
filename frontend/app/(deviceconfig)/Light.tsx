@@ -54,7 +54,8 @@ const Light = () => {
     );
   }
 
-  const [isOn, setIsOn] = useState(deviceStatus === "on");
+  // const [isOn, setIsOn] = useState(deviceStatus === "on");
+  const isOn = deviceStatus === "on";
   const [brightness, setBrightness] = useState(100);
   const [selectedColor, setSelectedColor] = useState("#FFD700");
 
@@ -63,6 +64,7 @@ const Light = () => {
   const dispatch = useDispatch();
 
   const handleChange = async () => {
+    const newStatus = !isOn ? "on" : "off";
     const response = await fetch(
       process.env.EXPO_PUBLIC_BACKEND_URL + "/device/update/status",
       {
@@ -73,7 +75,7 @@ const Light = () => {
         },
         body: JSON.stringify({
           device_id: deviceId,
-          status: !isOn ? "on" : "off",
+          status: newStatus,
         }),
       }
     );
@@ -82,13 +84,11 @@ const Light = () => {
       throw new Error("Error change status");
     }
 
-    setIsOn(!isOn);
-
     dispatch(
       changeDeviceStatus({
         homeId,
         deviceId,
-        status: !isOn ? "on" : "off",
+        status: newStatus,
       })
     );
   };
