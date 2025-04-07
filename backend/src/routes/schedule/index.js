@@ -192,6 +192,9 @@ router.post("/:device_id", asyncHandler(scheduleController.createSchedule));
  *                 type: string
  *                 enum: [on, off]
  *                 description: Action to be performed
+ *               is_enable:
+ *                 type: boolean
+ *                 description: Enable schedule or not
  *               value:
  *                 type: integer
  *                 description: Updated action value
@@ -208,6 +211,53 @@ router.post("/:device_id", asyncHandler(scheduleController.createSchedule));
 router.put(
   "/:device_id",
   asyncHandler(scheduleController.updateDeviceSchedule)
+);
+
+/**
+ * @swagger
+ * '/v1/api/schedule/activate/{device_id}':
+ *  put:
+ *     tags:
+ *     - Schedule
+ *     summary: Update a device's schedule
+ *     parameters:
+ *       - in: path
+ *         name: device_id
+ *         required: true
+ *         description: Device ID
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               action_day:
+ *                 type: string
+ *                 description: New Day of week
+ *                 enum: [everyday, monday, tuesday, wednesday, thursday, friday, saturday, sunday]
+ *               action_time:
+ *                 type: string
+ *                 format: date-time
+ *                 description: New schedule time (2025-04-02T19:00:00+7:00)
+ *               is_enable:
+ *                 type: boolean
+ *                 description: Enable schedule or not
+ *     responses:
+ *       200:
+ *         description: Schedule updated successfully
+ *       400:
+ *         description: Invalid data
+ *       404:
+ *         description: Schedule not found
+ *       500:
+ *         description: Server error
+ */
+router.put(
+  "/activate/:device_id",
+  asyncHandler(scheduleController.activateSchedule)
 );
 
 // /**
