@@ -1,16 +1,26 @@
 import MicroCard from "@/components/MicroCard";
-import QuickAccessCard from "@/components/QuickAccessCard";
 import ScheduleCard from "@/components/ScheduleCard";
 import Title from "@/components/Title";
 import WelcomeCard from "@/components/WelcomeCard";
-import React from "react";
+import React, { useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 
-import { deviceTypes } from "@/constants/deviceType";
-import roomTypes from "@/constants/roomType";
-import { router } from "expo-router";
+import FCMService from "@/services/fcm.service";
+import { useSelector } from "react-redux";
 
 const HomeScreen = () => {
+  const userId = useSelector((state: any) => state.user.user_id);
+  useEffect(() => {
+    const initializeFCM = async () => {
+      if (userId) {
+        await FCMService.init(userId);
+      }
+    };
+
+    initializeFCM();
+
+    return () => {};
+  }, [userId]);
   return (
     <View style={styles.container}>
       <WelcomeCard onScreen="home" />
