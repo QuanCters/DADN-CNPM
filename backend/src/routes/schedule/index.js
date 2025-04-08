@@ -79,12 +79,12 @@ router.get(
  *               action_time:
  *                 type: string
  *                 format: date-time
- *                 description: Time of action
+ *                 description: Time of action. (2025-04-02T19:00:00+7:00)
  *               action_day:
  *                 type: string
  *                 format: string
  *                 description: Day of week
- *                 enum: [monday, tuesday, wednesday, thursday, friday, saturday, sunday]
+ *                 enum: [everyday, monday, tuesday, wednesday, thursday, friday, saturday, sunday]
  *               action:
  *                 type: string
  *                 enum: [on, off]
@@ -104,52 +104,52 @@ router.get(
  */
 router.post("/:device_id", asyncHandler(scheduleController.createSchedule));
 
-/**
- * @swagger
- * '/v1/api/schedule/full/{device_id}':
- *  post:
- *     tags:
- *     - Schedule
- *     summary: Create a full on/off schedule
- *     parameters:
- *       - in: path
- *         name: device_id
- *         required: true
- *         description: Device ID
- *         schema:
- *           type: integer
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               time_on:
- *                 type: string
- *                 format: date-time
- *                 description: Time to turn on the device
- *               time_off:
- *                 type: string
- *                 format: date-time
- *                 description: Time to turn off the device
- *               value:
- *                 type: integer
- *                 description: Value when the device is turned on
- *     responses:
- *       201:
- *         description: Schedule created successfully
- *       400:
- *         description: Invalid data
- *       409:
- *         description: Schedule conflict at the specified times
- *       500:
- *         description: Server error
- */
-router.post(
-  "/full/:device_id",
-  asyncHandler(scheduleController.createScheduleFull)
-);
+// /**
+//  * @swagger
+//  * '/v1/api/schedule/full/{device_id}':
+//  *  post:
+//  *     tags:
+//  *     - Schedule
+//  *     summary: Create a full on/off schedule
+//  *     parameters:
+//  *       - in: path
+//  *         name: device_id
+//  *         required: true
+//  *         description: Device ID
+//  *         schema:
+//  *           type: integer
+//  *     requestBody:
+//  *       required: true
+//  *       content:
+//  *         application/json:
+//  *           schema:
+//  *             type: object
+//  *             properties:
+//  *               time_on:
+//  *                 type: string
+//  *                 format: date-time
+//  *                 description: Time to turn on the device
+//  *               time_off:
+//  *                 type: string
+//  *                 format: date-time
+//  *                 description: Time to turn off the device
+//  *               value:
+//  *                 type: integer
+//  *                 description: Value when the device is turned on
+//  *     responses:
+//  *       201:
+//  *         description: Schedule created successfully
+//  *       400:
+//  *         description: Invalid data
+//  *       409:
+//  *         description: Schedule conflict at the specified times
+//  *       500:
+//  *         description: Server error
+//  */
+// router.post(
+//   "/full/:device_id",
+//   asyncHandler(scheduleController.createScheduleFull)
+// );
 
 /**
  * @swagger
@@ -172,14 +172,22 @@ router.post(
  *           schema:
  *             type: object
  *             properties:
+ *               action_day_old:
+ *                 type: string
+ *                 description: Original Day of week
+ *                 enum: [everyday, monday, tuesday, wednesday, thursday, friday, saturday, sunday]
+ *               action_day:
+ *                 type: string
+ *                 description: New Day of week
+ *                 enum: [everyday, monday, tuesday, wednesday, thursday, friday, saturday, sunday]
  *               action_time_old:
  *                 type: string
  *                 format: date-time
- *                 description: Original schedule time
+ *                 description: Original schedule time (2025-04-02T19:00:00+7:00)
  *               action_time:
  *                 type: string
  *                 format: date-time
- *                 description: New schedule time
+ *                 description: New schedule time (2025-04-02T19:00:00+7:00)
  *               action:
  *                 type: string
  *                 enum: [on, off]
@@ -242,6 +250,9 @@ router.put(
  *                 type: string
  *                 format: date-time
  *                 description: Schedule time to delete
+ *               action_day:
+ *                 type: string
+ *                 description: day of week to delete
  *     responses:
  *       200:
  *         description: Schedule deleted successfully

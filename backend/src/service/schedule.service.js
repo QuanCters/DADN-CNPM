@@ -8,8 +8,6 @@ const {
   deleteScheduleByDevice,
   getSchedulesInTimeRange,
   getSchedules,
-  // getAllSchedule,
-  // deleteAllSchedule,
 } = require("../dbs/repositories/schedule.repo");
 
 const { getDeviceById } = require("../dbs/repositories/device.repo");
@@ -17,6 +15,7 @@ const {
   NotFoundError,
   ConflictRequestError,
 } = require("../core/error.response");
+const { addJob, removeJob } = require("../cron/cronScheduler");
 
 class ScheduleService {
   static createSchedule = async ({
@@ -56,6 +55,8 @@ class ScheduleService {
       value,
     });
     if (!schedule) throw new ConflictRequestError("Failed to create schedule");
+
+    addJob(action_day, action_time, device_id, value);
 
     return {
       message: "Schedule created successfully",
@@ -111,11 +112,11 @@ class ScheduleService {
       metadata: [schedule_on, schedule_off],
     };
   };
-  static getSchedule = async ({ device_id, action_time }) => {
+  static getSchedule = async ({ device_id, action_time, action_day }) => {
     const device = await getDeviceById(device_id);
     if (!device) throw new NotFoundError("Device not found");
 
-    const schedule = await getSchedule(device_id, action_time);
+    const schedule = await getSchedule(device_id, action_time, action_day);
     if (!schedule) throw new NotFoundError("Schedule not found");
 
     return {
@@ -141,40 +142,62 @@ class ScheduleService {
 
   static updateSchedule = async ({
     device_id,
+    action_day,
     action_time,
     action,
+    action_day_old,
     action_time_old,
     value,
   }) => {
     const device = await getDeviceById(device_id);
     if (!device) throw new NotFoundError("Device not found");
 
-    const schedule = await getSchedule(device_id, action_time_old);
+    const schedule = await getSchedule({
+      device_id,
+      action_time: action_time_old,
+      action_day: action_day_old,
+    });
     if (!schedule) throw new NotFoundError("Schedule not found");
 
     const updatedSchedule = await updateDeviceSchedule({
       device_id,
       action_time: new Date(action_time),
+      action_day,
       action,
       action_time_old: new Date(action_time_old),
+      action_day_old,
       value,
     });
     if (!updatedSchedule)
       throw new ConflictRequestError("Failed to update schedule");
+
+    const name = `${device_id}.${action_day}.${action_time
+      .toISOString()
+      .slice(11, 19)}`;
+    removeJob(name);
+    addJob(action_day, action_time, device_id, value);
     return {
       message: "Schedule updated successfully",
       metadata: updatedSchedule,
     };
   };
 
-  static deleteScheduleByDevice = async ({ device_id, action_time }) => {
+  static deleteScheduleByDevice = async ({
+    device_id,
+    action_time,
+    action_day,
+  }) => {
     const device = await getDeviceById(device_id);
     if (!device) throw new NotFoundError("Device not found");
 
-    const schedule = await getSchedule(device_id, action_time);
+    const schedule = await getSchedule(device_id, action_time, action_day);
     if (!schedule) throw new NotFoundError("Schedule not found");
 
-    await deleteScheduleByDevice(device_id, action_time);
+    await deleteScheduleByDevice(device_id, action_time, action_day);
+    const name = `${device_id}.${action_day}.${action_time
+      .toISOString()
+      .slice(11, 19)}`;
+    removeJob(name);
     return { message: "Schedule deleted successfully" };
   };
 
