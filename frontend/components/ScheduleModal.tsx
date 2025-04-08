@@ -67,15 +67,21 @@ const ScheduleModal = ({
   onModalVisibleChange,
   initTime,
 }: ScheduleModalProps) => {
-  const [hour, minute, ampm] = initTime.split(":");
+  console.log("ScheduleModal", action, initTime, scheduleList, deviceId);
 
+  const [temp, ampm] = initTime.split(" ");
+  const [hour, minute] = temp.split(":").map(Number);
   const [time, setTime] = useState({
     hour: +hour,
     minute: +minute,
     ampm: ampm,
   });
+  const [currUpdateSchedule, setCurrUpdateSchedule] =
+    useState<ScheduleType | null>(null);
+
   const [repeat, setRepeat] = useState<string[]>([]);
   const [turnTo, setTurnTo] = useState<"on" | "off">("on");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (action === "add") {
@@ -88,7 +94,24 @@ const ScheduleModal = ({
 
       setTime({ hour, minute, ampm });
     }
-  }, [setTime]);
+    if (action === "update") {
+      const [temp, ampm] = initTime.split(" ");
+      const [hour, minute] = temp.split(":").map(Number);
+      setTime({
+        hour: +hour,
+        minute: +minute,
+        ampm: ampm,
+      });
+      const schedule = scheduleList?.find((schedule) => {
+        return formatTime(schedule.action_time) === initTime;
+      });
+      if (schedule) {
+        setTurnTo(schedule.action as "on" | "off");
+        setRepeat(schedule.action_days);
+        setCurrUpdateSchedule(schedule);
+      }
+    }
+  }, []);
 
   function handleToggleRepeat(id: string) {
     if (repeat.includes(id)) {
@@ -101,6 +124,78 @@ const ScheduleModal = ({
   async function handleSet() {
     if (action === "update") {
       // handle update schedule
+      // update repeat days
+      let deleteDates: string[] = [];
+      let newDates: string[] = [];
+      currUpdateSchedule?.action_days.forEach((day) => {
+        if (!repeat.includes(day)) {
+          deleteDates.push(day);
+        }
+      });
+      repeat.forEach((day) => {
+        if (!currUpdateSchedule?.action_days.includes(day)) {
+          newDates.push(day);
+        }
+      });
+      console.log("DELETE DATES", deleteDates);
+      console.log("NEW DATES", newDates);
+      // setIsLoading(true);
+      // FIX BUG: DELETE SCHEDULE NOT WORKING
+      for (const day of deleteDates) {
+        console.log("START DELETE SCHEDULE", day);
+        try {
+          const response = await fetch(
+            process.env.EXPO_PUBLIC_BACKEND_URL + "/schedule/" + deviceId,
+            {
+              method: "DELETE",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                action_day: day,
+                action_time: currUpdateSchedule?.action_time,
+              }),
+            }
+          );
+          if (!response.ok) {
+            // setIsLoading(false);
+            throw new Error("Error deleting schedule");
+          }
+        } catch (error) {
+          console.log("Error deleting schedule:", error);
+        }
+        console.log("Schedule deleted date!", day);
+      }
+      for (const day of newDates) {
+        console.log("START ADD SCHEDULE", day);
+        try {
+          const response = await fetch(
+            process.env.EXPO_PUBLIC_BACKEND_URL + "/schedule/" + deviceId,
+            {
+              method: "POST",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                action_time: currUpdateSchedule?.action_time,
+                action_day: day,
+                action: turnTo,
+                value: turnTo === "on" ? 1 : 0,
+              }),
+            }
+          );
+          if (!response.ok) {
+            // setIsLoading(false);
+            throw new Error("Error updating schedule");
+          }
+        } catch (error) {
+          console.log("Error updating schedule:", error);
+        }
+        console.log("Schedule add new date!", day);
+      }
+      // setIsLoading(false);
     } else if (action === "add") {
       const scheduleExists = scheduleList?.find((schedule) => {
         return (
@@ -142,36 +237,38 @@ const ScheduleModal = ({
         );
         console.log("ADDING SCHEDULE", ISOtime, repeat, turnTo, deviceId);
         try {
-          const response = await fetch(
-            process.env.EXPO_PUBLIC_BACKEND_URL + "/schedule/" + deviceId,
-            {
-              method: "POST",
-              headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                // action_time: ISOtime,
-                // action_day: "monday",
-                // action: turnTo,
-                // value: 0,
-                action_time: "2025-04-03T17:10:48.736Z",
-                action_day: "monday",
-                action: "on",
-                value: 0,
-              }),
+          setIsLoading(true);
+          for (const day of repeat) {
+            const response = await fetch(
+              process.env.EXPO_PUBLIC_BACKEND_URL + "/schedule/" + deviceId,
+              {
+                method: "POST",
+                headers: {
+                  Accept: "application/json",
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  action_time: ISOtime,
+                  action_day: day,
+                  action: turnTo,
+                  value: 1,
+                }),
+              }
+            );
+            if (!response.ok) {
+              console.log("Error response:", response);
+              setIsLoading(false);
+              throw new Error("Error creating schedule");
             }
-          );
-          if (!response.ok) {
-            console.log("Error response:", response);
-            throw new Error("Error creating schedule");
+            console.log("Schedule created!");
+            setIsLoading(false);
           }
-          console.log("Schedule created!");
         } catch (error) {
           console.log("Error creating schedule:", error);
         }
       }
     }
+    onModalVisibleChange();
   }
 
   const handleTimeChange = (type: string, value: number) => {
@@ -349,7 +446,7 @@ const ScheduleModal = ({
               onPress={handleSet}
             >
               <Text style={[styles.cancelButtonText, { color: "white" }]}>
-                Set
+                {isLoading ? "Loading..." : action === "add" ? "Set" : "Update"}
               </Text>
             </TouchableOpacity>
           </View>

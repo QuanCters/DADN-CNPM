@@ -17,8 +17,7 @@ export default formatTime;
 
 function convertToISOString(timeString: string) {
   const today = new Date();
-
-  const [time, period] = timeString.split(" "); // Split "2:50" and "AM"
+  const [time, period] = timeString.split(" ");
   const [hour, minute] = time.split(":").map(Number);
   let hours = hour;
 
@@ -26,17 +25,23 @@ function convertToISOString(timeString: string) {
   if (period === "PM" && hours !== 12) {
     hours += 12;
   } else if (period === "AM" && hours === 12) {
-    hours = 0; // 12 AM is midnight
+    hours = 0;
   }
 
-  // Set the time on today's date object
-  today.setHours(hours);
-  today.setMinutes(minute);
-  today.setSeconds(0);
-  today.setMilliseconds(0);
+  // Set local time on today's date
+  today.setHours(hours, minute, 0, 0);
 
-  // Convert the local date and time to UTC and return the ISO string
-  const utcDate = new Date(today.toISOString());
-  return utcDate.toISOString();
+  // Extract components
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+  const hourStr = String(today.getHours()).padStart(2, "0");
+  const minuteStr = String(today.getMinutes()).padStart(2, "0");
+  const secondStr = String(today.getSeconds()).padStart(2, "0");
+
+  // Manually add timezone offset +07:00
+  const offset = "+07:00";
+
+  return `${year}-${month}-${day}T${hourStr}:${minuteStr}:${secondStr}${offset}`;
 }
 export { convertToISOString };

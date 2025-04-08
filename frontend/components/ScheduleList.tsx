@@ -18,8 +18,11 @@ const ScheduleList = ({ deviceId }: { deviceId: string }) => {
   const [schedule, setSchedule] = useState<ScheduleType[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [action, setAction] = useState<"update" | "add" | undefined>(undefined);
+
   useEffect(() => {
     async function fetchSchedule() {
+      if (action === "update" || action === "add") return;
       try {
         setIsLoading(true);
         const response = await fetch(
@@ -40,7 +43,7 @@ const ScheduleList = ({ deviceId }: { deviceId: string }) => {
       }
     }
     fetchSchedule();
-  }, [deviceId]);
+  }, [deviceId, action]);
 
   console.log("ScheduleList", schedule);
 
@@ -49,7 +52,6 @@ const ScheduleList = ({ deviceId }: { deviceId: string }) => {
     if (schedule) setAlarms(schedule);
   }, [schedule]);
 
-  const [action, setAction] = useState<"update" | "add" | undefined>(undefined);
   const [currTime, setCurrTime] = useState("00:00:AM");
 
   // const toggleSwitch = (id: string) => {
@@ -73,7 +75,7 @@ const ScheduleList = ({ deviceId }: { deviceId: string }) => {
           <Text
             style={[
               styles.alarmTime,
-              item.is_enabled ? styles.activeText : styles.inactiveText,
+              item.is_enable ? styles.activeText : styles.inactiveText,
             ]}
           >
             {formatTime(item.action_time)}
@@ -93,11 +95,13 @@ const ScheduleList = ({ deviceId }: { deviceId: string }) => {
             >
               {item.action === "on" ? "Turn On" : "Turn Off"}
             </Text>
-            <Text style={styles.alarmDays}>{item.action_day}</Text>
+            <Text style={styles.alarmDays}>
+              {item.action_days.reduce((acc, value) => acc + " " + value, "")}
+            </Text>
           </View>
         </View>
         <Switch
-          value={item.action === "on"}
+          value={item.is_enable}
           // onValueChange={() => toggleSwitch(item.id)}
         />
       </Pressable>
