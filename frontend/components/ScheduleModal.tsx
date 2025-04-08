@@ -2,9 +2,11 @@ import NumberSlider from "@/components/NumberSlider";
 import PrimaryBtn from "@/components/PrimaryBtn";
 import Title from "@/components/Title";
 import { Colors } from "@/constants/Colors";
+import ScheduleType from "@/interface/schedule.interface";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
 import { Modal, Text, TouchableOpacity, View, StyleSheet } from "react-native";
+import formatTime, { convertToISOString } from "@/utils/handleTimeFormat";
 
 function createNumberArray(start: number, end: number) {
   const arr = [
@@ -19,7 +21,6 @@ function createNumberArray(start: number, end: number) {
   arr.push({ id: Math.random() * 10000, title: "" });
   return arr;
 }
-
 const WEEKDAYS = [
   {
     id: "monday",
@@ -55,9 +56,13 @@ type ScheduleModalProps = {
   action: "update" | "add" | undefined;
   onModalVisibleChange: () => void;
   initTime: string;
+  scheduleList: ScheduleType[] | null;
+  deviceId: string;
 };
 
 const ScheduleModal = ({
+  deviceId,
+  scheduleList,
   action,
   onModalVisibleChange,
   initTime,
@@ -93,12 +98,99 @@ const ScheduleModal = ({
     }
   }
 
-  function handleSet() {
-    console.log("Set schedule with the following values:");
-    console.log("Time:", time);
-    console.log("Repeat:", repeat);
-    console.log("Turn to:", turnTo);
+  async function handleSet() {
+    if (action === "update") {
+      // handle update schedule
+    } else if (action === "add") {
+      const scheduleExists = scheduleList?.find((schedule) => {
+        return (
+          formatTime(schedule.action_time) ===
+            `${time.hour}:${time.minute} ${time.ampm}` &&
+          schedule.action === turnTo
+        );
+      });
+
+      if (scheduleExists) {
+        console.log("Schedule already exists!");
+        // turn on the exist schedule
+        // const ISOtime = convertToISOString(
+        //   `${time.hour}:${time.minute} ${time.ampm}`
+        // );
+        // const response = await fetch(
+        //   process.env.EXPO_PUBLIC_BACKEND_URL + "/schedule/" + deviceId,
+        //   {
+        //     method: "POST",
+        //     headers: {
+        //       Accept: "application/json",
+        //       "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({
+        //       action_time_old: ISOtime,
+        //       action_time: ISOtime,
+        //       action: turnTo,
+        //       value: 0,
+        //     }),
+        //   }
+        // );
+        // if (!response.ok) {
+        //   throw new Error("Error update schedule");
+        // }
+      } else {
+        // create a new schedule
+        const ISOtime = convertToISOString(
+          `${time.hour}:${time.minute} ${time.ampm}`
+        );
+        console.log("ADDING SCHEDULE", ISOtime, repeat, turnTo, deviceId);
+        try {
+          const response = await fetch(
+            process.env.EXPO_PUBLIC_BACKEND_URL + "/schedule/" + deviceId,
+            {
+              method: "POST",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                // action_time: ISOtime,
+                // action_day: "monday",
+                // action: turnTo,
+                // value: 0,
+                action_time: "2025-04-03T17:10:48.736Z",
+                action_day: "monday",
+                action: "on",
+                value: 0,
+              }),
+            }
+          );
+          if (!response.ok) {
+            console.log("Error response:", response);
+            throw new Error("Error creating schedule");
+          }
+          console.log("Schedule created!");
+        } catch (error) {
+          console.log("Error creating schedule:", error);
+        }
+      }
+    }
   }
+
+  const handleTimeChange = (type: string, value: number) => {
+    if (type === "hour") {
+      if (time.hour === value) return;
+      setTime((prev) => ({ ...prev, hour: value }));
+    } else if (type === "min") {
+      if (time.minute === value) return;
+      setTime((prev) => ({ ...prev, minute: value }));
+    } else if (type === "AMPM") {
+      if (time.ampm === (value === 1 ? "AM" : value === 2 ? "PM" : "")) return;
+      setTime((prev) => ({
+        ...prev,
+        ampm: value === 1 ? "AM" : value === 2 ? "PM" : "",
+      }));
+    }
+  };
+
+  console.log("Time:", time);
 
   return (
     <Modal
@@ -123,13 +215,22 @@ const ScheduleModal = ({
                 gap: 25,
               }}
             >
-              <NumberSlider data={createNumberArray(0, 13)} value={time.hour} />
+              <NumberSlider
+                onChange={handleTimeChange}
+                type="hour"
+                data={createNumberArray(0, 13)}
+                value={time.hour}
+              />
               <Text style={{ fontSize: 32 }}>:</Text>
               <NumberSlider
+                onChange={handleTimeChange}
+                type="min"
                 data={createNumberArray(0, 60)}
                 value={time.minute}
               />
               <NumberSlider
+                onChange={handleTimeChange}
+                type="AMPM"
                 value={time.ampm === "AM" ? 0 : 1}
                 data={[
                   { id: Math.random() * 10000, title: "" },

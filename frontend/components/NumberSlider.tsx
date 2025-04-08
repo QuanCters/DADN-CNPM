@@ -1,15 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { FlatList, StyleSheet, Text, View, Dimensions } from "react-native";
 
 const ITEM_HEIGHT = 50; // Adjust this based on your design
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 
 type NumberSliderProps = {
+  type: "hour" | "min" | "AMPM";
   data: { id: number; title: string }[];
   value: number;
+  onChange: (type: string, value: number) => void; // Optional callback for value change
 };
 
-const NumberSlider = ({ data, value }: NumberSliderProps) => {
+const NumberSlider = ({ data, value, onChange, type }: NumberSliderProps) => {
+  const handleViewableItemsChanged = ({
+    viewableItems,
+  }: {
+    viewableItems: any[];
+  }) => {
+    if (viewableItems.length > 0) {
+      const newIndex = viewableItems[0].index;
+      if (type === "hour") {
+        console.log("Hour", newIndex - 1);
+        onChange("hour", newIndex - 1);
+      } else if (type === "min") {
+        console.log("Min", newIndex - 1);
+        onChange("min", newIndex - 1);
+      } else if (type === "AMPM") {
+        const isAM = newIndex === 1 ? "AM" : newIndex === 2 ? "PM" : "";
+        console.log("AMPM", isAM ? "AM" : "PM");
+        onChange("AMPM", newIndex); // Assuming AM=0, PM=1
+      }
+    }
+  };
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -31,6 +54,7 @@ const NumberSlider = ({ data, value }: NumberSliderProps) => {
           offset: ITEM_HEIGHT * index,
           index,
         })}
+        onViewableItemsChanged={handleViewableItemsChanged}
       />
       {/* Center Indicator Line */}
       <View style={styles.centerIndicator} />

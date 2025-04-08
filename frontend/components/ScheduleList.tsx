@@ -12,16 +12,7 @@ import {
 import { router } from "expo-router";
 import ScheduleModal from "@/components/ScheduleModal";
 import ScheduleType from "@/interface/schedule.interface";
-const formatTime = (isoString: string) => {
-  const date = new Date(isoString);
-  const options = {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
-  };
-  // @ts-expect-error type missing
-  return date.toLocaleTimeString([], options);
-};
+import formatTime from "@/utils/handleTimeFormat";
 
 const ScheduleList = ({ deviceId }: { deviceId: string }) => {
   const [schedule, setSchedule] = useState<ScheduleType[] | null>(null);
@@ -143,9 +134,10 @@ const ScheduleList = ({ deviceId }: { deviceId: string }) => {
         />
       )}
 
-      {/* <Modal visible={modalVisible} animationType="slide" transparent></Modal> */}
       {action && (
         <ScheduleModal
+          deviceId={deviceId}
+          scheduleList={schedule}
           action={action}
           initTime={currTime}
           onModalVisibleChange={() => setAction(undefined)}
