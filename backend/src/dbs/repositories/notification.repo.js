@@ -1,9 +1,24 @@
 const prisma = require("../init.prisma");
 
-const createNotification = async (notification) => {
+const createNotification = async ({ device_id, content }) => {
   const result = await prisma.notification
     .create({
-      data: notification,
+      data: {
+        content: content,
+      },
+    })
+    .catch((error) => {
+      console.error(error);
+      throw error;
+    });
+  const date = new Date();
+  const dhn = await prisma.device_have_notification
+    .create({
+      data: {
+        device_id: parseInt(device_id),
+        notification_id: result.id,
+        notification_time: date.toISOString(),
+      },
     })
     .catch((error) => {
       console.error(error);
@@ -12,7 +27,11 @@ const createNotification = async (notification) => {
   return result;
 };
 
-const getAllNotificationsByDeviceId = async (page = 1, limit = 5, home_id) => {
+const getAllNotificationsByDeviceId = async ({
+  page = 1,
+  limit = 5,
+  device_id,
+}) => {
   return await prisma.notification
     .findMany({
       orderBy: { id: "desc" },

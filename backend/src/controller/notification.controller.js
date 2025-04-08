@@ -3,12 +3,29 @@ const NotificationService = require("../service/notification.service");
 
 class NotificationController {
   createNotification = async (req, res) => {
-    const response = await NotificationService.createNotification(req.params);
+    const device_id = req.params.deviceId;
+    console.log(req.params);
+    const response = await NotificationService.createNotification({
+      ...req.body,
+      device_id,
+    });
     return res.status(201).json(response);
   };
 
-  getAllNotifications = async (req, res) => {
-    const response = await NotificationService.getAllNotifications(req.params);
+  getAllNotificationsByDeviceId = async (req, res) => {
+    const device_id = req.params.device_id;
+    const response = await NotificationService.getAllNotificationsByDeviceId({
+      device_id,
+    });
+    return res.status(200).json(response);
+  };
+
+  saveFCMToken = async (req, res) => {
+    const userId = req.params.userId;
+    const response = await NotificationService.saveFCMToken({
+      ...req.body,
+      userId,
+    });
     return res.status(200).json(response);
   };
 }

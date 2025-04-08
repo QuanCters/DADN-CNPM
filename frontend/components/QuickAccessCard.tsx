@@ -47,10 +47,12 @@ const QuickAccessCard = ({
     return device ? device.status : null;
   });
   const dispatch = useDispatch();
-  const [isEnabled, setIsEnabled] = useState<boolean>(deviceStatus === "on");
+  // const [isEnabled, setIsEnabled] = useState<boolean>(deviceStatus === "on");
+  const isEnabled = deviceStatus === "on";
   const deviceName = deviceTypes[deviceType];
 
   const handleChange = async () => {
+    const newStatus = !isEnabled ? "on" : "off";
     const response = await fetch(
       process.env.EXPO_PUBLIC_BACKEND_URL + "/device/update/status",
       {
@@ -61,7 +63,7 @@ const QuickAccessCard = ({
         },
         body: JSON.stringify({
           device_id: id,
-          status: !isEnabled ? "on" : "off",
+          status: newStatus,
         }),
       }
     );
@@ -70,13 +72,11 @@ const QuickAccessCard = ({
       throw new Error("Error change status");
     }
 
-    setIsEnabled(!isEnabled);
-
     dispatch(
       changeDeviceStatus({
         homeId,
         deviceId: id,
-        status: !isEnabled ? "on" : "off",
+        status: newStatus,
       })
     );
   };

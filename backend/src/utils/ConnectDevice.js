@@ -1,9 +1,25 @@
 require("dotenv").config();
 const axios = require("axios");
+const { getRedisClient } = require("../dbs/init.redis");
+const { sendFCMMessage } = require("./FCM");
+const { updateDeviceStatus } = require("../service/device.service");
+const { getUserByHomeId } = require("../dbs/repositories/home.repo");
 const AIO_USERNAME = process.env.AIO_USERNAME;
 const AIO_KEY = process.env.AIO_KEY;
 const AIO_BASE_URL = process.env.AIO_BASE_URL;
 const HEADERS = { "X-AIO-Key": AIO_KEY };
+
+const roomName = {
+  bedroom: "Bed Room",
+  garden: "Garden",
+  kitchen: "Kitchen",
+  livingroom: "Living Room",
+};
+
+const deviceName = {
+  light: "Light",
+  fan: "Fan",
+};
 
 const controlDevice = async (deviceKey, value) => {
   const response = await axios.post(
@@ -26,8 +42,15 @@ const getDeviceStatus = async (deviceKey) => {
   return response.data.last_value;
 };
 
-const sendMessage = async (username, feed, aioKey, value) => {
-  const response = await fetch(
+const sendMessage = async (deviceResponse, homeResponse, device_id, value) => {
+  const username = homeResponse.home_name;
+  const feed = deviceResponse.metadata.feed;
+  const aioKey = homeResponse.aio_key;
+  const message = `${roomName[deviceResponse.metadata.room_name]} ${
+    deviceName[deviceResponse.metadata.type]
+  } Has ${value === 1 ? "Turn On" : "Turn Off"}`;
+  const userList = await getUserByHomeId(homeResponse.id);
+  const responseAda = await fetch(
     `https://io.adafruit.com/api/v2/${username}/feeds/${feed}/data?x-aio-key=${aioKey}`,
     {
       method: "POST",
@@ -41,8 +64,31 @@ const sendMessage = async (username, feed, aioKey, value) => {
     }
   );
 
-  if (!response.ok) {
+  if (!responseAda.ok) {
     throw new BadRequestError("Error update status to Adafruit");
+  }
+
+  await updateDeviceStatus({
+    device_id,
+    status: `${value === 1 ? "on" : "off"}`,
+  });
+
+  for (const user of userList) {
+    const redisClient = await getRedisClient();
+    const foundToken = await redisClient.get(`user:${user.user_id}:fcm_token`);
+
+    if (!foundToken) {
+      continue;
+    }
+
+    const payload = {
+      notification: {
+        title: "Thông báo mới",
+        body: message,
+      },
+    };
+
+    await sendFCMMessage(foundToken, payload);
   }
 
   return await response.json();

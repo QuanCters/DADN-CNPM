@@ -37,9 +37,9 @@ const initCronJobs = async () => {
         time,
         () =>
           sendMessage(
-            homeResponse.home_name,
-            deviceResponse.metadata.feed,
-            homeResponse.aio_key,
+            deviceResponse,
+            homeResponse,
+            schedule.device_id,
             schedule.value
           ),
         { scheduled: true }
@@ -67,12 +67,7 @@ const addJob = async (action_day, action_time, device_id, value) => {
     const job = cron.schedule(
       time,
       () =>
-        sendMessage(
-          homeResponse.home_name,
-          deviceResponse.metadata.feed,
-          homeResponse.aio_key,
-          value
-        ).then(() => {
+        sendMessage(deviceResponse, homeResponse, device_id, value).then(() => {
           console.log("Send Message Succesfully");
         }),
       { scheduled: true }

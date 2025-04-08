@@ -38,7 +38,11 @@ initRedis.initRedis();
 
 // init scheduler
 const initCronJobs = require("./cron/cronScheduler");
+const { initializeFirebase } = require("./config/firebase");
 initCronJobs.initCronJobs();
+
+// init firebase
+initializeFirebase();
 
 // init routes
 app.use("/", require("./routes/index"));

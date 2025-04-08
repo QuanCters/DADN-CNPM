@@ -8,6 +8,7 @@ const {
   deleteScheduleByDevice,
   getSchedulesInTimeRange,
   getSchedules,
+  activateSchedule,
 } = require("../dbs/repositories/schedule.repo");
 
 const { getDeviceById } = require("../dbs/repositories/device.repo");
@@ -128,15 +129,37 @@ class ScheduleService {
   static getScheduleByDevice = async ({ device_id }) => {
     const device = await getDeviceById(device_id);
     if (!device) throw new NotFoundError("Device not found");
-
     const schedules = await getScheduleByDevice(device_id);
     if (!schedules || schedules.length === 0) {
-      throw new NotFoundError("No schedules found for this device");
+      return {
+        message: "No schedule found",
+        metadata: [],
+      };
     }
+    const groupedSchedules = {};
+    schedules.forEach((schedule) => {
+      const { action_time, action_day, action, device_id, value } = schedule;
+      const timePart = action_time.toISOString().split("T")[1].substring(0, 5);
+      const key = `${device_id}-${timePart}-${action}`;
+      if (!groupedSchedules[key]) {
+        groupedSchedules[key] = {
+          device_id: device_id,
+          action_time: action_time,
+          action: action,
+          action_days: [],
+          value: value,
+        };
+      }
+      if (!groupedSchedules[key].action_days.includes(action_day)) {
+        groupedSchedules[key].action_days.push(action_day);
+      }
+    });
+
+    const result = Object.values(groupedSchedules);
 
     return {
       message: "Get schedules successfully",
-      metadata: schedules,
+      metadata: result,
     };
   };
 
@@ -148,6 +171,7 @@ class ScheduleService {
     action_day_old,
     action_time_old,
     value,
+    is_enable,
   }) => {
     const device = await getDeviceById(device_id);
     if (!device) throw new NotFoundError("Device not found");
@@ -167,15 +191,62 @@ class ScheduleService {
       action_time_old: new Date(action_time_old),
       action_day_old,
       value,
+      is_enable,
     });
     if (!updatedSchedule)
       throw new ConflictRequestError("Failed to update schedule");
 
-    const name = `${device_id}.${action_day}.${action_time
-      .toISOString()
-      .slice(11, 19)}`;
+    const name = `${device_id}.${
+      updatedSchedule.action_day
+    }.${updatedSchedule.action_time.toISOString().slice(11, 19)}`;
     removeJob(name);
     addJob(action_day, action_time, device_id, value);
+    return {
+      message: "Schedule updated successfully",
+      metadata: updatedSchedule,
+    };
+  };
+
+  static activateSchedule = async ({
+    device_id,
+    is_enable,
+    action_time,
+    action_day,
+  }) => {
+    const device = await getDeviceById(device_id);
+    if (!device) throw new NotFoundError("Device not found");
+
+    const schedule = await getSchedule({
+      device_id,
+      action_time,
+      action_day,
+    });
+
+    if (!schedule) throw new NotFoundError("Schedule not found");
+
+    const updatedSchedule = await activateSchedule({
+      device_id,
+      action_day,
+      action_time,
+      is_enable,
+    });
+    if (!updatedSchedule)
+      throw new ConflictRequestError("Failed to update schedule");
+
+    const name = `${device_id}.${
+      updatedSchedule.action_day
+    }.${updatedSchedule.action_time.toISOString().slice(11, 19)}`;
+
+    if (updatedSchedule.is_enable) {
+      addJob(
+        updatedSchedule.action_day,
+        updatedSchedule.action_time,
+        device_id,
+        updatedSchedule.value
+      );
+    } else {
+      removeJob(name);
+    }
     return {
       message: "Schedule updated successfully",
       metadata: updatedSchedule,
