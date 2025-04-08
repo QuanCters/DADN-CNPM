@@ -138,7 +138,8 @@ class ScheduleService {
     }
     const groupedSchedules = {};
     schedules.forEach((schedule) => {
-      const { action_time, action_day, action, device_id, value } = schedule;
+      const { action_time, action_day, action, device_id, value, is_enable } =
+        schedule;
       const timePart = action_time.toISOString().split("T")[1].substring(0, 5);
       const key = `${device_id}-${timePart}-${action}`;
       if (!groupedSchedules[key]) {
@@ -148,6 +149,7 @@ class ScheduleService {
           action: action,
           action_days: [],
           value: value,
+          is_enable: is_enable,
         };
       }
       if (!groupedSchedules[key].action_days.includes(action_day)) {
