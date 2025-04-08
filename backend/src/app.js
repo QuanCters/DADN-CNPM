@@ -2,8 +2,6 @@ const compression = require("compression");
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const { startScheduler } = require("./utils/cronJobs");
-startScheduler();
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("public"));
 }
@@ -37,6 +35,14 @@ app.use(
 // init db
 const initRedis = require("./dbs/init.redis");
 initRedis.initRedis();
+
+// init scheduler
+const initCronJobs = require("./cron/cronScheduler");
+const { initializeFirebase } = require("./config/firebase");
+initCronJobs.initCronJobs();
+
+// init firebase
+initializeFirebase();
 
 // init routes
 app.use("/", require("./routes/index"));

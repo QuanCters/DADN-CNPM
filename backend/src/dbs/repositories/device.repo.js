@@ -55,21 +55,43 @@ const updateDeviceStatus = async (id, status) => {
   return result;
 };
 const getAllDevices = async () => {
-  const result = await prisma.device.findMany({select: {
-    id: true,
-    status: true,
-    type: true,
-    room_name: true,
-    feed: true,
-    serial_number: true,
-  },
-})
+  const result = await prisma.device
+    .findMany({
+      select: {
+        id: true,
+        status: true,
+        type: true,
+        room_name: true,
+        feed: true,
+        serial_number: true,
+      },
+    })
 
-.catch((error) => {
-  console.error(error);
-  throw error;
-});
+    .catch((error) => {
+      console.error(error);
+      throw error;
+    });
   return result;
+};
+
+const getDeviceByHomeNameAndFeed = async (homeName, feed) => {
+  const home = await prisma.home
+    .findMany({
+      where: {
+        home_name: homeName,
+      },
+    })
+    .catch((err) => console.error(err));
+  const device = await prisma.device
+    .findMany({
+      where: {
+        feed: feed,
+        serial_number: home[0].serial_number,
+      },
+    })
+    .catch((err) => console.error(err));
+
+  return device;
 };
 
 module.exports = {
@@ -77,4 +99,5 @@ module.exports = {
   getDevicesBySerialNumber,
   updateDeviceStatus,
   getAllDevices,
+  getDeviceByHomeNameAndFeed,
 };
