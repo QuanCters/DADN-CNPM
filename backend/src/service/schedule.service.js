@@ -263,11 +263,11 @@ class ScheduleService {
     const device = await getDeviceById(device_id);
     if (!device) throw new NotFoundError("Device not found");
 
-    const schedule = await getSchedule(device_id, action_time, action_day);
+    const schedule = await getSchedule({ device_id, action_time, action_day });
     if (!schedule) throw new NotFoundError("Schedule not found");
 
     await deleteScheduleByDevice(device_id, action_time, action_day);
-    const name = `${device_id}.${action_day}.${action_time
+    const name = `${device_id}.${action_day}.${schedule.action_time
       .toISOString()
       .slice(11, 19)}`;
     removeJob(name);
