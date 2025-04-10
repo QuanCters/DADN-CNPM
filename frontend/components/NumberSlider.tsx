@@ -20,14 +20,10 @@ const NumberSlider = ({ data, value, onChange, type }: NumberSliderProps) => {
     if (viewableItems.length > 0) {
       const newIndex = viewableItems[0].index;
       if (type === "hour") {
-        console.log("Hour", newIndex - 1);
         onChange("hour", newIndex - 1);
       } else if (type === "min") {
-        console.log("Min", newIndex - 1);
         onChange("min", newIndex - 1);
       } else if (type === "AMPM") {
-        const isAM = newIndex === 1 ? "AM" : newIndex === 2 ? "PM" : "";
-        console.log("AMPM", isAM ? "AM" : "PM");
         onChange("AMPM", newIndex); // Assuming AM=0, PM=1
       }
     }
@@ -56,7 +52,6 @@ const NumberSlider = ({ data, value, onChange, type }: NumberSliderProps) => {
         })}
         onViewableItemsChanged={handleViewableItemsChanged}
       />
-      {/* Center Indicator Line */}
       <View style={styles.centerIndicator} />
     </View>
   );

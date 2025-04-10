@@ -8,6 +8,7 @@ import {
   View,
   StyleSheet,
   Pressable,
+  ListRenderItemInfo,
 } from "react-native";
 import { router } from "expo-router";
 import ScheduleModal from "@/components/ScheduleModal";
@@ -16,7 +17,9 @@ import formatTime from "@/utils/handleTimeFormat";
 
 const ScheduleList = ({ deviceId }: { deviceId: string }) => {
   const [schedule, setSchedule] = useState<ScheduleType[] | null>(null);
+  // error for fetching schedule
   const [error, setError] = useState<string | null>(null);
+  const [errorToggle, setErrorToggle] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [action, setAction] = useState<"update" | "add" | undefined>(undefined);
 
@@ -28,9 +31,6 @@ const ScheduleList = ({ deviceId }: { deviceId: string }) => {
         const response = await fetch(
           process.env.EXPO_PUBLIC_BACKEND_URL + "/schedule/device/" + deviceId
         );
-        // /v1/api/schedule/device/{device_id}
-        console.log("waiting for schedule of device " + deviceId);
-
         if (!response.ok) {
           throw new Error("Failed to fetch schedule of device " + deviceId);
         }
@@ -45,24 +45,56 @@ const ScheduleList = ({ deviceId }: { deviceId: string }) => {
     fetchSchedule();
   }, [deviceId, action]);
 
-  console.log("ScheduleList", schedule);
-
-  const [alarms, setAlarms] = useState<ScheduleType[] | null>(null);
-  useEffect(() => {
-    if (schedule) setAlarms(schedule);
-  }, [schedule]);
-
   const [currTime, setCurrTime] = useState("00:00:AM");
 
-  // const toggleSwitch = (id: string) => {
-  //   setAlarms((prevAlarms) =>
-  //     prevAlarms.map((alarm) =>
-  //       alarm.id === id ? { ...alarm, enabled: !alarm.enabled } : alarm
-  //     )
-  //   );
-  // };
-  console.log("alarms", alarms);
-  const renderAlarmItem = ({ item }: { item: ScheduleType }) => {
+  const toggleSwitch = async (item: ScheduleType, itemIdx: number) => {
+    // FIX API: action
+    setSchedule((prevSchedule) => {
+      if (!prevSchedule) return null;
+      const updatedSchedule = [...prevSchedule];
+      updatedSchedule[itemIdx].is_enable = !updatedSchedule[itemIdx].is_enable;
+      return updatedSchedule;
+    });
+    try {
+      for (const actionDates of item.action_days) {
+        const response = await fetch(
+          process.env.EXPO_PUBLIC_BACKEND_URL +
+            "/schedule/activate/" +
+            deviceId,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              action_time: item.action_time,
+              action_day: actionDates,
+              // action: item.action,
+              is_enable: item.is_enable,
+            }),
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Failed to activate/de-activate schedule");
+        }
+      }
+      console.log(`Schedule ${itemIdx} switch activated successfully`);
+    } catch (error) {
+      setSchedule((prevSchedule) => {
+        if (!prevSchedule) return null;
+        const updatedSchedule = [...prevSchedule];
+        updatedSchedule[itemIdx].is_enable =
+          !updatedSchedule[itemIdx].is_enable;
+        return updatedSchedule;
+      });
+      console.log("Error activating/de-activating schedule: ", error);
+      setErrorToggle(String(error));
+    }
+  };
+  const renderAlarmItem = ({
+    item,
+    index,
+  }: ListRenderItemInfo<ScheduleType>) => {
     return (
       <Pressable
         onPress={() => {
@@ -96,13 +128,34 @@ const ScheduleList = ({ deviceId }: { deviceId: string }) => {
               {item.action === "on" ? "Turn On" : "Turn Off"}
             </Text>
             <Text style={styles.alarmDays}>
-              {item.action_days.reduce((acc, value) => acc + " " + value, "")}
+              {item.action_days.length == 7
+                ? "Everyday"
+                : item.action_days.reduce((acc, value) => {
+                    switch (value) {
+                      case "monday":
+                        return acc + "Mon ";
+                      case "tuesday":
+                        return acc + "Tue ";
+                      case "wednesday":
+                        return acc + "Wed ";
+                      case "thursday":
+                        return acc + "Thu ";
+                      case "friday":
+                        return acc + "Fri ";
+                      case "saturday":
+                        return acc + "Sat ";
+                      case "sunday":
+                        return acc + "Sun ";
+                      default:
+                        return acc;
+                    }
+                  }, "")}
             </Text>
           </View>
         </View>
         <Switch
           value={item.is_enable}
-          // onValueChange={() => toggleSwitch(item.id)}
+          onValueChange={() => toggleSwitch(item, index)}
         />
       </Pressable>
     );
@@ -129,13 +182,16 @@ const ScheduleList = ({ deviceId }: { deviceId: string }) => {
       {isLoading ? (
         <Text>Loading...</Text>
       ) : error ? (
-        <Text>An error occur</Text>
+        <Text>{error}</Text>
       ) : (
-        <FlatList
-          data={alarms}
-          keyExtractor={(item) => String(item.device_id) + item.action_time}
-          renderItem={renderAlarmItem}
-        />
+        <>
+          <FlatList
+            data={schedule}
+            keyExtractor={(item) => String(item.device_id) + item.action_time}
+            renderItem={renderAlarmItem}
+          />
+          {errorToggle && <Text>{errorToggle}</Text>}
+        </>
       )}
 
       {action && (

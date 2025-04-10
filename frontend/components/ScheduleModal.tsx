@@ -67,8 +67,6 @@ const ScheduleModal = ({
   onModalVisibleChange,
   initTime,
 }: ScheduleModalProps) => {
-  console.log("ScheduleModal", action, initTime, scheduleList, deviceId);
-
   const [temp, ampm] = initTime.split(" ");
   const [hour, minute] = temp.split(":").map(Number);
   const [time, setTime] = useState({
@@ -122,27 +120,20 @@ const ScheduleModal = ({
   }
 
   async function handleSet() {
-    if (action === "update") {
-      // handle update schedule
-      // update repeat days
+    async function handleUpdateRepeatDays(updateSchedule: ScheduleType) {
       let deleteDates: string[] = [];
       let newDates: string[] = [];
-      currUpdateSchedule?.action_days.forEach((day) => {
+      updateSchedule?.action_days.forEach((day) => {
         if (!repeat.includes(day)) {
           deleteDates.push(day);
         }
       });
       repeat.forEach((day) => {
-        if (!currUpdateSchedule?.action_days.includes(day)) {
+        if (!updateSchedule?.action_days.includes(day)) {
           newDates.push(day);
         }
       });
-      console.log("DELETE DATES", deleteDates);
-      console.log("NEW DATES", newDates);
-      // setIsLoading(true);
-      // FIX BUG: DELETE SCHEDULE NOT WORKING
       for (const day of deleteDates) {
-        console.log("START DELETE SCHEDULE", day);
         try {
           const response = await fetch(
             process.env.EXPO_PUBLIC_BACKEND_URL + "/schedule/" + deviceId,
@@ -154,21 +145,20 @@ const ScheduleModal = ({
               },
               body: JSON.stringify({
                 action_day: day,
-                action_time: currUpdateSchedule?.action_time,
+                action_time: updateSchedule?.action_time,
               }),
             }
           );
           if (!response.ok) {
-            // setIsLoading(false);
             throw new Error("Error deleting schedule");
           }
         } catch (error) {
           console.log("Error deleting schedule:", error);
+          setIsLoading(false);
         }
-        console.log("Schedule deleted date!", day);
+        console.log("Schedule deleted repeat date!", day);
       }
       for (const day of newDates) {
-        console.log("START ADD SCHEDULE", day);
         try {
           const response = await fetch(
             process.env.EXPO_PUBLIC_BACKEND_URL + "/schedule/" + deviceId,
@@ -179,7 +169,7 @@ const ScheduleModal = ({
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                action_time: currUpdateSchedule?.action_time,
+                action_time: updateSchedule?.action_time,
                 action_day: day,
                 action: turnTo,
                 value: turnTo === "on" ? 1 : 0,
@@ -195,7 +185,11 @@ const ScheduleModal = ({
         }
         console.log("Schedule add new date!", day);
       }
-      // setIsLoading(false);
+    }
+    if (action === "update") {
+      // update repeat days
+      await handleUpdateRepeatDays(currUpdateSchedule as ScheduleType);
+      setIsLoading(false);
     } else if (action === "add") {
       const scheduleExists = scheduleList?.find((schedule) => {
         return (
@@ -204,38 +198,46 @@ const ScheduleModal = ({
           schedule.action === turnTo
         );
       });
-
       if (scheduleExists) {
         console.log("Schedule already exists!");
+        setIsLoading(true);
+        // handle different repeat days
+        await handleUpdateRepeatDays(scheduleExists);
         // turn on the exist schedule
-        // const ISOtime = convertToISOString(
-        //   `${time.hour}:${time.minute} ${time.ampm}`
-        // );
-        // const response = await fetch(
-        //   process.env.EXPO_PUBLIC_BACKEND_URL + "/schedule/" + deviceId,
-        //   {
-        //     method: "POST",
-        //     headers: {
-        //       Accept: "application/json",
-        //       "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({
-        //       action_time_old: ISOtime,
-        //       action_time: ISOtime,
-        //       action: turnTo,
-        //       value: 0,
-        //     }),
-        //   }
-        // );
-        // if (!response.ok) {
-        //   throw new Error("Error update schedule");
-        // }
+        try {
+          for (const actionDates of repeat) {
+            const response = await fetch(
+              process.env.EXPO_PUBLIC_BACKEND_URL +
+                "/schedule/activate/" +
+                deviceId,
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  action_time: scheduleExists.action_time,
+                  action_day: actionDates,
+                  // action: item.action,
+                  is_enable: !scheduleExists.is_enable,
+                }),
+              }
+            );
+            if (!response.ok) {
+              throw new Error("Failed to activate/de-activate schedule");
+            }
+            console.log("Schedule switch activated successfully");
+          }
+        } catch (error) {
+          console.log("Error activating schedule:", error);
+          setIsLoading(false);
+        }
+        setIsLoading(false);
       } else {
         // create a new schedule
         const ISOtime = convertToISOString(
           `${time.hour}:${time.minute} ${time.ampm}`
         );
-        console.log("ADDING SCHEDULE", ISOtime, repeat, turnTo, deviceId);
         try {
           setIsLoading(true);
           for (const day of repeat) {
@@ -256,11 +258,9 @@ const ScheduleModal = ({
               }
             );
             if (!response.ok) {
-              console.log("Error response:", response);
               setIsLoading(false);
               throw new Error("Error creating schedule");
             }
-            console.log("Schedule created!");
             setIsLoading(false);
           }
         } catch (error) {
@@ -286,9 +286,6 @@ const ScheduleModal = ({
       }));
     }
   };
-
-  console.log("Time:", time);
-
   return (
     <Modal
       animationType="fade"
