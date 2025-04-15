@@ -91,6 +91,51 @@ const ScheduleList = ({ deviceId }: { deviceId: string }) => {
       setErrorToggle(String(error));
     }
   };
+  const deleteSchedule = async (item: ScheduleType) => {
+    setSchedule((prevSchedule) => {
+      if (!prevSchedule) return null;
+      const updatedSchedule = [...prevSchedule];
+      updatedSchedule.map((schedule, index) => {
+        if (
+          schedule.action_time === item.action_time &&
+          schedule.action === item.action
+        ) {
+          updatedSchedule.splice(index, 1);
+        }
+      });
+      return updatedSchedule;
+    });
+    try {
+      for (const actionDate of item.action_days) {
+        const response = await fetch(
+          process.env.EXPO_PUBLIC_BACKEND_URL + "/schedule/" + deviceId,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              action_time: item.action_time,
+              action_day: actionDate,
+            }),
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Failed to delete schedule");
+        }
+      }
+      console.log("Schedule deleted successfully");
+    } catch (error) {
+      setSchedule((prevSchedule) => {
+        if (!prevSchedule) return null;
+        const updatedSchedule = [...prevSchedule];
+        updatedSchedule.push(item);
+        return updatedSchedule;
+      });
+      console.log("Error deleting schedule: ", error);
+    }
+  };
+
   const renderAlarmItem = ({
     item,
     index,
@@ -153,10 +198,15 @@ const ScheduleList = ({ deviceId }: { deviceId: string }) => {
             </Text>
           </View>
         </View>
-        <Switch
-          value={item.is_enable}
-          onValueChange={() => toggleSwitch(item, index)}
-        />
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+          <Switch
+            value={item.is_enable}
+            onValueChange={() => toggleSwitch(item, index)}
+          />
+          <Pressable onPress={() => deleteSchedule(item)}>
+            <Ionicons name="trash-bin-outline" size={18} color="grey" />
+          </Pressable>
+        </View>
       </Pressable>
     );
   };
