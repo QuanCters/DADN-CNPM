@@ -20,6 +20,7 @@ const ControlScreen = () => {
       params: { devices: JSON.stringify(home.devices) },
     });
   };
+  console.log(home_list[0].devices);
 
   return (
     <View style={styles.container}>
@@ -48,7 +49,7 @@ const ControlScreen = () => {
                 <Text style={styles.homeCardText}>{item.serial_number}</Text>
               </View>
               <Text style={styles.homeCardText}>
-                {item.devices.length} rooms
+                {item.devices.length} devices
               </Text>
 
               <View style={styles.iconWrapper}>

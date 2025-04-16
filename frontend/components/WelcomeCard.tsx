@@ -64,15 +64,16 @@ type WelcomeCardProps = {
 };
 const WelcomeCard = (props: WelcomeCardProps) => {
   const [connected, setConnected] = useState<boolean>(false);
-  const [temperature, setTemperature] = useState<string>("Unknown");
-  const [humidity, setHumidity] = useState<string>("unknown");
-  const [light, setLight] = useState<string>("Unknown");
+  const [temperature, setTemperature] = useState<string>("0");
+  const [humidity, setHumidity] = useState<string>("0");
+  const [light, setLight] = useState<string>("0");
 
   const selectedHome = useSelector((state: any) => state.user.selectedHome);
   const homes: Home[] = useSelector((state: any) => state.user.homes);
   const home: Home = homes.filter(
     (home: any) => home.home_id === selectedHome
   )[0];
+  console.log(homes);
 
   useEffect(() => {
     if (home) {
