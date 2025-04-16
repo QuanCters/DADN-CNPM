@@ -4,6 +4,7 @@ const { getRedisClient } = require("../dbs/init.redis");
 const { sendFCMMessage } = require("./FCM");
 const { updateDeviceStatus } = require("../service/device.service");
 const { getUserByHomeId } = require("../dbs/repositories/home.repo");
+const { createNotification } = require("../dbs/repositories/notification.repo");
 const AIO_USERNAME = process.env.AIO_USERNAME;
 const AIO_KEY = process.env.AIO_KEY;
 const AIO_BASE_URL = process.env.AIO_BASE_URL;
@@ -73,10 +74,11 @@ const sendMessage = async (deviceResponse, homeResponse, device_id, value) => {
     status: `${value === 1 ? "on" : "off"}`,
   });
 
+  await createNotification({ content: message, device_id: device_id });
+
   for (const user of userList) {
     const redisClient = await getRedisClient();
     const foundToken = await redisClient.get(`user:${user.user_id}:fcm_token`);
-
     if (!foundToken) {
       continue;
     }
