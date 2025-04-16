@@ -37,7 +37,9 @@ const DeviceList = () => {
   if (parsedDevices.length === 0) {
     return (
       <View style={styles.container}>
-        <Header>{`${roomName} Devices`}</Header>
+        <Header>{`${
+          roomName.charAt(0).toUpperCase() + roomName.slice(1)
+        }'s Devices`}</Header>
         <Text style={styles.emptyText}>No devices found in this room</Text>
       </View>
     );
@@ -45,7 +47,9 @@ const DeviceList = () => {
 
   return (
     <View style={styles.container}>
-      <Header>{`${roomName} Devices`}</Header>
+      <Header>{`${
+        roomName.charAt(0).toUpperCase() + roomName.slice(1)
+      }'s Devices`}</Header>
       <View style={styles.cardContainer}>
         {parsedDevices.map((device) => {
           if (!isDeviceType(device.type)) {

@@ -73,6 +73,7 @@ const WelcomeCard = (props: WelcomeCardProps) => {
   const home: Home = homes.filter(
     (home: any) => home.home_id === selectedHome
   )[0];
+  console.log(homes);
 
   useEffect(() => {
     if (home) {

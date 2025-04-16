@@ -207,7 +207,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "D:\\study\\DADN\\initial\\backend\\src\\generated\\client",
+      "value": "C:\\Users\\TrungDanPlay\\Desktop\\Programming languages\\DADN-CNPM\\backend\\src\\generated\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -225,12 +225,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "D:\\study\\DADN\\initial\\backend\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\TrungDanPlay\\Desktop\\Programming languages\\DADN-CNPM\\backend\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../../prisma",
   "clientVersion": "6.5.0",
