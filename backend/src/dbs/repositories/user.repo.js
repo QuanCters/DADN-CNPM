@@ -34,6 +34,26 @@ const getUserByEmail = async (email) => {
   return result;
 };
 
+const getUserByUserId = async (user_id) => {
+  const result = await prisma.users
+    .findUnique({
+      where: {
+        id: parseInt(user_id),
+      },
+      select: {
+        id: true,
+        first_name: true,
+        last_name: true,
+        email: true,
+      },
+    })
+    .catch((error) => {
+      console.error(error);
+      throw error;
+    });
+  return result;
+};
+
 const removeTokenById = async (id) => {
   const result = await prisma.users
     .update({
@@ -108,4 +128,5 @@ module.exports = {
   setTokenById,
   updatePasswordById,
   getAllUsers,
+  getUserByUserId,
 };
