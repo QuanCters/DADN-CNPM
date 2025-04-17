@@ -1,20 +1,76 @@
-import React from "react";
-import { View, StyleSheet, Image, FlatList } from "react-native";
+import React, { useEffect } from "react";
+import { View, StyleSheet, Image, FlatList, Text } from "react-native";
 import Entypo from "@expo/vector-icons/Entypo";
-let MEMBERS = [];
-for (let i = 0; i < 10; i++) {
-  MEMBERS.push({
-    id: i,
-    name: "John Doe",
-    avatar: require("@/assets/images/icon/avatar.png"),
-  });
-}
+import { useSelector } from "react-redux";
 const Members = () => {
+  const info = useSelector((state: any) => state.user);
+  console.log("Info: ", info);
+  const [users, setUsers] = React.useState<
+    | [
+        {
+          email: string;
+          first_name: string;
+          last_name: string;
+          id: number;
+        }
+      ]
+    | null
+  >(null);
+  useEffect(() => {
+    const getMembers = async () => {
+      try {
+        const res = await fetch(
+          process.env.EXPO_PUBLIC_BACKEND_URL +
+            "/user/home/" +
+            info.selectedHome,
+          {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (!res.ok) {
+          throw new Error("Failed to fetch members");
+        }
+        const data = await res.json();
+        console.log("Members data: ", data.users);
+        for (let user of data.users) {
+          const res = await fetch(
+            process.env.EXPO_PUBLIC_BACKEND_URL + "/user/" + user.user_id,
+            {
+              method: "GET",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          if (!res.ok) {
+            throw new Error("Failed to fetch user info");
+          }
+          let userInfo = (await res.json()).user;
+          console.log("User info: ", userInfo);
+          // @ts-ignore
+          setUsers((prev) => {
+            if (!prev) return [userInfo];
+            return [...prev, userInfo];
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching members: ", error);
+      }
+    };
+    getMembers();
+  }, []);
+  console.log("Members: ", users);
+
   return (
     <View style={styles.container}>
       <FlatList
         style={styles.memberContainer}
-        data={MEMBERS}
+        data={users}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
@@ -23,8 +79,16 @@ const Members = () => {
         }}
         renderItem={({ item }) => {
           return (
-            <View style={styles.avatarContainer}>
-              <Image style={styles.avatarImg} source={item.avatar} />
+            <View style={{ alignItems: "center" }}>
+              <View style={styles.avatarContainer}>
+                <Image
+                  style={styles.avatarImg}
+                  source={require("@/assets/images/icon/avatar.png")}
+                />
+              </View>
+              <Text style={{ color: "white", fontSize: 12 }}>
+                {item.first_name} {item.last_name}
+              </Text>
             </View>
           );
         }}

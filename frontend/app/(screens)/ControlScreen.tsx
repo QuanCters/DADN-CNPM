@@ -13,6 +13,8 @@ const ControlScreen = () => {
   const home_list: Home[] = useSelector((state: any) => state.user.homes);
   const [isAccess, setIsAccess] = useState(false);
   const [isOpenPrompt, setIsOpenPrompt] = useState(false);
+  const info = useSelector((state: any) => state.user);
+  // console.log("Info: ", info);
 
   const handleHomePress = (home: Home) => {
     router.push({
@@ -20,7 +22,7 @@ const ControlScreen = () => {
       params: { devices: JSON.stringify(home.devices) },
     });
   };
-  console.log(home_list[0].devices);
+  console.log("main home: ", home_list[0]);
 
   return (
     <View style={styles.container}>
@@ -41,7 +43,13 @@ const ControlScreen = () => {
         renderItem={({ item }) => {
           return (
             <Pressable
-              style={styles.homeCard}
+              style={[
+                styles.homeCard,
+                {
+                  backgroundColor:
+                    item.home_id === info.selectedHome ? "#5F99AE" : "#F5ECE0",
+                },
+              ]}
               onPress={() => handleHomePress(item)}
             >
               <View>
