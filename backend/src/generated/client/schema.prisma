@@ -54,10 +54,13 @@ model device {
 
 model measurement {
   id          Int      @id @default(autoincrement())
-  usage_time  DateTime @db.Timestamp(6)
-  consumption Int?
+  usage_time  Float
+  consumption Float
   device_id   Int?
+  month       DateTime @db.Timestamp(6)
   device      device?  @relation(fields: [device_id], references: [id])
+
+  @@unique([device_id, month])
 }
 
 model schedule {

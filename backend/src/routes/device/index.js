@@ -82,7 +82,6 @@ router.get("/:serialNumber", asyncHandler(deviceController.getAllDevices));
  *       500:
  *         description: Server error
  */
-
 router.get("/all", asyncHandler(deviceController.getAllDevicesHave));
 
 /**
@@ -115,7 +114,6 @@ router.get("/all", asyncHandler(deviceController.getAllDevicesHave));
  *       500:
  *         description: Server error
  */
-
 router.get("/user/:userId", asyncHandler(deviceController.getDevicesByUserId));
 
 /**
@@ -150,7 +148,6 @@ router.get("/user/:userId", asyncHandler(deviceController.getDevicesByUserId));
  *       500:
  *         description: Server error
  */
-
 router.post(
   "/update/status",
   asyncHandler(deviceController.updateDeviceStatus)
@@ -158,16 +155,16 @@ router.post(
 
 /**
  * @swagger
- * '/v1/api/device/turn-on/{id}':
+ * '/v1/api/device/measurement/{deviceId}':
  *  post:
  *     tags:
  *     - Device controller
- *     summary: Turn on a device
+ *     summary: Get device measurement
  *     produces:
  *     - application/json
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: deviceId
  *         required: true
  *         description: The ID of the device
  *         schema:
@@ -179,48 +176,26 @@ router.post(
  *           schema:
  *             type: object
  *             properties:
- *               value:
- *                 type: integer
- *                 description: The value to set when turning on the device
- *                 example: 1
+ *               month:
+ *                 type: string
+ *                 description: month
+ *               year:
+ *                 type: string
+ *                 description: year
  *     responses:
  *       200:
- *         description: Device turned on successfully
+ *         description: Get Measurement Successfully
  *       400:
- *         description: Missing value in request body
+ *         description: Invalid request payload
  *       404:
  *         description: Device not found
  *       500:
  *         description: Server error
  */
-router.post("/turn-on/:id", asyncHandler(deviceController.turnOnDevice));
-
-/**
- * @swagger
- * '/v1/api/device/turn-off/{id}':
- *  post:
- *     tags:
- *     - Device controller
- *     summary: Turn off a device
- *     produces:
- *     - application/json
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: The ID of the device
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Device turned off successfully
- *       404:
- *         description: Device not found
- *       500:
- *         description: Server error
- */
-router.post("/turn-off/:id", asyncHandler(deviceController.turnOffDevice));
-
+router.post(
+  "/measurement/:deviceId",
+  asyncHandler(deviceController.getDeviceMeasurement)
+);
 
 /**
  * @swagger

@@ -103,4 +103,55 @@ router.get(
  */
 router.post("/add", asyncHandler(homeController.addUserToHomeById));
 
+/**
+ * @swagger
+ * '/v1/api/home/measurement/{homeId}':
+ *  get:
+ *     tags:
+ *     - Home controller
+ *     summary: Get Measurement by Home Id
+ *     parameters:
+ *       - in: path
+ *         name: homeId
+ *         required: true
+ *         description: The ID of home
+ *         schema:
+ *           type: integer
+ *     responses:
+ *      200:
+ *        description: Homes retrieved successfully
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                type: object
+ *                properties:
+ *                  user_id:
+ *                    type: integer
+ *                    description: The user ID
+ *                  home_id:
+ *                    type: integer
+ *                    description: The home ID
+ *                  home:
+ *                    type: object
+ *                    properties:
+ *                      serial_number:
+ *                        type: string
+ *                        description: The serial number of the home
+ *                      home_name:
+ *                        type: string
+ *                        description: The name of the home
+ *      400:
+ *        description: Bad Request (Invalid userId format)
+ *      404:
+ *        description: No homes found for the given user ID
+ *      500:
+ *        description: Server error
+ */
+router.get(
+  "/measurement/:homeId",
+  asyncHandler(homeController.getMeasurementByHomeId)
+);
+
 module.exports = router;
