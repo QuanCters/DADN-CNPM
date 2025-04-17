@@ -27,21 +27,37 @@ const createNotification = async ({ device_id, content }) => {
   return result;
 };
 
-const getAllNotificationsByDeviceId = async ({
+const getAllNotificationsByDeviceId = async (
   page = 1,
-  limit = 5,
-  device_id,
-}) => {
-  return await prisma.notification
+  limit = 10,
+  device_id
+) => {
+  const notifications = await prisma.device_have_notification
     .findMany({
-      orderBy: { id: "desc" },
-      skip: (page - 1) * limit,
       take: limit,
+      where: {
+        device_id: parseInt(device_id),
+      },
+      include: {
+        notification: true,
+      },
     })
     .catch((error) => {
       console.error("Error fetching notifications:", error);
       throw error;
     });
+
+  const result = notifications.map((notification) => {
+    return {
+      id: notification.notification.id,
+      content: notification.notification.content,
+      is_read: notification.notification.is_read,
+      device_id: notification.device_id,
+      notification_time: notification.notification_time,
+    };
+  });
+
+  return result;
 };
 
 module.exports = {

@@ -29,7 +29,7 @@ class NotificationService {
 
   static getAllNotificationsByDeviceId = async ({
     page = 1,
-    limit = 5,
+    limit = 10,
     device_id,
   }) => {
     const notifications = await getAllNotificationsByDeviceId(
@@ -37,7 +37,7 @@ class NotificationService {
       limit,
       device_id
     );
-    if (!notifications || notifications.length === 0) {
+    if (!notifications) {
       throw new NotFoundError("No notifications found");
     }
 

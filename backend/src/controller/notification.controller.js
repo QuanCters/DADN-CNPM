@@ -13,9 +13,9 @@ class NotificationController {
   };
 
   getAllNotificationsByDeviceId = async (req, res) => {
-    const device_id = req.params.device_id;
+    const device_id = req.params.deviceId;
     const response = await NotificationService.getAllNotificationsByDeviceId({
-      device_id,
+      device_id: device_id,
     });
     return res.status(200).json(response);
   };
