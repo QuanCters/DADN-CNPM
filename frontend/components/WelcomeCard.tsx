@@ -119,7 +119,16 @@ const WelcomeCard = (props: WelcomeCardProps) => {
 
   const userUI = (
     <>
-      <AntDesign name="setting" size={24} color={Colors.iconBackground} />
+      {/* <AntDesign name="setting" size={24} color={Colors.iconBackground} /> */}
+      <Text
+        style={{
+          color: Colors.iconBackground,
+          fontSize: 16,
+          fontWeight: "bold",
+        }}
+      >
+        Home: {home.home_name}
+      </Text>
     </>
   );
 

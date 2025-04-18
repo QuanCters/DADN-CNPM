@@ -149,7 +149,8 @@ exports.Prisma.MeasurementScalarFieldEnum = {
   id: 'id',
   usage_time: 'usage_time',
   consumption: 'consumption',
-  device_id: 'device_id'
+  device_id: 'device_id',
+  month: 'month'
 };
 
 exports.Prisma.ScheduleScalarFieldEnum = {

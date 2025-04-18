@@ -13,6 +13,10 @@ const {
   getHomeBySerialNumber,
 } = require("../dbs/repositories/home.repo");
 
+const {
+  getMeasurementByHomeId,
+} = require("../dbs/repositories/measurement.repo");
+
 class HomeService {
   static async getHomeByUserId({ userId }) {
     const result = await getHomeByUserId(userId);
@@ -88,6 +92,18 @@ class HomeService {
       status: 200,
       message: "Get home successfully",
       home: { ...result, devices: devices },
+    };
+  }
+
+  static async getMeasurementByHomeId({ home_id }) {
+    const result = await getMeasurementByHomeId(home_id);
+    if (!result) {
+      throw new BadRequestError("Home not found");
+    }
+
+    return {
+      status: 200,
+      result: result,
     };
   }
 }

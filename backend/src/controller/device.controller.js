@@ -1,5 +1,6 @@
 "use strict";
 const DeviceService = require("../service/device.service");
+const MeasurementService = require("../service/measurement.service");
 
 class DeviceController {
   getAllDevices = async (req, res) => {
@@ -21,18 +22,13 @@ class DeviceController {
     const response = await DeviceService.updateDeviceStatus(req.body);
     return res.status(200).json(response);
   };
-  turnOnDevice = async (req, res) => {
-    const { value } = req.body; // Lấy giá trị từ body
-    const device_id = Number(req.params.id);
-    if (value === undefined) {
-      return res.status(400).json({ message: "Missing value in request body" });
-    }
-    // const response = await DeviceService.turnOnDevice({ device_id: Number(req.params.id) });
-    const response = await DeviceService.turnOnDevice({ device_id, value });
-    return res.status(200).json(response);
-  };
-  turnOffDevice = async (req, res) => {
-    const response = await DeviceService.turnOffDevice({ device_id: Number(req.params.id) });
+
+  getDeviceMeasurement = async (req, res) => {
+    const device_id = req.params.deviceId;
+    const response = await MeasurementService.getMeasurementByDevice({
+      device_id: device_id,
+      ...req.body,
+    });
     return res.status(200).json(response);
   };
 }
