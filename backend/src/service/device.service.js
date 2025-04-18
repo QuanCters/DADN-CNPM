@@ -10,7 +10,6 @@ const {
   getDeviceById,
   getDevicesBySerialNumber,
   updateDeviceStatus,
-  getAllDevices,
 } = require("../dbs/repositories/device.repo");
 const {
   getHomeByUserId,
@@ -22,25 +21,11 @@ const {
   findLatestOnLog,
   updateLogEvent,
 } = require("../dbs/repositories/logevent.repo");
-const {
-  createMeasurement,
-  upsertMeasurement,
-} = require("../dbs/repositories/measurement.repo");
+const { upsertMeasurement } = require("../dbs/repositories/measurement.repo");
 
 class DeviceService {
   static getAllDevices = async ({ serial_number }) => {
     const devices = await getDevicesBySerialNumber(serial_number);
-    if (!devices || devices.length === 0) {
-      throw new NotFoundError("No devices found");
-    }
-
-    return {
-      message: "Get devices successfully",
-      metadata: devices,
-    };
-  };
-  static getAllDevicesHave = async () => {
-    const devices = await getAllDevices();
     if (!devices || devices.length === 0) {
       throw new NotFoundError("No devices found");
     }

@@ -94,11 +94,6 @@ const deleteScheduleByDevice = async (device_id, action_time, action_day) => {
   return result;
 };
 
-const deleteAllSchedule = async () => {
-  const result = await prisma.schedule.deleteMany({});
-  return result;
-};
-
 const getSchedule = async (schedule) => {
   return await prisma.schedule
     .findUnique({
@@ -116,23 +111,6 @@ const getSchedule = async (schedule) => {
     });
 };
 
-const getSchedules = async () => {
-  const now = new Date();
-  const nowVN = new Date(now.getTime() + 7 * 60 * 59 * 1000);
-  const twoMinutesLater = new Date(nowVN.getTime() + 2 * 60 * 1000);
-  const schedules = await prisma.schedule.findMany({
-    where: {
-      action_time: {
-        gte: nowVN,
-        lte: twoMinutesLater,
-      },
-    },
-    include: {
-      device: true,
-    },
-  });
-  return schedules;
-};
 const getAllSchedule = async () => {
   const schedules = await prisma.schedule.findMany({
     where: {
@@ -147,8 +125,6 @@ module.exports = {
   updateDeviceSchedule,
   deleteScheduleByDevice,
   getSchedule,
-  getSchedules,
   getAllSchedule,
   activateSchedule,
-  deleteAllSchedule,
 };

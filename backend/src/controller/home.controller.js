@@ -12,6 +12,11 @@ class HomeController {
     return res.status(200).json(response);
   };
 
+  removeUserFromHomeById = async (req, res) => {
+    const response = await HomeService.removeUserFromHomeById(req.body);
+    return res.status(200).json(response);
+  };
+
   getHomeBySerialNumber = async (req, res) => {
     const response = await HomeService.getHomeBySerialNumber(req.params);
     return res.status(200).json(response);
