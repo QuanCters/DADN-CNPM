@@ -209,6 +209,38 @@ router.post(
  */
 router.post("/user/logout", asyncHandler(accessController.logout));
 
-router.post("/door/unlock", asyncHandler(accessController.unlockDoor));
+/**
+ * @swagger
+ * '/v1/api/user/unlock':
+ *  post:
+ *     tags:
+ *     - Access controller
+ *     summary: Unlock door
+ *     requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required:
+ *              - device_id
+ *              - password
+ *            properties:
+ *              device_id:
+ *                type: integer
+ *              password:
+ *                type: string
+ *                format: password
+ *     responses:
+ *      200:
+ *        description: Unlock successfully
+ *      400:
+ *        description: Bad Request (Invalid or missing token)
+ *      401:
+ *        description: Unauthorized (Token is invalid or expired)
+ *      500:
+ *        description: Server error
+ */
+router.post("/user/unlock", asyncHandler(accessController.unlockDoor));
 
 module.exports = router;

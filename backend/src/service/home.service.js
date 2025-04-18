@@ -11,6 +11,7 @@ const {
   updateManagerByHomeId,
   getHomeByHomeId,
   getHomeBySerialNumber,
+  removeUserFromHomeById,
 } = require("../dbs/repositories/home.repo");
 
 const {
@@ -52,6 +53,17 @@ class HomeService {
     return {
       status: 200,
       message: "Add User Successfully",
+    };
+  }
+
+  static async removeUserFromHomeById({ userId, homeId }) {
+    const result = await removeUserFromHomeById(userId, homeId);
+    if (!result) {
+      throw new BadRequestError("Remove failed");
+    }
+    return {
+      status: 200,
+      message: "Remove Successfully",
     };
   }
 

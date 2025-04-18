@@ -63,29 +63,6 @@ router.get("/:serialNumber", asyncHandler(deviceController.getAllDevices));
 
 /**
  * @swagger
- * '/v1/api/device/all':
- *  get:
- *     tags:
- *     - Device controller
- *     summary: Get all devices
- *     produces:
- *     - application/json
- *     responses:
- *       200:
- *         description: Devices retrieved successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Device'
- *       500:
- *         description: Server error
- */
-router.get("/all", asyncHandler(deviceController.getAllDevicesHave));
-
-/**
- * @swagger
  * '/v1/api/device/user/{userId}':
  *  get:
  *     tags:

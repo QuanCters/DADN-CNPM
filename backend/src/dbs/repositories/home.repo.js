@@ -55,6 +55,21 @@ const addUserToHomeById = async (userId, homdeId) => {
   return result;
 };
 
+const removeUserFromHomeById = async (userId, homeId) => {
+  const result = await prisma.user_have_home
+    .delete({
+      where: {
+        user_id_home_id: {
+          user_id: parseInt(userId),
+          home_id: parseInt(homeId),
+        },
+      },
+    })
+    .catch((error) => console.error(error));
+
+  return result;
+};
+
 const updateManagerByHomeId = async (userId, home_id) => {
   const result = await prisma.home
     .update({
@@ -120,4 +135,5 @@ module.exports = {
   getHomeByHomeId,
   getHomeBySerialNumber,
   getDevicesByHomeId,
+  removeUserFromHomeById,
 };
