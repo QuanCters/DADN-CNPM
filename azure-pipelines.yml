@@ -1,0 +1,78 @@
+trigger:
+  - main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  - group: Deploy Backend DADN  # Nhóm biến chứa DATABASE_URL, REDIS_URL, ...
+
+steps:
+
+# Cài Node.js
+- task: NodeTool@0
+  inputs:
+    versionSpec: '22.x'
+  displayName: 'Cài đặt Node.js 22'
+
+# Cài dependency
+- script: |
+    npm ci
+  displayName: 'Cài đặt phụ thuộc'
+
+# Prisma: migrate + generate
+- script: |
+    npx prisma generate
+    npx prisma migrate deploy
+  displayName: 'Apply Prisma migrations'
+  env:
+    DATABASE_URL: $(DATABASE_URL)
+
+# Tạo file zip để deploy
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/app.zip'
+    replaceExistingArchive: true
+  displayName: 'Đóng gói ứng dụng'
+
+# Xuất artifact
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+
+- task: AzureAppServiceSettings@1
+  inputs:
+    azureSubscription: 'Azure for Students(c9ca51c6-6241-4da0-891b-f9a20cdcff8d)'
+    appName: 'DADN-group16'
+    resourceGroupName: 'dadn-iot'
+    appSettings: |
+      [
+        {
+          "name": "DATABASE_URL",
+          "value": "$(DATABASE_URL)",
+          "slotSetting": false
+        },
+        {
+          "name": "REDIS_URL",
+          "value": "$(REDIS_URL)",
+          "slotSetting": false
+        }
+      ]
+  displayName: 'Thiết lập App Settings'
+
+# Deploy đến Azure Web App
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Azure for Students(c9ca51c6-6241-4da0-891b-f9a20cdcff8d)'
+    appType: 'webAppLinux'
+    appName: 'DADN-group16'
+    resourceGroupName: 'dadn-iot'
+    slotName: 'production'
+    package: '$(Build.ArtifactStagingDirectory)/app.zip'
+    runtimeStack: 'NODE|22-lts'
+    startUpCommand: 'node server.js'
+  displayName: 'Triển khai đến Azure App Service'
