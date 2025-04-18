@@ -34,8 +34,10 @@ const LoginScreen = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            email: state.email,
-            password: state.password,
+            // email: state.email,
+            // password: state.password,
+            email: "voquynhchantran120804@gmail.com",
+            password: "quangamingvn123",
           }),
         }
       );

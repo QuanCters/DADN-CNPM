@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import { device } from "../../backend/src/generated/client/index";
@@ -13,12 +13,14 @@ interface Item {
 
 const NotificationBoard = () => {
   const [notifications, setNotifications] = useState<Item[]>([]);
-  const home = useSelector((state: any) =>
-    state.user.homes.filter(
-      (home: any) => home.home_id == state.user.selectedHome
-    )
+  const home = useSelector((state: any) => state.user.homes);
+  const selectedHome = useSelector((state: any) => state.user.selectedHome);
+  const filteredHome = useMemo(
+    () => home.filter((h: any) => h.home_id === selectedHome),
+    [home, selectedHome]
   );
-  const deviceList = home.length > 0 ? home[0].devices : [];
+
+  const deviceList = filteredHome.length > 0 ? home[0].devices : [];
 
   useEffect(() => {
     const callAPI = async () => {
@@ -39,7 +41,6 @@ const NotificationBoard = () => {
           })
         );
 
-        console.log(deviceNotifications);
         const allNotifications = deviceNotifications.flat();
         setNotifications(allNotifications);
       } catch (error) {
