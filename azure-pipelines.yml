@@ -33,12 +33,12 @@ steps:
 # Tạo file zip để deploy
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/backend'
     includeRootFolder: false
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/app.zip'
     replaceExistingArchive: true
-  displayName: 'Đóng gói ứng dụng'
+  displayName: 'Đóng gói backend'
 
 # Xuất artifact
 - task: PublishBuildArtifacts@1
