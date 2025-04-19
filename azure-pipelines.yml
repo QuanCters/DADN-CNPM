@@ -5,7 +5,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  - group: Deploy Backend DADN  # Nhóm biến chứa DATABASE_URL, REDIS_URL, ...
+  - group: Deploy Backend DADN
 
 steps:
 
@@ -30,6 +30,12 @@ steps:
   env:
     DATABASE_URL: $(DATABASE_URL)
 
+# Kiểm tra thư mục backend
+- script: |
+    echo "Listing files in backend directory:"
+    ls -la $(System.DefaultWorkingDirectory)/backend
+  displayName: 'Kiểm tra thư mục backend'
+
 # Tạo file zip để deploy
 - task: ArchiveFiles@2
   inputs:
@@ -40,12 +46,19 @@ steps:
     replaceExistingArchive: true
   displayName: 'Đóng gói backend'
 
+# Kiểm tra file app.zip
+- script: |
+    echo "Checking if app.zip exists:"
+    ls -la $(Build.ArtifactStagingDirectory)/app.zip
+  displayName: 'Kiểm tra file app.zip'
+
 # Xuất artifact
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
 
+# Thiết lập App Settings
 - task: AzureAppServiceSettings@1
   inputs:
     azureSubscription: 'Azure for Students(c9ca51c6-6241-4da0-891b-f9a20cdcff8d)'
@@ -73,7 +86,8 @@ steps:
     appType: 'webAppLinux'
     appName: 'DADN-group16'
     resourceGroupName: 'dadn-iot'
-    package: '$(System.DefaultWorkingDirectory)/app.zip'
+    slotName: 'production'
+    package: '$(Build.ArtifactStagingDirectory)/app.zip'
     runtimeStack: 'NODE|22-lts'
     startUpCommand: 'node server.js'
   displayName: 'Triển khai đến Azure App Service'
