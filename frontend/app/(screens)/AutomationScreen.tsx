@@ -1,79 +1,38 @@
 import QuickAccessCard from "@/components/QuickAccessCard";
 import WelcomeCard from "@/components/WelcomeCard";
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
-import { deviceTypes } from "@/constants/deviceType";
 import roomTypes from "@/constants/roomType";
 import { router } from "expo-router";
-
-type DeviceItem = {
-  id: number;
-  deviceType: keyof typeof deviceTypes;
-  roomName: string;
-};
-
-const devices: DeviceItem[] = [
-  {
-    id: 1,
-    deviceType: "airConditioner",
-    roomName: roomTypes.livingRoom,
-  },
-  {
-    id: 2,
-    deviceType: "fan",
-    roomName: roomTypes.bedroom,
-  },
-  {
-    id: 3,
-    deviceType: "fan",
-    roomName: roomTypes.bedroom,
-  },
-  {
-    id: 4,
-    deviceType: "fan",
-    roomName: roomTypes.bedroom,
-  },
-  {
-    id: 5,
-    deviceType: "fan",
-    roomName: roomTypes.bedroom,
-  },
-  {
-    id: 6,
-    deviceType: "fan",
-    roomName: roomTypes.bedroom,
-  },
-  {
-    id: 7,
-    deviceType: "fan",
-    roomName: roomTypes.bedroom,
-  },
-  {
-    id: 8,
-    deviceType: "fan",
-    roomName: roomTypes.bedroom,
-  },
-  {
-    id: 9,
-    deviceType: "fan",
-    roomName: roomTypes.bedroom,
-  },
-];
+import { useSelector } from "react-redux";
+import { deviceTypes } from "@/constants/deviceType";
+import Device from "@/interface/device.interface";
+import Home from "@/interface/home.interface";
+import { RootState } from "@/redux/store";
 
 const AutomationScreen = () => {
+  const homeId = useSelector((state: RootState) => state.user.selectedHome);
+  const devices = useSelector((state: RootState) => {
+    const home = state.user.homes.find((home: Home) => home.home_id === homeId);
+    if (!home) return null;
+    const devices = home.devices.filter((device: Device) =>
+      ["fan", "light"].includes(device.type)
+    );
+    return devices;
+  });
+
   const getDevicePathname = (deviceType: string) => {
     switch (deviceType) {
       case "fan":
         return "/(deviceconfig)/Fan";
       case "light":
         return "/(deviceconfig)/Light";
-      case "airConditioner":
-        return "/(deviceconfig)/AirConditioner";
       default:
         console.warn(`Invalid device type: ${deviceType}`);
         return null;
     }
   };
+
   return (
     <View style={styles.container}>
       <WelcomeCard onScreen="automation" />
@@ -81,13 +40,14 @@ const AutomationScreen = () => {
         style={styles.flatList}
         data={devices}
         renderItem={({ item }) => {
-          const pathname = getDevicePathname(item.deviceType);
+          const pathname = getDevicePathname(item.type);
           if (!pathname) return null;
           return (
             <QuickAccessCard
-              deviceType={item.deviceType}
-              roomName={item.roomName}
-              havingSwitch={["light", "fan"].includes(item.deviceType)}
+              id={item.id}
+              deviceType={item.type}
+              roomName={item.room_name}
+              havingSwitch={["light", "fan"].includes(item.type)}
               onPress={() =>
                 router.push({
                   pathname: pathname,

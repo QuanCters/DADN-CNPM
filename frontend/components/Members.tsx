@@ -4,7 +4,6 @@ import Entypo from "@expo/vector-icons/Entypo";
 import { useSelector } from "react-redux";
 const Members = () => {
   const info = useSelector((state: any) => state.user);
-  console.log("Info: ", info);
   const [users, setUsers] = React.useState<
     | [
         {
@@ -35,7 +34,6 @@ const Members = () => {
           throw new Error("Failed to fetch members");
         }
         const data = await res.json();
-        console.log("Members data: ", data.users);
         for (let user of data.users) {
           const res = await fetch(
             process.env.EXPO_PUBLIC_BACKEND_URL + "/user/" + user.user_id,
@@ -51,10 +49,10 @@ const Members = () => {
             throw new Error("Failed to fetch user info");
           }
           let userInfo = (await res.json()).user;
-          console.log("User info: ", userInfo);
           // @ts-ignore
           setUsers((prev) => {
             if (!prev) return [userInfo];
+            if (prev.find((u) => u.id === userInfo.id)) return prev;
             return [...prev, userInfo];
           });
         }
