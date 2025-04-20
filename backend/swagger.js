@@ -10,7 +10,8 @@ const options = {
       version: "1.0.0",
     },
   },
-  apis: ["./src/routes/*.js", "./src/routes/**/*.js"],
+  // apis: ["./src/routes/*.js", "./src/routes/**/*.js"],
+  apis: ["./src/modules/**/*.js", "./src/routes/**/*.js"],
   requestInterceptor: function (request) {
     request.headers.Origin = `http://localhost:8000`;
     return request;

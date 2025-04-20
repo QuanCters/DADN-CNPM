@@ -33,7 +33,7 @@ app.use(
 );
 
 // init db
-const initRedis = require("./dbs/init.redis");
+const initRedis = require("./database/init.redis");
 initRedis.initRedis();
 
 // init scheduler

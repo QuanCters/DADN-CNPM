@@ -1,10 +1,10 @@
 require("dotenv").config();
 const axios = require("axios");
-const { getRedisClient } = require("../dbs/init.redis");
+const { getRedisClient } = require("../database/init.redis");
 const { sendFCMMessage } = require("./FCM");
-const { updateDeviceStatus } = require("../service/device.service");
-const { getUserByHomeId } = require("../dbs/repositories/home.repo");
-const { createNotification } = require("../dbs/repositories/notification.repo");
+const { updateDeviceStatus } = require("../modules/device/device.service");
+const { getUserByHomeId } = require("../repositories/home.repo");
+const { createNotification } = require("../repositories/notification.repo");
 const AIO_USERNAME = process.env.AIO_USERNAME;
 const AIO_KEY = process.env.AIO_KEY;
 const AIO_BASE_URL = process.env.AIO_BASE_URL;
@@ -93,7 +93,7 @@ const sendMessage = async (deviceResponse, homeResponse, device_id, value) => {
     await sendFCMMessage(foundToken, payload);
   }
 
-  return await response.json();
+  return await responseAda.json();
 };
 
 module.exports = { controlDevice, getDeviceStatus, sendMessage };
