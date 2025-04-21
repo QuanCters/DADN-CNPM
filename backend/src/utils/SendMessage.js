@@ -1,14 +1,9 @@
 require("dotenv").config();
-const axios = require("axios");
 const { getRedisClient } = require("../dbs/init.redis");
-const { sendFCMMessage } = require("./FCM");
+const admin = require("firebase-admin");
 const { updateDeviceStatus } = require("../service/device.service");
-const { getUserByHomeId } = require("../dbs/repositories/home.repo");
+const { getUserByHomeId } = require("../dbs/repositories/user.repo");
 const { createNotification } = require("../dbs/repositories/notification.repo");
-const AIO_USERNAME = process.env.AIO_USERNAME;
-const AIO_KEY = process.env.AIO_KEY;
-const AIO_BASE_URL = process.env.AIO_BASE_URL;
-const HEADERS = { "X-AIO-Key": AIO_KEY };
 
 const roomName = {
   bedroom: "Bed Room",
@@ -22,25 +17,17 @@ const deviceName = {
   fan: "Fan",
 };
 
-const controlDevice = async (deviceKey, value) => {
-  const response = await axios.post(
-    `${AIO_BASE_URL}/${AIO_USERNAME}/feeds/${deviceKey}/data`,
-    { value },
-    { headers: HEADERS }
-  );
-  return response.data;
-};
-const getDeviceStatus = async (deviceKey) => {
-  const response = await axios
-    .get(`${AIO_BASE_URL}/${AIO_USERNAME}/feeds/${deviceKey}`, {
-      headers: HEADERS,
-    })
-    .catch((err) => {
-      console.error(err);
-      throw err;
+const sendFCMMessage = async (token, payload) => {
+  try {
+    const response = await admin.messaging().send({
+      token,
+      ...payload,
     });
-
-  return response.data.last_value;
+    return response;
+  } catch (error) {
+    console.error("FCM send error:", error);
+    throw error;
+  }
 };
 
 const sendMessage = async (deviceResponse, homeResponse, device_id, value) => {
@@ -96,4 +83,4 @@ const sendMessage = async (deviceResponse, homeResponse, device_id, value) => {
   return await response.json();
 };
 
-module.exports = { controlDevice, getDeviceStatus, sendMessage };
+module.exports = { sendMessage };
