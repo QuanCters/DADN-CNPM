@@ -36,6 +36,7 @@ const ScheduleList = ({ deviceId }: { deviceId: string }) => {
         }
         const data = await response.json();
         setSchedule(data.metadata);
+        console.log("Schedule data: ", data.metadata);
         setIsLoading(false);
       } catch (error) {
         setError("Error fetching schedule: " + error);
@@ -234,11 +235,15 @@ const ScheduleList = ({ deviceId }: { deviceId: string }) => {
         <Text>{error}</Text>
       ) : (
         <>
-          <FlatList
-            data={schedule}
-            keyExtractor={(item) => String(item.device_id) + item.action_time}
-            renderItem={renderAlarmItem}
-          />
+          {schedule && schedule?.length > 0 ? (
+            <FlatList
+              data={schedule}
+              keyExtractor={(item) => String(item.device_id) + item.action_time}
+              renderItem={renderAlarmItem}
+            />
+          ) : (
+            <Text>No schedule yet</Text>
+          )}
           {errorToggle && <Text>{errorToggle}</Text>}
         </>
       )}
