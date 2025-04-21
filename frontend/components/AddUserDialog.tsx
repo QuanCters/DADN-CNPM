@@ -25,46 +25,26 @@ const AddUserDialog: React.FC<DialogProps> = ({
   onModalVisibleChange,
   setIsAccess,
 }) => {
-  const [messAndHomeSeries, setMessAndHomeSeries] = useState({
-    homeSeries: "",
-    message: "Enter Your home series",
+  const [messAndUserMail, setMessAndUserMail] = useState({
+    UserMail: "",
+    message: "Enter user email",
   });
 
-  const userId = useSelector((state: any) => state.user.user_id);
-
-  const dispatch = useDispatch();
+  const info = useSelector((state: any) => state.user);
 
   const handleAddHome = async () => {
-    const { homeSeries } = messAndHomeSeries;
+    const { UserMail } = messAndUserMail;
 
-    if (!homeSeries) {
-      setMessAndHomeSeries({
-        homeSeries: "",
-        message: "Please enter a home series",
+    if (!UserMail) {
+      setMessAndUserMail({
+        UserMail: "",
+        message: "Please enter user email",
       });
       return;
     }
 
     try {
-      const homeResponse: any = await fetch(
-        process.env.EXPO_PUBLIC_BACKEND_URL + "/home/serial/" + homeSeries,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (!homeResponse.ok) {
-        throw new Error("Invalid home series");
-      }
-
-      const homeJson = await homeResponse.json();
-
-      const homeId = homeJson.home.id;
-
+      console.log("UserMail", UserMail);
       const response = await fetch(
         process.env.EXPO_PUBLIC_BACKEND_URL + "/home/add",
         {
@@ -74,27 +54,30 @@ const AddUserDialog: React.FC<DialogProps> = ({
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            userId: userId,
-            homeId: homeId,
+            userEmail: UserMail,
+            homeId: info.selectedHome,
           }),
         }
       );
 
       if (!response.ok) {
+        console.log("response", response);
         throw new Error("Failed to add user to home");
       }
 
-      dispatch(addHome(homeJson.home));
-
       onModalVisibleChange(false);
       setIsAccess(true);
-      Alert.alert("Success", "Home added successfully");
-    } catch (error) {
-      setMessAndHomeSeries({
-        homeSeries: "",
-        message: "Invalid Home Series",
+      setMessAndUserMail({
+        UserMail: "",
+        message: "Enter user email",
       });
-      Alert.alert("Error", "Failed to add home. Please try again.");
+      Alert.alert("Success", "User added successfully");
+    } catch (error) {
+      setMessAndUserMail({
+        UserMail: "",
+        message: "Invalid User email",
+      });
+      Alert.alert("Error", "Failed to add user. Please try again.");
     }
   };
 
@@ -116,11 +99,11 @@ const AddUserDialog: React.FC<DialogProps> = ({
           {/* Input Field */}
           <TextInput
             style={styles.input}
-            placeholder={messAndHomeSeries.message}
-            value={messAndHomeSeries.homeSeries}
+            placeholder={messAndUserMail.message}
+            value={messAndUserMail.UserMail}
             onChangeText={(text) => {
-              setMessAndHomeSeries({
-                homeSeries: text,
+              setMessAndUserMail({
+                UserMail: text,
                 message: "Enter User email",
               });
             }}

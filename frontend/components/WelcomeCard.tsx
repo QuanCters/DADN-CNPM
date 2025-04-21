@@ -53,9 +53,29 @@ const getCurrentDate = () => {
   const dateStr = `${monthNames[month]} ${day}${daySuffix}`;
   return dateStr;
 };
-
-const NOTIFICATION_COUNT = 3;
-
+const HomeUI = ({ notificationCount }: { notificationCount: number }) => (
+  <View>
+    <Fontisto name="bell-alt" size={24} color={Colors.iconBackground} />
+    {notificationCount > 0 && (
+      <View style={styles.notificationCount}>
+        <Text style={{ color: "white", fontSize: 12 }}>
+          {notificationCount}
+        </Text>
+      </View>
+    )}
+  </View>
+);
+const UserUI = ({ home }: { home: Home }) => (
+  <Text
+    style={{
+      color: Colors.iconBackground,
+      fontSize: 16,
+      fontWeight: "bold",
+    }}
+  >
+    Home: {home?.home_name}
+  </Text>
+);
 type WelcomeCardProps = {
   onScreen: "home" | "automation" | "user";
   setIsOpenPrompt?: (isOpen: boolean) => void;
@@ -70,10 +90,11 @@ const WelcomeCard = (props: WelcomeCardProps) => {
   console.log("userInfo: ", userInfo);
   const selectedHome = useSelector((state: any) => state.user.selectedHome);
   const homes: Home[] = useSelector((state: any) => state.user.homes);
+  const [totalNotiUnread, setTotalNotiUnread] = useState<number>(0);
   const home: Home = homes.filter(
     (home: any) => home.home_id === selectedHome
   )[0];
-  console.log(homes);
+  console.log("HOME: ", home);
 
   useEffect(() => {
     if (home) {
@@ -104,33 +125,35 @@ const WelcomeCard = (props: WelcomeCardProps) => {
     }
   }, [home]);
 
-  const homeUI = (
-    <>
-      <Fontisto name="bell-alt" size={24} color={Colors.iconBackground} />
-      {NOTIFICATION_COUNT > 0 && (
-        <View style={styles.notificationCount}>
-          <Text style={{ color: "white", fontSize: 12 }}>
-            {NOTIFICATION_COUNT}
-          </Text>
-        </View>
-      )}
-    </>
-  );
-
-  const userUI = (
-    <>
-      {/* <AntDesign name="setting" size={24} color={Colors.iconBackground} /> */}
-      <Text
-        style={{
-          color: Colors.iconBackground,
-          fontSize: 16,
-          fontWeight: "bold",
-        }}
-      >
-        Home: {home.home_name}
-      </Text>
-    </>
-  );
+  useEffect(() => {
+    const fetchNotification = async () => {
+      try {
+        for (const device of home.devices) {
+          const response = await fetch(
+            process.env.EXPO_PUBLIC_BACKEND_URL + "/notification/" + device.id,
+            {
+              method: "GET",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          if (!response.ok) {
+            throw new Error("Failed to fetch notifications");
+          }
+          const data = await response.json();
+          if (data.is_read) {
+            setTotalNotiUnread((prev) => prev + 1);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching notifications: ", error);
+      }
+    };
+    fetchNotification();
+  }, [home]);
+  console.log("Total unread notifications: ", totalNotiUnread);
 
   return (
     <View style={styles.container}>
@@ -159,7 +182,11 @@ const WelcomeCard = (props: WelcomeCardProps) => {
             Hi, {userInfo.first_name} {userInfo.last_name}
           </Title>
           <View></View>
-          {props.onScreen === "home" ? homeUI : userUI}
+          {props.onScreen === "home" ? (
+            <HomeUI notificationCount={totalNotiUnread} />
+          ) : (
+            home && <UserUI home={home} />
+          )}
         </View>
       ) : (
         <Title ownStyle={{ color: "white", paddingHorizontal: 16 }}>
@@ -167,6 +194,7 @@ const WelcomeCard = (props: WelcomeCardProps) => {
         </Title>
       )}
       {props.onScreen === "user" && (
+        // @ts-ignore
         <Members setIsOpenPrompt={props.setIsOpenPrompt} />
       )}
     </View>
