@@ -17,6 +17,7 @@ const {
 const {
   getMeasurementByHomeId,
 } = require("../dbs/repositories/measurement.repo");
+const { getUserByEmail } = require("../dbs/repositories/user.repo");
 
 class HomeService {
   static async getHomeByUserId({ userId }) {
@@ -31,13 +32,19 @@ class HomeService {
     };
   }
 
-  static async addUserToHomeById({ userId, homeId }) {
-    const foundHome = await getHomeByUserId(userId);
-    if (foundHome.home_id === userId) {
+  static async addUserToHomeById({ userEmail, homeId }) {
+    const foundUser = await getUserByEmail(userEmail);
+
+    if (!foundUser) {
+      throw new BadRequestError("User not found");
+    }
+
+    const foundHome = await getHomeByUserId(foundUser.id);
+    if (foundHome.home_id === homeId) {
       throw new ConflictRequestError("User already in home");
     }
 
-    const result = await addUserToHomeById(userId, homeId);
+    const result = await addUserToHomeById(foundUser.id, homeId);
     if (!result) {
       throw new BadRequestError("Home not found");
     }
