@@ -1,8 +1,19 @@
 import React, { useEffect } from "react";
-import { View, StyleSheet, Image, FlatList, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  FlatList,
+  Text,
+  Pressable,
+} from "react-native";
 import Entypo from "@expo/vector-icons/Entypo";
 import { useSelector } from "react-redux";
-const Members = () => {
+
+interface Props {
+  setIsOpenPrompt: (isOpen: boolean) => void;
+}
+const Members = ({ setIsOpenPrompt }: Props) => {
   const info = useSelector((state: any) => state.user);
   const [users, setUsers] = React.useState<
     | [
@@ -95,7 +106,9 @@ const Members = () => {
         style={{ flex: 1, justifyContent: "center", alignItems: "flex-end" }}
       >
         <View style={styles.iconWrapper}>
-          <Entypo name="plus" size={20} color="#fff" />
+          <Pressable onPress={() => setIsOpenPrompt(true)}>
+            <Entypo name="plus" size={20} color="#fff" />
+          </Pressable>
         </View>
       </View>
     </View>

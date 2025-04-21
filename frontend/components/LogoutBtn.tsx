@@ -15,8 +15,7 @@ const LogoutBtn = () => {
           // Handle logout logic here
           dispatch(logout());
           // navigate to login screen or perform any other action
-          router.push(`/(login)/LoginScreen`);
-          console.log("Logout button pressed");
+          router.push(`/`);
         }}
         style={{
           backgroundColor: "#9ACBD0",

@@ -58,6 +58,7 @@ const NOTIFICATION_COUNT = 3;
 
 type WelcomeCardProps = {
   onScreen: "home" | "automation" | "user";
+  setIsOpenPrompt?: (isOpen: boolean) => void;
 };
 const WelcomeCard = (props: WelcomeCardProps) => {
   const [connected, setConnected] = useState<boolean>(false);
@@ -165,7 +166,9 @@ const WelcomeCard = (props: WelcomeCardProps) => {
           Automation
         </Title>
       )}
-      {props.onScreen === "user" && <Members />}
+      {props.onScreen === "user" && (
+        <Members setIsOpenPrompt={props.setIsOpenPrompt} />
+      )}
     </View>
   );
 };
