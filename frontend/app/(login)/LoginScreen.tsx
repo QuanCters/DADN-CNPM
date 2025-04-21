@@ -14,16 +14,17 @@ import LoginFormValues from "@/interface/loginFormValues.interface";
 
 const LoginScreen = () => {
   const dispatch = useDispatch();
-  // const [formState, formAction, pending] = useActionState();
-
   const [state, setState] = useState<LoginFormValues>({
     email: "",
     password: "",
   });
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async () => {
     console.log("Login form submitted:", state);
     try {
+      setIsLoading(true);
       const response = await fetch(
         process.env.EXPO_PUBLIC_BACKEND_URL + "/user/login",
         {
@@ -35,13 +36,15 @@ const LoginScreen = () => {
           body: JSON.stringify({
             email: state.email,
             password: state.password,
+            // email: "voquynhchantran120804@gmail.com",
+            // password: "quangamingvn123",
           }),
         }
       );
-
       const result = await response.json();
 
       if (result.status === 200) {
+        setIsLoading(false);
         const home = await fetch(
           process.env.EXPO_PUBLIC_BACKEND_URL + "/device/user/" + result.userId,
           {
@@ -82,10 +85,14 @@ const LoginScreen = () => {
 
         router.push("/(screens)/HomeScreen");
       } else {
+        setError(result.message);
+        setIsLoading(false);
         console.error("Login failed:", result.message);
       }
     } catch (error) {
       console.error("Error during login:", error);
+      setIsLoading(false);
+      setError("An error occurred. Please try again.");
     }
   };
 
@@ -123,9 +130,17 @@ const LoginScreen = () => {
         </TouchableOpacity>
       </View>
 
+      {error && (
+        <View>
+          <Text>{error}</Text>
+        </View>
+      )}
+
       <View style={styles.loginButtonContainer}>
         <TouchableOpacity style={styles.loginButton} onPress={handleSubmit}>
-          <Text style={styles.loginButtonText}>Sign in</Text>
+          <Text style={styles.loginButtonText}>
+            {isLoading ? "Loading ..." : "Sign in"}
+          </Text>
         </TouchableOpacity>
       </View>
 

@@ -10,18 +10,20 @@ const {
   getDeviceById,
   getDevicesBySerialNumber,
   updateDeviceStatus,
-  getAllDevices,
 } = require("../dbs/repositories/device.repo");
 const {
   getHomeByUserId,
   getHomeBySerialNumber,
 } = require("../dbs/repositories/home.repo");
+const {
+  findExistingOpenLog,
+  createLogEvent,
+  findLatestOnLog,
+  updateLogEvent,
+} = require("../dbs/repositories/logevent.repo");
+const { upsertMeasurement } = require("../dbs/repositories/measurement.repo");
 
 class DeviceService {
-  /**
-   * 1 - Lấy danh sách thiết bị theo serial_number (nếu có)
-   * 2 - Trả về danh sách thiết bị
-   */
   static getAllDevices = async ({ serial_number }) => {
     const devices = await getDevicesBySerialNumber(serial_number);
     if (!devices || devices.length === 0) {
@@ -33,22 +35,7 @@ class DeviceService {
       metadata: devices,
     };
   };
-  static getAllDevicesHave = async () => {
-    const devices = await getAllDevices();
-    if (!devices || devices.length === 0) {
-      throw new NotFoundError("No devices found");
-    }
 
-    return {
-      message: "Get devices successfully",
-      metadata: devices,
-    };
-  };
-  /**
-   * 1 - Tìm thiết bị theo ID
-   * 2 - Nếu không tồn tại, trả về lỗi
-   * 3 - Trả về thông tin thiết bị
-   */
   static getDeviceById = async ({ device_id }) => {
     const device = await getDeviceById(device_id);
     if (!device) {
@@ -61,12 +48,6 @@ class DeviceService {
     };
   };
 
-  /**
-   * 1 - Kiểm tra thiết bị có tồn tại hay không
-   * 2 - Nếu không tồn tại, trả về lỗi
-   * 3 - Cập nhật trạng thái thiết bị
-   * 4 - Trả về kết quả cập nhật
-   */
   static updateDeviceStatus = async ({ device_id, status }) => {
     const updatedDevice = await updateDeviceStatus(device_id, status);
     if (!updatedDevice) {
@@ -93,44 +74,31 @@ class DeviceService {
       throw new BadRequestError("Error update status to Adafruit");
     }
 
-    return {
-      message: "Update device status successfully",
-      metadata: updatedDevice,
-    };
-  };
+    if (status === "on") {
+      const existingOpenLog = await findExistingOpenLog(device_id);
+      if (!existingOpenLog) {
+        await createLogEvent(device_id);
+      }
+    } else if (status === "off") {
+      const latestOnLog = await findLatestOnLog(device_id);
+      if (latestOnLog) {
+        const timeOut = new Date();
+        const durationHours =
+          (timeOut.getTime() - latestOnLog.time_in.getTime()) / (1000 * 3600);
+        const device = await getDeviceById(device_id);
+        const powerRating = parseFloat(device.power_rating);
 
-  static turnOnDevice = async ({ device_id, value }) => {
-    const device = await getDeviceById(device_id);
-    if (!device) {
-      throw new NotFoundError("Device not found");
-    }
-    const status = await getDeviceStatus(device.feed);
-    if (status != "0") {
-      throw new ConflictRequestError("Device is already on");
-    }
-    const updatedDevice = await controlDevice(device.feed, `${value}`);
-    if (!updatedDevice) {
-      throw new ConflictRequestError("Failed to update device status");
-    }
+        const newConsumption = powerRating * durationHours;
+        const monthStart = new Date(timeOut.getFullYear(), timeOut.getMonth());
 
-    return {
-      message: "Update device status successfully",
-      metadata: updatedDevice,
-    };
-  };
-
-  static turnOffDevice = async ({ device_id }) => {
-    const device = await getDeviceById(device_id);
-    if (!device) {
-      throw new NotFoundError("Device not found");
-    }
-    const status = await getDeviceStatus(device.feed);
-    if (status == "0") {
-      throw new ConflictRequestError("Device is already off");
-    }
-    const updatedDevice = await controlDevice(device.feed, "0");
-    if (!updatedDevice) {
-      throw new ConflictRequestError("Failed to update device status");
+        await upsertMeasurement(
+          durationHours,
+          newConsumption,
+          device_id,
+          monthStart
+        );
+        await updateLogEvent(latestOnLog.id, timeOut);
+      }
     }
 
     return {

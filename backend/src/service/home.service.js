@@ -11,7 +11,13 @@ const {
   updateManagerByHomeId,
   getHomeByHomeId,
   getHomeBySerialNumber,
+  removeUserFromHomeById,
 } = require("../dbs/repositories/home.repo");
+
+const {
+  getMeasurementByHomeId,
+} = require("../dbs/repositories/measurement.repo");
+const { getUserByEmail } = require("../dbs/repositories/user.repo");
 
 class HomeService {
   static async getHomeByUserId({ userId }) {
@@ -26,13 +32,19 @@ class HomeService {
     };
   }
 
-  static async addUserToHomeById({ userId, homeId }) {
-    const foundHome = await getHomeByUserId(userId);
-    if (foundHome.home_id === userId) {
+  static async addUserToHomeById({ userEmail, homeId }) {
+    const foundUser = await getUserByEmail(userEmail);
+
+    if (!foundUser) {
+      throw new BadRequestError("User not found");
+    }
+
+    const foundHome = await getHomeByUserId(foundUser.id);
+    if (foundHome.home_id === homeId) {
       throw new ConflictRequestError("User already in home");
     }
 
-    const result = await addUserToHomeById(userId, homeId);
+    const result = await addUserToHomeById(foundUser.id, homeId);
     if (!result) {
       throw new BadRequestError("Home not found");
     }
@@ -51,28 +63,14 @@ class HomeService {
     };
   }
 
-  static async addUserToGroupById({ userId, homeId, managerId }) {
-    const foundHome = await getHomeByUserId(userId);
-    if (foundHome.home_id === userId) {
-      throw new ConflictRequestError("User already in home");
-    }
-
-    const result = await addUserToHomeById(userId, homeId);
+  static async removeUserFromHomeById({ userId, homeId }) {
+    const result = await removeUserFromHomeById(userId, homeId);
     if (!result) {
-      throw new BadRequestError("Home not found");
-    }
-
-    const home = await getHomeByHomeId(homeId);
-
-    if (!home.manager_id) {
-      const temp = await updateManagerByHomeId(userId, homeId);
-      if (!temp) {
-        throw new BadRequestError("Error during add manager");
-      }
+      throw new BadRequestError("Remove failed");
     }
     return {
       status: 200,
-      message: "Add User Successfully",
+      message: "Remove Successfully",
     };
   }
 
@@ -88,6 +86,18 @@ class HomeService {
       status: 200,
       message: "Get home successfully",
       home: { ...result, devices: devices },
+    };
+  }
+
+  static async getMeasurementByHomeId({ home_id }) {
+    const result = await getMeasurementByHomeId(home_id);
+    if (!result) {
+      throw new BadRequestError("Home not found");
+    }
+
+    return {
+      status: 200,
+      result: result,
     };
   }
 }

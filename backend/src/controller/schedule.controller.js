@@ -14,25 +14,6 @@ class ScheduleController {
     });
     return res.status(201).json(response);
   };
-  createScheduleFull = async (req, res) => {
-    const device_id = Number(req.params.device_id);
-    const { time_on, time_off, value } = req.body;
-    const response = await ScheduleService.createScheduleFull({
-      device_id,
-      time_on,
-      time_off,
-      value,
-    });
-    return res.status(201).json(response);
-  };
-  getSchedules = async (req, res) => {
-    const response = await ScheduleService.getSchedules(req.body);
-    return res.status(200).json(response);
-  };
-  getAllSchedule = async (req, res) => {
-    const response = await ScheduleService.getAllSchedule();
-    return res.status(200).json(response);
-  };
   getScheduleByDevice = async (req, res) => {
     const response = await ScheduleService.getScheduleByDevice({
       device_id: Number(req.params.device_id),

@@ -12,19 +12,31 @@ const insertUser = async (user) => {
   return result;
 };
 
-const getAllUsers = async () => {
-  const result = await prisma.users.findMany().catch((error) => {
-    console.error(error);
-    throw error;
-  });
-  return result;
-};
-
 const getUserByEmail = async (email) => {
   const result = await prisma.users
     .findUnique({
       where: {
         email: email,
+      },
+    })
+    .catch((error) => {
+      console.error(error);
+      throw error;
+    });
+  return result;
+};
+
+const getUserByUserId = async (user_id) => {
+  const result = await prisma.users
+    .findUnique({
+      where: {
+        id: parseInt(user_id),
+      },
+      select: {
+        id: true,
+        first_name: true,
+        last_name: true,
+        email: true,
       },
     })
     .catch((error) => {
@@ -86,11 +98,26 @@ const updatePasswordById = async (new_password, salt, id) => {
   return result;
 };
 
+const getUserByHomeId = async (home_id) => {
+  const result = await prisma.user_have_home
+    .findMany({
+      where: {
+        home_id: parseInt(home_id),
+      },
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  return result;
+};
+
 module.exports = {
+  getUserByHomeId,
   insertUser,
   getUserByEmail,
   removeTokenById,
   setTokenById,
   updatePasswordById,
-  getAllUsers,
+  getUserByUserId,
 };

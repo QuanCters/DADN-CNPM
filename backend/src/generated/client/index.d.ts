@@ -5404,28 +5404,32 @@ export namespace Prisma {
 
   export type MeasurementAvgAggregateOutputType = {
     id: number | null
+    usage_time: number | null
     consumption: number | null
     device_id: number | null
   }
 
   export type MeasurementSumAggregateOutputType = {
     id: number | null
+    usage_time: number | null
     consumption: number | null
     device_id: number | null
   }
 
   export type MeasurementMinAggregateOutputType = {
     id: number | null
-    usage_time: Date | null
+    usage_time: number | null
     consumption: number | null
     device_id: number | null
+    month: Date | null
   }
 
   export type MeasurementMaxAggregateOutputType = {
     id: number | null
-    usage_time: Date | null
+    usage_time: number | null
     consumption: number | null
     device_id: number | null
+    month: Date | null
   }
 
   export type MeasurementCountAggregateOutputType = {
@@ -5433,18 +5437,21 @@ export namespace Prisma {
     usage_time: number
     consumption: number
     device_id: number
+    month: number
     _all: number
   }
 
 
   export type MeasurementAvgAggregateInputType = {
     id?: true
+    usage_time?: true
     consumption?: true
     device_id?: true
   }
 
   export type MeasurementSumAggregateInputType = {
     id?: true
+    usage_time?: true
     consumption?: true
     device_id?: true
   }
@@ -5454,6 +5461,7 @@ export namespace Prisma {
     usage_time?: true
     consumption?: true
     device_id?: true
+    month?: true
   }
 
   export type MeasurementMaxAggregateInputType = {
@@ -5461,6 +5469,7 @@ export namespace Prisma {
     usage_time?: true
     consumption?: true
     device_id?: true
+    month?: true
   }
 
   export type MeasurementCountAggregateInputType = {
@@ -5468,6 +5477,7 @@ export namespace Prisma {
     usage_time?: true
     consumption?: true
     device_id?: true
+    month?: true
     _all?: true
   }
 
@@ -5559,9 +5569,10 @@ export namespace Prisma {
 
   export type MeasurementGroupByOutputType = {
     id: number
-    usage_time: Date
-    consumption: number | null
+    usage_time: number
+    consumption: number
     device_id: number | null
+    month: Date
     _count: MeasurementCountAggregateOutputType | null
     _avg: MeasurementAvgAggregateOutputType | null
     _sum: MeasurementSumAggregateOutputType | null
@@ -5588,6 +5599,7 @@ export namespace Prisma {
     usage_time?: boolean
     consumption?: boolean
     device_id?: boolean
+    month?: boolean
     device?: boolean | measurement$deviceArgs<ExtArgs>
   }, ExtArgs["result"]["measurement"]>
 
@@ -5596,6 +5608,7 @@ export namespace Prisma {
     usage_time?: boolean
     consumption?: boolean
     device_id?: boolean
+    month?: boolean
     device?: boolean | measurement$deviceArgs<ExtArgs>
   }, ExtArgs["result"]["measurement"]>
 
@@ -5604,6 +5617,7 @@ export namespace Prisma {
     usage_time?: boolean
     consumption?: boolean
     device_id?: boolean
+    month?: boolean
     device?: boolean | measurement$deviceArgs<ExtArgs>
   }, ExtArgs["result"]["measurement"]>
 
@@ -5612,9 +5626,10 @@ export namespace Prisma {
     usage_time?: boolean
     consumption?: boolean
     device_id?: boolean
+    month?: boolean
   }
 
-  export type measurementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "usage_time" | "consumption" | "device_id", ExtArgs["result"]["measurement"]>
+  export type measurementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "usage_time" | "consumption" | "device_id" | "month", ExtArgs["result"]["measurement"]>
   export type measurementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     device?: boolean | measurement$deviceArgs<ExtArgs>
   }
@@ -5632,9 +5647,10 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      usage_time: Date
-      consumption: number | null
+      usage_time: number
+      consumption: number
       device_id: number | null
+      month: Date
     }, ExtArgs["result"]["measurement"]>
     composites: {}
   }
@@ -6060,9 +6076,10 @@ export namespace Prisma {
    */ 
   interface measurementFieldRefs {
     readonly id: FieldRef<"measurement", 'Int'>
-    readonly usage_time: FieldRef<"measurement", 'DateTime'>
-    readonly consumption: FieldRef<"measurement", 'Int'>
+    readonly usage_time: FieldRef<"measurement", 'Float'>
+    readonly consumption: FieldRef<"measurement", 'Float'>
     readonly device_id: FieldRef<"measurement", 'Int'>
+    readonly month: FieldRef<"measurement", 'DateTime'>
   }
     
 
@@ -13253,7 +13270,8 @@ export namespace Prisma {
     id: 'id',
     usage_time: 'usage_time',
     consumption: 'consumption',
-    device_id: 'device_id'
+    device_id: 'device_id',
+    month: 'month'
   };
 
   export type MeasurementScalarFieldEnum = (typeof MeasurementScalarFieldEnum)[keyof typeof MeasurementScalarFieldEnum]
@@ -13631,36 +13649,41 @@ export namespace Prisma {
     OR?: measurementWhereInput[]
     NOT?: measurementWhereInput | measurementWhereInput[]
     id?: IntFilter<"measurement"> | number
-    usage_time?: DateTimeFilter<"measurement"> | Date | string
-    consumption?: IntNullableFilter<"measurement"> | number | null
+    usage_time?: FloatFilter<"measurement"> | number
+    consumption?: FloatFilter<"measurement"> | number
     device_id?: IntNullableFilter<"measurement"> | number | null
+    month?: DateTimeFilter<"measurement"> | Date | string
     device?: XOR<DeviceNullableScalarRelationFilter, deviceWhereInput> | null
   }
 
   export type measurementOrderByWithRelationInput = {
     id?: SortOrder
     usage_time?: SortOrder
-    consumption?: SortOrderInput | SortOrder
+    consumption?: SortOrder
     device_id?: SortOrderInput | SortOrder
+    month?: SortOrder
     device?: deviceOrderByWithRelationInput
   }
 
   export type measurementWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    device_id_month?: measurementDevice_idMonthCompoundUniqueInput
     AND?: measurementWhereInput | measurementWhereInput[]
     OR?: measurementWhereInput[]
     NOT?: measurementWhereInput | measurementWhereInput[]
-    usage_time?: DateTimeFilter<"measurement"> | Date | string
-    consumption?: IntNullableFilter<"measurement"> | number | null
+    usage_time?: FloatFilter<"measurement"> | number
+    consumption?: FloatFilter<"measurement"> | number
     device_id?: IntNullableFilter<"measurement"> | number | null
+    month?: DateTimeFilter<"measurement"> | Date | string
     device?: XOR<DeviceNullableScalarRelationFilter, deviceWhereInput> | null
-  }, "id">
+  }, "id" | "device_id_month">
 
   export type measurementOrderByWithAggregationInput = {
     id?: SortOrder
     usage_time?: SortOrder
-    consumption?: SortOrderInput | SortOrder
+    consumption?: SortOrder
     device_id?: SortOrderInput | SortOrder
+    month?: SortOrder
     _count?: measurementCountOrderByAggregateInput
     _avg?: measurementAvgOrderByAggregateInput
     _max?: measurementMaxOrderByAggregateInput
@@ -13673,9 +13696,10 @@ export namespace Prisma {
     OR?: measurementScalarWhereWithAggregatesInput[]
     NOT?: measurementScalarWhereWithAggregatesInput | measurementScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"measurement"> | number
-    usage_time?: DateTimeWithAggregatesFilter<"measurement"> | Date | string
-    consumption?: IntNullableWithAggregatesFilter<"measurement"> | number | null
+    usage_time?: FloatWithAggregatesFilter<"measurement"> | number
+    consumption?: FloatWithAggregatesFilter<"measurement"> | number
     device_id?: IntNullableWithAggregatesFilter<"measurement"> | number | null
+    month?: DateTimeWithAggregatesFilter<"measurement"> | Date | string
   }
 
   export type scheduleWhereInput = {
@@ -14234,48 +14258,55 @@ export namespace Prisma {
   }
 
   export type measurementCreateInput = {
-    usage_time: Date | string
-    consumption?: number | null
+    usage_time: number
+    consumption: number
+    month: Date | string
     device?: deviceCreateNestedOneWithoutMeasurementInput
   }
 
   export type measurementUncheckedCreateInput = {
     id?: number
-    usage_time: Date | string
-    consumption?: number | null
+    usage_time: number
+    consumption: number
     device_id?: number | null
+    month: Date | string
   }
 
   export type measurementUpdateInput = {
-    usage_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    consumption?: NullableIntFieldUpdateOperationsInput | number | null
+    usage_time?: FloatFieldUpdateOperationsInput | number
+    consumption?: FloatFieldUpdateOperationsInput | number
+    month?: DateTimeFieldUpdateOperationsInput | Date | string
     device?: deviceUpdateOneWithoutMeasurementNestedInput
   }
 
   export type measurementUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    usage_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    consumption?: NullableIntFieldUpdateOperationsInput | number | null
+    usage_time?: FloatFieldUpdateOperationsInput | number
+    consumption?: FloatFieldUpdateOperationsInput | number
     device_id?: NullableIntFieldUpdateOperationsInput | number | null
+    month?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type measurementCreateManyInput = {
     id?: number
-    usage_time: Date | string
-    consumption?: number | null
+    usage_time: number
+    consumption: number
     device_id?: number | null
+    month: Date | string
   }
 
   export type measurementUpdateManyMutationInput = {
-    usage_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    consumption?: NullableIntFieldUpdateOperationsInput | number | null
+    usage_time?: FloatFieldUpdateOperationsInput | number
+    consumption?: FloatFieldUpdateOperationsInput | number
+    month?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type measurementUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    usage_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    consumption?: NullableIntFieldUpdateOperationsInput | number | null
+    usage_time?: FloatFieldUpdateOperationsInput | number
+    consumption?: FloatFieldUpdateOperationsInput | number
     device_id?: NullableIntFieldUpdateOperationsInput | number | null
+    month?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type scheduleCreateInput = {
@@ -14893,6 +14924,17 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -14909,15 +14951,22 @@ export namespace Prisma {
     isNot?: deviceWhereInput | null
   }
 
+  export type measurementDevice_idMonthCompoundUniqueInput = {
+    device_id: number
+    month: Date | string
+  }
+
   export type measurementCountOrderByAggregateInput = {
     id?: SortOrder
     usage_time?: SortOrder
     consumption?: SortOrder
     device_id?: SortOrder
+    month?: SortOrder
   }
 
   export type measurementAvgOrderByAggregateInput = {
     id?: SortOrder
+    usage_time?: SortOrder
     consumption?: SortOrder
     device_id?: SortOrder
   }
@@ -14927,6 +14976,7 @@ export namespace Prisma {
     usage_time?: SortOrder
     consumption?: SortOrder
     device_id?: SortOrder
+    month?: SortOrder
   }
 
   export type measurementMinOrderByAggregateInput = {
@@ -14934,12 +14984,30 @@ export namespace Prisma {
     usage_time?: SortOrder
     consumption?: SortOrder
     device_id?: SortOrder
+    month?: SortOrder
   }
 
   export type measurementSumOrderByAggregateInput = {
     id?: SortOrder
+    usage_time?: SortOrder
     consumption?: SortOrder
     device_id?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -15590,8 +15658,8 @@ export namespace Prisma {
     connect?: deviceWhereUniqueInput
   }
 
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
     increment?: number
     decrement?: number
     multiply?: number
@@ -15606,6 +15674,14 @@ export namespace Prisma {
     delete?: deviceWhereInput | boolean
     connect?: deviceWhereUniqueInput
     update?: XOR<XOR<deviceUpdateToOneWithWhereWithoutMeasurementInput, deviceUpdateWithoutMeasurementInput>, deviceUncheckedUpdateWithoutMeasurementInput>
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type deviceCreateNestedOneWithoutScheduleInput = {
@@ -16072,6 +16148,22 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -16431,14 +16523,16 @@ export namespace Prisma {
   }
 
   export type measurementCreateWithoutDeviceInput = {
-    usage_time: Date | string
-    consumption?: number | null
+    usage_time: number
+    consumption: number
+    month: Date | string
   }
 
   export type measurementUncheckedCreateWithoutDeviceInput = {
     id?: number
-    usage_time: Date | string
-    consumption?: number | null
+    usage_time: number
+    consumption: number
+    month: Date | string
   }
 
   export type measurementCreateOrConnectWithoutDeviceInput = {
@@ -16580,9 +16674,10 @@ export namespace Prisma {
     OR?: measurementScalarWhereInput[]
     NOT?: measurementScalarWhereInput | measurementScalarWhereInput[]
     id?: IntFilter<"measurement"> | number
-    usage_time?: DateTimeFilter<"measurement"> | Date | string
-    consumption?: IntNullableFilter<"measurement"> | number | null
+    usage_time?: FloatFilter<"measurement"> | number
+    consumption?: FloatFilter<"measurement"> | number
     device_id?: IntNullableFilter<"measurement"> | number | null
+    month?: DateTimeFilter<"measurement"> | Date | string
   }
 
   export type scheduleUpsertWithWhereUniqueWithoutDeviceInput = {
@@ -17373,8 +17468,9 @@ export namespace Prisma {
 
   export type measurementCreateManyDeviceInput = {
     id?: number
-    usage_time: Date | string
-    consumption?: number | null
+    usage_time: number
+    consumption: number
+    month: Date | string
   }
 
   export type scheduleCreateManyDeviceInput = {
@@ -17421,20 +17517,23 @@ export namespace Prisma {
   }
 
   export type measurementUpdateWithoutDeviceInput = {
-    usage_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    consumption?: NullableIntFieldUpdateOperationsInput | number | null
+    usage_time?: FloatFieldUpdateOperationsInput | number
+    consumption?: FloatFieldUpdateOperationsInput | number
+    month?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type measurementUncheckedUpdateWithoutDeviceInput = {
     id?: IntFieldUpdateOperationsInput | number
-    usage_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    consumption?: NullableIntFieldUpdateOperationsInput | number | null
+    usage_time?: FloatFieldUpdateOperationsInput | number
+    consumption?: FloatFieldUpdateOperationsInput | number
+    month?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type measurementUncheckedUpdateManyWithoutDeviceInput = {
     id?: IntFieldUpdateOperationsInput | number
-    usage_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    consumption?: NullableIntFieldUpdateOperationsInput | number | null
+    usage_time?: FloatFieldUpdateOperationsInput | number
+    consumption?: FloatFieldUpdateOperationsInput | number
+    month?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type scheduleUpdateWithoutDeviceInput = {

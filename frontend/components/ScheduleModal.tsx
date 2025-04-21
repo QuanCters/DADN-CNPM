@@ -2,9 +2,11 @@ import NumberSlider from "@/components/NumberSlider";
 import PrimaryBtn from "@/components/PrimaryBtn";
 import Title from "@/components/Title";
 import { Colors } from "@/constants/Colors";
+import ScheduleType from "@/interface/schedule.interface";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
 import { Modal, Text, TouchableOpacity, View, StyleSheet } from "react-native";
+import formatTime, { convertToISOString } from "@/utils/handleTimeFormat";
 
 function createNumberArray(start: number, end: number) {
   const arr = [
@@ -19,7 +21,6 @@ function createNumberArray(start: number, end: number) {
   arr.push({ id: Math.random() * 10000, title: "" });
   return arr;
 }
-
 const WEEKDAYS = [
   {
     id: "monday",
@@ -55,22 +56,30 @@ type ScheduleModalProps = {
   action: "update" | "add" | undefined;
   onModalVisibleChange: () => void;
   initTime: string;
+  scheduleList: ScheduleType[] | null;
+  deviceId: string;
 };
 
 const ScheduleModal = ({
+  deviceId,
+  scheduleList,
   action,
   onModalVisibleChange,
   initTime,
 }: ScheduleModalProps) => {
-  const [hour, minute, ampm] = initTime.split(":");
-
+  const [temp, ampm] = initTime.split(" ");
+  const [hour, minute] = temp.split(":").map(Number);
   const [time, setTime] = useState({
     hour: +hour,
     minute: +minute,
     ampm: ampm,
   });
+  const [currUpdateSchedule, setCurrUpdateSchedule] =
+    useState<ScheduleType | null>(null);
+
   const [repeat, setRepeat] = useState<string[]>([]);
   const [turnTo, setTurnTo] = useState<"on" | "off">("on");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (action === "add") {
@@ -83,7 +92,24 @@ const ScheduleModal = ({
 
       setTime({ hour, minute, ampm });
     }
-  }, [setTime]);
+    if (action === "update") {
+      const [temp, ampm] = initTime.split(" ");
+      const [hour, minute] = temp.split(":").map(Number);
+      setTime({
+        hour: +hour,
+        minute: +minute,
+        ampm: ampm,
+      });
+      const schedule = scheduleList?.find((schedule) => {
+        return formatTime(schedule.action_time) === initTime;
+      });
+      if (schedule) {
+        setTurnTo(schedule.action as "on" | "off");
+        setRepeat(schedule.action_days);
+        setCurrUpdateSchedule(schedule);
+      }
+    }
+  }, []);
 
   function handleToggleRepeat(id: string) {
     if (repeat.includes(id)) {
@@ -93,13 +119,173 @@ const ScheduleModal = ({
     }
   }
 
-  function handleSet() {
-    console.log("Set schedule with the following values:");
-    console.log("Time:", time);
-    console.log("Repeat:", repeat);
-    console.log("Turn to:", turnTo);
+  async function handleSet() {
+    async function handleUpdateRepeatDays(updateSchedule: ScheduleType) {
+      let deleteDates: string[] = [];
+      let newDates: string[] = [];
+      updateSchedule?.action_days.forEach((day) => {
+        if (!repeat.includes(day)) {
+          deleteDates.push(day);
+        }
+      });
+      repeat.forEach((day) => {
+        if (!updateSchedule?.action_days.includes(day)) {
+          newDates.push(day);
+        }
+      });
+      for (const day of deleteDates) {
+        try {
+          const response = await fetch(
+            process.env.EXPO_PUBLIC_BACKEND_URL + "/schedule/" + deviceId,
+            {
+              method: "DELETE",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                action_day: day,
+                action_time: updateSchedule?.action_time,
+              }),
+            }
+          );
+          if (!response.ok) {
+            throw new Error("Error deleting schedule");
+          }
+        } catch (error) {
+          console.log("Error deleting schedule:", error);
+          setIsLoading(false);
+        }
+        console.log("Schedule deleted repeat date!", day);
+      }
+      for (const day of newDates) {
+        try {
+          const response = await fetch(
+            process.env.EXPO_PUBLIC_BACKEND_URL + "/schedule/" + deviceId,
+            {
+              method: "POST",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                action_time: updateSchedule?.action_time,
+                action_day: day,
+                action: turnTo,
+                value: turnTo === "on" ? 1 : 0,
+              }),
+            }
+          );
+          if (!response.ok) {
+            // setIsLoading(false);
+            throw new Error("Error updating schedule");
+          }
+        } catch (error) {
+          console.log("Error updating schedule:", error);
+        }
+        console.log("Schedule add new date!", day);
+      }
+    }
+    if (action === "update") {
+      // update repeat days
+      await handleUpdateRepeatDays(currUpdateSchedule as ScheduleType);
+      setIsLoading(false);
+    } else if (action === "add") {
+      const scheduleExists = scheduleList?.find((schedule) => {
+        return (
+          formatTime(schedule.action_time) ===
+            `${time.hour}:${time.minute} ${time.ampm}` &&
+          schedule.action === turnTo
+        );
+      });
+      if (scheduleExists) {
+        console.log("Schedule already exists!");
+        setIsLoading(true);
+        // handle different repeat days
+        await handleUpdateRepeatDays(scheduleExists);
+        // turn on the exist schedule
+        try {
+          for (const actionDates of repeat) {
+            const response = await fetch(
+              process.env.EXPO_PUBLIC_BACKEND_URL +
+                "/schedule/activate/" +
+                deviceId,
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  action_time: scheduleExists.action_time,
+                  action_day: actionDates,
+                  // action: item.action,
+                  is_enable: !scheduleExists.is_enable,
+                }),
+              }
+            );
+            if (!response.ok) {
+              throw new Error("Failed to activate/de-activate schedule");
+            }
+            console.log("Schedule switch activated successfully");
+          }
+        } catch (error) {
+          console.log("Error activating schedule:", error);
+          setIsLoading(false);
+        }
+        setIsLoading(false);
+      } else {
+        // create a new schedule
+        const ISOtime = convertToISOString(
+          `${time.hour}:${time.minute} ${time.ampm}`
+        );
+        try {
+          setIsLoading(true);
+          for (const day of repeat) {
+            const response = await fetch(
+              process.env.EXPO_PUBLIC_BACKEND_URL + "/schedule/" + deviceId,
+              {
+                method: "POST",
+                headers: {
+                  Accept: "application/json",
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  action_time: ISOtime,
+                  action_day: day,
+                  action: turnTo,
+                  value: 1,
+                }),
+              }
+            );
+            if (!response.ok) {
+              setIsLoading(false);
+              throw new Error("Error creating schedule");
+            }
+            setIsLoading(false);
+          }
+        } catch (error) {
+          console.log("Error creating schedule:", error);
+        }
+      }
+    }
+    onModalVisibleChange();
   }
 
+  const handleTimeChange = (type: string, value: number) => {
+    if (type === "hour") {
+      if (time.hour === value) return;
+      setTime((prev) => ({ ...prev, hour: value }));
+    } else if (type === "min") {
+      if (time.minute === value) return;
+      setTime((prev) => ({ ...prev, minute: value }));
+    } else if (type === "AMPM") {
+      if (time.ampm === (value === 1 ? "AM" : value === 2 ? "PM" : "")) return;
+      setTime((prev) => ({
+        ...prev,
+        ampm: value === 1 ? "AM" : value === 2 ? "PM" : "",
+      }));
+    }
+  };
   return (
     <Modal
       animationType="fade"
@@ -123,13 +309,22 @@ const ScheduleModal = ({
                 gap: 25,
               }}
             >
-              <NumberSlider data={createNumberArray(0, 13)} value={time.hour} />
+              <NumberSlider
+                onChange={handleTimeChange}
+                type="hour"
+                data={createNumberArray(0, 13)}
+                value={time.hour}
+              />
               <Text style={{ fontSize: 32 }}>:</Text>
               <NumberSlider
+                onChange={handleTimeChange}
+                type="min"
                 data={createNumberArray(0, 60)}
                 value={time.minute}
               />
               <NumberSlider
+                onChange={handleTimeChange}
+                type="AMPM"
                 value={time.ampm === "AM" ? 0 : 1}
                 data={[
                   { id: Math.random() * 10000, title: "" },
@@ -248,7 +443,7 @@ const ScheduleModal = ({
               onPress={handleSet}
             >
               <Text style={[styles.cancelButtonText, { color: "white" }]}>
-                Set
+                {isLoading ? "Loading..." : action === "add" ? "Set" : "Update"}
               </Text>
             </TouchableOpacity>
           </View>

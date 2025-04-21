@@ -1,8 +1,8 @@
 export default interface ScheduleType {
   action: "on" | "off";
-  action_day: string;
+  action_days: string[];
   action_time: string;
   device_id: number;
-  is_enabled: boolean;
+  is_enable: boolean;
   value: number;
 }

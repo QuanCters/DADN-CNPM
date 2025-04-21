@@ -8,7 +8,7 @@ const { authentication } = require("../../authUtils/auth");
  * '/v1/api/user/signup':
  *  post:
  *     tags:
- *     - User controller
+ *     - Access controller
  *     summary: Signup for user
  *     requestBody:
  *      required: true
@@ -65,7 +65,7 @@ router.post("/user/signup", asyncHandler(accessController.signup));
  * '/v1/api/user/login':
  *  post:
  *     tags:
- *     - User controller
+ *     - Access controller
  *     summary: Login for user
  *     requestBody:
  *      required: true
@@ -126,7 +126,7 @@ router.post("/user/login", asyncHandler(accessController.login));
  * '/v1/api/user/reset-password':
  *  post:
  *     tags:
- *     - User controller
+ *     - Access controller
  *     summary: Reset password for user
  *     requestBody:
  *      required: true
@@ -173,7 +173,7 @@ router.post(
   asyncHandler(accessController.resetPassword)
 );
 
-router.use(authentication);
+// router.use(authentication);
 
 /**
  * @swagger
@@ -192,7 +192,7 @@ router.use(authentication);
  * '/v1/api/user/logout':
  *  post:
  *     tags:
- *     - User controller
+ *     - Access controller
  *     summary: Logout for user
  *     security:
  *       - BearerAuth: []
@@ -209,6 +209,38 @@ router.use(authentication);
  */
 router.post("/user/logout", asyncHandler(accessController.logout));
 
-router.post("/door/unlock", asyncHandler(accessController.unlockDoor));
+/**
+ * @swagger
+ * '/v1/api/user/unlock':
+ *  post:
+ *     tags:
+ *     - Access controller
+ *     summary: Unlock door
+ *     requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required:
+ *              - device_id
+ *              - password
+ *            properties:
+ *              device_id:
+ *                type: integer
+ *              password:
+ *                type: string
+ *                format: password
+ *     responses:
+ *      200:
+ *        description: Unlock successfully
+ *      400:
+ *        description: Bad Request (Invalid or missing token)
+ *      401:
+ *        description: Unauthorized (Token is invalid or expired)
+ *      500:
+ *        description: Server error
+ */
+router.post("/user/unlock", asyncHandler(accessController.unlockDoor));
 
 module.exports = router;

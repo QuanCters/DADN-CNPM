@@ -51,59 +51,6 @@ router.get(
 
 /**
  * @swagger
- * '/v1/api/notification/add/{deviceId}':
- *  post:
- *     tags:
- *     - Notification controller
- *     summary: Add notification
- *     parameters:
- *       - in: path
- *         name: deviceId
- *         required: true
- *         description: The ID of the device
- *         schema:
- *           type: integer
- *     requestBody:
- *      required: true
- *      content:
- *        application/json:
- *          schema:
- *            type: object
- *            required:
- *              - content
- *            properties:
- *              content:
- *                type: string
- *     responses:
- *      200:
- *        description: Add successfully
- *        content:
- *          application/json:
- *            schema:
- *              type: object
- *              properties:
- *                status:
- *                  type: integer
- *                  example: 200
- *                message:
- *                  type: string
- *                  description: message response
- *      400:
- *        description: Bad Request
- *      404:
- *        description: Not Found
- *      409:
- *        description: Conflict
- *      500:
- *        description: Server error
- */
-router.post(
-  "/add/:deviceId",
-  asyncHandler(notificationController.createNotification)
-);
-
-/**
- * @swagger
  * '/v1/api/notification/token/{userId}':
  *  post:
  *     tags:

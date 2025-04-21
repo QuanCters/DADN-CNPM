@@ -1,35 +1,17 @@
 "use strict";
 
 const {
-  createNotification,
   getAllNotificationsByDeviceId,
 } = require("../dbs/repositories/notification.repo");
 
-const {
-  getDeviceById,
-  getAllNotifications,
-} = require("../dbs/repositories/device.repo");
 const { NotFoundError } = require("../core/error.response");
 
 const { getRedisClient } = require("../dbs/init.redis");
 
 class NotificationService {
-  /**
-   * 1 - Tạo một thông báo mới
-   * 2 - Trả về kết quả tạo thông báo
-   */
-  static createNotification = async ({ content, device_id }) => {
-    const newNotification = await createNotification({ device_id, content });
-
-    return {
-      message: "Notification created successfully",
-      metadata: newNotification,
-    };
-  };
-
   static getAllNotificationsByDeviceId = async ({
     page = 1,
-    limit = 5,
+    limit = 10,
     device_id,
   }) => {
     const notifications = await getAllNotificationsByDeviceId(
@@ -37,7 +19,7 @@ class NotificationService {
       limit,
       device_id
     );
-    if (!notifications || notifications.length === 0) {
+    if (!notifications) {
       throw new NotFoundError("No notifications found");
     }
 

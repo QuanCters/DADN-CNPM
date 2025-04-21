@@ -11,23 +11,6 @@ const { asyncHandler } = require("../../helper/asyncHandler");
  *   description: API for managing device schedules
  */
 
-// /**
-//  * @swagger
-//  * '/v1/api/schedule/all':
-//  *  get:
-//  *     tags:
-//  *     - Schedule
-//  *     summary: Get all schedules
-//  *     responses:
-//  *       200:
-//  *         description: List of schedules
-//  *       404:
-//  *         description: No schedules found
-//  *       500:
-//  *         description: Server error
-//  */
-// router.get("/all", asyncHandler(scheduleController.getAllSchedule));
-
 /**
  * @swagger
  * '/v1/api/schedule/device/{device_id}':
@@ -103,53 +86,6 @@ router.get(
  *         description: Server error
  */
 router.post("/:device_id", asyncHandler(scheduleController.createSchedule));
-
-// /**
-//  * @swagger
-//  * '/v1/api/schedule/full/{device_id}':
-//  *  post:
-//  *     tags:
-//  *     - Schedule
-//  *     summary: Create a full on/off schedule
-//  *     parameters:
-//  *       - in: path
-//  *         name: device_id
-//  *         required: true
-//  *         description: Device ID
-//  *         schema:
-//  *           type: integer
-//  *     requestBody:
-//  *       required: true
-//  *       content:
-//  *         application/json:
-//  *           schema:
-//  *             type: object
-//  *             properties:
-//  *               time_on:
-//  *                 type: string
-//  *                 format: date-time
-//  *                 description: Time to turn on the device
-//  *               time_off:
-//  *                 type: string
-//  *                 format: date-time
-//  *                 description: Time to turn off the device
-//  *               value:
-//  *                 type: integer
-//  *                 description: Value when the device is turned on
-//  *     responses:
-//  *       201:
-//  *         description: Schedule created successfully
-//  *       400:
-//  *         description: Invalid data
-//  *       409:
-//  *         description: Schedule conflict at the specified times
-//  *       500:
-//  *         description: Server error
-//  */
-// router.post(
-//   "/full/:device_id",
-//   asyncHandler(scheduleController.createScheduleFull)
-// );
 
 /**
  * @swagger
@@ -259,21 +195,6 @@ router.put(
   "/activate/:device_id",
   asyncHandler(scheduleController.activateSchedule)
 );
-
-// /**
-//  * @swagger
-//  * '/v1/api/schedule/all':
-//  *  delete:
-//  *     tags:
-//  *     - Schedule
-//  *     summary: Delete all schedules
-//  *     responses:
-//  *       200:
-//  *         description: All schedules deleted successfully
-//  *       500:
-//  *         description: Server error
-//  */
-// router.delete("/all", asyncHandler(scheduleController.deleteAllSchedule));
 
 /**
  * @swagger

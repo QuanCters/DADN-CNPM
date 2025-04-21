@@ -1,6 +1,7 @@
 import { Stack } from "expo-router";
 import { Provider } from "react-redux";
 import { store } from "../redux/store";
+import "expo-dev-client";
 
 export default function RootLayout() {
   return (

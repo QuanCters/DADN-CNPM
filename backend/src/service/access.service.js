@@ -16,6 +16,7 @@ const {
 
 const { generateKey } = require("../authUtils/auth");
 const { getDeviceById } = require("../dbs/repositories/device.repo");
+const { getHomeBySerialNumber } = require("../dbs/repositories/home.repo");
 
 class AccessService {
   static signup = async ({ email, password, first_name, last_name }) => {
@@ -46,12 +47,6 @@ class AccessService {
     }
   };
 
-  /**
-   * 1 - Check email in dbs
-   * 2 - match password
-   * 3 - create access token
-   * 4 - return data
-   */
   static login = async ({ email, password }) => {
     const foundUser = await getUserByEmail(email);
     if (!foundUser) {
@@ -124,7 +119,27 @@ class AccessService {
 
   static unlockDoor = async ({ device_id, password }) => {
     const door = await getDeviceById(device_id);
+    if (door.type !== "door") {
+      throw new BadRequestError("Not a door");
+    }
     if (door.password === password) {
+      const home = await getHomeBySerialNumber(door.serial_number);
+      const response = await fetch(
+        `https://io.adafruit.com/api/v2/${home.home_name}/feeds/${door.feed}/data?x-aio-key=${home.aio_key}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            value: password,
+          }),
+        }
+      );
+      if (!response.ok) {
+        throw new BadRequestError("Can't open the door");
+      }
       return {
         status: 200,
         message: "Unlock successfully",

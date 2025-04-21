@@ -1,35 +1,11 @@
 const prisma = require("../init.prisma");
 
-const createLogEvent = async (log) => {
+const createLogEvent = async (device_id) => {
   const result = await prisma.log_event
     .create({
-      data: log,
-    })
-    .catch((error) => {
-      console.error(error);
-      throw error;
-    });
-  return result;
-};
-
-const getLogEventById = async (id) => {
-  const result = await prisma.log_event
-    .findUnique({
-      where: {
-        id: id,
-      },
-    })
-    .catch((error) => {
-      console.error(error);
-      throw error;
-    });
-  return result;
-};
-
-const getLogEventsByDevice = async (device_id) => {
-  const result = await prisma.log_event
-    .findMany({
-      where: {
+      data: {
+        action: "on",
+        time_in: new Date(),
         device_id: device_id,
       },
     })
@@ -39,28 +15,52 @@ const getLogEventsByDevice = async (device_id) => {
     });
   return result;
 };
-const getLogEventsInTimeRange = async (device_id, time_start, time_end) => {
+
+const findExistingOpenLog = async (device_id) => {
   const result = await prisma.log_event
-    .findMany({
+    .findFirst({
       where: {
-        device_id: device_id,
-        timestamp: {
-          gte: new Date(time_start),
-          lte: new Date(time_end),
-        },
+        device_id: parseInt(device_id),
+        action: "on",
+        time_out: null,
       },
     })
-    .catch((error) => {
-      console.error(error);
-      throw error;
-    });
+    .catch((error) => console.error(error));
+  return result;
+};
 
+const findLatestOnLog = async (device_id) => {
+  const lastOnLog = await prisma.log_event
+    .findFirst({
+      where: {
+        device_id: device_id,
+        action: "on",
+        time_out: null,
+      },
+      orderBy: { time_in: "desc" },
+    })
+    .catch((error) => console.error(error));
+
+  return lastOnLog;
+};
+
+const updateLogEvent = async (log_id, time_out) => {
+  const result = await prisma.log_event
+    .update({
+      where: {
+        id: log_id,
+      },
+      data: {
+        time_out: time_out,
+      },
+    })
+    .catch((error) => console.error(error));
   return result;
 };
 
 module.exports = {
+  updateLogEvent,
+  findLatestOnLog,
+  findExistingOpenLog,
   createLogEvent,
-  getLogEventById,
-  getLogEventsByDevice,
-  getLogEventsInTimeRange
 };

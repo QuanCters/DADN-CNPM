@@ -6,8 +6,6 @@ const {
   getScheduleByDevice,
   updateDeviceSchedule,
   deleteScheduleByDevice,
-  getSchedulesInTimeRange,
-  getSchedules,
   activateSchedule,
 } = require("../dbs/repositories/schedule.repo");
 
@@ -64,55 +62,7 @@ class ScheduleService {
       metadata: schedule,
     };
   };
-  static createScheduleFull = async ({
-    device_id,
-    time_on,
-    time_off,
-    value,
-  }) => {
-    const device = await getDeviceById(device_id);
-    if (!device) throw new NotFoundError("Device not found");
-    const historyOn = await getSchedule({
-      device_id,
-      action_time: new Date(time_on),
-    });
-    if (historyOn) {
-      throw new ConflictRequestError(
-        "Schedule'device already exists for this time"
-      );
-    }
-    const historyOff = await getSchedule({
-      device_id,
-      action_time: new Date(time_off),
-    });
-    if (historyOff) {
-      throw new ConflictRequestError(
-        "Schedule'device already exists for this time"
-      );
-    }
-    if (new Date(time_on) >= new Date(time_off)) {
-      throw new ConflictRequestError("Time off must be greater than time on");
-    }
-    const schedule_on = await createSchedule({
-      device_id,
-      action_time: new Date(time_on),
-      action: "on",
-      value,
-    });
-    const schedule_off = await createSchedule({
-      device_id,
-      action_time: new Date(time_off),
-      action: "off",
-      value: 0,
-    });
-    if (!schedule_on || !schedule_off)
-      throw new ConflictRequestError("Failed to create schedule");
 
-    return {
-      message: "Schedule created successfully",
-      metadata: [schedule_on, schedule_off],
-    };
-  };
   static getSchedule = async ({ device_id, action_time, action_day }) => {
     const device = await getDeviceById(device_id);
     if (!device) throw new NotFoundError("Device not found");
@@ -138,7 +88,8 @@ class ScheduleService {
     }
     const groupedSchedules = {};
     schedules.forEach((schedule) => {
-      const { action_time, action_day, action, device_id, value } = schedule;
+      const { action_time, action_day, action, device_id, value, is_enable } =
+        schedule;
       const timePart = action_time.toISOString().split("T")[1].substring(0, 5);
       const key = `${device_id}-${timePart}-${action}`;
       if (!groupedSchedules[key]) {
@@ -148,6 +99,7 @@ class ScheduleService {
           action: action,
           action_days: [],
           value: value,
+          is_enable: is_enable,
         };
       }
       if (!groupedSchedules[key].action_days.includes(action_day)) {
@@ -261,65 +213,15 @@ class ScheduleService {
     const device = await getDeviceById(device_id);
     if (!device) throw new NotFoundError("Device not found");
 
-    const schedule = await getSchedule(device_id, action_time, action_day);
+    const schedule = await getSchedule({ device_id, action_time, action_day });
     if (!schedule) throw new NotFoundError("Schedule not found");
 
     await deleteScheduleByDevice(device_id, action_time, action_day);
-    const name = `${device_id}.${action_day}.${action_time
+    const name = `${device_id}.${action_day}.${schedule.action_time
       .toISOString()
       .slice(11, 19)}`;
     removeJob(name);
     return { message: "Schedule deleted successfully" };
-  };
-
-  static getSchedulesInTimeRange = async ({
-    device_id,
-    start_time,
-    end_time,
-  }) => {
-    const device = await getDeviceById(device_id);
-    if (!device) throw new NotFoundError("Device not found");
-
-    const schedules = await getSchedulesInTimeRange(
-      device_id,
-      start_time,
-      end_time
-    );
-    if (!schedules || schedules.length === 0) {
-      throw new NotFoundError("No schedules found in this time range");
-    }
-
-    return {
-      message: "Get schedules in time range successfully",
-      metadata: schedules,
-    };
-  };
-
-  static getSchedules = async () => {
-    const schedules = await getSchedules();
-    if (!schedules || schedules.length === 0) {
-      throw new NotFoundError("No schedules found");
-    }
-
-    return {
-      message: "Get all schedules successfully",
-      metadata: schedules,
-    };
-  };
-  static getAllSchedule = async () => {
-    const schedules = await getAllSchedule();
-    if (!schedules || schedules.length === 0) {
-      throw new NotFoundError("No schedules found");
-    }
-
-    return {
-      message: "Get all schedules successfully",
-      metadata: schedules,
-    };
-  };
-  static deleteAllSchedule = async () => {
-    const result = await deleteAllSchedule();
-    return result;
   };
 }
 
