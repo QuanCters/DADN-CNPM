@@ -2,7 +2,7 @@
 
 const cron = require("node-cron");
 const { getAllSchedule } = require("../dbs/repositories/schedule.repo");
-const { sendMessage } = require("../utils/ConnectDevice");
+const { sendMessage } = require("../utils/SendMessage");
 const { getDeviceById } = require("../service/device.service");
 const { getHomeBySerialNumber } = require("../dbs/repositories/home.repo");
 

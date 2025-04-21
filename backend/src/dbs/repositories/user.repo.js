@@ -12,14 +12,6 @@ const insertUser = async (user) => {
   return result;
 };
 
-const getAllUsers = async () => {
-  const result = await prisma.users.findMany().catch((error) => {
-    console.error(error);
-    throw error;
-  });
-  return result;
-};
-
 const getUserByEmail = async (email) => {
   const result = await prisma.users
     .findUnique({
@@ -127,6 +119,5 @@ module.exports = {
   removeTokenById,
   setTokenById,
   updatePasswordById,
-  getAllUsers,
   getUserByUserId,
 };
