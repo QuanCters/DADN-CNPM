@@ -18,6 +18,7 @@ import { useCallback } from "react";
 
 const HomeScreen = () => {
   const userId = useSelector((state: any) => state.user.user_id);
+
   useEffect(() => {
     const initializeFCM = async () => {
       if (userId) {
@@ -27,6 +28,7 @@ const HomeScreen = () => {
     initializeFCM();
     return () => {};
   }, [userId]);
+
   const [clicked, setClicked] = useState(false);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
 
@@ -34,6 +36,7 @@ const HomeScreen = () => {
   const currentHome = useSelector((state: RootState) =>
     state.user.homes.find((home: Home) => home.home_id === homeId)
   );
+
   const devices = useMemo(() => {
     if (!currentHome) return null;
     const filteredDevices = currentHome.devices.filter((device: Device) =>
