@@ -126,6 +126,7 @@ const WelcomeCard = (props: WelcomeCardProps) => {
   }, [home]);
 
   useEffect(() => {
+    if (!home) return;
     const fetchNotification = async () => {
       try {
         for (const device of home.devices) {

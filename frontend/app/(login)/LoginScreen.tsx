@@ -131,8 +131,8 @@ const LoginScreen = () => {
       </View>
 
       {error && (
-        <View>
-          <Text>{error}</Text>
+        <View style={styles.errorText}>
+          <Text style={{ color: "red" }}>{error}</Text>
         </View>
       )}
 
@@ -175,6 +175,11 @@ const styles = StyleSheet.create({
   formContainer: {
     marginTop: 60,
     alignItems: "center",
+  },
+  errorText: {
+    alignItems: "center",
+    marginBottom: 20,
+    color: "red",
   },
   input: {
     backgroundColor: "#F1F4FF",

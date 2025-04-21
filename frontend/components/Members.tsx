@@ -45,6 +45,9 @@ const Members = ({ setIsOpenPrompt }: Props) => {
           throw new Error("Failed to fetch members");
         }
         const data = await res.json();
+        console.log("Members data: ", data);
+
+        if (!data) return;
         for (let user of data.users) {
           const res = await fetch(
             process.env.EXPO_PUBLIC_BACKEND_URL + "/user/" + user.user_id,
