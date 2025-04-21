@@ -2,7 +2,7 @@ import MicroCard from "@/components/MicroCard";
 import ScheduleCard from "@/components/ScheduleCard";
 import Title from "@/components/Title";
 import WelcomeCard from "@/components/WelcomeCard";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { View, StyleSheet, FlatList, Text } from "react-native";
 
 import FCMService from "@/services/fcm.service";
@@ -12,6 +12,9 @@ import Home from "@/interface/home.interface";
 import Device from "@/interface/device.interface";
 import { router } from "expo-router";
 import QuickAccessCard from "@/components/QuickAccessCard";
+import ScheduleType from "@/interface/schedule.interface";
+import { useFocusEffect } from "@react-navigation/native";
+import { useCallback } from "react";
 
 const HomeScreen = () => {
   const userId = useSelector((state: any) => state.user.user_id);
@@ -24,15 +27,94 @@ const HomeScreen = () => {
     initializeFCM();
     return () => {};
   }, [userId]);
+  const [clicked, setClicked] = useState(false);
+  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
+
   const homeId = useSelector((state: RootState) => state.user.selectedHome);
-  const devices = useSelector((state: RootState) => {
-    const home = state.user.homes.find((home: Home) => home.home_id === homeId);
-    if (!home) return null;
-    const devices = home.devices.filter((device: Device) =>
+  const currentHome = useSelector((state: RootState) =>
+    state.user.homes.find((home: Home) => home.home_id === homeId)
+  );
+  const devices = useMemo(() => {
+    if (!currentHome) return null;
+    const filteredDevices = currentHome.devices.filter((device: Device) =>
       ["fan", "light"].includes(device.type)
     );
-    return devices.length > 2 ? devices.slice(0, 2) : devices;
-  });
+    return filteredDevices.length > 2
+      ? filteredDevices.slice(0, 2)
+      : filteredDevices;
+  }, [currentHome]);
+
+  const [schedule, setSchedule] = useState<ScheduleType[] | null>(null);
+
+  useFocusEffect(
+    useCallback(() => {
+      async function fetchSchedule() {
+        try {
+          if (!devices) return;
+          const accumulatedSchedule: ScheduleType[] = [];
+
+          for (const device of devices) {
+            const deviceId = device.id;
+
+            const response = await fetch(
+              process.env.EXPO_PUBLIC_BACKEND_URL +
+                "/schedule/device/" +
+                deviceId
+            );
+            if (!response.ok) {
+              throw new Error("Failed to fetch schedule of device " + deviceId);
+            }
+            const data = await response.json();
+            const now = new Date();
+            const currWeekday = [
+              "sunday",
+              "monday",
+              "tuesday",
+              "wednesday",
+              "thursday",
+              "friday",
+              "saturday",
+            ][now.getDay()];
+
+            const scheduleOnCurrDate: any[] = data.metadata.filter(
+              (schedule: ScheduleType) =>
+                schedule.action_days.includes(currWeekday)
+            );
+
+            scheduleOnCurrDate.forEach((schedule: ScheduleType) => {
+              schedule.device_id = deviceId;
+              // @ts-ignore
+              schedule.room_name = device.room_name;
+              // @ts-ignore
+              schedule.device_type = device.type;
+            });
+
+            const sortedSchedules = scheduleOnCurrDate
+              .filter((item: ScheduleType) => new Date(item.action_time) >= now)
+              .sort(
+                (a, b) =>
+                  new Date(a.action_time).getTime() -
+                  new Date(b.action_time).getTime()
+              );
+
+            accumulatedSchedule.push(...sortedSchedules);
+          }
+          console.log("NEW Accumulated schedule: ", accumulatedSchedule);
+          setSchedule(accumulatedSchedule);
+        } catch (error) {
+          console.error("Error fetching schedule: ", error);
+        }
+      }
+
+      fetchSchedule();
+
+      return () => {
+        if (intervalId) {
+          clearInterval(intervalId);
+        }
+      };
+    }, [homeId, devices, intervalId])
+  );
 
   const getDevicePathname = (deviceType: string) => {
     switch (deviceType) {
@@ -49,9 +131,36 @@ const HomeScreen = () => {
     <View style={styles.container}>
       <WelcomeCard onScreen="home" />
       <View style={styles.scheduleContainer}>
-        <ScheduleCard />
-        <ScheduleCard />
-        <ScheduleCard />
+        {schedule && schedule.length > 0 ? (
+          <>
+            {schedule.slice(0, 3).map((item, index) => {
+              console.log("schedule ", schedule);
+              console.log("Item: ", item, item.is_enable);
+              return (
+                <ScheduleCard
+                  key={item.action_time}
+                  deviceId={item.device_id}
+                  deviceType={item.device_type}
+                  roomName={item.room_name}
+                  actionTime={item.action_time}
+                  action={item.action}
+                  isEnable={item.is_enable}
+                  actionDays={item.action_days}
+                  onPress={() => {
+                    router.push({
+                      pathname: "/(subscreen)/ScheduleScreen",
+                      params: { deviceId: item.device_id },
+                    });
+                  }}
+                />
+              );
+            })}
+          </>
+        ) : (
+          <Text style={{ fontSize: 16, color: "#424242" }}>
+            No schedules available
+          </Text>
+        )}
       </View>
       {/* <View style={styles.microCardContainer}>
         <MicroCard />
@@ -63,8 +172,6 @@ const HomeScreen = () => {
           data={devices}
           renderItem={({ item }) => {
             const pathname = getDevicePathname(item.type);
-            console.log("Item: ", item);
-            console.log("Pathname: ", pathname);
             if (!pathname) return null;
             return (
               <QuickAccessCard
@@ -104,7 +211,8 @@ const styles = StyleSheet.create({
   },
   scheduleContainer: {
     flexDirection: "row",
-    justifyContent: "space-between", // Even spacing between cards
+    justifyContent: "center", // Even spacing between cards
+    gap: 10,
     alignItems: "center",
     width: "100%",
     paddingHorizontal: 26,

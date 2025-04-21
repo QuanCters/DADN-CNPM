@@ -69,7 +69,6 @@ const ScheduleList = ({ deviceId }: { deviceId: string }) => {
             body: JSON.stringify({
               action_time: item.action_time,
               action_day: actionDates,
-              // action: item.action,
               is_enable: item.is_enable,
             }),
           }

@@ -64,8 +64,8 @@ type WelcomeCardProps = {
 };
 const WelcomeCard = (props: WelcomeCardProps) => {
   const [connected, setConnected] = useState<boolean>(false);
-  const [temperature, setTemperature] = useState<string>("0");
-  const [humidity, setHumidity] = useState<string>("0");
+  const [temperature, setTemperature] = useState<string>("25");
+  const [humidity, setHumidity] = useState<string>("70");
   const [light, setLight] = useState<string>("0");
 
   const selectedHome = useSelector((state: any) => state.user.selectedHome);
@@ -141,8 +141,8 @@ const WelcomeCard = (props: WelcomeCardProps) => {
       />
       <View style={styles.mainBarContainer}>
         <View id="show-in4" style={styles.infoContainer}>
-          <InformationBar imgSrc="weather-icon.png" text={temperature} />
-          <InformationBar imgSrc="water-percent.png" text={humidity} />
+          <InformationBar imgSrc="weather-icon.png" text={`${temperature}°C`} />
+          <InformationBar imgSrc="water-percent.png" text={`${humidity}%`} />
           <InformationBar imgSrc="sun-icon.png" text={light} />
           <InformationBar imgSrc="calendar-icon.png" text={getCurrentDate()} />
         </View>
