@@ -144,13 +144,14 @@ router.get(
  *          schema:
  *            type: object
  *            required:
- *              - userId
+ *              - userEmail
  *              - homeId
  *            properties:
- *              userId:
+ *              userEmail:
  *                type: string
+ *                format: email
  *              homeId:
- *                type: string
+ *                type: number
  *     responses:
  *      200:
  *        description: Add successfully
@@ -166,7 +167,7 @@ router.get(
  *                  type: string
  *                  description: message response
  *      400:
- *        description: Bad Request (Invalid userId or homeId)
+ *        description: Bad Request (Invalid userEmail or homeId)
  *      404:
  *        description: Not Found
  *      409:
