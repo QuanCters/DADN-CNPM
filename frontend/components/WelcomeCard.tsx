@@ -14,7 +14,6 @@ const getCurrentDate = () => {
   const date = new Date();
 
   // Array for weekday names and month names
-  const weekdayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const monthNames = [
     "Jan",
     "Feb",
@@ -32,7 +31,6 @@ const getCurrentDate = () => {
 
   let day = date.getDate();
   let month = date.getMonth();
-  let weekday = date.getDay();
 
   // Determine the correct suffix for the day (st, nd, rd, th)
   const getDaySuffix = (day: number) => {
@@ -52,11 +50,10 @@ const getCurrentDate = () => {
   const daySuffix = getDaySuffix(day);
 
   // Format the date string
-  const dateStr = `${weekdayNames[weekday]}, ${monthNames[month]} ${day}${daySuffix}`;
+  const dateStr = `${monthNames[month]} ${day}${daySuffix}`;
   return dateStr;
 };
 
-const USERNAME = "John Doe";
 const NOTIFICATION_COUNT = 3;
 
 type WelcomeCardProps = {
@@ -68,6 +65,8 @@ const WelcomeCard = (props: WelcomeCardProps) => {
   const [humidity, setHumidity] = useState<string>("70");
   const [light, setLight] = useState<string>("0");
 
+  const userInfo = useSelector((state: any) => state.user);
+  console.log("userInfo: ", userInfo);
   const selectedHome = useSelector((state: any) => state.user.selectedHome);
   const homes: Home[] = useSelector((state: any) => state.user.homes);
   const home: Home = homes.filter(
@@ -143,7 +142,7 @@ const WelcomeCard = (props: WelcomeCardProps) => {
         <View id="show-in4" style={styles.infoContainer}>
           <InformationBar imgSrc="weather-icon.png" text={`${temperature}°C`} />
           <InformationBar imgSrc="water-percent.png" text={`${humidity}%`} />
-          <InformationBar imgSrc="sun-icon.png" text={light} />
+          <InformationBar imgSrc="sun-icon.png" text={`${light} lux`} />
           <InformationBar imgSrc="calendar-icon.png" text={getCurrentDate()} />
         </View>
         <View style={styles.avatarContainer}>
@@ -155,7 +154,9 @@ const WelcomeCard = (props: WelcomeCardProps) => {
       </View>
       {props.onScreen !== "automation" ? (
         <View style={styles.nameContainer}>
-          <Title ownStyle={{ color: "white" }}>Hi, {USERNAME}</Title>
+          <Title ownStyle={{ color: "white" }}>
+            Hi, {userInfo.first_name} {userInfo.last_name}
+          </Title>
           <View></View>
           {props.onScreen === "home" ? homeUI : userUI}
         </View>

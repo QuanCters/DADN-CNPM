@@ -4,6 +4,7 @@ import WelcomeCard from "@/components/WelcomeCard";
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import Consumption from "@/components/Consumption";
+import LogoutBtn from "@/components/LogoutBtn";
 
 const UserScreen = () => {
   return (
@@ -11,6 +12,7 @@ const UserScreen = () => {
       <WelcomeCard onScreen="user" />
       <NotificationBoard />
       <Consumption />
+      <LogoutBtn />
     </View>
   );
 };
