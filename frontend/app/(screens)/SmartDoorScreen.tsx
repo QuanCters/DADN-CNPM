@@ -18,7 +18,7 @@ const SmartDoorScreen = () => {
   const [pass, setPass] = useState<string>("");
   const [isChangingPassword, setIsChangingPassword] = useState<boolean>(false);
   const [newPassword, setNewPassword] = useState<string>("");
-  let CORRECT_PASS = "123456";
+  let CORRECT_PASS = "111111";
 
   function handleKeyPress(key: string) {
     if (key === "Enter") {

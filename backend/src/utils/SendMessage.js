@@ -23,6 +23,7 @@ const sendFCMMessage = async (token, payload) => {
       token,
       ...payload,
     });
+    console.log(response);
     return response;
   } catch (error) {
     console.error("FCM send error:", error);
@@ -63,22 +64,32 @@ const sendMessage = async (deviceResponse, homeResponse, device_id, value) => {
 
   await createNotification({ content: message, device_id: device_id });
 
-  for (const user of userList) {
-    const redisClient = await getRedisClient();
-    const foundToken = await redisClient.get(`user:${user.user_id}:fcm_token`);
-    if (!foundToken) {
-      continue;
-    }
+  // for (const user of userList) {
+  //   const redisClient = await getRedisClient();
+  //   const foundToken = await redisClient.get(`user:${user.user_id}:fcm_token`);
+  //   if (!foundToken) {
+  //     continue;
+  //   }
 
-    const payload = {
-      notification: {
-        title: "Thông báo mới",
-        body: message,
-      },
-    };
+  //   const payload = {
+  //     notification: {
+  //       title: "Thông báo mới",
+  //       body: message,
+  //     },
+  //   };
 
-    await sendFCMMessage(foundToken, payload);
-  }
+  //   await sendFCMMessage(foundToken, payload);
+  // }
+  const payload = {
+    notification: {
+      title: "Thông báo mới",
+      body: "TEST",
+    },
+  };
+  await sendFCMMessage(
+    "flqSpxfZTo-WupWxxcPaGk:APA91bFKnFzxnjaJdgfdbt39av6FarMfTTpnbHGRTbWdCe1DJu9R_LiYF3TUe9Aay3JIp8p03LSpDwQw3UsczxrKjun2KMxY0dgMG2d8gc71tX1dbGRDhZI",
+    payload
+  );
 
   return await response.json();
 };
