@@ -23,6 +23,7 @@ const sendFCMMessage = async (token, payload) => {
       token,
       ...payload,
     });
+    console.log(response);
     return response;
   } catch (error) {
     console.error("FCM send error:", error);

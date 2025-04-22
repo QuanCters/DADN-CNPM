@@ -56,6 +56,10 @@ class DeviceService {
 
     const home = await getHomeBySerialNumber(updatedDevice.serial_number);
 
+    console.log(
+      `https://io.adafruit.com/api/v2/${home.home_name}/feeds/${updatedDevice.feed}/data?x-aio-key=${home.aio_key}`
+    );
+
     const response = await fetch(
       `https://io.adafruit.com/api/v2/${home.home_name}/feeds/${updatedDevice.feed}/data?x-aio-key=${home.aio_key}`,
       {
